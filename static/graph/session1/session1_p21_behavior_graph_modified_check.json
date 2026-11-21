@@ -1,0 +1,992 @@
+{
+  "session_id": "session1",
+  "participant_id": "p21",
+  "title": "Session 1 — Participant 21 User + Claude/Grok Behavior Graphs",
+  "goal": "Create and upload a new portfolio entry of promotional / invitational Postcard(s) for my Upwork Profile",
+  "context": "My portfolio on UpWork benefits from having very high-quality examples of my work and showcasing my skills available for hire.  I use the AI to generate sample images of something that I want to showcase in my portfolio, in this case some nice postcards.  I then go in manually to reconstruct / reverse engineer the generated sample using Adobe Illustrator and Photoshop, so that I possess all the visual components that make up the document and am able to export it and share it at the highest possible quality level.  Once the creative process is done, I use AI to help me write the body text and title of this newest portfolio entry and upload it to UpWork.",
+  "occupation": "Graphic designer",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "I was able to create the postcard that I wanted using the help of AI generated images and searched items, and was able to upload it onto my UpWork profile as a new portfolio piece."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Generate sample reference images for promotional/invitational postcards using AI",
+      "step_action": "I prompt an AI image generator with detailed descriptions of postcard styles (elegant invitation aesthetics, promotional layouts with space for event details, color palettes, and compositional ideas). I iterate on prompts to produce multiple varied reference images that capture mood, layout possibilities, and visual themes suitable for Upwork portfolio use.",
+      "time_range": "00:00–15:00",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Define postcard portfolio objective",
+          "detail": "States the session goal out loud: add a new promotional/invitational postcard piece to their existing three-item Upwork portfolio, using AI to help design it.",
+          "time": [
+            "00:00:00-00:01:20"
+          ],
+          "actor_type": "user",
+          "softwares": ""
+        },
+        {
+          "id": "1b",
+          "actor": "user",
+          "label": "Prepare AI prompt with profile context and workflow plan",
+          "detail": "Attaches a link to their existing Upwork profile so the AI can gauge their style, and re-checks their own written workflow plan to confirm Step 1 is generating sample reference images before submitting the prompt.",
+          "time": [
+            "00:01:20-00:04:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1c",
+          "actor": "claude",
+          "label": "Generate sample postcard concept images",
+          "detail": "Produces five distinct flat vector-style postcard concepts (three promotional, two invitational) based on the prompt and profile context, each with a rationale.",
+          "time": [
+            "00:04:15-00:05:51"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1d",
+          "actor": "user",
+          "label": "Evaluate generated concepts and select favorites",
+          "detail": "Reviews the five concepts, critiquing formatting and visual flatness, and narrows in on the coffee-shop, gym, and wedding 'save the date' concepts as the strongest candidates.",
+          "time": [
+            "00:05:51-00:07:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "1b",
+              "target_ai": "1c",
+              "label": "adopt",
+              "source_node_time": "00:01:20-00:04:15",
+              "ai_node_time": "00:04:15-00:05:51",
+              "user_adoption_time": "00:05:51-00:07:18",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "1e",
+          "actor": "user",
+          "label": "Request richer artistic embellishment for selected concepts",
+          "detail": "Picks the gym and wedding save-the-date concepts specifically and asks Claude to add more artistic and visual embellishment while keeping the existing text layout and color scheme unchanged.",
+          "time": [
+            "00:07:18-00:08:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1f",
+          "actor": "claude",
+          "label": "Regenerate embellished concept images",
+          "detail": "Re-renders both chosen concepts with added illustration, texture, and depth while preserving the original text positions and color scheme.",
+          "time": [
+            "00:08:23-00:09:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1g",
+          "actor": "user",
+          "label": "Review embellished results and decide to try a second AI tool",
+          "detail": "Finds the embellishment only marginally improved and decides to bring the same concepts into Grok to see if it produces stronger visual results.",
+          "time": [
+            "00:09:19-00:10:02"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1h",
+          "actor": "user",
+          "label": "Prompt Grok to iterate on the selected layout and color scheme",
+          "detail": "Repeats the same embellishment request in Grok, asking it to iterate fresh takes on the liked wedding and gym layouts while keeping the established color scheme.",
+          "time": [
+            "00:10:02-00:12:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "1e",
+              "target_ai": "1f",
+              "label": "modify",
+              "source_node_time": "00:07:18-00:08:23",
+              "ai_node_time": "00:08:23-00:09:19",
+              "user_adoption_time": "00:10:02-00:12:10",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "1i",
+          "actor": "grok",
+          "label": "Generate further embellished postcard iterations",
+          "detail": "Produces several additional embellished versions of the wedding and gym concepts, including soft gold accents, a glow/depth treatment, and a more minimalist take.",
+          "time": [
+            "00:12:10-00:13:47"
+          ],
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "1j",
+          "actor": "user",
+          "label": "Select final wedding and gym concept iterations",
+          "detail": "Compares the Grok outputs, downloads a top wedding contender, and settles on the most dynamic gym concept with strong gradients as the two designs to carry forward.",
+          "time": [
+            "00:13:47-00:15:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "1e",
+              "target_ai": "1i",
+              "label": "adopt",
+              "source_node_time": "00:07:18-00:08:23",
+              "ai_node_time": "00:12:10-00:13:47",
+              "user_adoption_time": "00:13:47-00:15:16",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        },
+        {
+          "from": "1c",
+          "to": "1d",
+          "type": "sequential"
+        },
+        {
+          "from": "1d",
+          "to": "1e",
+          "type": "sequential"
+        },
+        {
+          "from": "1e",
+          "to": "1f",
+          "type": "sequential"
+        },
+        {
+          "from": "1f",
+          "to": "1g",
+          "type": "sequential"
+        },
+        {
+          "from": "1g",
+          "to": "1h",
+          "type": "sequential"
+        },
+        {
+          "from": "1h",
+          "to": "1i",
+          "type": "sequential"
+        },
+        {
+          "from": "1i",
+          "to": "1j",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Isolate specific design elements from the AI-generated reference images",
+      "step_action": "I upload selected reference images into an AI-powered editing or segmentation tool and instruct it to extract individual components (backgrounds, decorative motifs, typography placeholders, color swatches, or focal objects). I refine the isolation results with additional prompts or masks to obtain clean, reusable assets.",
+      "time_range": "15:16–18:25",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Identify design elements worth isolating from the chosen wedding design",
+          "detail": "Settles on the wedding 'save the date' concept as the design to move forward with and identifies its textured background as the first element to extract as a standalone asset.",
+          "time": [
+            "00:15:16-00:16:27"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "1i",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "00:12:10-00:13:47",
+              "user_adoption_time": "00:15:16-00:16:27",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2b",
+          "actor": "grok",
+          "label": "Isolate background texture as a clean asset",
+          "detail": "Extracts the textured background of the chosen wedding design as its own reusable image asset.",
+          "time": [
+            "00:16:27-00:16:53"
+          ],
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "2c",
+          "actor": "user",
+          "label": "Save the isolated wedding background asset",
+          "detail": "Saves the clean wedding background texture produced by Grok as a standalone asset",
+          "time": [
+            "00:16:53-00:16:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "2a",
+              "target_ai": "2b",
+              "label": "adopt",
+              "source_node_time": "00:15:16-00:16:27",
+              "ai_node_time": "00:16:27-00:16:53",
+              "user_adoption_time": "00:16:53-00:16:57",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2d",
+          "actor": "user",
+          "label": "Request isolation of floral decorative elements",
+          "detail": "Asks Grok to isolate the floral/botanical elements from the design onto a plain white background so they can be reused as a clean decorative asset, noting that specifying an all-white background helps the isolation work well.",
+          "time": [
+            "00:16:57-00:18:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "1i",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "00:12:10-00:13:47",
+              "user_adoption_time": "00:16:57-00:18:03",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2e",
+          "actor": "grok",
+          "label": "Isolate floral decorative elements as a clean asset",
+          "detail": "Produces the isolated floral/botanical elements on a plain white background as a standalone asset",
+          "time": [
+            "00:18:03-00:18:21"
+          ],
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "2f",
+          "actor": "user",
+          "label": "Save the isolated floral asset",
+          "detail": "Saves the isolated floral/botanical asset produced by Grok",
+          "time": [
+            "00:18:21-00:18:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "2d",
+              "target_ai": "2e",
+              "label": "adopt",
+              "source_node_time": "00:16:57-00:18:03",
+              "ai_node_time": "00:18:03-00:18:21",
+              "user_adoption_time": "00:18:21-00:18:25",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2c",
+          "to": "2d",
+          "type": "sequential"
+        },
+        {
+          "from": "2d",
+          "to": "2e",
+          "type": "sequential"
+        },
+        {
+          "from": "2e",
+          "to": "2f",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Identify and research font names / typography recommendations with AI",
+      "step_action": "I describe the visual style of the reference images and desired postcard tone to an AI assistant and ask it to suggest matching font names, pairings, and sources. I follow up to refine recommendations for readability at postcard size and licensing suitability.",
+      "time_range": "18:25–20:55",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Request font identification for the chosen wedding design",
+          "detail": "Asks Grok to analyze the typography visible in the chosen postcard design.",
+          "time": [
+            "00:18:25-00:19:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "1i",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "00:12:10-00:13:47",
+              "user_adoption_time": "00:18:25-00:19:03",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "3b",
+          "actor": "grok",
+          "label": "Analyze the fonts in the wedding design",
+          "detail": "Analyzes the different type styles visible in the wedding design and suggests possible font names based on their appearance.",
+          "time": [
+            "00:19:03-00:19:26"
+          ],
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "3c",
+          "actor": "user",
+          "label": "Review Grok's font analysis and request specific font names",
+          "detail": "Reviews Grok's suggestions and asks it to identify the specific font names used in the design.",
+          "time": [
+            "00:19:26-00:20:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "3d",
+          "actor": "grok",
+          "label": "Identify specific fonts in the wedding design",
+          "detail": "Provides specific font suggestions for the different text elements in the wedding design.",
+          "time": [
+            "00:20:10-00:20:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "3e",
+          "actor": "user",
+          "label": "Save Grok's font suggestions",
+          "detail": "Copies the suggested font names into their chat notes and confirms the font choices.",
+          "time": [
+            "00:20:19-00:20:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "3a",
+              "target_ai": "3d",
+              "label": "adopt",
+              "source_node_time": "00:18:25-00:19:03",
+              "ai_node_time": "00:20:10-00:20:19",
+              "user_adoption_time": "00:20:19-00:20:55",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3c",
+          "type": "sequential"
+        },
+        {
+          "from": "3c",
+          "to": "3d",
+          "type": "sequential"
+        },
+        {
+          "from": "3d",
+          "to": "3e",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 6": {
+      "key": "seg7",
+      "badge": "Step 6",
+      "step_name": "Manually recreate the selected sample image in Illustrator and Photoshop to own all visual elements at maximum quality",
+      "step_action": "I open the chosen AI reference image as a locked background layer and carefully rebuild every element from scratch in Adobe Illustrator using vector shapes, custom paths, gradients, and precise typography. I then bring the completed vector artwork into Photoshop for final texture, lighting, color grading, and any raster refinements before exporting production-ready files.",
+      "time_range": "52:45–57:07",
+      "nodes": [
+        {
+          "id": "7a",
+          "actor": "user",
+          "label": "Open the PSD mockup and place postcard artwork as a smart object",
+          "detail": "Opens the extracted 'Postcard with Envelope Mockup.psd' in Photoshop and places the exported postcard artwork into the mockup's 'Your Design' smart-object layer.",
+          "time": [
+            "00:52:45-00:53:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Photoshop"
+        },
+        {
+          "id": "7b",
+          "actor": "user",
+          "label": "Adjust artwork sizing and positioning within the mockup",
+          "detail": "Notices the placed artwork is undersized and has lost breathing room on the sides, so re-exports the postcard from Illustrator with adjusted margins and re-places it into the smart object for a better fit.",
+          "time": [
+            "00:53:18-00:54:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Photoshop, Adobe Illustrator"
+        },
+        {
+          "id": "7c",
+          "actor": "user",
+          "label": "Refine mockup lighting, highlights, and background warmth",
+          "detail": "Adjusts the Photoshop mockup's brightness, highlight/reflection layers, and background color temperature (using a Solid Color adjustment layer) to make the postcard feel warmer and more polished, fitting the sentimental wedding tone.",
+          "time": [
+            "00:54:31-00:56:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Photoshop"
+        },
+        {
+          "id": "7d",
+          "actor": "user",
+          "label": "Export final mockup image and a clean high-res design file for portfolio upload",
+          "detail": "Scales the finished mockup composition down to an appropriate size and exports the postcard-with-envelope mockup as a final PNG, then switches back to Illustrator for one more 'Export for Screens' pass to produce the clean high-res postcard file.",
+          "time": [
+            "00:56:15-00:57:07"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Photoshop, Adobe Illustrator"
+        }
+      ],
+      "edges": [
+        {
+          "from": "7a",
+          "to": "7b",
+          "type": "sequential"
+        },
+        {
+          "from": "7b",
+          "to": "7c",
+          "type": "sequential"
+        },
+        {
+          "from": "7c",
+          "to": "7d",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Locate and select a suitable pre-existing Photoshop mockup template via AI-assisted search",
+      "step_action": "I use an AI assistant to search for and evaluate free or high-quality downloadable Photoshop (.PSD) postcard mockups. I provide criteria (realistic perspective, easy-to-edit smart objects, high resolution) and ask for the best matching links or sources, then download the chosen file.",
+      "time_range": "48:08–50:58",
+      "nodes": [
+        {
+          "id": "5a",
+          "actor": "user",
+          "label": "Ask Claude to help find a free PSD postcard mockup",
+          "detail": "Once the Illustrator artwork is finished, opens Claude and, referencing Step 5 of their workflow plan, asks it to help find a free downloadable PSD mockup they can place their finished postcard into.",
+          "time": [
+            "00:48:08-00:48:39"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "5b",
+          "actor": "claude",
+          "label": "Recommend PSD mockup sources with usage tips",
+          "detail": "Suggests several free PSD postcard mockup sources (including Unblast, Resource Boy, Colorlib, and Mockuptree), describing what each offers (smart objects, multi-angle views, envelope-and-postcard sets) and licensing notes.",
+          "time": [
+            "00:48:39-00:48:52"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "5c",
+          "actor": "user",
+          "label": "Browse Unblast and evaluate mockup templates against criteria",
+          "detail": "Navigates to Unblast and reviews several postcard mockup options, ruling out ones with unwanted background clutter (a spilled object, confetti) or the wrong orientation, looking specifically for a clean horizontal postcard-and-envelope layout; settles on a 'Postcard with Envelope Mockup' option that links out to Graphicpear.",
+          "time": [
+            "00:48:52-00:49:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Unblast (website)"
+        },
+        {
+          "id": "5d",
+          "actor": "user",
+          "label": "Register on Graphicpear and download the chosen mockup",
+          "detail": "Follows the link to Graphicpear, where the download requires a free account; registers for one and downloads the 'Postcard with Envelope Mockup' PSD as a zip archive.",
+          "time": [
+            "00:49:53-00:50:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Graphicpear (website)",
+          "user_response": [
+            {
+              "source_node": "5a",
+              "target_ai": "5b",
+              "label": "adopt",
+              "source_node_time": "00:48:08-00:48:39",
+              "ai_node_time": "00:48:39-00:48:52",
+              "user_adoption_time": "00:49:53-00:50:58",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "5a",
+          "to": "5b",
+          "type": "sequential"
+        },
+        {
+          "from": "5b",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5c",
+          "to": "5d",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg6",
+      "badge": "Step 4",
+      "step_name": "Determine optimal dimensions and technical specifications for the postcard mockup using AI",
+      "step_action": "I query an AI assistant for standard and best-practice print dimensions, bleed, safe margins, and resolution requirements for promotional/invitational postcards. I request both common industry sizes and any recommendations tailored to portfolio presentation or Upwork showcase.",
+      "time_range": "51:05–52:45",
+      "nodes": [
+        {
+          "id": "6a",
+          "actor": "user",
+          "label": "Export a high-res copy of the finished postcard and ask Claude for dimensions and print specs",
+          "detail": "Exports the finished 'Claire and Owens Save the Date' design from Illustrator at 300 PPI, checks the resulting file size, then uploads it to Claude and asks what dimensions and technical specifications it should meet.",
+          "time": [
+            "00:51:05-00:52:07"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator, Claude"
+        },
+        {
+          "id": "6b",
+          "actor": "claude",
+          "label": "Confirm standard postcard proportions and print specs",
+          "detail": "Confirms the design's proportions match the standard 4x6 postcard size and details relevant print specs (DPI, CMYK, bleed, safe margin, file format, USPS mailing constraints), while noting these print specs don't actually matter for the Upwork thumbnail itself.",
+          "time": [
+            "00:52:07-00:52:21"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "6c",
+          "actor": "user",
+          "label": "Accept the postcard format and extract the mockup archive",
+          "detail": "Accepts Claude's confirmation that the design's 3:2 aspect ratio matches a standard postcard format, then unzips the downloaded Graphicpear mockup archive to access the .psd file.",
+          "time": [
+            "00:52:21-00:52:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, WinRAR",
+          "user_response": [
+            {
+              "source_node": "6a",
+              "target_ai": "6b",
+              "label": "adopt",
+              "source_node_time": "00:51:05-00:52:07",
+              "ai_node_time": "00:52:07-00:52:21",
+              "user_adoption_time": "00:52:21-00:52:45",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "6a",
+          "to": "6b",
+          "type": "sequential"
+        },
+        {
+          "from": "6b",
+          "to": "6c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 7": {
+      "key": "seg8",
+      "badge": "Step 7",
+      "step_name": "Write the portfolio entry title, body text, skills list, and supporting details using AI",
+      "step_action": "I feed the AI a summary of the finished postcard designs, process highlights, and target audience (Upwork clients). I request a polished portfolio title, compelling project description, list of skills demonstrated, tools used, and any relevant outcome or process notes. I refine the output for tone, length, and professionalism.",
+      "time_range": "57:07–1:01:38",
+      "nodes": [
+        {
+          "id": "8a",
+          "actor": "user",
+          "label": "Prompt Claude to draft title and body text for the Upwork portfolio entry",
+          "detail": "Switches to Claude, uploads the finished postcard-and-envelope mockup image, and asks it to help write the title and body text needed to upload the piece to their Upwork portfolio.",
+          "time": [
+            "00:57:07-00:57:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "8b",
+          "actor": "claude",
+          "label": "Generate title options, project description, and skills/tags list",
+          "detail": "Delivers three portfolio title options with a recommendation, a full project description referencing the wedding stationery suite, watercolor/floral styling, and print specs, and a skills/tags list formatted for Upwork's portfolio fields.",
+          "time": [
+            "00:57:40-00:58:06"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "8c",
+          "actor": "user",
+          "label": "Complete the Upwork portfolio form using Claude's suggestions",
+          "detail": "Uses Claude's suggested description as a starting point, refining the wording for accuracy and voice while filling in the portfolio title, role, project description, and curated skills/tags.",
+          "time": [
+            "00:58:06-01:00:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "8a",
+              "target_ai": "8b",
+              "label": "modify",
+              "source_node_time": "00:57:07-00:57:40",
+              "ai_node_time": "00:57:40-00:58:06",
+              "user_adoption_time": "00:58:06-01:00:20",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "8d",
+          "actor": "user",
+          "label": "Upload high-res postcard file and mockup thumbnail image",
+          "detail": "Uploads the clean high-resolution postcard file and the finished mockup image to serve as the portfolio thumbnail.",
+          "time": [
+            "01:00:20-01:01:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Upwork"
+        },
+        {
+          "id": "8e",
+          "actor": "user",
+          "label": "Preview, adjust thumbnail crop, and publish new portfolio entry",
+          "detail": "Previews the entry, zooms/crops the thumbnail to frame it well, reorders it among their existing portfolio pieces, and publishes it — completing the session's goal of uploading the new Upwork portfolio piece.",
+          "time": [
+            "01:01:00-01:01:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Upwork"
+        }
+      ],
+      "edges": [
+        {
+          "from": "8a",
+          "to": "8b",
+          "type": "sequential"
+        },
+        {
+          "from": "8b",
+          "to": "8c",
+          "type": "sequential"
+        },
+        {
+          "from": "8c",
+          "to": "8d",
+          "type": "sequential"
+        },
+        {
+          "from": "8d",
+          "to": "8e",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Generate sample reference images for promotional/invitational postcards using AI",
+      "step_action": "I prompt an AI image generator with detailed descriptions of postcard styles (elegant invitation aesthetics, promotional layouts with space for event details, color palettes, and compositional ideas). I iterate on prompts to produce multiple varied reference images that capture mood, layout possibilities, and visual themes suitable for Upwork portfolio use.",
+      "input": "Project brief (promotional/invitational postcards for portfolio), desired style keywords, and any client or personal brand preferences.",
+      "output": "A set of high-quality AI-generated reference images showing different postcard concepts, layouts, and visual directions.",
+      "tools": "AI image generation tool",
+      "rubrics": [
+        "Relevance to promotional/invitational postcard purpose (score 5 = images clearly usable as postcard references with appropriate hierarchy and space for text)",
+        "Visual quality and realism (score 5 = sharp, professional, print-ready looking renders with no major artifacts)",
+        "Variety and inspiration value (score 5 = multiple distinct, useful directions that spark design ideas)",
+        "Style consistency with intended brand/portfolio tone (score 5 = cohesive aesthetic matching the target look)",
+        "Usability as starting point (score 5 = images contain clear isolatable elements and good composition for further work)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 3,
+        "output_quality_rating": 5,
+        "output_quality_reason": "I found the generated reference materials to be beautiful and satisfactory for my purposes of presenting them as a portfolio showcase piece"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent was able to produce satisfactory results of what I had asked. Claude was able to generate a nice layout of text information, and Grok was able to produce beautiful embellishments and artistic details to supplement the visual quality"
+      }
+    },
+    "Step 2": {
+      "step_name": "Isolate specific design elements from the AI-generated reference images",
+      "step_action": "I upload selected reference images into an AI-powered editing or segmentation tool and instruct it to extract individual components (backgrounds, decorative motifs, typography placeholders, color swatches, or focal objects). I refine the isolation results with additional prompts or masks to obtain clean, reusable assets.",
+      "input": "The AI-generated reference images from Step 1.",
+      "output": "Clean, isolated graphic elements (transparent PNGs or layered assets) ready for use in the postcard design.",
+      "tools": "AI image editing / element isolation / segmentation tool.",
+      "rubrics": [
+        "Clean edges and accurate isolation (score 5 = no residual background or unwanted artifacts)",
+        "Preservation of original detail and quality (score 5 = high-resolution usable assets)",
+        "Relevance of extracted elements (score 5 = only useful, design-ready components)",
+        "Format readiness (score 5 = transparent backgrounds or properly layered files)",
+        "Efficiency of the isolation process (score 5 = minimal manual cleanup needed after AI)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI completed the task quickly and accurately on the first attempt"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I needed the AI to isolate the floral elements in a way that would allow me to easily extract them using Photoshop, and it did so accurately on the first try."
+      }
+    },
+    "Step 3": {
+      "step_name": "Identify and research font names / typography recommendations with AI",
+      "step_action": "I describe the visual style of the reference images and desired postcard tone to an AI assistant and ask it to suggest matching font names, pairings, and sources. I follow up to refine recommendations for readability at postcard size and licensing suitability.",
+      "input": "Style descriptions or screenshots from the reference images; target use case (print postcard).",
+      "output": "A curated list of specific font names, pairings, and rationale for use on promotional/invitational postcards.",
+      "tools": "AI language model / research assistant.",
+      "rubrics": [
+        "Accuracy of font identification/matching (score 5 = fonts that genuinely fit the visual style)",
+        "Practicality for print (score 5 = fonts that remain legible at typical postcard sizes)",
+        "Licensing and availability notes (score 5 = clear guidance on free/commercial use)",
+        "Pairing quality (score 5 = harmonious headline + body combinations)",
+        "Actionability (score 5 = ready-to-download or purchase recommendations with direct next steps)."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 3,
+        "output_quality_rating": 4,
+        "output_quality_reason": "The AI was able to give good recommendations, although it would have been nicer if it provided links to the mentioned fonts as I did not have them at my disposal when it was time to implement them into the graphic. However, I probably could have asked for the AI to include links and it would have included them, so that was my own mistake."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI gave it’s best approximation of the fonts, and it did help in the process of quickly identifying a satisfactory font for each section of the graphic"
+      }
+    },
+    "Step 4": {
+      "step_name": "Determine optimal dimensions and technical specifications for the postcard mockup using AI",
+      "step_action": "I query an AI assistant for standard and best-practice print dimensions, bleed, safe margins, and resolution requirements for promotional/invitational postcards. I request both common industry sizes and any recommendations tailored to portfolio presentation or Upwork showcase.",
+      "input": "Intended use (physical print + digital portfolio mockup).",
+      "output": "Precise dimensions (e.g., final trim size, bleed, DPI, color mode) and layout guidelines.",
+      "tools": "AI research / knowledge assistant.",
+      "rubrics": [
+        "Accuracy of industry-standard sizes (score 5 = correct common postcard dimensions and bleed values)",
+        "Completeness of technical specs (score 5 = includes DPI, color space, safe zones)",
+        "Relevance to portfolio use (score 5 = recommendations also work well for digital mockups)",
+        "Clarity of presentation (score 5 = easy-to-follow numbers and explanations)",
+        "Practical usability (score 5 = specs that can be directly applied in design software)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Upon showing my sample document to the AI, it quickly determined that my postcard was the correct size for a mock-up, which was about 6 inches by 4 inches"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "It quickly and accurately determined my graphic was within optimal specifications"
+      }
+    },
+    "Step 5": {
+      "step_name": "Locate and select a suitable pre-existing Photoshop mockup template via AI-assisted search",
+      "step_action": "I use an AI assistant to search for and evaluate free or high-quality downloadable Photoshop (.PSD) postcard mockups. I provide criteria (realistic perspective, easy-to-edit smart objects, high resolution) and ask for the best matching links or sources, then download the chosen file.",
+      "input": "Desired mockup style (flat lay, held-in-hand, stacked, etc.) and technical requirements from previous steps.",
+      "output": "A downloaded, high-quality editable Photoshop postcard mockup ready for design placement.",
+      "tools": "AI search / research assistant + web browser / download.",
+      "rubrics": [
+        "Visual realism and professionalism (score 5 = photorealistic, portfolio-ready appearance)",
+        "Editability (score 5 = well-organized smart objects and layers)",
+        "Resolution and technical quality (score 5 = high-res, print-compatible)",
+        "Licensing suitability (score 5 = free for commercial/portfolio use or clearly licensed)",
+        "Relevance to postcard format (score 5 = correctly proportioned for the dimensions chosen)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI quickly linked me to the mock-up website that allowed me to find a satisfactory free Photoshop file for my graphic presentation"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I was able to quickly get a mock-up for my graphic presentation in less than two minutes"
+      }
+    },
+    "Step 6": {
+      "step_name": "Manually recreate the selected sample image in Illustrator and Photoshop to own all visual elements at maximum quality",
+      "step_action": "I open the chosen AI reference image as a locked background layer and carefully rebuild every element from scratch in Adobe Illustrator using vector shapes, custom paths, gradients, and precise typography. I then bring the completed vector artwork into Photoshop for final texture, lighting, color grading, and any raster refinements before exporting production-ready files.",
+      "input": "The preferred AI-generated reference image (and any previously isolated elements) from earlier steps.",
+      "output": "Fully original, editable vector + layered PSD files containing every visual element I created myself, plus high-resolution export-ready files (PDF, PNG, TIFF) at maximum quality.",
+      "tools": "Adobe Illustrator, Adobe Photoshop.",
+      "rubrics": [
+        "Visual fidelity to the reference (score 5 = the recreated design matches the intended look, proportions, and hierarchy extremely closely)",
+        "Clean vector construction and editability (score 5 = every element is properly drawn with clean paths, organized layers, and fully editable)",
+        "Technical print readiness (score 5 = correct color mode, resolution, bleed, and no raster artifacts that would degrade print quality)",
+        "Ownership and completeness of assets (score 5 = I possess 100% of the visual elements as original files with no external dependencies)",
+        "Export quality and flexibility (score 5 = multiple high-resolution export formats delivered without any quality loss or compression issues)."
+      ],
+      "ratings": {
+        "collaboration_rating": 3,
+        "The agent understood the task, context, and instructions provided": 3,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 3,
+        "The agent reduced effort, time, or cognitive load during the task": 3,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 3,
+        "output_quality_rating": 5,
+        "output_quality_reason": "I was able to produce a nice manually recreated graphic from the AI’s provided reference imagery"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "This task was manually done by me, except for the generation of AI images which was addressed in step 1"
+      }
+    },
+    "Step 7": {
+      "step_name": "Write the portfolio entry title, body text, skills list, and supporting details using AI",
+      "step_action": "I feed the AI a summary of the finished postcard designs, process highlights, and target audience (Upwork clients). I request a polished portfolio title, compelling project description, list of skills demonstrated, tools used, and any relevant outcome or process notes. I refine the output for tone, length, and professionalism.",
+      "input": "Design process notes, final visuals description, personal brand voice.",
+      "output": "Complete, ready-to-paste portfolio entry (title + body + skills + details) optimized for an Upwork profile.",
+      "tools": "AI writing / language model.",
+      "rubrics": [
+        "Clarity and professionalism (score 5 = concise, client-focused, error-free writing)",
+        "Showcase of process and AI integration (score 5 = clearly highlights thoughtful use of AI tools)",
+        "Skills relevance and completeness (score 5 = accurate, searchable skill tags that match the work)",
+        "Engagement and persuasiveness (score 5 = makes a potential client want to inquire)",
+        "Formatting readiness (score 5 = copy-paste ready for Upwork with proper structure)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI quickly wrote the title and body text for my portfolio entry, which made it a lot easier and quicker to publish"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "It did exactly what I asked and saved me a lot of time and effort"
+      }
+    }
+  }
+}

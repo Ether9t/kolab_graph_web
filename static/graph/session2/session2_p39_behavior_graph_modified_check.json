@@ -1,0 +1,834 @@
+{
+  "session_id": "session2",
+  "participant_id": "p39",
+  "title": "Session 2 — Participant 39 User + Claude Behavior Graphs",
+  "goal": "Produce a legally sound, properly formatted Mutual Non-Disclosure Agreement (NDA) template as a downloadable Word document, built entirely from free/public resources and Claude, that a non-lawyer could use as a starting point and fill in with their own details.",
+  "context": "For Session 2 I chose a task outside my normal proprietary work software: drafting a legal document (a Mutual Non-Disclosure Agreement template) using only free, publicly available resources and Claude. I picked this because I can't use my employer's internal annotation tools for this study, so I wanted a self-contained task that a non-expert could still follow end-to-end: research a document type, draft it, review it for accuracy, and produce a polished, downloadable file.",
+  "occupation": "Lawyer/Annotator",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "I got my final document NDA as I wanted and it was appropriately vetted by Claude. The draft is good enough to submit to an attorney for review. Claude also went beyond and helped me create snippets, which can later be used for NDA data training for annotations."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Research standard NDA structure and clauses using free public legal resources.",
+      "step_action": "I plan on searching for publicly available, free NDA templates and legal-content pages (e.g., Rocket Lawyer, Docusign, eForms, LegalTemplateVault, SBA.com, Juro) to identify the clauses practitioners consistently include: definitions, exclusions, receiving-party obligations, term/survival, return of materials, remedies, governing law, and entire-agreement/signature blocks. Then compare the outlines across seven different sources, asked Claude follow-up questions about where sources disagreed (e.g., some included a non-solicitation clause, some didn't), and decided together to leave non-solicitation out since it's not core to confidentiality. Claude then can synthesize the agreed set into a standard mutual-NDA outline rather than copying any single source verbatim.",
+      "time_range": "00:00:00-00:06:45",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Browse free NDA templates ask for the template",
+          "detail": "Narrates the goal (produce a legally sound, properly formatted NDA template using only free/public resources and Claude) and browses free online templates directly -- a DocuSign-verified basic template and other simple templates -- judging them too basic on their own; opens a new Claude.ai chat and sends: 'Create a basic NDA template outline. Keep any contextual information required as placeholders.'",
+          "time": [
+            "00:00:00-00:02:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser, Claude"
+        },
+        {
+          "id": "a2",
+          "actor": "claude",
+          "label": "Deliver a basic NDA template outline",
+          "detail": "Delivers 'nda-template-outline.md' with everything party/jurisdiction/duration-specific bracketed as a placeholder and optional clauses collected in Section 12, flagging two early decisions that shape everything else (mutual vs. one-way, and how long confidentiality survives) and noting it's a starting structure, not a finished document, for an attorney to review.",
+          "time": [
+            "00:02:35-00:04:06"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a3",
+          "actor": "user",
+          "label": "Check free sample",
+          "detail": "",
+          "time": [
+            "00:03:00-00:04:06"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser, Claude"
+        },
+        {
+          "id": "a4",
+          "actor_type": "user",
+          "time": [
+            "00:04:06-00:06:10"
+          ],
+          "label": "Review Claude's response about delivering a basic NDA template outline by comparing against another free sample and asking for sources",
+          "detail": "Reviews the outline while also browsing another mutual NDA sample from the SEC website for comparison, checking that no content looks copied and noting the terminology reads basic but legally standard; sends: 'Can you give sources for this template, that you referred to in your search.'",
+          "softwares": "Web browser, Claude",
+          "actor": "user"
+        },
+        {
+          "id": "a5",
+          "actor": "claude",
+          "label": "Admit no search was run and offer to ground it",
+          "detail": "Clarifies it didn't run a search and wrote the outline from general knowledge, so there are no sources to cite; flags the non-solicitation note in Section 12.1 as unverified, and offers to search real sources (state bar model forms, ABA, university/government tech-transfer offices) if given a governing jurisdiction.",
+          "time": [
+            "00:06:10-00:06:18"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a6",
+          "actor_type": "user",
+          "time": [
+            "00:06:18-00:06:45"
+          ],
+          "label": "Review Claude's response about admitting no search was run and offering to ground it",
+          "detail": "",
+          "softwares": "Claude",
+          "actor": "user"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a1",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        },
+        {
+          "from": "a5",
+          "to": "a6",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Refine first draft (placeholders, etc.)",
+      "step_action": "Using the outline from Step 1, I will ask Claude to draft complete, plain-English legal prose for each of the 9 sections, using bracketed placeholders (e.g., [PARTY A NAME], [STATE/JURISDICTION]) for details that vary by user rather than fabricating specifics.",
+      "time_range": "00:06:45-00:13:29",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor_type": "user",
+          "time": [
+            "00:06:45-00:08:42"
+          ],
+          "label": "Specify the disclosing-party-favorable structure",
+          "detail": "Decides how the NDA should be structured and sends: 'This will be an NDA structured for the disclosing parties side in the USA, Please be sure to add: 1. Non-solicitation clause for 12 months, No Publicity, Governing Law is California, USA, Dispute Resolution will be by the AAA, No Assignment, Severability as needed, Notices 30 days prior, No Counterparts, And Relationship clause (no partnership, etc.)'",
+          "softwares": "Claude",
+          "actor": "user"
+        },
+        {
+          "id": "b2",
+          "actor": "claude",
+          "label": "Deliver the disclosing-party California draft",
+          "detail": "Checks California non-solicitation enforceability via web search before drafting, then delivers 'nda-disclosing-party-california.md' with all nine requested items incorporated, flagging four issues: the non-solicitation clause is weak under Cal. Bus. & Prof. Code §16600 (though company-to-company restraints have somewhat better odds than individual ones), arbitration alone would leave the client waiting so an injunctive-relief bridge (17.4) was added, the 30-day notice requirement was covered both ways (termination notice and delivery method), and 'No counterparts' was drafted literally, meaning one physical original with both signatures.",
+          "time": [
+            "00:08:42-00:10:18"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "b3",
+          "actor_type": "user",
+          "time": [
+            "00:09:07-00:09:34"
+          ],
+          "label": "Check documents docsign.com and sec.gov",
+          "detail": "",
+          "softwares": "Web browser",
+          "actor": "user"
+        },
+        {
+          "id": "b4",
+          "actor_type": "user",
+          "time": [
+            "00:09:34-00:10:18"
+          ],
+          "label": "Check the Rocket lawyer template",
+          "detail": "",
+          "softwares": "Web browser",
+          "actor": "user"
+        },
+        {
+          "id": "b5",
+          "actor": "user",
+          "label": "Review the draft while checking another sample template",
+          "detail": "Reviews the second draft (while also glancing at another simple NDA sample template for comparison), narrating that Claude gave good source suggestions for the California analysis and that using Claude speeds up what would normally be a manual drafting process.",
+          "time": [
+            "00:10:18-00:13:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser, Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b1",
+          "to": "b3",
+          "type": "sequential"
+        },
+        {
+          "from": "b3",
+          "to": "b4",
+          "type": "sequential"
+        },
+        {
+          "from": "b4",
+          "to": "b5",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b5",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Review the draft for legal accuracy and consistency",
+      "step_action": "Ask Claude to self-check the draft against common NDA pitfalls (e.g., missing exclusions for publicly known information, missing survival period, undefined terms), and to flag anything that could make the agreement unenforceable in some jurisdictions (such as clauses that could suppress whistleblowing).",
+      "time_range": "00:13:29-00:29:25",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Ask about deconstruction and use restrictions",
+          "detail": "Sends: 'Just to re-confirm, is deconstruction and use of information by the parties not allowed?'",
+          "time": [
+            "00:13:29-00:13:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c2",
+          "actor": "claude",
+          "label": "Clarify the unilateral scope and reverse-engineering gap",
+          "detail": "Clarifies that as a unilateral NDA the restrictions bind only the Receiving Party, that use is permitted but confined to the Purpose defined in Section 1, and that reverse-engineering coverage (Section 4.5) only reaches tangible objects, not analytical deconstruction of the information itself; highlights the Derivative Materials clause, the deliberate absence of a residuals clause, and independent development as the permitted route, then flags a gap around the DTSA whistleblower-immunity notice if the Receiving Party is ever an individual contractor, and offers to broaden 4.5.",
+          "time": [
+            "00:13:35-00:14:25"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c3",
+          "actor": "user",
+          "label": "Ask for supporting case law",
+          "detail": "Reviews the clarification and sends: 'Can you give me some cases on the main issues in this NDA (which is non-solicitation and reverse-engineering)'",
+          "time": [
+            "00:14:25-00:15:52"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c4",
+          "actor": "claude",
+          "label": "Deliver case law on both issues",
+          "detail": "Verifies citations via web search and delivers the case analysis: a non-solicitation three-case arc going the wrong way (Loral Corp. v. Moyes, 1985, permissive -> Edwards v. Arthur Andersen, 2008, undercut it -> AMN Healthcare v. Aya Healthcare, 2018, closed the door, with Barker v. Insight Global and WeRide v. Huang following), Brown v. TGS Management flagged as the case that actually threatens the confidentiality/definitions section instead of Section 11, and the reverse-engineering line (Kewanee Oil Co. v. Bicron Corp.; Bowers v. Baystate Technologies) supporting a broadened 4.5, with a caveat that a company-to-company restraint has better odds than an individual one but remains legally unsettled.",
+          "time": [
+            "00:15:52-00:16:31"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c5",
+          "actor": "user",
+          "label": "Decide to have Claude read the actual Brown opinion",
+          "detail": "Reviews the case summaries, noting a 1985 case is old and worth double-checking and that these are secondary commentary rather than primary opinions; decides to upload the actual court opinion and sends: 'Give me your final thoughts on the Brown v TGS Management Opinion, and let me know if you think I should add this clause or not.' (attaching 2020-g058323.pdf).",
+          "time": [
+            "00:16:31-00:22:02"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser, Claude"
+        },
+        {
+          "id": "c6",
+          "actor": "claude",
+          "label": "Re-analyze the actual opinion and recommend keeping Section 11",
+          "detail": "Reads the actual opinion, corrects an earlier reporter-citation hedge, clarifies Brown is an employment case that doesn't govern a company-to-company NDA directly, explains Brown is actually more dangerous to the sweeping Business/confidentiality definitions (Sections 2, 3, 6.4) than to the non-solicitation clause, notes that unclean hands and arbitration didn't save TGS, and recommends keeping Section 11 but tightening it with entity-only savings language while relying primarily on a well-drafted Section 4 plus statutory trade-secret claims rather than the non-solicitation clause itself.",
+          "time": [
+            "00:22:02-00:23:26"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c7",
+          "actor_type": "user",
+          "time": [
+            "00:22:15-00:23:26"
+          ],
+          "label": "Check other free examples",
+          "detail": "",
+          "softwares": "Web browser",
+          "actor": "user"
+        },
+        {
+          "id": "c8",
+          "actor": "user",
+          "label": "Decide to keep the clause and request the revised draft",
+          "detail": "Reads the detailed analysis (while browsing a couple more online templates), concludes the non-solicitation clause should be kept as Claude recommends, and sends: 'Yes, please give me the revised draft. Can you make the draft free of any unnecessary formatting, the draft should be clean and final (no unnecessary disclaimers).'",
+          "time": [
+            "00:23:26-00:25:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser, Claude"
+        },
+        {
+          "id": "c9",
+          "actor": "claude",
+          "label": "Deliver the Brown-hardened clean draft",
+          "detail": "Delivers the cleaned 'nda-final.md' -- ties Confidential Information to a specifically-described Business rather than the whole industry, drops the written-records exclusion requirement the court called absurd, adds flow-down language stating it doesn't impose individual mobility restrictions, broadens 4.5 to cover analytical deconstruction, ends trade-secret protection once information stops qualifying rather than running perpetually, adds a severability firewall so the confidentiality core survives even if the non-solicit falls, and gives the arbitrator express authority to decide §16600 validity.",
+          "time": [
+            "00:25:47-00:27:00"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "c10",
+          "actor": "user",
+          "label": "Compare against a sample",
+          "detail": "Reviews the revised draft, comparing it against another sample one-sided agreement they found.",
+          "time": [
+            "00:27:00-00:29:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        },
+        {
+          "from": "c3",
+          "to": "c4",
+          "type": "sequential"
+        },
+        {
+          "from": "c4",
+          "to": "c5",
+          "type": "sequential"
+        },
+        {
+          "from": "c5",
+          "to": "c6",
+          "type": "sequential"
+        },
+        {
+          "from": "c5",
+          "to": "c7",
+          "type": "sequential"
+        },
+        {
+          "from": "c7",
+          "to": "c8",
+          "type": "sequential"
+        },
+        {
+          "from": "c6",
+          "to": "c8",
+          "type": "sequential"
+        },
+        {
+          "from": "c8",
+          "to": "c9",
+          "type": "sequential"
+        },
+        {
+          "from": "c9",
+          "to": "c10",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Format the agreement as a polished Word document",
+      "step_action": "Asking Claude to produce a downloadable .docx with proper headings, spacing, a two-column signature block, and an italicized disclaimer footer, then render it to check the layout before delivering it.",
+      "time_range": "00:29:25-00:37:20",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor_type": "user",
+          "time": [
+            "00:29:25-00:30:10"
+          ],
+          "label": "Request a proofread/compare pass",
+          "detail": "Send: 'Recheck for any spelling issues, and generate a .docx for me. Compare it with this sample one-sided agreement, and give me the main similarities and differences in short bullet points.' (attaching c5-81-2.pdf).",
+          "softwares": "Claude",
+          "actor": "user"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Proofread, build the docx, and compare against the sample",
+          "detail": "Proofreads and finds no spelling errors, builds and renders 'nda-final.docx', and delivers a similarities/differences comparison against the uploaded sample agreement: both are one-sided with a defined Business/Purpose, need-to-know flow-down, standard exclusions, and injunctive relief; but the sample presumes all information confidential with no designation standard, has no term/survival/termination mechanism, no non-solicitation or reverse-engineering coverage, permits counterparts, and sends disputes to court instead of AAA arbitration.",
+          "time": [
+            "00:30:10-00:31:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d3",
+          "actor": "user",
+          "label": "Push back on the confidentiality-designation difference",
+          "detail": "Reviews the comparison and asks: 'Do we have to mention the designation or reasonable-person standard? Wouldn't it be possible to make all information confidential and then add a disclaimer?'",
+          "time": [
+            "00:31:22-00:32:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d4",
+          "actor": "claude",
+          "label": "Explain why a disclaimer doesn't cure it, and offer a middle path",
+          "detail": "Explains a disclaimer doesn't fix the problem since Brown is direct evidence TGS tried exactly that structure and lost, and that a facial challenge under Dowell would void the provision without ever reaching an as-applied defense; offers a middle-ground presumption clause that defaults to 'everything counts' while still tying the definition to the actual Business and keeping the genuine exclusions from Section 3.",
+          "time": [
+            "00:32:50-00:33:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d5",
+          "actor_type": "user",
+          "time": [
+            "00:32:55-00:33:19"
+          ],
+          "label": "Check the sample document provided in previous turn while Claude is generating.",
+          "detail": "",
+          "softwares": "Web browser",
+          "actor": "user"
+        },
+        {
+          "id": "d6",
+          "actor_type": "user",
+          "time": [
+            "00:33:19-00:33:38"
+          ],
+          "label": "Review Claude's response about explaining why a disclaimer doesn't cure it, and offering a middle path",
+          "detail": "",
+          "softwares": "Claude",
+          "actor": "user"
+        },
+        {
+          "id": "d7",
+          "actor": "user",
+          "label": "Accept the compromise and add formatting requests",
+          "detail": "Sends: 'Yes, that change is fine. Please incorporate it into the NDA. Please change NDA formatting and add page numbers, Times New Roman, Font size 12 and 1.5 spacing.'",
+          "time": [
+            "00:33:38-00:34:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d8",
+          "actor": "claude",
+          "label": "Incorporate the presumption clause and reformat",
+          "detail": "Replaces Section 2.1 with the presumption-based definition, trims the now-redundant 2.3, and rebuilds with the requested formatting, delivering the reformatted 'nda-final.docx'/'nda-final.md' -- nine pages, Times New Roman 12pt, 1.5 line spacing, centered 'Page X of Y' footer, justified body text.",
+          "time": [
+            "00:34:09-00:35:10"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d9",
+          "actor": "user",
+          "label": "Confirm the final draft and plan the annotation work",
+          "detail": "Reviews the finished draft, judging it a significantly better, more structured unilateral NDA than the online samples -- narrating that this is what they would actually give a client -- downloads it as the final version, and, since there's time left, decides their next step is to build an Excel sheet breaking down the NDA's rules for their actual day-job annotation work.",
+          "time": [
+            "00:35:10-00:37:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "a1",
+              "target_ai": "d8",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:02:35",
+              "ai_node_time": "00:34:09-00:35:10",
+              "user_adoption_time": "00:35:10-00:37:20",
+              "reasoning": "The task provided in a1 was to create a basic NDA template. The user, after multiple refinements, downloads the version from d8 as their final version."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d5",
+          "type": "sequential"
+        },
+        {
+          "from": "d5",
+          "to": "d6",
+          "type": "sequential"
+        },
+        {
+          "from": "d4",
+          "to": "d6",
+          "type": "sequential"
+        },
+        {
+          "from": "d6",
+          "to": "d7",
+          "type": "sequential"
+        },
+        {
+          "from": "d7",
+          "to": "d8",
+          "type": "sequential"
+        },
+        {
+          "from": "d8",
+          "to": "d9",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Proofread and finalize. Generate Snippets for each rule for annotation.",
+      "step_action": "Final read-through of the rendered PDF pages myself, then ask Claude to double check for consistent defined-term capitalization (Party/Parties, Disclosing/Receiving Party) and for any leftover inconsistent placeholder formatting. Ask Claude to create two documents for each rule in the NDA and draft samples, to use later for annotation.",
+      "time_range": "00:37:20-00:46:20",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Narrate the annotation plan and request a rules breakdown",
+          "detail": "Explains that their actual day job is legal annotation work, so -- because there's time left -- they want an Excel sheet breaking down the NDA's main rules, plus a separate document of sample clauses for each rule; sends: 'Can you please create, an excel sheet that breaks down the main rules in this document. The rows should be titled: \"Rule Group\" \"Rule Summary\" and Rule Note.'",
+          "time": [
+            "00:37:20-00:37:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e2",
+          "actor": "claude",
+          "label": "Deliver the first rules-breakdown spreadsheet",
+          "detail": "Delivers 'nda-rules-breakdown.xlsx' -- 51 rules across 19 groups, section numbers folded into the Rule Group values, filters on, header row frozen and repeating on print, landscape layout, Times New Roman 12 throughout.",
+          "time": [
+            "00:37:58-00:38:44"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e3",
+          "actor": "user",
+          "label": "Flag the Rule Note column as too document-specific",
+          "detail": "Reviews the spreadsheet, judging the Rule Group and Rule Summary columns fine but noting the Rule Note column reads too specific to this particular NDA rather than as general guidance.",
+          "time": [
+            "00:38:44-00:39:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Request a general rule summary plus a separate samples document",
+          "detail": "Sends: 'It should be a general NDA Rule Summary, with the sample from the document. Then I also want you to create a document with 20 samples (10 good and 10 bad) for each rule which are not found within this NDA. This should be a separate file.'",
+          "time": [
+            "00:39:33-00:40:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e5",
+          "actor": "claude",
+          "label": "Rebuild the spreadsheet and build the 400-clause samples document",
+          "detail": "Rebuilds the rules spreadsheet down to 20 rows (each Rule Summary now a general NDA principle, with the matching sample clause quoted from the document as the Rule Note), then builds the samples document across several append passes -- recovering once by truncating back to a clean point after a write error -- and delivers both 'nda-rules-breakdown.xlsx' and 'nda-clause-samples.md' (400 clauses, 10 good/10 bad per rule, verified at exactly ten each), noting the bad samples are deliberately drawn from failure patterns discussed earlier (over-broad definitions, written-records traps, individual-mobility flow-down, perpetual terms, presumed-irreparable-harm remedies).",
+          "time": [
+            "00:40:25-00:44:56"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e6",
+          "actor": "user",
+          "label": "Review both finished files",
+          "detail": "Reviews the rules-breakdown spreadsheet and the samples document, confirming both are done and match what they asked for. They say \"Let's download them\" although the actual downloading action cannot be seen on the screen.",
+          "time": [
+            "00:44:56-00:45:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "e1",
+              "target_ai": "e5",
+              "label": "adopt",
+              "source_node_time": "00:37:20-00:37:58",
+              "ai_node_time": "00:40:25-00:44:56",
+              "user_adoption_time": "00:44:56-00:45:31",
+              "reasoning": "Source: e1 User announces the plan to create a rules breakdown spreadsheet and a separate document of good and bad samples for each rule.\nTarget: e5 Claude delivers the rebuilt spreadsheet and the samples document after the refinement in e3 and e4.\nReasoning: User confirms both files match the request and says to download them."
+            }
+          ]
+        },
+        {
+          "id": "e7",
+          "actor": "user",
+          "label": "Summarize and close out the session",
+          "detail": "Narrates a closing summary of the session's work: producing a strong draft NDA using public resources and Claude (better than the online samples and faster than drafting it herself), then repurposing that finished NDA for their actual annotation work by generating rule-group breakdowns and good/bad clause samples for later use.",
+          "time": [
+            "00:45:31-00:46:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e5",
+          "type": "sequential"
+        },
+        {
+          "from": "e5",
+          "to": "e6",
+          "type": "sequential"
+        },
+        {
+          "from": "e6",
+          "to": "e7",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Research standard NDA structure and clauses using free public legal resources.",
+      "step_action": "I plan on searching for publicly available, free NDA templates and legal-content pages (e.g., Rocket Lawyer, Docusign, eForms, LegalTemplateVault, SBA.com, Juro) to identify the clauses practitioners consistently include: definitions, exclusions, receiving-party obligations, term/survival, return of materials, remedies, governing law, and entire-agreement/signature blocks. Then compare the outlines across seven different sources, asked Claude follow-up questions about where sources disagreed (e.g., some included a non-solicitation clause, some didn't), and decided together to leave non-solicitation out since it's not core to confidentiality. Claude then can synthesize the agreed set into a standard mutual-NDA outline rather than copying any single source verbatim.",
+      "input": "Web search results from free legal-template sites (Rocket Lawyer, Docusign, eForms, LegalTemplateVault, SBA.com, Juro, esign.com)",
+      "output": "A clause outline (9 sections approx) covering the essential elements of a mutual NDA, in Claude's own wording, not copied from any source",
+      "tools": "Web search",
+      "rubrics": [
+        "Covers all standard NDA clause categories (definitions, exclusions, obligations, term, return of materials, remedies, governing law, entire agreement)",
+        "No content copied verbatim from any single source (originality/no plagiarism risk)",
+        "Terminology is legally standard and consistent with how practitioners structure NDAs",
+        "Outline is organized in a logical, numbered order a non-lawyer can follow",
+        "Sources referenced are free / publicly accessible (no paywalled or proprietary tools)"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Initial draft was already on par with available resources (basic ones) found online."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Gave me an appropriate template."
+      }
+    },
+    "Step 2": {
+      "step_name": "Refine first draft (placeholders, etc.)",
+      "step_action": "Using the outline from Step 1, I will ask Claude to draft complete, plain-English legal prose for each of the 9 sections, using bracketed placeholders (e.g., [PARTY A NAME], [STATE/JURISDICTION]) for details that vary by user rather than fabricating specifics.",
+      "input": null,
+      "output": "Full draft text of a Mutual Non-Disclosure Agreement with placeholder fields and a boilerplate signature block.",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "Legal language is precise but readable to a non-lawyer",
+        "All placeholders are clearly bracketed and self-explanatory",
+        "No clause is legally contradictory or internally inconsistent",
+        "Includes a disclaimer that the template is not a substitute for legal advice",
+        "Length and formality match a real-world NDA (not oversimplified or padded)"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Good breakdown of sections."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "【No Data】"
+      }
+    },
+    "Step 3": {
+      "step_name": "Review the draft for legal accuracy and consistency",
+      "step_action": "Ask Claude to self-check the draft against common NDA pitfalls (e.g., missing exclusions for publicly known information, missing survival period, undefined terms), and to flag anything that could make the agreement unenforceable in some jurisdictions (such as clauses that could suppress whistleblowing).",
+      "input": "Draft NDA text from Step 2",
+      "output": "A short list of confirmed checks",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "Identifies at least the major known NDA risk areas (whistleblower carve-out, exclusions, survival term)",
+        "Any fix proposed is inserted without breaking the rest of the document's numbering/flow",
+        "Reviewer notes are concise and specific, not generic \"looks good\" filler",
+        "Flags that this is not legal advice and recommends attorney review for actual use"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Good job at identifying and helping rectify a lot of the jurisdictional-specific issues."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Helped come to a decent solution for the issues."
+      }
+    },
+    "Step 4": {
+      "step_name": "Format the agreement as a polished Word document",
+      "step_action": "Asking Claude to produce a downloadable .docx with proper headings, spacing, a two-column signature block, and an italicized disclaimer footer, then render it to check the layout before delivering it.",
+      "input": "Final reviewed NDA text from Step 3",
+      "output": "NDA Template",
+      "tools": "Claude, Docusign/other platform as necessary.",
+      "rubrics": [
+        "Document opens correctly in Word with no broken formatting",
+        "Headings are properly styled and consistently sized",
+        "Signature block aligns cleanly as two columns without a visible table border",
+        "Page breaks / spacing don't awkwardly split a clause across pages",
+        "File is delivered as an actual downloadable file, not just text in chat"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Gave good output which I easily downloaded."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "【No Data】"
+      }
+    },
+    "Step 5": {
+      "step_name": "Proofread and finalize. Generate Snippets for each rule for annotation.",
+      "step_action": "Final read-through of the rendered PDF pages myself, then ask Claude to double check for consistent defined-term capitalization (Party/Parties, Disclosing/Receiving Party) and for any leftover inconsistent placeholder formatting. Ask Claude to create two documents for each rule in the NDA and draft samples, to use later for annotation.",
+      "input": "Rendered PDF pages of the docx",
+      "output": "Confirmation that defined terms were used consistently, with no changes needed. 2 documents, snippet samples (good and bad samples) in a excel and word file.",
+      "tools": "Claude, image inspection.",
+      "rubrics": [
+        "All defined terms (Party, Parties, Confidential Information, Disclosing/Receiving Party) are capitalized consistently throughout",
+        "No leftover TODOs, duplicate clause numbers, or placeholder mismatches",
+        "Final file is ready to hand to a real user with no further editing required except filling in their own details",
+        "Turnaround for this final check was fast relative to the value it added",
+        "Additional samples (good and bad) for snippet rules to use for later annotation work"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Drafted decent documents and came up with rules to use based on the output NDA document to use later for annotation work."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Gave me the required documents and was of decent quality, however some additional work on the documents is likely required."
+      }
+    }
+  }
+}

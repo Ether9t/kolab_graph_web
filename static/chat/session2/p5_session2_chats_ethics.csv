@@ -1,0 +1,502 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-07-28T22:21:17.042972Z,"So, currently, I am a die... data privacy consultant hired by Airbnb to essentially do an assessment ready checklist for them for the, uh, to comply with the CCPA. The documents that I've provided you include the source sheet for data privacy, specifically for the state of California. So all the source references. And based on that sheet, there is an assessment checklist that was essentially created to do, um, no. Apologies. Uh, there's a domain sheet that takes from the source sheet of the major areas that we will be covering as part of our full scope review with Airbnb. As part of, uh, our offerings, we are essentially doing the first part, which is essentially a, uh, interview for their data privacy, uh, positioning related to their websites. So it's, uh, there... it's it's critical that you understand under the assessment checklist that I have provided. It's specifically for part one. Right now, I am doing a blind test of their website, Airbnb, And as part of this blind set Airbnb process, I would need your assistance in making a determination of whether or not they are in obligation with the specific assessment checklist, and it includes domain three, domain four, domain five, domain six, domain seven, domain eight, domain fifteen, and domain seventeen. Due to the the the testing that's needed, I want you to act as additional safeguards as I conduct this test manually. And then as part of this process at the very end, I want you to also make a determination I want you to make a determination, uh, whether or not you agree with the topic, uh, severity test outcomes that I have provided. Um, and then as part of the test outcome, there's pass, partial, fail, and not tested. Since this is a, uh, a mock, um, a simulated... you know, a review of Airbnb, and Airbnb is not actually my client, there will be limitations with the results in, but I want you to do it as accurately as possible when I start investigate... investigating the Airbnb website. Uh, do you have any questions or any clarifications with respect to the, uh, game plan that I have in place?",,,,Domain Sheet.xlsx; Assessment Checklist.xlsx; Source Sheet for Data Privacy.xlsx
+Claude,2026-07-28T22:21:17.026202Z,,Thinking about evaluating Airbnb's CCPA compliance across specified domains using assessment checklist criteria.,,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:20.992679Z,,Read the file-reading skill to route correctly for xlsx uploads,view,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:22.376954Z,,Prepared to evaluate Airbnb's CCPA compliance systematically.,,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:23.273717Z,,List uploaded files and sizes,bash_tool,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:26.121450Z,,Extract text from Assessment Checklist,bash_tool,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:30.305567Z,,Moving on to the Domain Sheet.,,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:31.448613Z,,Extract text from Domain Sheet,bash_tool,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:33.093085Z,,Analyzed document structure and assessment framework organization.,,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:34.753914Z,,Inspect source sheet structure,bash_tool,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:21:39.160460Z,,"Identified scope gaps, methodological constraints, and clarifying questions for assessment.",,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:22:29.980416Z,,Verify counts and internal consistency of the checklist,bash_tool,Identified structural gaps and clarifying questions for independent audit methodology.,
+Claude,2026-07-28T22:23:11.511254Z,"I've read all three. They reconcile cleanly: the register carries 104 obligations, 30 flagged Part 1 ""Yes""; the checklist carries 28 of those (COPPA O-15.2 and multistate O-20.2 stripped as non-California per your Key tab) plus the cross-property row, so 29 rows, 13 Critical. Columns G–M are empty, so nothing is logged yet. Domains match your list — D-03, 04, 05, 06, 07, 08, 15, 17 — plus one row tagged ""Cross"" (A1/T-28, cross-property consistency) that you didn't mention.
+
+Seven things before you start testing.
+
+**1. The two instruments the checklist joins aren't here.** Column D points at questionnaire refs (A1, B1–B6, C1–C5, D1–D3, E1–E3, F1/F2, G1–G5, H1/H2, I1–I3) and column E at tests T-01 through T-28. I have neither. Without the T-xx definitions I don't have your pass criteria, and Partial-vs-Fail is precisely where criteria decide the answer. Either send them, or I'll draft proposed criteria per test for your sign-off before we log a single outcome.
+
+**2. There's no interview, so column G has no source.** In a blind test the defensible proxy is Airbnb's published disclosures as the stated position — classification then reads as policy-versus-practice rather than belief-versus-practice. That makes ""Unaware"" unusable (you can't infer knowledge from outside) and softens ""Optimistic."" Worth fixing in the method note now rather than in review.
+
+**3. Observability is the real constraint, and it lands on your Critical rows.** From here I can fetch and analyse published policy text, notice-at-collection language, link presence/wording/placement in markup, the last-updated date, the Shine the Light contact, rights intake surfaces, and published metrics. I cannot run a clean-session network capture, send a GPC signal, watch tags fire, count click paths, or exercise an age gate. All five D-08 rows and O-06.2 depend on instrumentation — that's six of your thirteen Criticals. If you have the Claude for Chrome extension connected, I can run those directly instead of only second-checking your captures. Do you?
+
+**4. Several rows need an applicability gate resolved before an outcome, or they'll read as false Fails.** O-17.4 (GIPA, direct-to-consumer genetic testing) and O-15.5 (SOPIPA, K-12 edtech) don't describe Airbnb on any reading I can see — those look like ""Not tested / not applicable"" with a rationale. O-17.2 turns on whether Airbnb's insurance distribution activity pulls it inside 11 CCR art. 12. O-07.2 is only a finding if sensitive PI use exceeds permitted purposes (government ID and precise geolocation are the candidates). O-04.4 needs a discount-for-data programme to exist. O-05.8 needs the 10M threshold confirmed against current text. Your own Key already routes T-27 to Part 2 as not externally observable.
+
+**5. Legal currency.** The workbooks are dated 27 July 2026 and flag CA-26, CA-27 and CA-11 as ""confirm at leginfo,"" with the AADC partly enjoined. My knowledge has a cutoff and I'd rather verify against primary sources than assert an obligation from memory. Want me to run that verification pass before we score?
+
+**6. Define the property set and the session context.** Airbnb serves different content by region and login state. I'd propose a California-resident, clean-session, logged-out baseline plus a logged-in pass, and an explicit decision on whether ""cross-property"" means airbnb.org, host-facing tools, and the native apps.
+
+**7. Confirm what you want from me.** My read is: form an independent outcome per row from the evidence you produce, challenge your calls where I disagree rather than concur, and audit whether the evidence actually supports the outcome you've written — then review the pre-populated severities at the end. Say if you want a filled workbook as the deliverable too.
+
+One method point worth preserving: your Read Me says not to disclose observational findings during the interview. The blind-test analogue is that I shouldn't feed you Airbnb's policy language before you log what you observed. I'd suggest you log observed results first, then I bring the stated position for comparison.
+
+Everything I produce will be phrased as observation against a stated requirement, not a legal conclusion — consistent with your scope limit.",,,,
+Human,2026-07-28T22:29:08.108399Z,"run, uh, related to the legal currency, I think for for these purposes, um, with the amount of time that I had to review, I think we should be okay in terms of the topics that are being provided as part of the domains. Um, and then what I want from you right now in order to expedite, uh, this is for, uh, uh, related to the test outcomes, we're just doing this as if, um, we're doing the observed results first. So anything that's considered as the test outcome for pass, partial fail, or not tested, we will just leave that not tested for now for these purposes only because we can't test it unless we have the confirmation from the interview. With respect to the the classification in column j, we don't have to be worrying about this. All we're worried is about column i and then column k for the evidence reference. So, like, what part of the website is showing that information there? So I will start off with the first domain related items, which is domain three. and the topics that I want to be going for, this is on on column a for the obligation ID on the assessment checklist, is notice at collection, privacy policy content, retention disclosure, policy currency, and then CAL, APA, and do not track, and shine the light as part of those topics. Now what I want you to do for me is I want you to provide me the instructions and links necessary in order to confirm where I should be finding these observations. And there... and then what you believe the test outcome should be.",,,,
+Claude,2026-07-28T22:29:08.102564Z,,Reconciling ambiguous test outcome instructions for domain observations.,,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:26.782703Z,,Searching the web: Airbnb privacy policy California residents supplement,web_search,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:28.808466Z,,Locating Airbnb privacy policy URLs and assessing currency relevance.,,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:33.470940Z,,Fetching the web page: https://www.airbnb.com/help/article/2863,web_fetch,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:34.665057Z,,Reconciling privacy supplement updates and jurisdictional shifts.,,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:50.385174Z,,Fetching the web page: https://www.airbnb.com/help/article/3175,web_fetch,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:29:51.834072Z,,Verifying CalOPPA compliance and cross-site tracking disclosures.,,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:30:28.737257Z,,Fetching the web page: https://www.airbnb.com/terms/cookie_policy,web_fetch,Synthesized compliance findings across six privacy obligations with evidence mapping.,
+Claude,2026-07-28T22:31:00.324405Z,"I pulled the live documents. Everything below is current as of today; the three source documents carry visible dates of **5 February 2026** (Privacy Policy), **1 January 2026** (US Privacy Supplement), and **3 March 2026** (Cookie Policy).
+
+One flag before the detail. You said park everything at Not tested pending interview confirmation, but five of these six are determinable right now from published documents — no interview needed. Under your own Key tab, ""Not tested"" means out of scope, not applicable, or **not externally observable**, and a public privacy policy is the definition of externally observable. Parking O-03.2 through O-03.6 at Not tested would misdescribe them. Only O-03.1 has a genuine claim to it. I've given you a provisional outcome for each; log what you want in column I, but I'd argue against a blanket Not tested here.
+
+**The document set you're testing against**
+
+Airbnb splits the disclosure across four documents. That fragmentation is itself relevant to O-03.2.
+
+- Privacy Policy — `https://www.airbnb.com/help/article/3175` (footer route: `https://www.airbnb.com/terms/privacy_policy`)
+- US Privacy Supplement — `https://www.airbnb.com/help/article/2863`
+- Cookie Policy — `https://www.airbnb.com/terms/cookie_policy`
+- Supplements index — `https://www.airbnb.com/help/article/2855`
+- Supporting: opt-out page `https://www.airbnb.com/help/sale-share-opt-out`, privacy controls `https://www.airbnb.com/help/article/2273`, CCPA request metrics `https://www.airbnb.com/help/article/3073`, cookie inventory `https://www.airbnb.com/help/article/3464`, prior policy version `https://www.airbnb.com/help/article/2859`
+
+---
+
+**O-03.1 — Notice at collection (Critical)**
+
+*Where to look:* Not a document check. Walk the collection surfaces logged out from a California IP: homepage search box, listing page, checkout, signup/login, host onboarding, ID verification, in-product messaging, and the mobile app. 11 CCR 7012 wants a notice at or before collection **at each point**, not a global footer link.
+
+*What to check:* whether a notice appears at the point of collection, and whether it carries the enumerated elements (categories, purposes, sensitive PI, sale/share, retention) or links directly to the section containing them. Note that §3.3.2 and §3.3.3 of the policy concede collection happens before any account exists — so the pre-login surfaces are the ones that matter most.
+
+*Evidence ref:* one timestamped screenshot per surface, named `T-01_<surface>_<date>`.
+
+*Provisional outcome:* **Not tested** — genuinely needs your manual capture, and phone/offline surfaces need the interview. My expectation is Partial: the footer link is universal but a footer link is not a notice at collection.
+
+**O-03.2 — Privacy policy content (Critical)**
+
+*Where to look:* article/3175 §§3, 4, 5, 6, 9, 10, 13; article/2863 §§3, 4.
+
+*What to check, and what I found:* Categories collected (§3), sources (§3.4), purposes (§4), and recipients (§5–6) are all present and unusually thorough. Three gaps:
+
+1. **No category-by-category mapping.** 7011(e) wants each category tied to its sources, purpose, recipients, and whether it was sold or shared. Airbnb's structure is narrative — you cannot read off which category goes to which recipient, or which were sold/shared.
+2. **Sensitive PI is not enumerated as such.** The policy collects government ID (§3.1.2), facial recognition data (§3.2.3), precise geolocation (§3.3.1), health information (§3.2.8, §3.2.10), and contents of communications (§3.2.4) — five sensitive categories under 1798.140(ae). No section identifies them as sensitive PI or maps them to purposes. The supplement's §3.4.4 names only precise geolocation, as an example.
+3. **Rights suite lives in a different document.** §9.3 redirects US readers to article/2863.
+
+Minor evidence point worth capturing: article 2855 is cited as ""the supplements index"" in 3175's header and as ""the Privacy Policy"" in 2863 §1. Inconsistent cross-reference.
+
+*Evidence ref:* `article/3175 §3.1–3.4, §5, §10.1; article/2863 §3` with the archived PDF.
+
+*Provisional outcome:* **Partial.** Volume of disclosure is high; conformity to the enumerated structure is not.
+
+**O-03.3 — Retention disclosure (High)**
+
+*Where to look:* article/3175 §10.1.
+
+*What I found:* three retention criteria — relationship length, legal/tax/audit obligations, and litigation posture. Criteria are the statutorily permitted alternative to periods, so this is not a bare failure. But 1798.100(a)(3) asks for it **per category, including each sensitive category**, and this is one global set applied to everything. §10.3 also concedes residual backup copies without a bounded period.
+
+*Evidence ref:* `article/3175 §10.1–10.3`.
+
+*Provisional outcome:* **Partial.** Your register note says generic language is a finding, which would push toward Fail — I'd hold at Partial because criteria were disclosed in a permitted form, and flag the Fail argument in column L rather than the outcome. Tell me if you want it downgraded and I'll take the other side.
+
+**O-03.4 — Policy currency (High)**
+
+*Where to look:* top of article/3175, top of article/2863. Prior version at article/2859 for the comparison.
+
+*What I found:* 5 February 2026 and 1 January 2026 respectively, both visible at the top of the page, both inside twelve months of today. Cookie Policy 3 March 2026. §12 also commits to 30 days' email notice before material changes take effect.
+
+*Evidence ref:* `article/3175 header, screenshot 28 Jul 2026`.
+
+*Provisional outcome:* **Pass.** Cleanest row in the domain.
+
+**O-03.5 — CalOPPA and Do Not Track (Moderate)**
+
+*Where to look:* homepage footer for conspicuousness; article/2863 §3.4.2 for DNT; cookie policy §7 for cross-site tracking.
+
+*What I found:* all three elements present. The footer carries ""Privacy"" and ""Your Privacy Choices"" sitewide. §3.4.2 states plainly that Airbnb does not respond to Do Not Track signals — a permitted disclosure form under 22575(b)(5); the statute requires you to say how you respond, not that you honor it. Cookie Policy §7 discloses third-party collection across sites and devices over time, which covers 22575(b)(6).
+
+*What you still need to do:* confirm footer conspicuousness from the **homepage** specifically, at desktop and mobile breakpoints. I read footers off help-centre pages; the homepage is the one CalOPPA cares about.
+
+*Evidence ref:* `article/2863 §3.4.2; cookie_policy §7; homepage footer screenshot`.
+
+*Provisional outcome:* **Pass**, contingent on your homepage footer check. Worth a note in column L that both substantive elements sit in supplementary documents rather than the policy the footer link resolves to.
+
+**O-03.6 — Shine the Light (Moderate)**
+
+*Where to look:* article/2863 §4.3.
+
+*What I found:* the right is disclosed — once a year, free, list of third parties receiving PI for direct marketing plus the types disclosed. What's missing is the piece 1798.83(b) actually requires: a **designated** contact for these requests. §4.3 names none. There's a general `dpo@airbnb.com` in §2 and a mail address plus (844) 234-2500 in policy §13, but nothing designated to receive Shine the Light requests, and no adoption of the §1798.83(c)(2) opt-out alternative.
+
+*Evidence ref:* `article/2863 §4.3, §2; article/3175 §13`.
+
+*Provisional outcome:* **Partial.** Disclosure present, designated contact absent.
+
+---
+
+**Domain 3 running tally:** 1 Pass firm, 1 Pass pending your homepage check, 3 Partial, 1 Not tested. No Fails, and no Critical failures — both Criticals in this domain land Partial or Not tested.
+
+Two things I'd carry forward rather than log here. First, the sensitive-PI gap in O-03.2 pre-loads O-07.2: the supplement asserts Airbnb does not use sensitive PI for purposes triggering the limit-use right, which is the exact trigger determination that row turns on, so the stated position is already on record. Second, policy §4.4 describes automated processes that can restrict or suspend platform access, while supplement §3.4.3 states there is no automated decision-making with legal or significant effects. Probably reconcilable — platform suspension likely falls outside the enumerated decision types — but it's a stated-position tension worth holding for Part 2.
+
+Send me your observations for O-03.1 when you've walked the surfaces, or move to domain 4 and I'll set that up the same way.",,,,
+Human,2026-07-28T22:49:25.351372Z,"Right now, part of the, uh, second set of domain lists, we're gonna be looking at domain four. And now I want you to, uh, find information in relation to the following topics, which include choice symmetry, dark patterns, consent withdrawal, financial incentive notice, and minor consent. For any of these, uh, sections where it is inapplicable because of the business that, uh, Airbnb is running, uh, make note of that. For example, minor consent is probably less likely to occur because, um, Airbnb isn't typically advertising to, um, minors in the first place. Like, this is specifically for, um, adults.",,,,
+Claude,2026-07-28T22:49:25.344364Z,,Challenging minor consent applicability and scrutinizing referral incentives.,,"Excavated consent asymmetries, financial incentive gaps, and minor data processing vulnerabilities.",
+Claude,2026-07-28T22:49:49.418233Z,,Fetching the web page: https://www.airbnb.com/help/article/2273,web_fetch,"Excavated consent asymmetries, financial incentive gaps, and minor data processing vulnerabilities.",
+Claude,2026-07-28T22:49:50.985059Z,,"I found the URL with the trailing slash in the fetched content, so I'll use that exact format.",,"Excavated consent asymmetries, financial incentive gaps, and minor data processing vulnerabilities.",
+Claude,2026-07-28T22:49:52.600280Z,,Fetching the web page: https://www.airbnb.com/help/article/2273/,web_fetch,"Excavated consent asymmetries, financial incentive gaps, and minor data processing vulnerabilities.",
+Claude,2026-07-28T22:49:54.670933Z,,"Searching the web: Airbnb ""How to control your privacy preferences"" help article 2273 third-party tools sharing",web_search,"Excavated consent asymmetries, financial incentive gaps, and minor data processing vulnerabilities.",
+Claude,2026-07-28T22:50:25.582823Z,"Domain 4 is far less document-determinable than Domain 3 — most of it lives in interface behaviour you have to walk. But two published statements do most of the work here, and both are Airbnb's own words, which makes them strong evidence.
+
+**The two load-bearing findings before the row-by-row**
+
+From `https://www.airbnb.com/help/article/2273` (""How to control your privacy preferences""):
+
+1. Cookie banner opt-in/opt-out is described as available **only** ""if you are located in a jurisdiction where cookie banners are required."" The US route offered instead is the footer link and a single opt-out button. Read plainly, California users get no consent interface at all — collection starts on page load, and the only control is a post-hoc opt-out.
+2. For logged-out users, an opt-out ""may only affect the device or browser you are using and may not be saved after you close your browser session or log in."" Airbnb is stating that the opt-out does not reliably persist.
+
+Separately, `https://www.airbnb.com/help/article/3535` shows the Android app **does** carry a granular preference centre — categorised toggles with named processors (Amplitude, Branch, Firebase, Bugsnag, Meta, Naver, and others). So the mobile app has a consent UI the US web property apparently does not. That asymmetry is worth capturing; it also feeds the cross-property row (T-28).
+
+---
+
+**O-04.1 — Choice symmetry (Critical)**
+
+*How to test:* count the steps in both directions from a clean California session. Opt-in path: load `airbnb.com` and record how many affirmative user actions are required before advertising tags fire. Opt-out path: locate ""Your Privacy Choices"" in the footer → `https://www.airbnb.com/help/sale-share-opt-out` → press the button → count screens and clicks. 11 CCR 7004 asks whether opting out takes more steps than opting in.
+
+*What the documents already suggest:* opt-in is zero steps (automatic on load, no banner in the US); opt-out is a footer link plus a page plus a button, and per article 2273 may not survive the session. That is the comparison your register says *is* the finding.
+
+*Evidence ref:* `homepage footer → sale-share-opt-out, click-path recording 28 Jul 2026; article/2273 §""How to opt out of Airbnb cookies""`.
+
+*Provisional outcome:* **Not tested** pending your click count, but I'd expect **Fail**. This is the strongest candidate for a Critical finding in the domain.
+
+**O-04.2 — Dark patterns (Critical)**
+
+*How to test:* if no banner appears for US users, most of 7004's enumerated factors have nothing to attach to — you can't have asymmetric button emphasis with no buttons. Assess instead against the factors that survive: whether the opt-out control is as easy to find as the paths that promote engagement, whether the label wording is clear, and whether any friction is introduced after the button press. Capture the opt-out page and any confirmation state.
+
+*Note for column L:* the opt-out page's framing — that Airbnb doesn't sell data but may share it in ways that ""could be characterized as"" selling — is worth capturing verbatim. Hedged characterisation language is assessable under the confusing-wording factor, though it's a softer finding than a structural one.
+
+*Evidence ref:* annotated screenshots of `sale-share-opt-out`, before and after button press.
+
+*Provisional outcome:* **Not tested**. My expectation is Partial rather than Fail — the problem here reads as absence of a consent interface, which lands on O-04.1, rather than a manipulative one.
+
+**O-04.3 — Consent withdrawal (High)**
+
+*How to test:* the register method is grant → withdraw → confirm tags actually stop. Three passes: logged out, logged in, and logged out again after closing the browser to test persistence. Then check the Android app path (Profile → Privacy → Third-party tools) and see whether a withdrawal there propagates to web.
+
+*What I already have:* Airbnb states the logged-out opt-out may not persist across sessions. Also relevant, US Supplement §4.1 routes withdrawal of sensitive-PI consent to device permissions or an email to `dpo@airbnb.com` — an email-based withdrawal against a one-click grant is an asymmetry in itself.
+
+*Evidence ref:* `article/2273; article/2863 §4.1;` network traces before and after.
+
+*Provisional outcome:* **Not tested**, expected **Partial or Fail** depending on whether the tags actually stop. The self-declared non-persistence is already a documented gap regardless of what the trace shows.
+
+**O-04.4 — Financial incentive notice (Moderate)**
+
+I'd resist marking this inapplicable. Two candidate programmes:
+
+- **Referral programme** (`https://www.airbnb.com/refer`) — credit is earned for referring, and Privacy Policy §3.4.4 confirms the referrer submits personal information about the invitee. Compensation flowing in exchange for another person's contact data is squarely within 1798.125(b) territory.
+- **HT Perks** (US Supplement §7) — Airbnb credits conditioned on linking HotelTonight and Airbnb accounts, i.e. a financial benefit contingent on data combination.
+
+*How to test:* open the referral terms and the HT Perks terms and look for the 7016 elements — material terms, a good-faith estimate of the value of the consumer data, the calculation method, and a right to withdraw. I did not find any such notice in the privacy documents.
+
+*Evidence ref:* referral programme terms page; `article/2863 §7`.
+
+*Provisional outcome:* **Not tested** pending your read of the referral terms, but the applicability gate looks met, and if no valuation notice exists this is a **Fail** — a well-evidenced one, since the absence is easy to demonstrate.
+
+**O-04.5 — Minor consent (Critical)**
+
+This is the one I'd push back on. Your reasoning — Airbnb is an adults' service, so the row shouldn't apply — is the applicability test COPPA uses (""directed to children""), not the one 1798.120(c) uses. The CCPA test is **actual knowledge**, and the statute deems a business to have actual knowledge if it **wilfully disregards** the consumer's age. ""We don't market to minors"" doesn't answer that; it's the answer to a different question.
+
+Three facts cut against closing this row:
+
+- Airbnb collects **date of birth** at signup (Privacy Policy §3.1.1). Holding age data and asserting no knowledge of age is the exact posture the wilful-disregard clause was written for.
+- Airbnb collects PI **about** minors from adults — §3.2.2 covers co-travellers, and family bookings routinely include children. Whether that data reaches advertising partners is testable.
+- Pre-login collection (§3.3.2, §3.3.3) captures device and advertising identifiers from any visitor, with no age determination at all. A 15-year-old browsing listings is in the same tag stream as everyone else.
+
+Against that, Airbnb's stated position is US Supplement §3.4.4: it does not knowingly process personal information of anyone under 18, and Terms set an 18+ floor. That's an age *assertion*, not an age *gate*.
+
+*How to test:* attempt signup with a DOB indicating age 15 and record whether it's blocked, and at what point — before or after PI is collected. If blocked only at submission, the PI was already collected. Then check whether pre-login tags fire identically regardless.
+
+*Evidence ref:* `article/2863 §3.4.4; article/3175 §3.1.1, §3.2.2;` age-gate walkthrough.
+
+*Provisional outcome:* **Not tested** — and I'd log the reason as ""applicability contested, requires age-gate walkthrough,"" not ""not applicable."" Note this row shares test T-11 with O-15.1, so one walkthrough serves both.
+
+---
+
+**Domain 4 running tally:** all five Not tested, which is honest here — this domain is behavioural and you haven't walked it yet. But three of them already have documented gaps sitting in column L before you start, and O-04.1 is the row I'd expect to carry the domain.
+
+If you want to compress the work: a single clean California session that (a) records whether any banner appears, (b) counts the opt-out click path, (c) closes and reopens the browser to test persistence, and (d) runs the 15-year-old signup attempt covers O-04.1, O-04.3, O-04.5 and most of O-04.2 in one pass. Only O-04.4 needs a separate document read.",,,,
+Human,2026-07-28T22:57:27.156394Z,"Okay. The exception that we will be dealing with is domain five. Uh, so there is write request intake, uh, nondiscrimination, and request metric publication. Could you please, uh, make an evaluation? And in addition, an assertion of what you believe is the best test outcome",,,,
+Claude,2026-07-28T22:57:27.151013Z,,Scrutinizing Airbnb's request accessibility and verification limitations.,,"Identified critical CCPA compliance violations across intake, nondiscrimination, and reporting.",
+Claude,2026-07-28T22:58:04.013785Z,,Fetching the web page: https://www.airbnb.com/help/article/3073/,web_fetch,"Identified critical CCPA compliance violations across intake, nondiscrimination, and reporting.",
+Claude,2026-07-28T22:58:05.575993Z,,"Searching the web: Airbnb ""Information about California Consumer Requests"" CCPA metrics requests received complied denied median days",web_search,"Identified critical CCPA compliance violations across intake, nondiscrimination, and reporting.",
+Claude,2026-07-28T22:58:08.017785Z,,I need to try a more direct search for that specific Airbnb help article since the initial search didn't surface the actual page. Let me search for the article URL directly to see if I can access it and verify whether it contains the 2025 metrics this row requires.,,"Identified critical CCPA compliance violations across intake, nondiscrimination, and reporting.",
+Claude,2026-07-28T22:58:11.563194Z,,Searching the web: airbnb.com/help/article/3073 California consumer requests,web_search,"Identified critical CCPA compliance violations across intake, nondiscrimination, and reporting.",
+Claude,2026-07-28T22:58:49.857634Z,"Domain 5 gives you your first hard Fail, and it's the best-evidenced finding in the engagement so far.
+
+---
+
+**O-05.1 — Rights request intake (High, T-12)**
+
+*What I found.* Airbnb discloses four designated methods, spread across three documents:
+
+| Method | Source |
+|---|---|
+| Email — `dpo@airbnb.com` | Supplement §2; Policy §13 |
+| Toll-free — (844) 234-2500 | Policy §13 |
+| Postal — Airbnb, Inc., Legal Privacy, 888 Brannan Street, SF CA 94103 | Policy §13 |
+| In-account request flow — Account → Privacy → request/download data | `article/2273`, `article/280` |
+
+7020 asks for at least two methods appropriate to how the business primarily interacts with consumers. Airbnb interacts online, and the in-product flow is the appropriate primary channel. There is also a non-account route: `article/2273` states that non-users can still submit requests by contacting Airbnb, which matters because the process must not be gated behind account creation.
+
+*Where to look:* `https://www.airbnb.com/help/article/2273`, Privacy Policy §13, US Supplement §2.
+
+*One thing that belongs in column L, not in the outcome:* article 2273 says Airbnb may require government-issued identification to verify a request. Demanding a government ID to service a request-to-know is disproportionate under 7060–7062 — but that's O-05.2, which sits outside your Part 1 set. Note it and route it to Part 2 rather than letting it drag this row down.
+
+*On the live test request:* you can submit one — you're a California consumer and entitled to. But it creates a real record at a company that isn't your client, and you'd learn only that intake works, not how Airbnb performs against its SLA. For a mock I'd skip it and record the limitation.
+
+**Asserted outcome: Pass.** The obligation is to provide the methods, and they are provided, disclosed, and reachable without an account. Fulfilment untested — note that in column L.
+
+---
+
+**O-05.6 — Non-discrimination (High, T-13)**
+
+*What I found.* US Supplement §2 carries an explicit statement: Airbnb will not discriminate or retaliate for the exercise of privacy rights, with the qualifier that fulfilling some requests may affect functionality or availability, and that any service differences relate to the personal information provided. That qualifier tracks the permitted-difference language in 1798.125(a)(2) rather than cutting against the prohibition.
+
+*What to observe to close it:* opt out via `https://www.airbnb.com/help/sale-share-opt-out`, then compare search results, displayed pricing, and feature availability against a control session. Airbnb's pricing is listing- and demand-driven, and I found no tier, discount, or feature conditioned on data sharing, so I don't expect the observation to move this.
+
+*Soft note for column L:* Cookie Policy §9 warns that declining Technologies may cause parts of the platform not to work at all. That's defensible as to functional cookies, but it's broad enough to read as signalling a service consequence for exercising choice. Capture it; don't score it.
+
+**Asserted outcome: Pass.** It would flip to Partial only if your side-by-side surfaces an actual service or price differential — which would be a significant finding, so run the comparison even though I expect it to come back clean.
+
+---
+
+**O-05.8 — Request metrics publication (Moderate, T-14)**
+
+*Applicability:* met, comfortably. Airbnb is well past the 10 million consumer threshold in 7102.
+
+*Where to look:* `https://www.airbnb.com/help/article/3073`, reached from US Supplement §4.4.
+
+*What I found — and this is the finding.* The page publishes aggregate metrics **for 1 January to 31 December 2024**. Today is 28 July 2026. The regulation requires publication by 1 July each year covering the **previous** calendar year, so the 2025 figures were due four weeks ago. Airbnb is a full reporting cycle behind.
+
+The content is also deficient independently of the staleness. What's published:
+
+- requests to know — received, complied with in whole or in part, **or** denied: 31,971
+- requests to delete — same combined figure: 138,864
+- average days to substantively respond to know **or** delete: 18.2
+
+Against that, 7102 requires, for each request category separately: the number **received**, the number **complied with in whole or in part**, and the number **denied** — three distinct figures. Airbnb collapses all three into one number per category, which makes the disclosure unusable for its intended purpose; you cannot derive a denial rate from it. Then three whole categories are missing: **opt-out of sale or sharing**, **correction**, and **limit use of sensitive PI**. The response-time figure is also blended across two request types rather than reported per category.
+
+So this row fails on four independent grounds: a missed hard deadline, collapsed figures, absent categories, and blended timing.
+
+*Evidence ref:* `article/3073, screenshot 28 Jul 2026, page states reporting period 1 Jan – 31 Dec 2024; article/2863 §4.4 (link source)`.
+
+*Evidence integrity caveat:* I read the metrics text from the `.ca` rendering of the same article ID. Before you log it, pull `https://www.airbnb.com/help/article/3073` on the `.com` property from a California session and confirm it renders the same reporting period and figures. If `.com` shows 2025 data and `.ca` is stale, the finding changes shape entirely — it becomes a cross-property consistency issue for T-28 instead.
+
+**Asserted outcome: Fail**, subject to that one verification.
+
+---
+
+**Domain 5 tally: 2 Pass, 1 Fail.**
+
+One severity flag to hold for the end-of-engagement review you asked for. Your register scores O-05.8 as Moderate, which reads as reasonable in the abstract — a metrics-publication gap is administrative. But a missed statutory deadline that has already passed, on a disclosure that is publicly verifiable by anyone including the Agency, with four separate content defects, is not really a Moderate. It's the easiest thing in this whole assessment for a regulator to check, and it requires no investigation to establish. When we get to the severity review I'll be arguing to raise it to High.",,,,
+Human,2026-07-28T23:02:47.423220Z,"Next domain, we're gonna be doing domain six, uh, and this includes do not sell or share link, opt out preference signals, GPC, and re solicitation after opt out.",,,,
+Claude,2026-07-28T23:02:47.415953Z,,Scrutinizing Airbnb's GPC compliance and opt-out frictionlessness requirements.,,"Scrutinized opt-out mechanisms, GPC compliance, and documentation defects.",
+Claude,2026-07-28T23:03:35.921697Z,,Fetching the web page: https://www.airbnb.com/help/sale-share-opt-out,web_fetch,"Scrutinized opt-out mechanisms, GPC compliance, and documentation defects.",
+Claude,2026-07-28T23:04:15.160242Z,"Domain 6 is where your two remaining Criticals for the observable set live. I pulled the opt-out page itself; it surfaced three things worth having before you test.
+
+**What the opt-out page shows**
+
+`https://www.airbnb.com/help/sale-share-opt-out` — titled ""Your privacy choices,"" single button reading ""I want to opt out,"" no form, no login prompt, no email field. On its face that's a one-click mechanism, which is the right shape.
+
+Three details from the page source:
+
+1. It carries **`noindex, nofollow`**. A consumer searching ""Airbnb do not sell my personal information"" will not find this page through a search engine. Not a violation on its own — the footer link is the required route — but it's directly relevant to the ""clear and conspicuous"" limb and it reads well in a findings report.
+2. The page's own ""Privacy Policy"" link points to **`article/3176`**, while the live policy is `article/3175`. Check where 3176 resolves. A dead or misrouted policy link *on the opt-out page* is a concrete defect on a Critical row.
+3. The related-article link to `article/2863` is still captioned ""Supplements for California, Colorado, Connecticut, Utah, Vermont, and Virginia,"" but that article is now the United States Privacy Supplement covering 20-plus states. Stale caption.
+
+---
+
+**O-06.1 — Do Not Sell or Share link (Critical, T-15)**
+
+*What's confirmed.* ""Your Privacy Choices"" sits in the footer of every page I retrieved, resolving directly to a functioning one-click opt-out. That title is the permitted alternative to the statutory ""Do Not Sell or Share My Personal Information"" wording, and routing straight to the mechanism rather than to a general privacy page is correct.
+
+*Three checks that could flip this.*
+
+- **The opt-out icon.** Confirm visually whether the toggle icon accompanies the footer link, and confirm the icon requirement against the current text of 7013(f) and 7015 before you score — I'd rather you read the regulation than take my recollection on a Critical row.
+- **Coverage beyond the footer.** The obligation runs to the homepage *and every page that collects PI*. Check the homepage, search results, a listing page, checkout, signup, and host onboarding. Checkout is the one that most often drops the footer.
+- **Mobile.** Footer links routinely disappear at mobile breakpoints. Check mobile web separately, and check the native app for an equivalent control.
+
+*Evidence ref:* `sale-share-opt-out screenshot 28 Jul 2026; footer capture per surface; page source showing noindex`.
+
+**Asserted outcome: provisional Pass**, on the strength of correct title, direct routing, one click, and no account requirement. Drops to **Partial** if the icon is absent or if any PI-collecting surface lacks the link.
+
+---
+
+**O-06.2 — Opt-out preference signal / GPC (Critical, T-16)**
+
+This is the highest-value row remaining, and the stated position already has two problems visible on the page.
+
+*From US Supplement §3.4.2:*
+
+- Airbnb says it will ""**strive to honor**"" opt-out preference signals and will ""make **reasonable efforts** to honor"" them. Honoring a GPC signal is a mandatory obligation for a business that sells or shares, not a best-efforts undertaking. Stating a mandatory duty in aspirational terms is itself a finding, independent of what the tags do.
+- Airbnb states the opt-out ""may only apply to the specific browser, device, or technology"" — and explicitly says this holds **regardless of whether you are logged in**. Where a business can associate the signal with a known consumer, the opt-out should attach to that consumer, not only to the device. Disclaiming that for logged-in users is the sharper of the two problems.
+
+*How to run T-16 without full instrumentation.* You can do this in Chrome DevTools:
+
+1. Use a browser that sends GPC — Brave (on by default), DuckDuckGo, or Firefox with a GPC extension. Fresh profile, no prior cookies, California IP.
+2. **Confirm the signal is actually leaving.** In the console, `navigator.globalPrivacyControl` should return `true`, and in the Network tab the request headers should show `Sec-GPC: 1`. Skipping this step is how these tests produce false passes.
+3. Load `airbnb.com`, browse to a listing, and watch the Network tab for calls to the known advertising and analytics endpoints — `connect.facebook.net`, `googletagmanager.com`, `google-analytics.com`, `doubleclick.net`, `bat.bing.com`, `analytics.tiktok.com`, `criteo`, `amplitude.com`, `branch.io`. The app tool list at `article/3535` names most of these, so you have a vendor roster to check against.
+4. Run an identical control session with GPC off and diff the two.
+5. Separately, with GPC on, load the opt-out page and see whether it reflects an already-opted-out state.
+
+The register's warning applies here: checking only the UI state misses most failures. The diff between the two network traces is the finding.
+
+*Evidence ref:* `article/2863 §3.4.2; Sec-GPC header capture; network traces GPC-on vs GPC-off, 28 Jul 2026`.
+
+**Asserted outcome: Not tested pending your capture — but Partial is the ceiling** on the stated position alone, because of the best-efforts framing and the logged-in device-scoping disclaimer. If tags continue transmitting under GPC, this is a **Fail**, and it becomes the lead item in your executive summary.
+
+---
+
+**O-06.4 — Re-solicitation after opt-out (Moderate, T-17)**
+
+*What to test.* Opt out, then return across several sessions over the following days and watch for any prompt inviting you to re-enable sharing or personalisation — banner, modal, in-account nag, or email. Also check Account → Privacy and sharing after opting out.
+
+*What I expect and why.* Since US users appear to get no consent banner at all, there is no obvious re-solicitation surface. On the literal obligation — not asking again within twelve months — Airbnb probably passes by default.
+
+*The note that matters more than the outcome.* Article 2273 says a logged-out opt-out may not survive closing the browser. That isn't re-solicitation; it's silent reversion, which reaches the same result without ever asking. It doesn't breach 1798.135(c), so don't score it here — but record it in column L with a cross-reference, and report the substance under O-06.2 and O-04.1 where it belongs.
+
+**Asserted outcome: provisional Pass**, subject to your multi-session observation.
+
+---
+
+**Domain 6 tally: 2 provisional Pass, 1 Not tested with a Partial ceiling.**
+
+One theme worth pulling into the report body. Across three domains you now have four cross-reference defects: `article/2855` used as both ""the Privacy Policy"" and ""the supplements index"" (D-03), the policy link on the opt-out page pointing to `3176` rather than `3175`, the stale six-state caption on the supplement link, and metrics published a full cycle behind (D-05). Individually each is small. Together they describe a disclosure estate that isn't being maintained as a system, which is a fair observation to make and a natural bridge into the Part 2 pitch on documentation governance.",,,,
+Human,2026-07-28T23:09:50.217466Z,"In the interest of time, I need your assistance with making validations with respect to domain eight, domain fifteen, and domain seventeen. So domain eight includes tag and pixel inventory, sale and share classification, CIPA exposure, sensitive content leakage, and consent platform in... enforcement. And then for for domain fifteen, includes minor sale and share restrictions. So PIPA and so PIPA student data. And then domain seventeen includes insurance, non transaction data, GIPA genetic consent and then location exclusion zones.",,,,
+Claude,2026-07-28T23:09:50.210497Z,,,,"Synthesized compliance gaps across domains eight, fifteen, seventeen.",
+Claude,2026-07-28T23:10:58.730321Z,"Ten rows across three domains. All of Domain 8 needs instrumentation you haven't run, but I can hand you a vendor roster and the Airbnb-specific sensitive contexts, which is most of the work. Domain 17 has one live row people usually miss and two that dispose cleanly.
+
+---
+
+## Domain 8 — Tracking technologies (five Criticals, all T-19 to T-23)
+
+None of these are determinable from documents. What I can give you is the target list.
+
+**Vendor roster to test against.** `https://www.airbnb.com/help/article/3535` publishes the Android app's tool inventory with named processors and categories:
+
+- *Strictly necessary:* Arkose Labs, Braintree/PayPal, Google Maps, Google reCAPTCHA, **Incognia**, Klarna
+- *Functional:* Airbnb Functional, Meta (""Facebook Functionalities""), MLabs, Mux, Naver
+- *Performance:* Amplitude, Branch, Bugsnag, Firebase
+
+Cookie Policy §7 adds the web picture: Meta and Google named directly, with Google Analytics integrated into Remarketing, Cross-Device Remarketing & Reporting, Demographics & Interest Reporting, and Display Network Impression Reporting.
+
+Two things to flag from that roster. **Incognia** is a location-intelligence and device-fingerprinting vendor, and it's classified ""strictly necessary,"" meaning non-toggleable. Whether location fingerprinting is genuinely strictly necessary is a challengeable classification and it belongs in both O-08.5 and O-08.3. And this is the *app* inventory — the web inventory is undisclosed, which is itself the gap O-08.1 tests.
+
+**O-08.1 — Tag and pixel inventory.** Clean-session capture on: homepage, search results, listing page, checkout, account, ID verification, and the sensitive pages below. Record which fire before any interaction. **Not tested.**
+
+**O-08.2 — Sale and share classification.** Stated position is on the opt-out page: not a data broker, doesn't sell, but shares in ways that ""could be characterized as"" selling or sharing. That's a defensible line — sharing for cross-context behavioural advertising is the right statutory term. The weakness is the conditional framing: 7011 asks a business to state whether it sells or shares as a fact, not as a characterisation others might apply. Log that as a disclosure note; score the row on whether observed transmissions exceed what's disclosed. **Not tested**, expected Pass-to-Partial.
+
+**O-08.3 — CIPA exposure.** Report separately from regulatory findings, per your register. Test for third-party interception of communications content or metadata: check for session-replay tooling, look at what the in-product messaging and support chat surfaces load, and treat the Meta pixel and Incognia's fingerprinting as your pen-register and trap-and-trace candidates. The cross-domain point that matters: with no US consent banner, there is no pre-interception consent to lean on, which is what weakens the usual defence. Your D-04 finding is load-bearing here. **Not tested.**
+
+**O-08.4 — Sensitive-context leakage.** Airbnb's sensitive contexts, in priority order:
+
+1. **Accessibility-filtered searches.** Filtering for step-free access or a roll-in shower discloses disability status. If identifiers plus filter parameters reach ad vendors, that is health-adjacent data in an advertising stream.
+2. **Wellness and health Services.** US Supplement §5 states outright that Airbnb may collect precise location of health-related activities booked — massage, personal training — and treats these as consumer health data. Airbnb has already conceded the classification, so any pixel firing on those booking pages is a finding against their own definition.
+3. **ID verification.** Government ID upload. Any third-party tag on that surface is severe.
+4. **Airbnb.org emergency stays.** Crisis and displacement context.
+
+Capture with identifier decoding on each. **Not tested** — and 1 and 2 are where I'd spend your time.
+
+**O-08.5 — Consent platform enforcement.** Web: press ""I want to opt out,"" re-capture, and diff against the pre-opt-out trace. If the tags are unchanged, that's the disconnected-CMP finding and it's a Fail. App: set each toggle in Profile → Privacy → Third-party tools and verify behaviour actually changes, including the non-toggleable ""strictly necessary"" set. **Not tested.**
+
+---
+
+## Domain 15
+
+**O-15.1 — Minors sale and share restriction (Critical, T-11).** Same test as O-04.5, so one walkthrough serves both. The efficient version doesn't require creating a minor's account: tags fire on page load, before login, before any age determination exists. If that holds, Airbnb has no mechanism capable of distinguishing an under-16 visitor before identifiers are transmitted — which you can demonstrate without ever involving a minor. Stated position remains US Supplement §3.4.4 (no knowing processing under 18) against §3.1.1 (date of birth collected). **Not tested**, expected **Partial**, with Fail available if you press the wilful-disregard argument.
+
+**O-15.5 — SOPIPA student data (High, T-24).** This one *is* properly inapplicable. B&P 22584 reaches operators of services designed and marketed for K-12 school purposes. Airbnb has no student-facing surface, no district contracts, and no educational product. **Not tested — not applicable.** Worth noting the contrast with O-04.5: I pushed back there and I'm not pushing back here, because the difference is the statutory trigger, not the audience. SOPIPA's trigger is unmet; the CCPA minor trigger turns on knowledge and is live.
+
+---
+
+## Domain 17
+
+**O-17.2 — Insurance, non-transaction data (High, T-25).** Applicable, and this is the row most assessors skip. Airbnb operates as an insurance intermediary: Privacy Policy §2.3 names an Insurance Controller, §5.7.3 names Airbnb Insurance Agent Affiliates, §3.1.4 lists the pre-contract data collected for Travel Insurance Plan, Reservation Insurance and Stay Protection, §4.8 covers facilitating the sale, and there's a dedicated supplement at `https://www.airbnb.com/help/article/3818` plus a footer link at `https://www.airbnb.com/travelinsurance`.
+
+The art. 12 boundary is between data inside an insurance transaction and everything else. The observable test is narrow and high-value: **run a clean-session capture on `airbnb.com/travelinsurance` and through the insurance quote flow, and see whether advertising and analytics tags fire.** Non-applicant web tracking on an insurance surface sits outside the transaction and squarely inside the CCPA. **Not tested** — and I'd prioritise this above three of the D-08 pages.
+
+**O-17.4 — GIPA genetic consent (High, T-26).** Not applicable. Civ. Code 56.18 et seq. reaches direct-to-consumer genetic testing businesses; Airbnb is not one and collects no genetic data. One clarification for your notes so nobody re-opens it: the facial-recognition data at §3.2.3 is **biometric**, not genetic. It's sensitive PI under 1798.140(ae) and belongs to D-07, not here. **Not tested — not applicable.**
+
+**O-17.5 — Location exclusion zones (High, T-27).** Applicability gate is **met** — Airbnb collects precise geolocation (§3.3.1), including outside app use where device permissions allow, uses a location-intelligence vendor, and runs location-based advertising. But geofence configuration and adtech targeting rules are not visible from outside, and your own Key routes T-27 to Part 2 for exactly this reason. **Not tested — applicable but not externally observable. Route to Part 2.**
+
+---
+
+**One structural recommendation before you log these.**
+
+You now have three different reasons sitting under the single label ""Not tested,"" and they mean opposite things to a reader:
+
+- **Not applicable** — O-15.5, O-17.4. Trigger unmet. Closed.
+- **Applicable, not externally observable** — O-17.5. Open, routes to Part 2.
+- **Applicable, observable, not yet run** — all of D-08, O-15.1, O-17.2. Open, still in Part 1.
+
+If column I reads ""Not tested"" across all ten, a client sees ten blanks and reasonably asks what they paid for. Put the distinction in column L so the report can show two closed rows, one Part 2 referral, and seven live tests with a defined method. That reads as scope control rather than as gaps.
+
+Domain 7 is still outstanding from your original list — O-07.2, the limit-use link. I have most of what it needs already, since the trigger determination is sitting in US Supplement §3.4.4. Say the word and I'll set it up, or we can go straight to the severity and outcome review.",,,,
+Human,2026-07-28T23:17:20.439145Z,"So this documentation is, um, everything filled out to the best of my ability. There were certain sections that were that were not tested because either, one, they're not applicable or, two, because they required a lot more effort than what the session currently holds. So I will reserve that for the interview process. But based on the information that I provided from my verification, from your, uh, your suggestions, could you please evaluate each one of the claims and make a determination of, like, which ones should be able to scrutinize a little further during the interview process?",,,,Assessment Checklist Final.xlsx
+Claude,2026-07-28T23:17:20.425978Z,,Prepared to examine uploaded documentation.,,Systematically audited findings for internal contradictions and evidentiary gaps.,
+Claude,2026-07-28T23:17:21.399623Z,,Inspect final checklist structure,bash_tool,Systematically audited findings for internal contradictions and evidentiary gaps.,
+Claude,2026-07-28T23:17:28.144597Z,,Dump all filled rows with outcomes and notes,bash_tool,Systematically audited findings for internal contradictions and evidentiary gaps.,
+Claude,2026-07-28T23:18:44.140346Z,"I've read the workbook. Before the row-by-row, there's a structural picture you need, because it changes what the interview is for.
+
+**Coverage as it stands**
+
+| Outcome | Count |
+|---|---|
+| Pass | 6 |
+| Partial | 3 |
+| Fail | 4 |
+| Not tested | 15 |
+| Blank | 1 (T-28 cross-property) |
+
+Fifteen of twenty-nine rows untested is survivable. **Nine of your thirteen Critical rows untested is not** — your Read Me says the executive summary comes from the Critical rows, so as written the exec summary is three Passes, one Partial, and nine blanks. And the **Evidence ref column is empty on all twenty-nine rows**, including all four Fails. Your Assessment Design tab promises findings ""reproducible by a third party."" Right now none of them are. That is the single highest-priority fix, ahead of anything below.
+
+---
+
+**A. Four rows where the outcome isn't supported by what you wrote**
+
+**O-03.1 — Pass (Critical).** The observation is ""Cookie Policy is persistent on various pulled sources after cache is wiped."" That tests cookie state, not notice at collection. T-01 asks whether a notice appears at or before the point of collection on each surface — signup, checkout, ID verification, host onboarding. Cookie persistence doesn't speak to it. A Critical marked Pass on a mismatched observation is the first thing opposing counsel finds. Revert to **Not tested** and run the surface enumeration.
+
+**O-04.1 — Pass (Critical), versus O-04.3 — Fail.** These contradict each other. O-04.3 says the user can't conspicuously retrieve cookie settings; O-04.1 says choice is symmetric. If withdrawal is hard enough to fail, symmetry isn't passing. On my read, opt-in for a California user is zero affirmative steps (no banner, tags on load) and opt-out is footer → page → button that may not persist. Unless your click counts show otherwise, **O-04.1 should be Partial or Fail**. Whichever way you go, the two rows need a reconciling note.
+
+**O-06.4 — Fail. ""GPC .json is not found.""** The finding is real but it's in the wrong row. A missing `/.well-known/gpc.json` is evidence about GPC support — that's **O-06.2**, which you marked Not tested. Re-solicitation is about whether Airbnb re-prompts you within twelve months of opting out, which this doesn't address. Two cautions: move the observation to O-06.2, and don't overstate it — that resource is how a site *advertises* GPC support, and its absence is suggestive rather than dispositive. The obligation is to honour the signal. **O-06.4 → Not tested** pending multi-session monitoring.
+
+**O-07.2 — Fail. ""No specific link exists for sensitive PI.""** This is the one I'd most want changed. Your register's own method reads: *first determine whether use exceeds permitted purposes, then check for the link. Absence is only a finding if the trigger is met.* Airbnb's stated position at US Supplement §3.4.4 is that it does **not** use or disclose sensitive PI for purposes to which the limit right applies. If that holds, no link is required and its absence is compliant. You've recorded a Fail against an obligation you haven't established attaches. **Downgrade to Not tested**, and make the trigger the interview question.
+
+**B. Four rows where the call is right but the evidence won't survive challenge**
+
+- **O-03.5 — ""Do not track was found in the homepage.""** It isn't. The DNT statement is at US Supplement §3.4.2. The homepage carries only the footer link. Outcome Pass stands; correct the citation or Airbnb rebuts it in one click.
+- **O-05.8 — ""Previous calendar year is non-compliant.""** This is your strongest finding and it has one sentence. It needs all four grounds: page shows 1 Jan–31 Dec **2024**; the 1 July 2026 deadline for 2025 data has passed; received/complied/denied are collapsed into a single figure per category; and opt-out, correction and limit-use categories are absent entirely. Also confirm on `.com` rather than the `.ca` mirror before publishing.
+- **O-06.1 — ""Section exists"" (Critical).** Presence isn't the test. Add the opt-out icon check, coverage on PI-collecting pages including checkout, and the mobile breakpoint. Any one of those failing moves this to Partial.
+- **O-03.4 and O-05.1 — ""No issues noted.""** Both correct. Record the actual artefacts — the two dates (5 Feb 2026, 1 Jan 2026), and the four intake methods — so a third party can reproduce them.
+
+**C. Rows deferred to the interview that the interview can't answer**
+
+This is the methodological point. O-06.2, all five D-08 rows, O-15.1 and O-17.2 are marked ""to confirm during interview process."" None of them can be. They're network-capture tests. Asking Airbnb whether their pixels fire pre-consent produces a *stated position* — and your instrument is built on reconciling stated against observed. If the observed column is empty, there is nothing to reconcile and the Part 1 deliverable has no independent content.
+
+It matters most for D-08, which your domain sheet identifies as carrying the largest practical exposure and which your Assessment Design tab names as the lead-magnet value. Five untested Criticals there means the section that sells Part 2 is blank.
+
+**Highest return for the least time: run T-16 before the interview.** Brave or Firefox with GPC, confirm `Sec-GPC: 1` is actually leaving the browser, load Airbnb, watch DevTools Network for the vendors named at `article/3535`, diff against a control session. One clean session gets you O-06.2 and most of O-08.1 and O-08.5.
+
+Two smaller ones: **O-05.6** — the non-discrimination *disclosure* is fully observable at US Supplement §2, so record it as Pass on the disclosure limb with pricing comparison outstanding. **O-04.4** — the referral terms are a public page, so that's a read, not an interview question.
+
+**D. Rows I'd leave alone**
+
+O-03.2, O-03.3, O-03.6, O-04.2, O-04.5, O-15.5, O-17.4 are all sound. One wording fix: **O-17.5** says ""to confirm during interview"" but the correct reason is *applicable, not externally observable, route to Part 2* — which is what your own Key tab says about T-27. Keep the three ""Not tested"" reasons visibly distinct: not applicable (O-15.5, O-17.4), not observable (O-17.5), not yet run (everything else). A client reading fifteen identical blanks asks what they paid for; a client reading two closed, one referred and twelve with a defined method sees scope control.
+
+**T-28 is entirely blank.** You have material for it already — the app carries a granular preference centre that US web doesn't, and the `.ca` and `.com` metrics pages need comparing.
+
+---
+
+**What genuinely belongs in the interview**
+
+Five questions, none answerable from outside:
+
+1. On what basis does Airbnb conclude no sensitive PI use triggers the limit-use right, given it holds government ID, facial recognition data, precise geolocation and health information? *(O-07.2)*
+2. Is date of birth collected at signup used to gate anything, or only asserted in Terms? *(O-04.5, O-15.1)*
+3. Is ""strive to honour"" GPC a drafting choice or a description of an incomplete implementation? *(O-06.2)*
+4. Why are 2025 metrics unpublished four weeks past deadline, and who owns that calendar? *(O-05.8)*
+5. Is the referral credit treated internally as a financial incentive for personal information? *(O-04.4)*
+
+I can produce a marked-up copy of the workbook with the revised outcomes, the corrected observations, and the evidence refs populated from the citations we've gathered across this session — that would close the empty Evidence column in one pass. Say the word and I'll build it.",,,,

@@ -1,0 +1,892 @@
+{
+  "session_id": "session1",
+  "participant_id": "p37",
+  "title": "Session 1 - Participant 37 User + Claude/Protégé Behavior Graphs",
+  "goal": "Produce a clause-by-clause statutory compliance analysis of a residential solar home improvement contract and its accompanying financing agreement against California and federal disclosure requirements, delivering (a) a clause comparison sheet mapping each statutory requirement to the contract's treatment of it, and (b) a short analytical memorandum of findings in the form the participant would send to a supervising attorney.",
+  "context": "I work as a consumer protection case analyst and paralegal on residential solar and home-improvement disputes. My core task is contract compliance analysis: taking a signed home improvement contract and its associated financing agreement, and testing them clause by clause against the statutory disclosure requirements that govern that kind of sale in California. Where a contract falls short — a missing cancellation notice, an unitemised price, no translated copy where the sale was negotiated in Spanish — that gap becomes the foundation of the homeowner's claim. The output of my analysis goes to a supervising attorney, who decides how to proceed.\n\nFor a non-expert: a solar company sells a homeowner a system, usually door-to-door, financed over twenty-plus years. California law requires specific things to appear in that paperwork, in a specific form, and requires the homeowner to be told they can cancel within three days. My job is to read the paperwork very closely and identify exactly which of those requirements were not met, with a page and clause citation for each one, so nothing I report back is guesswork.\n\nFor this session I am running that same analysis on publicly available contract templates and published statutory sources rather than client files, so there is no confidentiality issue with screen recording. The methodology is identical to what I do on live matters; only the inputs change.",
+  "occupation": "Paralegal",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "Yes — both deliverables were produced within the hour: a completed clause comparison sheet and an analytical memorandum ready for attorney review.\nThat said, achieving the goal required considerably more correction of the legal content than I expected. Claude's statutory analysis contained recurring inaccuracies: requirements stated in terms the statute does not use, citations attached to the wrong subdivision, and confident assertions about what a provision required that did not survive checking against the primary source. The workflow held together because verification was built in as a separate, human-only stage (Step 5) rather than folded into drafting. Had I written the memo straight from the model's output, several findings would have been wrong on the law.\nSo the goal was met, but the collaboration was more supervisory than collaborative on the substance. The value was in structure, speed and coverage — organising the requirement matrix, running a first pass across every row, producing a memo skeleton — not in the legal analysis itself, which I had to supply and repeatedly correct."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Scope the governing law",
+      "step_action": "I locate a publicly available residential solar home improvement contract and a matching consumer solar financing agreement (from a state consumer agency publication, a regulator's sample filing, or a vendor's published template) and save them locally as the working document set. I then ask Claude to identify which bodies of law govern a door-to-door residential solar sale in California, so that I have a defined scope before I start reading - statutory, regulatory, and federal.",
+      "time_range": "00:00-07:51",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Locate and prepare source contract documents for review",
+          "detail": "Narrates the session's compliance-analysis goal to camera, then opens a new Claude.ai chat and attaches the home improvement contract PDF and matching solar disclosure/financing PDF as the working document set.",
+          "time": [
+            "00:00:00-00:02:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a2",
+          "actor": "claude",
+          "label": "Identify and summarize the governing legal framework",
+          "detail": "Reviews the uploaded documents and identifies the principal bodies of law governing the California residential solar transaction, including CSLB home-improvement and solar-disclosure requirements, Civil Code home-solicitation and contract-formation protections, CPUC requirements, and related statutory provisions.",
+          "time": [
+            "00:02:37-00:03:11"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a3",
+          "actor": "user",
+          "label": "Review Claude's governing-law analysis",
+          "detail": "",
+          "time": [
+            "00:03:11-00:04:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a4",
+          "actor": "user",
+          "label": "Request the governing-law analysis as a PDF",
+          "detail": "Asks Claude to convert the governing-law analysis into a PDF.",
+          "time": [
+            "00:04:18-00:04:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a5",
+          "actor": "claude",
+          "label": "Convert and deliver the governing-law analysis as a PDF",
+          "detail": "Converts the previously generated governing-law analysis into a PDF and delivers the completed file to the user.",
+          "time": [
+            "00:04:25-00:04:49"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a6",
+          "actor": "user",
+          "label": "Verify Claude's scoping output against self-defined rubric",
+          "detail": "Places the workflow-planning document's Step 1 rubric list side by side with Claude's scoping output and checks it against his own five rubrics, flagging on camera that at least one rubric was not actually satisfied.",
+          "time": [
+            "00:04:49-00:07:51"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1",
+          "user_response": [
+            {
+              "source_node": "a1",
+              "target_ai": "a5",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:02:37",
+              "ai_node_time": "00:04:25-00:04:49",
+              "user_adoption_time": "00:04:49-00:07:51",
+              "reasoning": "Source a1: Requests to identify bodies of laws \nTarget a5: Outputs the governing-law analysis as a PDF.\nReasoning: a2 answers in chat, a4 asks for a PDF. User does not modify the final document."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        },
+        {
+          "from": "a5",
+          "to": "a6",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Build the compliance requirement matrix",
+      "step_action": "Working from the Step 1 scoping list, I build a requirement matrix in Google Sheets: one row per discrete statutory obligation, with columns for the authority, the precise requirement, where in the contract it should appear, and how a violation would present. I use Claude to convert the statutory text into discrete testable obligations, then edit the matrix myself to remove duplication and add requirements Claude did not break out.",
+      "time_range": "07:51-11:49",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor": "user",
+          "label": "Request conversion of legal scope into testable obligations",
+          "detail": "Opens a blank spreadsheet and asks Claude to turn the Step 1 scoping list into discrete, testable statutory obligations in a spreadsheet format.",
+          "time": [
+            "00:07:51-00:08:56"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b2",
+          "actor": "claude",
+          "label": "Convert statutory scope into a testable-obligations matrix",
+          "detail": "Notes it has no direct Google Sheets connector and instead produces a downloadable CA_Solar_Sales_Testable_Obligations.xlsx with 15 discrete obligations, each mapped to a legal basis, test/verify method, trigger condition, and pass criteria.",
+          "time": [
+            "00:08:56-00:10:14"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b3",
+          "actor": "user",
+          "label": "Review obligation matrix and identify coverage gaps and open an empty Google Excel",
+          "detail": "Downloads and opens the obligations workbook in Excel, reviewing the roughly 15-row matrix against the 25-35 obligation target called for in the workflow plan and noting he'll need to add obligations Claude did not break out.",
+          "time": [
+            "00:10:14-00:11:49"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Excel",
+          "source_steps": "Step 2",
+          "user_response": [
+            {
+              "source_node": "b1",
+              "target_ai": "b2",
+              "label": "adopt",
+              "source_node_time": "00:07:51-00:08:56",
+              "ai_node_time": "00:08:56-00:10:14",
+              "user_adoption_time": "00:10:14-00:11:49",
+              "reasoning": "Source b1: Requests to convert Step 1 into testable statutory obligations.\nTarget b2: Outputs CA_Solar_Sales_Testable_Obligations.xlsx \nReasoning: User plans to add the rest himself. But does not modify the document."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Extract and index the contract clauses",
+      "step_action": "I read the home improvement contract in full and index its clauses - identifying the price and payment terms, scope of work, cancellation provisions, warranty and performance language, and any integration or arbitration clause. I upload the contract to Claude and ask for a structured clause inventory with page and section references, then check that inventory against the document myself to confirm nothing was invented or missed.",
+      "time_range": "11:49-16:56",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Request a verified clause inventory of the contract",
+          "detail": "Uploads the home improvement contract PDF to Claude and asks for a structured clause inventory with page/section references, verified against the source.",
+          "time": [
+            "00:11:49-00:13:42"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c2",
+          "actor": "claude",
+          "label": "Produce and self-verify a structured clause inventory",
+          "detail": "Returns a 28-clause inventory checked against the source text, flagging judgment calls rather than resolving them silently - separating a non-contractual case-intake note, excluding a trailing 'DEFECT KEY' section as metadata, and flagging an unresolved ambiguity where the same person appears as both a signing owner and the soliciting salesperson.",
+          "time": [
+            "00:13:42-00:15:18"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c3",
+          "actor": "user",
+          "label": "Cross-check the clause inventory against the source contract",
+          "detail": "Reviews Claude's clause inventory output against the underlying PDF himself to confirm nothing was invented or missed before treating it as reliable.",
+          "time": [
+            "00:15:18-00:16:56"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "c1",
+              "target_ai": "c2",
+              "label": "adopt",
+              "source_node_time": "00:11:49-00:13:42",
+              "ai_node_time": "00:13:42-00:15:18",
+              "user_adoption_time": "00:15:18-00:16:56",
+              "reasoning": "Source c1: Requests a clause inventory of the contract\nTarget c2: Outputs clause inventory \nReasoning: User cross-checks it against the contract and does not modify the document."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Run the clause-by-clause comparison and populate the comparison sheet",
+      "step_action": "I work down the requirement matrix and, for each obligation, record whether the contract satisfies it, partially satisfies it, or omits it, citing the clause relied on. I use Claude to run a first pass across the matrix and then correct its findings against the document - this is the step where I expect the most disagreement between us and where my own judgement does the most work.",
+      "time_range": "16:56-24:35",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Assemble documents and request a first-pass compliance run",
+          "detail": "Re-attaches both source PDFs, the compliance matrix, and the clause inventory to the same Claude chat and asks Claude to run a first pass across the matrix and then correct the findings against the document.",
+          "time": [
+            "00:16:56-00:20:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Run and correct a clause-by-clause compliance pass",
+          "detail": "Confirms the uploaded matrix matches what it built, then tests each of the 15 obligations against the actual contract and disclosure text, producing an independent finding plus a corrected second pass - 13 of 15 obligations fail, one is downgraded to not-applicable after checking an effective date, and several deadline/payment findings are recomputed and tightened.",
+          "time": [
+            "00:20:09-00:22:37"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d3",
+          "actor": "user",
+          "label": "Review compliance-matrix findings and corrections",
+          "detail": "Reads through Claude's pass/fail determinations and corrections in the downloaded compliance matrix, anticipating the disagreements that the independent legal-authority check in the next step will need to resolve.",
+          "time": [
+            "00:22:37-00:24:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Excel",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "d1",
+              "target_ai": "d2",
+              "label": "adopt",
+              "source_node_time": "00:16:56-00:20:09",
+              "ai_node_time": "00:20:09-00:22:37",
+              "user_adoption_time": "00:22:37-00:24:35",
+              "reasoning": "Source d1: Requests a first pass compliance run across the matrix, corrected against the documents.\nTarget d2: Outputs a compliance matrix XLSX, summary and methodology tab.\nReasoning: User reviews, and does not modify. later compares it with the obligations sheet (e7)."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Verify the statutory basis in Lexis and Protégé",
+      "step_action": "I take every authority relied on in the comparison sheet and pull the current text in Westlaw or Lexis, checking the effective date, any recent amendment, and the citing references for judicial gloss on the requirements. Nothing Claude asserted about the law goes into the memo until I have read the section myself. This step is deliberately run without Claude.",
+      "time_range": "24:35-34:31",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Set up independent statutory verification and query Protégé",
+          "detail": "Sets aside Claude's legal assertions, navigates Lexis+ to locate the relevant California Business & Professions Code authority, opens Protégé for independent verification, and asks what §7159(d)(1) states.",
+          "time": [
+            "00:24:35-00:25:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Lexis+, Microsoft Excel, Protégé (Lexis+ AI assistant)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e2",
+          "actor": "protege",
+          "label": "Return a cited statutory answer with supporting case law",
+          "detail": "Answers with the statutory text's requirements and supporting citations (e.g. a Torres v. Martinez case reference), covering the right-to-cancel and progress-payment-schedule requirements plus applicable exemptions.",
+          "time": [
+            "00:25:53-00:26:16"
+          ],
+          "actor_type": "ai",
+          "softwares": "Protégé (Lexis+ AI assistant)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e3",
+          "actor": "user",
+          "label": "Read the full annotated statute and citing case law directly",
+          "detail": "Opens the full text of Cal. Bus. & Prof. Code s77159 on Lexis+, reading the statute summary, amendment history, key requirements, and citing decisions himself rather than relying on any AI's summary.",
+          "time": [
+            "00:26:16-00:27:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Lexis+",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Request follow-up verification of Bus. & Prof. Code §7159",
+          "detail": "",
+          "time": [
+            "00:27:25-00:28:08"
+          ],
+          "actor_type": "user",
+          "softwares": "Protégé (Lexis+ AI assistant)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e5",
+          "actor": "protege",
+          "label": "Respond to the follow-up §7159 statutory query",
+          "detail": "",
+          "time": [
+            "00:28:08-00:28:38"
+          ],
+          "actor_type": "ai",
+          "softwares": "Protégé (Lexis+ AI assistant)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e6",
+          "actor": "user",
+          "label": "Cross-check comparison-sheet rows against verified authority",
+          "detail": "Works row by row through the Excel compliance matrix, comparing its entries against the statutory authority verified through Lexis+.",
+          "time": [
+            "00:28:38-00:33:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Lexis+, Microsoft Excel",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "e1",
+              "target_ai": "e5",
+              "label": "adopt",
+              "source_node_time": "00:24:35-00:25:53",
+              "ai_node_time": "00:28:08-00:28:38",
+              "user_adoption_time": "00:28:38-00:33:38",
+              "reasoning": "Source e1: Asks Protege what bus, prof code 7159 states\nTarget e5: Answers question. \nReasoning: e2 answers, user reads the statute, then asks about the whole section (e4), user checks the matrix against it (e6)."
+            }
+          ]
+        },
+        {
+          "id": "e7",
+          "actor": "user",
+          "label": "Produce a corrected comparison workbook reflecting verified authority",
+          "detail": "Downloads a revised comparison workbook that adds a Summary & Methodology tab and red/green/yellow (fail/not-applicable/observation) color coding across the matrix, carrying the Lexis- and Protégé-verified corrections back into the working sheet.",
+          "time": [
+            "00:33:38-00:34:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Excel",
+          "source_steps": "Step 5"
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e5",
+          "type": "sequential"
+        },
+        {
+          "from": "e5",
+          "to": "e6",
+          "type": "sequential"
+        },
+        {
+          "from": "e6",
+          "to": "e7",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 6": {
+      "key": "seg6",
+      "badge": "Step 6",
+      "step_name": "Focused analysis - cancellation notice and Civil Code s71632 translation",
+      "step_action": "I return to two requirements that carry disproportionate weight in this practice area and analyse them in depth: whether the cancellation notice satisfies the form, content, timing and duplicate-copy requirements, and whether the transaction would trigger the s71632 obligation to deliver a translated contract where the sale was negotiated primarily in Spanish. I use Claude to pressure-test my reading and to argue the opposing position, then decide the point myself.",
+      "time_range": "34:31-46:17",
+      "nodes": [
+        {
+          "id": "f1",
+          "actor": "user",
+          "label": "Reopen cancellation-notice documents and set the factual assumption",
+          "detail": "Reopens the Notice of Cancellation and Three-Day Right to Cancel pages within the contract and the Exhibit C disclosure, and states the factual assumption on camera that the sale was negotiated primarily in Spanish.",
+          "time": [
+            "00:34:31-00:36:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "f2",
+          "actor": "user",
+          "label": "Request a combined cancellation-notice and s71632 analysis with counterargument",
+          "detail": "Re-attaches the documents to Claude and asks it to confirm whether the notice of cancellation satisfies form, content, timing, and duplicate-copy requirements, whether the transaction triggers the s71632 translation obligation, and to argue an opposing-counsel counterargument with his own assessment of it.",
+          "time": [
+            "00:36:57-00:41:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "f3",
+          "actor": "claude",
+          "label": "Analyze cancellation-notice compliance and s71632 applicability with counterarguments",
+          "detail": "Verifies the statutory exemptions, then produces a written analysis finding notice defects (wrong duration for a senior buyer, undated acknowledgment, miscalculated deadline) and a correction to the earlier matrix - that Civil Code s71632(g)(2) likely excludes this home-improvement contract from the translation requirement - along with two counterarguments at their strongest.",
+          "time": [
+            "00:41:29-00:45:03"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "f4",
+          "actor": "user",
+          "label": "Assess Claude's counterarguments and flag an additional gap Claude missed",
+          "detail": "Evaluates the two counterarguments (substantial compliance assessed as weak, the s71632(g)(2) exclusion assessed as well-founded), and separately observes that Claude's analysis appears to have missed the disclosure-booklet requirement, noting he will raise that himself in the memo.",
+          "time": [
+            "00:45:03-00:46:17"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6",
+          "user_response": [
+            {
+              "source_node": "f2",
+              "target_ai": "f3",
+              "label": "adopt",
+              "source_node_time": "00:36:57-00:41:29",
+              "ai_node_time": "00:41:29-00:45:03",
+              "user_adoption_time": "00:45:03-00:46:17",
+              "reasoning": "Source f2: Requests a cancellation notice and 1632 analysis, with a counterargument.\nTarget f3: Outputs the analysis, correcting the matrix, w/ counterargs \nReasoning: User accepts it but notes it missed a requirement."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "f1",
+          "to": "f2",
+          "type": "sequential"
+        },
+        {
+          "from": "f2",
+          "to": "f3",
+          "type": "sequential"
+        },
+        {
+          "from": "f3",
+          "to": "f4",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 7 + Step 8": {
+      "key": "seg7",
+      "badge": "Step 7 + Step 8",
+      "step_name": "Draft, review, and finalize the analytical memorandum",
+      "step_action": "I ask Claude to produce a structural draft of the analytical memorandum from the comparison sheet, then review the draft against the verified statutory authority, source documents, and comparison sheet. I identify and correct any remaining citation or analytical discrepancies, reconcile the memo with the underlying analysis, and finalize the memo and comparison workbook for delivery.",
+      "time_range": "46:17-50:54",
+      "nodes": [
+        {
+          "id": "g1",
+          "actor": "user",
+          "label": "Request the final memo draft in professional prose register",
+          "detail": "Staying in the same Claude conversation, asks Claude to produce the full and final draft he will send to his supervisor - a structural draft from the comparison sheet rewritten into his own plain-prose register, no tables, 900-1200 words.",
+          "time": [
+            "00:46:17-00:48:12"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 7"
+        },
+        {
+          "id": "g2",
+          "actor": "claude",
+          "label": "Synthesize compliance findings into a prose memorandum",
+          "detail": "Generates a 985-word continuous-prose memo covering the notice defects, the s71632 correction, and both counterarguments, with the participant's own assessment folded in as reasoning rather than a separate labeled section.",
+          "time": [
+            "00:48:12-00:49:44"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 7"
+        },
+        {
+          "id": "g3",
+          "actor": "user",
+          "label": "Review the draft memo and reconcile residual citation issues",
+          "detail": "Reads the draft memo, identifies remaining statutory citation issues, and reopens the prior cancellation and §1632 analysis to spot-check the memo against the earlier verified analysis.",
+          "time": [
+            "00:49:44-00:50:11"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Word",
+          "source_steps": "Step 7",
+          "user_response": [
+            {
+              "source_node": "g1",
+              "target_ai": "g2",
+              "label": "adopt",
+              "source_node_time": "00:46:17-00:48:12",
+              "ai_node_time": "00:48:12-00:49:44",
+              "user_adoption_time": "00:49:44-00:50:11",
+              "reasoning": "Source g1: Requests to write a draft to be sent to supervisor \nTarget g2: Outputs draft\nReasoning: User reviews it and fixes remaining citation issues himself (g3–g4)."
+            }
+          ]
+        },
+        {
+          "id": "g4",
+          "actor": "user",
+          "label": "Cross-check the memo against the rubric and comparison sheet, citation by citation",
+          "detail": "Works through the workflow doc's Step 8 rubric text visible on screen, individually opening and confirming every citation and resolving discrepancies at the source so the memo and the comparison sheet agree on every determination.",
+          "time": [
+            "00:50:11-00:50:54"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Word, Microsoft Excel",
+          "source_steps": "Step 8"
+        }
+      ],
+      "edges": [
+        {
+          "from": "g1",
+          "to": "g2",
+          "type": "sequential"
+        },
+        {
+          "from": "g2",
+          "to": "g3",
+          "type": "sequential"
+        },
+        {
+          "from": "g3",
+          "to": "g4",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Scope the governing law",
+      "step_action": "I locate a publicly available residential solar home improvement contract and a matching consumer solar financing agreement (from a state consumer agency publication, a regulator's sample filing, or a vendor's published template) and save them locally as the working document set. I then ask Claude to identify which bodies of law govern a door-to-door residential solar sale in California, so that I have a defined scope before I start reading - statutory, regulatory, and federal.",
+      "input": "Two downloaded PDFs (solar HIC template, consumer solar loan agreement template); my prompt describing the transaction type (residential, owner-occupied, negotiated at the home, financed).",
+      "output": "A local folder of source PDFs plus a scoping list naming the governing authorities to be tested — (codes to be confirmed) Bus. & Prof. Code §7159 (home improvement contract content), §7159.5 (down payment and progress payment limits), §7169 (Solar Energy System Disclosure Document), Civ. Code §§1689.5–1689.14 (home solicitation sales and the three-day right to cancel), Civ. Code §1689.7 (form and delivery of the cancellation notice), Civ. Code §1632 (foreign-language translation), Civ. Code §1770 (CLRA), TILA and Regulation Z (12 C.F.R. pt. 1026) for the credit disclosures, and the FTC Cooling-Off Rule (16 C.F.R. pt. 429).",
+      "tools": "Free version: Google Chrome, Adobe Acrobat Reader, Google Drive, Paid version: Claude Max",
+      "rubrics": [
+        "The scoping list separates California state authority from federal authority rather than merging them",
+        "Every authority is cited to a specific code section, not a general statute name",
+        "The list includes at least one solar-specific provision (not merely generic home improvement law)",
+        "No authority is cited that has been repealed, superseded, or does not exist",
+        "Each authority is accompanied by a one-line statement of what it actually requires, so the list is usable as a checklist rather than a reading list"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 2,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 3,
+        "output_quality_reason": "The scoping list was well-organised and immediately usable — state and federal authority were kept apart, solar-specific provisions were identified rather than collapsed into generic home improvement law, and each entry carried a short statement of what the provision requires, so the list functioned as a checklist rather than a reading list. The problem was accuracy at the level of the citation itself. Several provisions were cited to the section but attached to the wrong subdivision, and at least one requirement was described in terms the statute does not actually use. Those errors were only caught in Step 5, when I read the sections in lexis. A scoping list that reads well but sends you to the wrong subdivision is worse than one that is merely incomplete, because it invites reliance. Structure earned a high mark; reliability did not."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes. A complete, well-structured scoping list was produced quickly and it set the frame for the whole workflow. But it could not be relied on without independent verification, so what it completed was the organising work, not the legal work \nWhy? Yes. A complete, well-structured scoping list was produced quickly and it set the frame for the whole workflow. But it could not be relied on without independent verification, so what it completed was the organising work, not the legal work"
+      }
+    },
+    "Step 2": {
+      "step_name": "Build the compliance requirement matrix",
+      "step_action": "Working from the Step 1 scoping list, I build a requirement matrix in Google Sheets: one row per discrete statutory obligation, with columns for the authority, the precise requirement, where in the contract it should appear, and how a violation would present. I use Claude to convert the statutory text into discrete testable obligations, then edit the matrix myself to remove duplication and add requirements Claude did not break out.",
+      "input": "The Step 1 scoping list; statutory text pulled in Step 5 where already available.",
+      "output": "solar_compliance_matrix — a requirement matrix of roughly 25–35 discrete testable obligations.",
+      "tools": "Free version: Google Sheets,Paid version: Claude Max",
+      "rubrics": [
+        "Each row states one obligation only; compound requirements are split",
+        "Each row is traceable to a subdivision of the statute, not just the section",
+        "The matrix distinguishes content requirements (what must be said) from form requirements (typeface, placement, number of copies)",
+        "The matrix flags which obligations are strict-compliance and which permit substantial compliance",
+        "No obligation is stated in terms that cannot be tested against a document"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 4,
+        "output_quality_reason": "The decomposition of statutory text into discrete testable obligations was the single most useful thing produced in the session. Compound requirements were split correctly, content requirements were kept apart from form requirements, and the matrix arrived in a state I could edit rather than rebuild. I removed some duplication and added obligations that had not been broken out — particularly on the form side, where typeface and placement requirements were initially folded into content rows. Not a 5 because the strict-compliance versus substantial-compliance distinction was applied inconsistently, and that distinction matters a great deal to how a finding is later characterised."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes — the matrix was structurally sound and saved substantial time. My edits were refinements rather than corrections"
+      }
+    },
+    "Step 3": {
+      "step_name": "Extract and index the contract clauses",
+      "step_action": "I read the home improvement contract in full and index its clauses - identifying the price and payment terms, scope of work, cancellation provisions, warranty and performance language, and any integration or arbitration clause. I upload the contract to Claude and ask for a structured clause inventory with page and section references, then check that inventory against the document myself to confirm nothing was invented or missed.",
+      "input": "Solar HIC template PDF.",
+      "output": "A clause inventory listing every substantive provision with its location in the document, verified against the source.",
+      "tools": "Free version: Adobe Acrobat Reader, Google Docs,Paid version: Claude Max",
+      "rubrics": [
+        "Every listed clause carries a page and section reference that resolves correctly in the source PDF",
+        "No clause appears in the inventory that is not in the document",
+        "The inventory captures boilerplate and back-page terms, not only the front-page commercial terms",
+        "Provisions are quoted or paraphrased accurately without softening or strengthening the actual language",
+        "Where a clause is ambiguous, the ambiguity is preserved rather than resolved by assumption"
+      ],
+      "ratings": {
+        "collaboration_rating": 2,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 2,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 2,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 1,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 2,
+        "output_quality_reason": "This was the weakest output in the session and the step that generated the most rework. The clause inventory looked complete and well-organised, but the extraction itself was not reliable: references did not consistently resolve to the right place in the source, and provisions were paraphrased in ways that drifted from the actual contract language — sometimes resolving an ambiguity by assumption, sometimes stating a term more firmly than the document does. Because the inventory is the input to every subsequent step, I could not proceed on it until I had cross-checked it clause by clause against the source document and, for the statutory provisions it referenced, against Westlaw. That cross-checking is exactly the work the step was meant to save. An extraction output that is subtly wrong is more expensive than no extraction at all, because it looks finished."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "No — a usable clause inventory existed at the end of the step, but it was mine after correction, not the model's. The output as delivered could not be relied on."
+      }
+    },
+    "Step 4": {
+      "step_name": "Run the clause-by-clause comparison and populate the comparison sheet",
+      "step_action": "I work down the requirement matrix and, for each obligation, record whether the contract satisfies it, partially satisfies it, or omits it, citing the clause relied on. I use Claude to run a first pass across the matrix and then correct its findings against the document - this is the step where I expect the most disagreement between us and where my own judgement does the most work.",
+      "input": "solar_compliance_matrix.xlsx, the Step 3 clause inventory, both source PDFs.",
+      "output": "completed clause comparison sheet with a compliance determination and supporting citation for every row.",
+      "tools": "Free version: Google Sheets, Paid version: Claude Max",
+      "rubrics": [
+        "Every determination cites the specific contract clause it rests on, or expressly records that no clause addresses the requirement",
+        "\"Partial compliance\" determinations state precisely what is missing",
+        "No determination rests on an inference from silence unless the statute makes silence itself the violation",
+        "Findings supported by the document are kept separate from observations that would need further evidence to confirm",
+        "Where the correct determination depends on facts outside the document (e.g. the language of the oral sale), the row is marked as fact-dependent rather than resolved"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 4,
+        "output_quality_reason": "Once it was working from a corrected clause inventory, the comparison ran well. The first pass caught most of the defects in the specimen — including the down payment exceeding the statutory cap and the front-loaded progress payment schedule — and populated every row rather than leaving gaps. It missed a few, which I found myself, and a small number of determinations rested on inference from silence where the statute does not make silence itself the violation. Not a 5 because I still had to check each row, but the corrections here were refinements rather than repairs, which was not true of Step 3."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes — full coverage of the matrix with determinations that were mostly sound, and the misses were the kind I would expect to catch on review."
+      }
+    },
+    "Step 5": {
+      "step_name": "Verify the statutory basis in Lexis and Protégé",
+      "step_action": "I take every authority relied on in the comparison sheet and pull the current text in Westlaw or Lexis, checking the effective date, any recent amendment, and the citing references for judicial gloss on the requirements. Nothing Claude asserted about the law goes into the memo until I have read the section myself. This step is deliberately run without Claude.",
+      "input": "The authority column of the completed comparison sheet.",
+      "output": "A verified authority list with current statutory text, effective dates, and any correction to the compliance determinations made in Step 4.",
+      "tools": "Free version: N/A, Paid version: Westlaw, LexisNexis",
+      "rubrics": [
+        "Every authority relied on has been opened and read in a primary source database",
+        "The version checked is the version in force at the relevant date",
+        "Any authority that turns out to be misstated or inapplicable is struck from the analysis rather than reworded",
+        "At least one interpretive authority (case or regulatory guidance) is identified for the cancellation and translation requirements",
+        "Corrections arising from verification are carried back into the comparison sheet, not held separately"
+      ],
+      "ratings": {
+        "collaboration_rating": "【No Data】",
+        "The agent understood the task, context, and instructions provided": "【No Data】",
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": "【No Data】",
+        "The agent reduced effort, time, or cognitive load during the task": "【No Data】",
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": "【No Data】",
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": "【No Data】",
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 5,
+        "output_quality_reason": "This step was run without Claude by design, so the rating reflects my own verification work rather than an agent output. Every authority relied on was opened and read in a primary source database, effective dates were confirmed, and the corrections surfaced here were carried back into the comparison sheet rather than held separately. This step is also what makes the rest of the workflow defensible — the errors from Steps 1 and 4 were caught here and nowhere else."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "【No Data】",
+        "Why or why not": "N/A — no agent involvement in this step. That was deliberate and I would keep it that way."
+      }
+    },
+    "Step 6": {
+      "step_name": "Focused analysis - cancellation notice and Civil Code s71632 translation",
+      "step_action": "I return to two requirements that carry disproportionate weight in this practice area and analyse them in depth: whether the cancellation notice satisfies the form, content, timing and duplicate-copy requirements, and whether the transaction would trigger the s71632 obligation to deliver a translated contract where the sale was negotiated primarily in Spanish. I use Claude to pressure-test my reading and to argue the opposing position, then decide the point myself.",
+      "input": "The cancellation provisions from the source contract; verified statutory text from Step 5; a stated factual assumption that the sale was negotiated door-to-door in Spanish.",
+      "output": "A written analysis of both requirements, including the counterargument a defendant would raise and my assessment of it.",
+      "tools": "Free version: Google Docs, Paid version: Claude Max, Westlaw",
+      "rubrics": [
+        "The cancellation analysis addresses form, content, timing and delivery separately",
+        "The §1632 analysis identifies the trigger conditions and states which are assumed rather than established",
+        "A genuine defence argument is stated at its strongest, not as a straw man",
+        "The remedy consequence of each defect is identified, not just the defect",
+        "My conclusion is stated with a confidence level rather than asserted flatly where the point is contestable"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 4,
+        "output_quality_reason": "Asking the model to argue the opposing position was the most productive use of it in the session. The defence arguments it produced on the cancellation timing point were ones I would want to be ready for, and stating them at their strongest sharpened my own conclusion rather than softening it. The form/content/timing/delivery breakdown was handled properly. Marked down because the §1632 analysis did not cleanly separate the trigger conditions I was assuming from those the documents established, and I had to impose that distinction myself."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes — adversarial testing of a position is something the model does well, and it is a use where the accuracy problem matters less because I am evaluating the argument rather than relying on it."
+      }
+    },
+    "Step 7": {
+      "step_name": "Draft, review, and finalize the analytical memorandum",
+      "step_action": "I ask Claude to produce a structural draft of the analytical memorandum from the comparison sheet, then review the draft against the verified statutory authority, source documents, and comparison sheet. I identify and correct any remaining citation or analytical discrepancies, reconcile the memo with the underlying analysis, and finalize the memo and comparison workbook for delivery.",
+      "input": "Completed comparison sheet, verified authority list, Step 6 focused analysis.",
+      "output": "solar_contract_compliance_memo.docx — a 900–1,400 word analytical memorandum.",
+      "tools": "Free version: Google Docs, Paid version: Claude Max, Microsoft Word",
+      "rubrics": [
+        "Findings and observations appear under separate headings and are never merged",
+        "Every finding cites both the contract clause and the statutory provision",
+        "The memo states what the documents do not establish as clearly as what they do",
+        "No conclusion appears in the memo that is not traceable to a verified source",
+        "The recommended next steps are specific and actionable (documents to request, facts to confirm with the client)",
+        "The register is appropriate for an attorney reader — no explanation of basic concepts, no hedging filler"
+      ],
+      "ratings": {
+        "collaboration_rating": 3,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 2,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 3,
+        "output_quality_reason": "The structural draft was sound — findings and observations under separate headings, next steps specific and actionable, register broadly appropriate for an attorney reader. But I rewrote most of the prose. The draft explained concepts an attorney reader would not need explained, hedged where the analysis was actually firm, and in places asserted conclusions more confidently than the verified record supported. Useful as a skeleton, not as a draft. The memo that went out was mine."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes — a complete memo in the right shape was produced within the time available. The structure was the contribution; the content was mine."
+      }
+    },
+    "Step 8": {
+      "step_name": "Draft, review, and finalize the analytical memorandum",
+      "step_action": "I ask Claude to produce a structural draft of the analytical memorandum from the comparison sheet, then review the draft against the verified statutory authority, source documents, and comparison sheet. I identify and correct any remaining citation or analytical discrepancies, reconcile the memo with the underlying analysis, and finalize the memo and comparison workbook for delivery.",
+      "input": "Draft memo, comparison sheet, source PDFs, verified authority list.",
+      "output": "Final memorandum and final clause comparison sheet, reconciled and ready for attorney review.",
+      "tools": "Free version: Google Docs, Google Sheets, Adobe Acrobat Reader, Paid version: Claude Max",
+      "rubrics": [
+        "Every citation in the memo has been individually opened and confirmed",
+        "Any discrepancy found between memo and comparison sheet is resolved at source, not papered over",
+        "No unsupported inference survives into the final document",
+        "The two deliverables agree with each other on every determination",
+        "The final memo could be handed to an attorney without a covering explanation"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "【No Data】",
+        "I was able to guide, redirect, and override the agent's actions when desired": "【No Data】",
+        "output_quality_rating": 4,
+        "output_quality_reason": "The reconciliation pass was effective at what it was asked to do: flagging where the memo and the comparison sheet disagreed, and identifying citations that needed checking. It is a mechanical consistency task and the model handled it well. I still opened each citation myself rather than accepting the reconciliation, which is the only defensible way to close out a document like this. Both deliverables ended internally consistent and ready for attorney review."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "consistency checking across two documents is a good fit for the model, and this step required the least correction of any Claude-assisted step in the workflow."
+      }
+    }
+  }
+}

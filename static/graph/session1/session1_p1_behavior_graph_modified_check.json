@@ -1,0 +1,569 @@
+{
+  "session_id": "session1",
+  "participant_id": "p1",
+  "title": "Session 1 — Participant 1 User + Claude Behavior Graphs",
+  "goal": "Creating a video from my iPhone footage",
+  "context": "I want to make a quick family video edit for myself. And so I will use Claude to help me gather ideas, especially from its interpretation of my transcript.",
+  "occupation": "Film Editor",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "Yes. Using the workflow + Claude, I was able to get my 4-Minute video done. I took suggestions from Claude, including the music choices and how to structure and end the video."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Upload footage from iPhone to computer",
+      "step_action": "I will use Airdrop to put my footage onto the computer, and organize all the files the best that I can.",
+      "time_range": "00:00–01:36",
+      "nodes": [
+        {
+          "id": "n1",
+          "actor": "user",
+          "label": "Narrate retrospective self-assessment of the completed footage transfer",
+          "detail": "The AirDrop transfer from iPhone to computer was already completed before recording started, so the user faces the camera and narrates a retrospective self-rating: footage quality, upload speed, and organization all went well (rated 5/5), with the only friction being manually sorting footage from multiple cameras.",
+          "time": [
+            "00:00:00-00:01:36"
+          ],
+          "actor_type": "user",
+          "softwares": ""
+        }
+      ],
+      "edges": []
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Gather transcripts from Premiere Pro AND place it in Claude",
+      "step_action": "Placing footage into Premiere Pro and getting a transcript for Claude to understand. I then export the .srt file from Premiere Pro. I would then have Claude interpret the transcript.",
+      "time_range": "01:36–17:33",
+      "nodes": [
+        {
+          "id": "n2",
+          "actor": "user",
+          "label": "Organize imported footage and run speech-to-text transcription",
+          "detail": "Organizes roughly 120 imported clips onto a RAW timeline in Premiere Pro and runs Premiere's built-in Speech to Text feature on the footage to generate a working transcript.",
+          "time": [
+            "00:01:36-00:04:07"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n3",
+          "actor": "user",
+          "label": "Attempt a voiceover narration take recapping the birthday",
+          "detail": "Creates a dedicated 'RAW NARRATION' sequence and records an out-loud voiceover recapping the day's events (breakfast, mall, movie, Vision Pro demo), but stumbles partway through and cuts the take short.",
+          "time": [
+            "00:04:07-00:06:43"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n4",
+          "actor": "user",
+          "label": "Notice mistakes and redo the narration take",
+          "detail": "Judges the first take unusable ('mistake on human error'), starts recording again, but this second attempt is also flagged as not quite right; the timeline shows multiple distinct narration clips accumulating from these repeated attempts.",
+          "time": [
+            "00:06:43-00:07:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n5",
+          "actor": "user",
+          "label": "Record a complete, clean narration take",
+          "detail": "Records a full clean take of the birthday recap voiceover start to finish, then reviews it in the Essential Sound panel with speech enhancement and repair settings applied.",
+          "time": [
+            "00:07:14-00:09:17"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n6",
+          "actor": "user",
+          "label": "Generate and export a caption sidecar file from the narration",
+          "detail": "Troubleshoots an initial captions problem (audio was muted), then runs 'Create Captions from Transcript' and exports only a caption sidecar (.srt) file rather than the full video, since only the captions are needed.",
+          "time": [
+            "00:09:17-00:12:12"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n7",
+          "actor": "user",
+          "label": "Narrate retrospective self-rating for the transcription step",
+          "detail": "Rates this step a 4 out of 5 to camera, explaining it took a little longer than expected but that Premiere's transcription and the upcoming AI assistance saved significant time versus captioning manually.",
+          "time": [
+            "00:12:12-00:13:19"
+          ],
+          "actor_type": "user",
+          "softwares": ""
+        },
+        {
+          "id": "n8",
+          "actor": "user",
+          "label": "Upload the transcript to Claude and request editing guidance",
+          "detail": "Opens a new Claude chat, attaches the exported .srt transcript, and asks for editing pointers, giving context that it's a 30th-birthday video wanting a 'chill but exciting' tone, and asking for bonus song suggestions.",
+          "time": [
+            "00:13:19-00:15:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "n9",
+          "actor": "claude",
+          "label": "Provide structural editing feedback and song suggestions",
+          "detail": "Identifies the footage as having 'five mini-chapters,' praises the natural unscripted narration, flags that the video currently ends three separate times and should be trimmed to one ending, and proposes a chill-to-exciting song arc for each segment of the video.",
+          "time": [
+            "00:15:14-00:15:43"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "n10",
+          "actor": "user",
+          "label": "Review Claude's feedback and decide to proceed to editing",
+          "detail": "Reads through Claude's suggestions approvingly, decides song licensing doesn't matter since it's a personal video, and heads back to Premiere Pro to begin cutting based on the suggested chapter structure.",
+          "time": [
+            "00:15:43-00:17:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "n8",
+              "target_ai": "n9",
+              "label": "adopt",
+              "source_node_time": "00:13:19-00:15:14",
+              "ai_node_time": "00:15:14-00:15:43",
+              "user_adoption_time": "00:15:43-00:17:33",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "n2",
+          "to": "n3",
+          "type": "sequential"
+        },
+        {
+          "from": "n3",
+          "to": "n4",
+          "type": "sequential"
+        },
+        {
+          "from": "n4",
+          "to": "n3",
+          "type": "loop"
+        },
+        {
+          "from": "n3",
+          "to": "n5",
+          "type": "sequential"
+        },
+        {
+          "from": "n5",
+          "to": "n6",
+          "type": "sequential"
+        },
+        {
+          "from": "n6",
+          "to": "n7",
+          "type": "sequential"
+        },
+        {
+          "from": "n7",
+          "to": "n8",
+          "type": "sequential"
+        },
+        {
+          "from": "n8",
+          "to": "n9",
+          "type": "sequential"
+        },
+        {
+          "from": "n9",
+          "to": "n10",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Video edit with Claude's inspiration",
+      "step_action": "Using the advice from Claude for inspiration, I will edit the video to my liking. (Output: Final Cut, with Claude's suggestions)",
+      "time_range": "17:33–74:51",
+      "nodes": [
+        {
+          "id": "n11",
+          "actor": "user",
+          "label": "Begin trimming footage into a rough cut following Claude's structure",
+          "detail": "Starts cutting the raw footage down toward a single-ending rough cut per Claude's chapter guidance, but deliberately overrides one suggestion — keeping in a couple of narration false-starts and stumbles Claude recommended cutting, judging that they add spontaneity.",
+          "time": [
+            "00:17:33-00:25:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n12",
+          "actor": "user",
+          "label": "Continue trimming and arranging the remaining footage into the rough cut",
+          "detail": "Continues working through the rest of the footage — the mall, bookstore, theater, and Vision Pro segments — arranging clips into a coherent rough-cut sequence.",
+          "time": [
+            "00:25:00-00:45:00",
+            "00:53:22-00:53:44"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n13",
+          "actor": "user",
+          "label": "Regenerate captions to match the updated rough cut",
+          "detail": "Re-runs 'Create Captions from Transcript' and re-exports the caption file now that the rough cut has reshaped the footage's timing, since the earlier captions no longer line up.",
+          "time": [
+            "00:45:00-00:46:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n14",
+          "actor": "user",
+          "label": "Re-upload captions to Claude for rough-cut review",
+          "detail": "Uploads the captions file to Claude with the message 'I made a rough cut of my captions,' but (per the chat log) mistakenly re-sends the same unedited original file rather than the actual trimmed version.",
+          "time": [
+            "00:46:36-00:47:56"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro",
+          "starting_point": "yes"
+        },
+        {
+          "id": "n15",
+          "actor": "claude",
+          "label": "Flag the re-uploaded file as unchanged and ask for clarification",
+          "detail": "Per the chat log, Claude notices the re-upload is byte-for-byte identical to the original ('same 141 lines... did the trim not save?') and asks whether the user meant to upload a different version, restating the prior recommendations as a reminder. No Claude window is visible on screen at this point (the interaction happens off-camera, likely a second device), but the user's on-camera reaction moments later ('oh that's weird, I'm not sure why it didn't upload the real one, at least it told me that') directly matches this response, confirming it occurred.",
+          "time": [
+            "00:47:56-00:48:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "on_screen": false
+        },
+        {
+          "id": "n15b",
+          "actor": "user",
+          "label": "Recognize the mistake and re-upload the actual rough-cut file",
+          "detail": "Reacts on camera to Claude's response, realizes the wrong file was sent, and re-uploads the real trimmed captions file ('30th Birthday Captions RC1.srt') this time.",
+          "time": [
+            "00:48:22-00:49:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n15c",
+          "actor": "claude",
+          "label": "Deliver detailed second-round feedback on the rough cut",
+          "detail": "Per the chat log, Claude analyzes the real RC1 rough cut: praises the runtime cut (8:36 to ~3:50), the merged recaps, the trimmed Vision Pro sequence, and the shirt-flip ending; flags four remaining issues (a garbled caption ~0:25-0:34, an unclear line ~2:59-3:04, an abrupt ending, and an optional recap tightening); and gives updated music cue points by timestamp. As with n15, this exchange is not visible on screen but is directly confirmed by the timestamped chat log.",
+          "time": [
+            "00:49:16-00:50:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "on_screen": false
+        },
+        {
+          "id": "n16",
+          "actor": "user",
+          "label": "Apply Claude's feedback to the rough cut",
+          "detail": "Applies the fixes from Claude's second-round feedback back in Premiere: merges the two mall recaps, cuts the restaurant-decision section, corrects the Build-A-Bear/Nintendo mislabel, and fixes the flagged transcription error.",
+          "time": [
+            "00:50:22-00:53:22"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro",
+          "user_response": [
+            {
+              "source_node": "n14",
+              "target_ai": "n15c",
+              "label": "adopt",
+              "source_node_time": "00:46:36-00:47:56",
+              "ai_node_time": "00:49:16-00:50:22",
+              "user_adoption_time": "00:50:22-00:53:22",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "n17",
+          "actor": "user",
+          "label": "Select and preview music for each segment, adapting Claude's song suggestions",
+          "detail": "After a brief pause acknowledging the session is running long, navigates to the music folder and works through Claude's suggested song arc for each segment, previewing tracks on YouTube and substituting personal picks where preferred — e.g. choosing MGMT's 'Kids' over 'Electric Feel' since it felt more fitting turning 30, plus SZA's 'Good Days', the Odyssey's 'Siren Song', 'Can You Hear the Music' from Oppenheimer, and Donna Lewis's 1996 song for period nostalgia instead of Claude's ending picks.",
+          "time": [
+            "00:53:44-00:57:17"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro, Web browser (YouTube)"
+        },
+        {
+          "id": "n18",
+          "actor": "user",
+          "label": "Download chosen tracks and generate instrumental versions",
+          "detail": "Downloads the audio for each selected song and runs them through an online vocal-remover tool to produce instrumental versions, troubleshooting a couple of tool-loading glitches along the way.",
+          "time": [
+            "00:57:17-01:00:06"
+          ],
+          "actor_type": "user",
+          "softwares": "Web browser (YouTube, vocal remover tool)"
+        },
+        {
+          "id": "n19",
+          "actor": "user",
+          "label": "Apply a music-ducking preset and place instrumentals under the narration",
+          "detail": "Applies a 'Vocal Duck Male' audio preset, lowering the music roughly 8 dB under the narration, and places each instrumental track onto its corresponding segment across the timeline.",
+          "time": [
+            "01:00:06-01:04:41"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n20",
+          "actor": "user",
+          "label": "Review the edited timeline with music across an extended playback",
+          "detail": "Plays back long stretches of the edited cut with music and narration together, checking transitions and timing, including intentionally timing one song's ending to a snap-of-the-fingers moment in the footage.",
+          "time": [
+            "01:04:41-01:11:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n21",
+          "actor": "user",
+          "label": "Reflect on final song choices relative to Claude's suggestions",
+          "detail": "Summarizes to camera how each final song choice relates to what Claude originally suggested, explaining the reasoning behind each substitution made.",
+          "time": [
+            "01:11:14-01:12:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n22",
+          "actor": "user",
+          "label": "Add a title graphic to open the video",
+          "detail": "Uses Premiere's title tool to add a 'Happy 30th Birthday!' title graphic near the intro, adjusting the font and size and adding a cross-dissolve transition.",
+          "time": [
+            "01:12:19-01:13:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n23",
+          "actor": "user",
+          "label": "Notice and fix a pitch-shift artifact on an instrumental track",
+          "detail": "Notices the 'Kids' instrumental clip has an unintended pitch shift, catches it near the very end of the edit, and applies the Pitch Shifter audio effect to correct it.",
+          "time": [
+            "01:13:46-01:14:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        },
+        {
+          "id": "n24",
+          "actor": "user",
+          "label": "Final playback review and confirm satisfaction with the video",
+          "detail": "Does a final playback pass over the finished timeline and states on camera that they feel satisfied with the video; no on-screen export/render action occurs before the recording ends.",
+          "time": [
+            "01:14:05-01:14:51"
+          ],
+          "actor_type": "user",
+          "softwares": "Adobe Premiere Pro"
+        }
+      ],
+      "edges": [
+        {
+          "from": "n11",
+          "to": "n12",
+          "type": "sequential"
+        },
+        {
+          "from": "n12",
+          "to": "n13",
+          "type": "sequential"
+        },
+        {
+          "from": "n13",
+          "to": "n14",
+          "type": "sequential"
+        },
+        {
+          "from": "n14",
+          "to": "n15",
+          "type": "sequential"
+        },
+        {
+          "from": "n15",
+          "to": "n15b",
+          "type": "sequential"
+        },
+        {
+          "from": "n15b",
+          "to": "n15c",
+          "type": "sequential"
+        },
+        {
+          "from": "n15c",
+          "to": "n16",
+          "type": "sequential"
+        },
+        {
+          "from": "n16",
+          "to": "n12",
+          "type": "loop"
+        },
+        {
+          "from": "n12",
+          "to": "n17",
+          "type": "sequential"
+        },
+        {
+          "from": "n17",
+          "to": "n18",
+          "type": "sequential"
+        },
+        {
+          "from": "n18",
+          "to": "n19",
+          "type": "sequential"
+        },
+        {
+          "from": "n19",
+          "to": "n20",
+          "type": "sequential"
+        },
+        {
+          "from": "n20",
+          "to": "n21",
+          "type": "sequential"
+        },
+        {
+          "from": "n21",
+          "to": "n22",
+          "type": "sequential"
+        },
+        {
+          "from": "n22",
+          "to": "n23",
+          "type": "sequential"
+        },
+        {
+          "from": "n23",
+          "to": "n24",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Upload footage from iPhone to computer",
+      "step_action": "I will use Airdrop to put my footage onto the computer, and organize all the files the best that I can.",
+      "input": null,
+      "output": "Footage",
+      "tools": "iPhone,AirDrop",
+      "rubrics": [
+        "The quality of the footage is consistent with the original source",
+        "The speed of the upload is fast enough for me to jump into the project",
+        "The footage is organized in a way that Premiere Pro is able to sort it out on my timeline."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 5,
+        "output_quality_reason": "I was able to get all my footage onto the computer"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "No; because I didn’t need Claude to do my task."
+      }
+    },
+    "Step 2": {
+      "step_name": "Gather transcripts from Premiere Pro AND place it in Claude",
+      "step_action": "Placing footage into Premiere Pro and getting a transcript for Claude to understand. I then export the .srt file from Premiere Pro. I would then have Claude interpret the transcript.",
+      "input": "Downloaded Footage",
+      "output": "Transcripts",
+      "tools": "Premiere Pro’s Video to Text",
+      "rubrics": [
+        "Captions are precisely synchronized with the dialogue and appear/disappear at appropriate times",
+        "Correct SRT format with properly structured subtitle entries and timestamps",
+        "Claude suggestions make sense to the editor at hand"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "I didn’t give it a perfect “5” because Premiere Pro didn’t perfectly transcribe the video. But Claude was helpful in enabling me to suit the video."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Because the transcription on Premiere Pro saved me a lot of time. If I were to try to do the captions manually, it would have taken me forever. Claude was able to give me great suggestions."
+      }
+    },
+    "Step 3": {
+      "step_name": "Video edit with Claude's inspiration",
+      "step_action": "Using the advice from Claude for inspiration, I will edit the video to my liking. (Output: Final Cut, with Claude's suggestions)",
+      "input": null,
+      "output": "Rough Cut 1 (without music); Final Cut (with Claude’s suggestions)",
+      "tools": "【No Data】",
+      "rubrics": [
+        "Correct SRT format with properly structured subtitle entries and timestamps",
+        "Claude suggestions make sense to the editor at hand",
+        "The final cut is to the quality that the editor wants to see"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Because Claude was able to give me additional feedback that helped with my revised cut."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes; Claude helped me later in the edit."
+      }
+    }
+  }
+}

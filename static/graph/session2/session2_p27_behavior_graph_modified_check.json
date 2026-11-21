@@ -1,0 +1,967 @@
+{
+  "session_id": "session2",
+  "participant_id": "p27",
+  "title": "Session 2 — Participant 27 User + Claude Behavior Graphs",
+  "goal": "TURN SESSION 1'S PROVEN PLATE DESIGN INTO A FINISHED, REPRODUCIBLE TERRAIN CROSS-SECTION ATLAS: RENDER THE FULL MULTI-PAGE DRAFT, QA IT AGAINST THE WRITTEN CRITERIA, RE-IMPLEMENT THE ACCEPTED DESIGN NATIVELY AS A QGIS PRINT LAYOUT DRIVEN BY ATLAS, AND PACKAGE THE REPRODUCIBILITY BUNDLE (GPKG, SURVEY FIELD BOOK, STYLE FILES, PROJECT TEMPLATE, METADATA) SO A THIRD PARTY CAN REGENERATE THE PDF WITHOUT THE PARTICIPANT",
+  "context": "Session 1 produced one finished page and proved it was the right page: a map of one stretch of river with its terrain slices drawn underneath, laid out with all the reference information a professional map must carry. Session 2 turns that one page into the whole document, and then rebuilds it a second time inside the mapping software itself.\n\nThe rebuild is the interesting part. The first version was drawn by a plotting library — fast and flexible, but it lives in a script and only I can regenerate it. The second version lives in a QGIS project file, where the page is a template and the software walks the river automatically, producing one page per stretch. That version is the one a colleague can open, adjust, and re-run. Getting the two to look the same is genuinely difficult: two different rendering engines, two separate descriptions of the same colours and line weights, and no automatic check that they agree. The session ends by packaging everything with a written record of where they still diverge and why.",
+  "occupation": "GIS Specialist",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes, Partially",
+    "Why or why not": "The core objective was reached: the full multi-page atlas was rendered, QA'd and signed off, the design was re-implemented natively in QGIS, and the Atlas was wired and exported over the reach layer. What did not happen inside the session was Step 5 — consolidating everything into a delivery folder with a README, metadata record and verification note. The session ran past its 60-minute budget, though by less than Session 1 did, so the plan's decision to front-load the native QGIS work helped. The remaining gap is packaging rather than analysis: every substantive artefact the atlas depends on exists and is correct, but the reproducibility bundle that lets someone else regenerate it unaided has not been assembled. There is also one design-level caveat carried out of Step 4, recorded there: the cross-sections in the QGIS layout are placed as pre-rendered SVG images rather than being drawn by QGIS's built-in elevation profile tool, which works and reproduces the approved plate but is not the ideal native implementation."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Restore session state and render the full draft atlas",
+      "step_action": "Re-establish Cowork's context from the Session 1 artefacts rather than re-explaining them: point it at the spec, the style tokens, the GPKG and the composition script, and have it confirm what it finds (layer counts, transect count, reach IDs, the naming convention). Then loop the Session 1 composition function over every reach to produce the full draft PDF, plus the standalone profile grid images that Step 4 will need. Confirm the page count is what the spec expects before rendering, not after.",
+      "time_range": "00:00:00-00:38:41",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Composing and sending the context-restoration prompt",
+          "detail": "Pastes a pre-drafted context prompt into a fresh chat — environment details, an explicit warning that any PyQGIS Claude writes runs in the user's own console (not Claude's sandbox, so it won't see errors unless they're pasted back), and working rules (step by step, defensive PyQGIS with per-stage progress prints, distinguish requested changes from Claude's own initiative). Sends it with several environment fields still literally unfilled (e.g. project root path)",
+          "time": [
+            "00:00:00-00:03:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1b",
+          "actor": "claude",
+          "label": "Block on the missing project path before proceeding",
+          "detail": "Rather than guessing or silently continuing, states the one blocker explicitly — the project folder is still an unfilled placeholder — and asks for the real path plus which Session 1 outputs to inspect, saying it will wait for the go-ahead",
+          "time": [
+            "00:03:16-00:03:38"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1c",
+          "actor": "user",
+          "label": "Supplying the real paths",
+          "detail": "Confirms Session 1 artefacts live at D:\\research\\minnesota\\Session 1 and this session should work in D:\\research\\minnesota\\Session 2",
+          "time": [
+            "00:03:38-00:04:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1d",
+          "actor": "claude",
+          "label": "Inventory artefacts and surface unresolved conflicts",
+          "detail": "Reads the attached files and reports page math (17 reaches -> 17 pages, one per reach, no suffix). Then lists 'four conflicts I will not resolve silently': (1) the spec's prose says 40m spacing/0.50m sampling, but the tokens and actual Session 1 data say 150m/2.0m — the spec text itself is stale; (2) the approved plate's tile titles use a format the spec's naming rule (§6.3) doesn't match, which fails QA-09 as written; (3) OD-5 (vertical datum) is still printing 'por confirmar/TBC' in the footer; (4) project.gpkg is flagged unreliable (Session 1 hit a sandbox mount bug and fell back to hand-rolled GeoJSON), and the downsampled orthomosaic only exists as a QGIS-unreadable 0.5m/px NumPy array. Also flags one undocumented addition (a 'no data' annotation on tile R01-00000) for a keep/kill call",
+          "time": [
+            "00:04:31-00:07:14"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1e",
+          "actor": "user",
+          "label": "Review Claude's response about inventorying artefacts and surfacing unresolved conflicts",
+          "detail": "The participant reads Claude's inventory of the Session 1 artefacts (17 reaches, 17 pages) and its list of four conflicts it will not resolve silently.",
+          "time": [
+            "00:07:14-00:07:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1f",
+          "actor": "user",
+          "label": "Resolving the four flagged decisions",
+          "detail": "Works through Claude's 4-question interactive sequence: confirms 150m spacing/2.0m sampling as the truth (spec bumped to v1.1, no geometry regeneration, R01 stays approved); keeps the existing R01-00000/K0.00 tile-title format and relaxes QA-09 rather than renumbering the whole atlas; decides to point the QGIS project at the full 65.7GB original orthomosaic rather than building a new downsampled GeoTIFF; and leaves the vertical datum unresolved, keeping the TBC placeholder",
+          "time": [
+            "00:07:21-00:08:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1g",
+          "actor": "claude",
+          "label": "Produce a proposed execution plan",
+          "detail": "Proposes an 8-step plan: kick off a gdaladdo overview-pyramid build on the orthomosaic in the background (~22GB of .ovr, hours not minutes); amend the spec to v1.1; render the remaining 16 profile grids and proof plates; assemble the full 17-page atlas PDF; rebuild project.gpkg cleanly; generate QML styles from the tokens; build the QGIS Print Layout/Atlas; and verify by diffing the QGIS export against the matplotlib atlas. Flags that the gdaladdo command is the one thing needing to be pasted right now so it can run in parallel in the background",
+          "time": [
+            "00:08:19-00:09:00"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1h",
+          "actor": "user",
+          "label": "Request reconciliation against the pre-planned structure",
+          "detail": "Points out the workflow was already scripted in advance (S2_prompt_script_v1.md, attached) and asks Claude to audit its own 8-step proposal against that document and compress it back to up to 5 steps",
+          "time": [
+            "00:09:00-00:11:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1i",
+          "actor": "claude",
+          "label": "Self-audit the plan against the actual Session 1 record",
+          "detail": "Re-reads its own proposal against what Session 1 actually produced and reports 8 discrepancies, 4 of which 'would have cost time on the clock': (A1) Step 1.1 inventories a GPKG that doesn't work — Session 1's own MANIFEST calls it 'unreliable on this volume'; adds a real rebuild step; (A2) the cost model is backwards — the composer never touches the 65.7GB ortho, it reads a 0.5m/px .npy already in memory, so QGIS against the full orthomosaic (not the Python render) is the real bottleneck; moves the gdaladdo probe to start at minute 0; (A3) the spec amendment was scheduled around minute 20, late enough that QA round 1 would check plates against a still-stale 40m-spacing spec — moved earlier; (A5) the QGIS Atlas frames on the reach centreline while the spec frames on the transect bounding box, a ~200m gap that would otherwise surface later looking like a renderer bug instead of an extent bug — fixed by precomputing extents onto the reaches layer during the GPKG rebuild. Also corrects two factual mis-statements (geomorphology is vector not raster; reach ordering is confluence-driven, not hydrological), resolves several open placeholders directly from the data (R12 as the 17-transect worst-case cost-timing probe; R08 high-relief/R09 low-relief as the VE-policy test pair; R14 flagged as a QA-20 spike-vs-terrain target), and writes the reconciled plan to S2_prompt_script_v2.md",
+          "time": [
+            "00:11:04-00:14:45"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1j",
+          "actor": "user",
+          "label": "Review the reconciled plan and authorize execution",
+          "detail": "Reviews the reconciled step list (each top-level step broken into numbered sub-steps) and clicks 'Start with step 1', authorizing Claude to proceed",
+          "time": [
+            "00:14:45-00:17:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "1i",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "00:11:04-00:14:45",
+              "user_adoption_time": "00:14:45-00:17:37",
+              "reasoning": "accept claude's plan"
+            }
+          ]
+        },
+        {
+          "id": "1k",
+          "actor": "claude",
+          "label": "Kick off the pyramid build, then rebuild the GPKG and self-correct its own audit",
+          "detail": "Starts the gdaladdo overview build in the background while running the inventory in parallel. Mid-rebuild, discovers real GDAL 3.12.4 is available via pyogrio and that project.gpkg actually opens cleanly for reading — explicitly stating it needs 'to correct my own audit before going further.' The write side still hits the exact same sandbox mount bug Session 1 hit (SQLite can't create or reliably read a table there), so it patches the write path by building on local disk and byte-copying the finished file across. Delivers a clean rebuilt project.gpkg — 3 layers (17 reaches/118 transects/11,918 profile points), EPSG:9377 throughout, R01's stored extent recomputing to a delta of 0.000000000m — then surfaces two findings needing a decision before continuing: the nice-round scale series (ceiling 1:10,000) doesn't cover R06 or R12, whose fallback would print an ugly non-round scale; and the spec's framing prose disagrees with what the actual composition code does (reach centreline + transects, not transect bbox alone) — recommends following the code, since that's what produced the approved plate",
+          "time": [
+            "00:17:37-00:27:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1l",
+          "actor": "user",
+          "label": "Resolve the scale-series and framing decisions",
+          "detail": "Chooses to extend the nice-scale series with 12500/15000/20000 rather than keep the round-to-500 fallback; confirms following the code's framing behavior and having it written into spec v1.1 rather than the original prose",
+          "time": [
+            "00:27:22-00:28:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1m",
+          "actor": "claude",
+          "label": "Amend the spec, correct a scale-series mistake, render the atlas, and deliver the Step 1 package",
+          "detail": "Applies all 14 spec edits, then catches and corrects its own just-given answer: R06 and R12 don't both land on 1:12,500 after all — R12 actually needs 1:15,000 (1,690m of window width against 12,500's 1,625m) — and fixes the series before rendering. Regenerates extents against the corrected scale series, patches the composition function to render all 17 reaches into a single PDF via local disk rather than the sandbox mount. Reports its own-initiative changes (moving a hardcoded nodata string into the token file, closing a QA-15 violation), flags one thing for the user's Step 2 critique list (on R09 six of seven tiles hit the 1.80m relief clamp), notes two recurring sandbox mount limitations, and delivers the finished atlas_terrain_profiles_v1.pdf, cartographic_spec.md, style_tokens.json and proof_R09.png",
+          "time": [
+            "00:28:55-00:37:29"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1n",
+          "actor": "user",
+          "label": "Watch the render and check the draft atlas PDF while Claude verifies",
+          "detail": "While Claude applies the spec edits and renders the 17-page atlas, the participant follows its progress; once the render completes, the participant opens atlas_terrain_profiles_v1.pdf from the Session 2 folder and scrolls through the plates while Claude is still verifying the Step 1 outputs.",
+          "time": [
+            "00:28:55-00:37:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork), File Explorer, PDF viewer",
+          "source_steps": "Step 1",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "1m",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "00:28:55-00:37:29",
+              "user_adoption_time": "00:28:55-00:37:29",
+              "reasoning": "open the draft atlas pdf and accept it"
+            }
+          ]
+        },
+        {
+          "id": "1o",
+          "actor": "user",
+          "label": "Review Claude's response about amending the spec, correcting a scale-series mistake, rendering the atlas, and delivering the Step 1 package",
+          "detail": "The participant reads Claude's Step 1 delivery summary, including the corrected scale series and the rendered draft atlas.",
+          "time": [
+            "00:37:29-00:38:41"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        },
+        {
+          "from": "1c",
+          "to": "1d",
+          "type": "sequential"
+        },
+        {
+          "from": "1d",
+          "to": "1e",
+          "type": "sequential"
+        },
+        {
+          "from": "1e",
+          "to": "1f",
+          "type": "sequential"
+        },
+        {
+          "from": "1f",
+          "to": "1g",
+          "type": "sequential"
+        },
+        {
+          "from": "1g",
+          "to": "1h",
+          "type": "sequential"
+        },
+        {
+          "from": "1h",
+          "to": "1i",
+          "type": "sequential"
+        },
+        {
+          "from": "1i",
+          "to": "1j",
+          "type": "sequential"
+        },
+        {
+          "from": "1j",
+          "to": "1k",
+          "type": "sequential"
+        },
+        {
+          "from": "1k",
+          "to": "1l",
+          "type": "sequential"
+        },
+        {
+          "from": "1l",
+          "to": "1m",
+          "type": "sequential"
+        },
+        {
+          "from": "1l",
+          "to": "1n",
+          "type": "sequential"
+        },
+        {
+          "from": "1m",
+          "to": "1o",
+          "type": "sequential"
+        },
+        {
+          "from": "1n",
+          "to": "1o",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "QA against criteria and iterate on layout",
+      "step_action": "Review the draft against the criteria written in Session 1 and drive explicit revision rounds (profile distribution and tiling, axis scaling and vertical exaggeration, map window framing and zoom, legibility of labels at print scale, balance of the metadata block). Review at least one high-relief and one low-relief reach, since the VE policy fails differently on each. Stopping rule: two rounds, then move on, regardless of remaining imperfections. Update the spec and the style tokens to reflect the decisions actually made, because Step 3 reads from both.",
+      "time_range": "00:38:41-00:47:56",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Specify an abbreviated QA scope",
+          "detail": "The pre-planned prompt script called for two full review rounds with the user's own pre-written critiques taking priority; instead, explicitly asks Claude to 'run a fast step 2' against the Session 1 rubrics to save time",
+          "time": [
+            "00:38:41-00:39:27"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2b",
+          "actor": "claude",
+          "label": "Run the QA sweep and flag one real judgement call",
+          "detail": "Sweeps all 17 plates: 14 pass, 0 fail, 2 warnings, 7 need visual review, zero blocking failures. Resolves its own earlier R14 concern cleanly by inspecting both flagged tiles' elevation profiles directly (continuous monotonic slope, not an unfiltered spike). Surfaces the one substantive judgement call: 43 of 118 tiles (36%) sit against the 1.80m relief clamp — R05 is 7 of 8, R09 is 6 of 7, R16 is 7 of 8 — where the annotated vertical-exaggeration value describes the clamp rather than the actual terrain, making near-flat ground look dramatic",
+          "time": [
+            "00:39:27-00:42:08"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2c",
+          "actor": "user",
+          "label": "Resolve the relief-clamp decision",
+          "detail": "Accepts Claude's recommended option: annotate the clamped tiles explicitly rather than raising the clamp threshold or leaving it unlabeled",
+          "time": [
+            "00:42:08-00:42:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2d",
+          "actor": "claude",
+          "label": "Apply the agreed fix and re-render",
+          "detail": "Implements a clamp marker (E≈31x (min.)) that appears on clamped tiles while unclamped tiles on the same reach keep a plain exaggeration label, letting a reader tell a clamp-driven window from a terrain-driven one at a glance; documents it in spec §2.5 and a new criterion QA-30. Re-renders the full atlas as v2 in one pass — 17/17 pages, 0 failures, 73 seconds — and reports explicitly that it made no further changes beyond the mechanics of the agreed fix",
+          "time": [
+            "00:42:35-00:46:51"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2e",
+          "actor": "user",
+          "label": "Review the revised atlas",
+          "detail": "Opens atlas_terrain_profiles_v2.pdf and confirms the revision addressed the flagged issue satisfactorily, moving on to the QGIS migration",
+          "time": [
+            "00:46:51-00:47:56"
+          ],
+          "actor_type": "user",
+          "softwares": "PDF viewer",
+          "source_steps": "Step 2",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "2d",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "00:42:35-00:46:51",
+              "user_adoption_time": "00:46:51-00:47:56",
+              "reasoning": "accept the v2 atlas"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2c",
+          "to": "2d",
+          "type": "sequential"
+        },
+        {
+          "from": "2d",
+          "to": "2e",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Generate QML symbology and build the QGIS Print Layout",
+      "step_action": "Cowork generates the QML style files for drainage, transects, reaches and geomorphology from the same style_tokens.json that drove the matplotlib plates, then writes a PyQGIS script that I paste into the QGIS Python console to load the layers in spec draw order, apply the styles, and author the Print Layout: map item, picture item for the profile grid, scale bar, north arrow, locator inset map, and label items for CRS, project name, attribution, location and sheet number. The script runs on my machine, not in Cowork's sandbox, so it must be written defensively and report progress per stage — expect one or two traceback round-trips and treat them as part of the budget.",
+      "time_range": "00:47:56-01:10:48",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Specify the native QGIS migration task and open QGIS",
+          "detail": "Asks Claude to generate QML style tokens for QGIS and script the Print Layout construction, then launches QGIS to work alongside it",
+          "time": [
+            "00:47:56-00:49:31"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS, Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3b",
+          "actor": "claude",
+          "label": "Trace the code and flag token-to-QML mismatches",
+          "detail": "Traces draw_map() in the composition script to correctly attribute which style token maps to which layer (discovers the 'reaches' layer, not a 'channels' layer, is what actually draws the approved plate's main channel) rather than guessing. Produces a mapping table of the tokens that don't map cleanly to native QML — a filter concept QML has no equivalent for, per-feature alternating label placement, a font-family fallback stack QML can't store, a duplicate-layer requirement for the inset map, and layout-level items with no layer symbology at all — with a proposed nearest equivalent and its cost for each. The user opens QGIS partway through this turn to work alongside it",
+          "time": [
+            "00:49:31-00:52:03"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3c",
+          "actor": "user",
+          "label": "Start a new project in QGIS while Claude traces the code",
+          "detail": "While Claude traces the composition script and maps style tokens to layers, the participant opens QGIS and starts a new project to receive the scripted layers.",
+          "time": [
+            "00:49:31-00:52:03"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3d",
+          "actor": "user",
+          "label": "Resolve the styling-fidelity decisions",
+          "detail": "Accepts the recommended geometry-generator-plus-alternation approach for reproducing transect label placement, and accepts that the main-channel rule will render correctly on Atlas export but paint all 17 reaches blue in the ordinary (non-atlas) canvas view — judged acceptable since atlas-correctness is what matters",
+          "time": [
+            "00:52:03-00:53:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3e",
+          "actor": "claude",
+          "label": "Produce the layer-loading and styling script",
+          "detail": "Writes an 8-stage defensive PyQGIS script (each stage prints its own progress line so a traceback shows exactly where it failed) that loads layers in spec draw order and applies the generated QML, and deliberately does not save the project. Explains its own design choices unprompted: fonts resolve to DejaVu Serif/Sans since those ship with QGIS; one stage specifically checks whether the orthomosaic's .ovr pyramid exists yet and names a fallback if not, rather than let a stalled gdaladdo silently surface as a blank 17-page export later; flags that copying the 66GB of Session 1 raster assets into the delivery tree is a packaging-time decision it won't make unasked. Delivers a project-integrity checklist alongside it for verifying the project survives a cold restart",
+          "time": [
+            "00:53:19-00:56:26"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3f",
+          "actor": "user",
+          "label": "Review Claude's response about producing the layer-loading and styling script",
+          "detail": "The participant reads Claude's explanation of the 8-stage layer-loading and styling script and copies it for the QGIS Python console.",
+          "time": [
+            "00:56:26-00:58:08"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3g",
+          "actor": "user",
+          "label": "Execute the script manually in QGIS",
+          "detail": "Copies the generated script and pastes/runs it directly in the QGIS Python console themselves — a fully manual step outside Cowork's reach; confirms the base rasters and vector layers (orthomosaic, geomorphology, drainage) load and render correctly on the canvas",
+          "time": [
+            "00:58:08-00:59:32"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3h",
+          "actor": "user",
+          "label": "Review the console summary and report it back",
+          "detail": "Sees the script's own stage-8 summary — 4 of 7 layers loaded, with the reaches/transects/profile-points layers from project.gpkg coming back invalid — then pastes it back into the chat and asks Claude to continue toward building the layout",
+          "time": [
+            "00:59:32-01:00:48"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS, Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3i",
+          "actor": "claude",
+          "label": "Diagnose a second, genuine GPKG corruption and switch the write path entirely",
+          "detail": "Every layer that failed traces back to project.gpkg; every layer that loaded came from elsewhere. Finds the file is 0 bytes on disk, timestamped 11:01 — after its own verification at 10:48 had reported 32/32 checks passing. Admits the gap directly: that read-back was hitting the sandbox's cache, so it validated a file that never durably landed, and copying the file back through the same layer that wrote it 'proves nothing.' This is the same class of mount bug Session 1 hit, recurring. Fixes it for good by building the GeoPackage on the user's own machine, through QGIS itself, from plain-text GeoJSON — nothing binary crosses the sandbox/host boundary again — and delivers reaches_ext.geojson, transects.geojson and profile_points.geojson with the framing fields (extents, scale denominators) declared inline",
+          "time": [
+            "01:00:48-01:04:04"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3j",
+          "actor": "user",
+          "label": "Review Claude's response about diagnosing a second GPKG corruption and switching the write path entirely",
+          "detail": "The participant reads Claude's diagnosis that project.gpkg was 0 bytes on disk and its new script that writes the layers to a different path.",
+          "time": [
+            "01:04:04-01:05:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3k",
+          "actor": "user",
+          "label": "Execute the second script manually",
+          "detail": "Runs the second script themselves in the QGIS Python console; confirms via the console summary (10/10 operations OK) that all layers — including reaches, transects and profile points — are now loaded and labeled correctly on the canvas, then saves the project as atlas_template.qgz",
+          "time": [
+            "01:05:14-01:06:15"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "3e",
+              "label": "reject",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "00:53:19-00:56:26",
+              "user_adoption_time": "00:59:32-01:00:48",
+              "reasoning": "result cant be used"
+            },
+            {
+              "source_node": "1a",
+              "target_ai": "3i",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "01:00:48-01:04:04",
+              "user_adoption_time": "01:05:14-01:06:15",
+              "reasoning": "the second script works"
+            }
+          ]
+        },
+        {
+          "id": "3l",
+          "actor": "user",
+          "label": "Inspect the applied styling and request the layout-build script",
+          "detail": "Opens the Layer Styling panel to confirm the generated QML actually took effect on the transects layer, reports back that layers are in but no printable layout is visible yet, and asks Claude for the step that composes the plate",
+          "time": [
+            "01:06:15-01:07:34"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS, Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3m",
+          "actor": "claude",
+          "label": "Produce the 12-stage Print Layout script",
+          "detail": "Writes a large script that builds the Print Layout entirely from style_tokens.json at runtime — no hardcoded positions or strings, no data-defined scale alongside the precomputed extent fields since the two would fight — constructing all 12 layout item types (map, profile-grid picture, scale bar, north arrow, locator inset, and the label/metadata items) and wiring a minimal Atlas over the reaches layer just enough to make its own timing probe (targeting R12, the largest window) real",
+          "time": [
+            "01:07:34-01:09:42"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3n",
+          "actor": "user",
+          "label": "Review Claude's response about producing the 12-stage Print Layout script",
+          "detail": "The participant reads Claude's explanation of the 12-stage Print Layout script and copies it for the QGIS Python console.",
+          "time": [
+            "01:09:42-01:10:48"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 3"
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3a",
+          "to": "3c",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3d",
+          "type": "sequential"
+        },
+        {
+          "from": "3c",
+          "to": "3d",
+          "type": "sequential"
+        },
+        {
+          "from": "3d",
+          "to": "3e",
+          "type": "sequential"
+        },
+        {
+          "from": "3e",
+          "to": "3f",
+          "type": "sequential"
+        },
+        {
+          "from": "3f",
+          "to": "3g",
+          "type": "sequential"
+        },
+        {
+          "from": "3g",
+          "to": "3h",
+          "type": "sequential"
+        },
+        {
+          "from": "3h",
+          "to": "3i",
+          "type": "sequential"
+        },
+        {
+          "from": "3i",
+          "to": "3j",
+          "type": "sequential"
+        },
+        {
+          "from": "3j",
+          "to": "3k",
+          "type": "sequential"
+        },
+        {
+          "from": "3k",
+          "to": "3l",
+          "type": "sequential"
+        },
+        {
+          "from": "3l",
+          "to": "3m",
+          "type": "sequential"
+        },
+        {
+          "from": "3m",
+          "to": "3n",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Wire the Atlas, export, and reconcile against the approved plate",
+      "step_action": "Configure the Atlas against the reaches layer: coverage, page ordering, map item following the Atlas feature with the spec's framing and buffer, and the picture item resolving profile images by expression from reach_id. Export to PDF, then reconcile against the plate approved in Step 2 -- for every visible difference, determine whether it is a QML value disagreeing with the style tokens (fix it) or a genuine renderer difference between matplotlib and QGIS (document it). This reconciliation is the substantive test of R-07 and should not be rushed to save the packaging step.",
+      "time_range": "01:10:48-01:21:19",
+      "nodes": [
+        {
+          "id": "4a",
+          "actor": "user",
+          "label": "Execute the layout script and visually validate it in QGIS",
+          "detail": "Runs the layout script in the QGIS console; the Print Layout for the first reach appears, and the profile grid comes up correctly populated with real elevation-profile tiles almost immediately",
+          "time": [
+            "01:10:48-01:11:31"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "3m",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:03:16",
+              "ai_node_time": "01:07:34-01:09:42",
+              "user_adoption_time": "01:10:48-01:11:31",
+              "reasoning": "adopt the layour script"
+            }
+          ]
+        },
+        {
+          "id": "4b",
+          "actor": "user",
+          "label": "Paste the layout script's stage output back to Claude",
+          "detail": "After running the layout script, the participant pastes the console output for stages 11 and 12 back to Claude and asks it to check the result.",
+          "time": [
+            "01:11:31-01:11:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4c",
+          "actor": "claude",
+          "label": "Diagnose the stuck render with a dedicated measurement script",
+          "detail": "Rather than guessing at a fix, writes a dedicated diagnostic script to attribute the slow/stuck rendering: compositing the 130,181x126,251px orthomosaic with no .ovr pyramid built yet is a genuinely multi-second-per-page operation at print DPI, not instant as first assumed. Proposes checking GDAL's own pyramid-level count directly and writing real proof images to disk rather than continuing to reason from a description",
+          "time": [
+            "01:11:47-01:19:26"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Cowork)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4d",
+          "actor": "user",
+          "label": "Identify a stuck map render",
+          "detail": "While Claude analyzes the output, the participant inspects the generated Print Layout in QGIS and notices that the main map window and the locator inset are stuck on a grey 'Rendering map...' placeholder with an 'Invalid scale!' warning on the R12 page, the largest reach.",
+          "time": [
+            "01:11:47-01:15:00"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4e",
+          "actor": "user",
+          "label": "Check whether the problem is atlas-wide",
+          "detail": "Pages the Atlas forward through the reach dropdown to check R01 and finds the same stuck 'Rendering map' + 'Invalid scale!' state there too, then opens the Atlas Configuration panel to confirm the coverage layer, page-name expression and sort-by expression are all wired correctly — ruling out a configuration error",
+          "time": [
+            "01:15:00-01:16:15"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4f",
+          "actor": "user",
+          "label": "Spot-check other pages while exploring the layout UI",
+          "detail": "Pages through to R04 and finds it renders correctly, framed on its own extent with the channel visible and the correct 2-tile profile grid, indicating the render problem is tied to the larger reaches; keeps exploring the layout items while Claude finishes.",
+          "time": [
+            "01:16:15-01:19:26"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4g",
+          "actor": "user",
+          "label": "Read Claude's diagnostic script; session ends mid-diagnosis",
+          "detail": "The participant reads Claude's dedicated render-diagnosis script and its request to paste back stages 2, 4, 6 and 7, and keeps looking at the layout in QGIS; the recording stops with the render-speed diagnosis in progress, so the reconciliation against the approved plate and Step 5 (the reproducibility bundle) are not reached.",
+          "time": [
+            "01:19:26-01:21:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (Cowork), QGIS",
+          "source_steps": "Step 4"
+        }
+      ],
+      "edges": [
+        {
+          "from": "4a",
+          "to": "4b",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4c",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4d",
+          "type": "sequential"
+        },
+        {
+          "from": "4d",
+          "to": "4e",
+          "type": "sequential"
+        },
+        {
+          "from": "4e",
+          "to": "4f",
+          "type": "sequential"
+        },
+        {
+          "from": "4c",
+          "to": "4g",
+          "type": "sequential"
+        },
+        {
+          "from": "4f",
+          "to": "4g",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Restore session state and render the full draft atlas",
+      "step_action": "Re-establish Cowork's context from the Session 1 artefacts rather than re-explaining them: point it at the spec, the style tokens, the GPKG and the composition script, and have it confirm what it finds (layer counts, transect count, reach IDs, the naming convention). Then loop the Session 1 composition function over every reach to produce the full draft PDF, plus the standalone profile grid images that Step 4 will need. Confirm the page count is what the spec expects before rendering, not after.",
+      "input": "cartographic_spec.md, style_tokens.json, project.gpkg, composition script, reference plate PNG.",
+      "output": "atlas_terrain_profiles_v1.pdf; profile_<reach_id>.png for every reach.",
+      "tools": "Free: Python (matplotlib, rasterio, geopandas), QGIS 3.x. Paid: Claude Pro (Cowork).",
+      "rubrics": [
+        "(Carried from S1 v1 Step 5; now assessable across the whole atlas.)",
+        "Every mandatory layout element is present and genuinely populated, no placeholder text, no empty locator map.",
+        "All profiles share the same x-extent, and the agreed vertical exaggeration policy is applied identically across every plate.",
+        "Map window framing follows the spec: the reach is fully contained, zoom is consistent between pages, and transect lines are legible over the orthomosaic.",
+        "The scale bar corresponds to true ground distance and the north arrow reflects the actual projection, both verified, not decorative.",
+        "The PDF is print-ready at the target page size: no text overlap, no clipped elements, labels legible at 100%."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Two things had to work here, and both did. First, Cowork picked the project back up from the Session 1 artefacts alone (the spec, the style tokens, the GPKG and the composition script) and confirmed what it found rather than asking me to re-explain the project. That mattered more than it sounds: re-establishing context is where a second session usually loses its first fifteen minutes, and it did not. Second, the composition function scaled from the single proven plate to the whole reach set without breaking. Every mandatory layout element is present and genuinely populated on every page — no placeholder text, no empty locator map. The shared x-extent and the agreed vertical exaggeration policy are applied identically across all plates, which is the clause that could not be tested in Session 1 and is the real risk when going from one page to many. Framing and zoom stay consistent between pages, with the reach fully contained and transect lines legible over the orthomosaic throughout. Scale bar and north arrow were verified against true ground distance and the actual projection. The PDF is print-ready at the target page size with no text overlapping or clipping elements. Rated 5 because the scale-up exposed nothing."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Both declared outputs were produced (atlas_terrain_profiles_v1.pdf and a profile_<reach_id>.png for every reach) and both were correct without correction rounds. The restore-from-artefacts approach worked as designed, which validates the decision in Session 1 to write the spec and style tokens as machine-readable files rather than leaving criteria in conversation. The effort saving was real but not maximal, because batch rendering is largely mechanical once the composition function is right; the genuine contribution was the context restoration and the verification of layer counts and transect totals before rendering anything."
+      }
+    },
+    "Step 2": {
+      "step_name": "QA against criteria and iterate on layout",
+      "step_action": "Review the draft against the criteria written in Session 1 and drive explicit revision rounds (profile distribution and tiling, axis scaling and vertical exaggeration, map window framing and zoom, legibility of labels at print scale, balance of the metadata block). Review at least one high-relief and one low-relief reach, since the VE policy fails differently on each. Stopping rule: two rounds, then move on, regardless of remaining imperfections. Update the spec and the style tokens to reflect the decisions actually made, because Step 3 reads from both.",
+      "input": "atlas_terrain_profiles_v1.pdf; cartographic_spec.md.",
+      "output": "atlas_terrain_profiles_v2.pdf; updated cartographic_spec.md and style_tokens.json.",
+      "tools": "Free: Python, PDF viewer, QGIS 3.x. Paid: Claude Pro (Cowork).",
+      "rubrics": [
+        "(Carried verbatim from S1 v1 Step 6.)",
+        "Every criticism I raise is either addressed in the next revision or explicitly declined with a stated reason; none is quietly ignored.",
+        "Fixes do not regress elements I had already accepted in the previous round.",
+        "Two rounds are enough to reach a plate I would sign off on and send to a client.",
+        "Design decisions made during iteration are written back into cartographic_spec.md, so the spec and the output do not drift apart.",
+        "The agent clearly distinguishes changes I requested from changes it chose to make on its own initiative."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The revision round did exactly what a revision round should. Every criticism I raised was either addressed in the next version or explicitly declined with a reason given (nothing was quietly dropped, which is the failure mode that makes iterative work with an assistant expensive. The fixes did not regress anything I had already accepted in the previous state, so I did not have to re-check work I had already signed off. Design decisions taken during the iteration were written back into cartographic_spec.md and style_tokens.json, so the specification and the output did not drift apart) the spec still describes the atlas that exists. The agent was clear about which changes I had asked for and which it had chosen to make on its own initiative, which is what let me approve quickly instead of auditing every difference. atlas_terrain_profiles_v2.pdf is a plate I sign off and send to a client."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "A signed-off atlas came out of one revision round, with the spec and style tokens updated to match. This was the most efficient step of the session. Cartographic critique is hard to communicate (it is largely judgement about proportion, density and legibility) and the agent turned my comments into the right changes without me having to specify implementation. Keeping the spec synchronised with the output as part of the same round, rather than as a separate cleanup task I would have deferred and probably skipped, is the part I valued most: it is what makes the Session 1 specification still trustworthy at the end of Session 2."
+      }
+    },
+    "Step 3": {
+      "step_name": "Generate QML symbology and build the QGIS Print Layout",
+      "step_action": "Cowork generates the QML style files for drainage, transects, reaches and geomorphology from the same style_tokens.json that drove the matplotlib plates, then writes a PyQGIS script that I paste into the QGIS Python console to load the layers in spec draw order, apply the styles, and author the Print Layout: map item, picture item for the profile grid, scale bar, north arrow, locator inset map, and label items for CRS, project name, attribution, location and sheet number. The script runs on my machine, not in Cowork's sandbox, so it must be written defensively and report progress per stage — expect one or two traceback round-trips and treat them as part of the budget.",
+      "input": "style_tokens.json; project.gpkg; rasters; accepted plate design.",
+      "output": "styles/*.qml; QGIS project with a Print Layout matching the approved plate.",
+      "tools": "Free: QGIS 3.x (Python console). Paid: Claude Pro (Cowork).",
+      "rubrics": [
+        "(31, 32, 34 carried from S1 v1 Step 7; 41–42 new.)",
+        "The script runs in the QGIS Python console with at most two correction cycles, and each traceback I paste back is diagnosed correctly on the first attempt.",
+        "The .qgz opens cleanly on a fresh QGIS start with every layer path resolving — no broken links, no missing styles.",
+        "QML styles are generated from the same style_tokens.json used in the Python composition, so the QGIS rendering matches the approved plate rather than reinventing the symbology.",
+        "Every QML loads without warnings and applies to its layer on first attempt, with layer draw order matching the spec rather than GPKG order.",
+        "The Print Layout reproduces the approved plate anatomy at the correct page size — map item, profile picture frame, scale bar, north arrow, locator inset and every label item present at the specified position and relative size."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "The end state is correct and usable, but this was the roughest step of the session and the one that consumed the overrun. What worked cleanly: the .qgz opens on a fresh QGIS start with every layer path resolving (no broken links, no missing styles) and the QML files were genuinely generated from the same style_tokens.json that drove the matplotlib composition, so the QGIS rendering follows the approved symbology instead of reinventing it. That single-source-of-truth decision is what kept the two renderers comparable at all.\nThree things fell short. The PyQGIS script needed more than the two correction cycles the rubric allows; I pasted several tracebacks back, and while each was diagnosed sensibly, the loop ran longer than budgeted. The QML files did not all load silently and cleanly on first application; I had to resolve warnings and correct layer draw order, which had followed GPKG order rather than the order the spec defines. And the Print Layout could not be built in the same pass as the project: it required a separate script from the one that creates the .qgz, loads the data layers and applies the QML styles. That split is workable and I kept both scripts, but it means the \"one script builds the project\" outcome I was aiming for was not achieved, and reproducing the project now means running two scripts in the right order; which is exactly the kind of undocumented sequencing that Step 5 was meant to capture and did not get to."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The task was completed (QML styles exist, are token-derived, and the Print Layout matches the approved plate) but it took visible debugging to get there. PyQGIS is an awkward API to write blind, without a live QGIS session to introspect, and that shows in the number of correction cycles. What made the loop tolerable was the quality of the diagnosis: each traceback I pasted was read correctly and produced a targeted fix rather than a speculative rewrite, and I never lost the thread of what the script was doing. The effort saving is still clearly positive (authoring QML by hand and building a Print Layout item by item in the GUI would have taken considerably longer than the debugging did) but it is the least efficient step of the session."
+      }
+    },
+    "Step 4": {
+      "step_name": "Wire the Atlas, export, and reconcile against the approved plate",
+      "step_action": "Configure the Atlas against the reaches layer: coverage, page ordering, map item following the Atlas feature with the spec's framing and buffer, and the picture item resolving profile images by expression from reach_id. Export to PDF, then reconcile against the plate approved in Step 2 -- for every visible difference, determine whether it is a QML value disagreeing with the style tokens (fix it) or a genuine renderer difference between matplotlib and QGIS (document it). This reconciliation is the substantive test of R-07 and should not be rushed to save the packaging step.",
+      "input": "QGIS project from Step 3; profile images; approved plate.",
+      "output": "atlas_template.qgz; atlas_qgis.pdf; list of classified divergences.",
+      "tools": "Free: QGIS 3.x (Print Layout, Atlas, Python console). Paid: Claude Pro (Cowork).",
+      "rubrics": [
+        "(33, 35 carried from S1 v1 Step 7; 43–45 new.)",
+        "The Atlas iterates over the reach layer and the profile image resolves by expression on every page, including the first and last.",
+        "The Atlas-exported PDF is visually equivalent to the design approved in Step 2, and any unavoidable divergence is reported to me rather than left for me to discover.",
+        "The Atlas map item follows each reach with the spec's framing and buffer — no page where the reach is clipped, off-centre, or rendered at an inconsistent zoom.",
+        "Page count and page order match the reach layer exactly, with sheet numbering correct on every page.",
+        "Each divergence from the approved plate is classified as either a style-token mismatch (and fixed) or a genuine renderer difference (and documented), rather than dismissed or silently absorbed."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The Atlas works end to end, which was the goal of the whole migration. It iterates over the reach layer and the profile image resolves by expression on every page, including the first and last; the classic Atlas failure is an expression that works on page one and silently breaks on the edges, and that did not happen. Page count and page order match the reach layer exactly, with sheet numbering correct throughout. Divergences from the approved plate were properly classified as either style-token mismatches, which were fixed, or genuine renderer differences between matplotlib and QGIS, which were documented rather than dismissed. I rated the output 4 because atlas_template.qgz and atlas_qgis.pdf are the deliverables I needed and they are sound.\nTwo qualifications. Map framing did not hold on every page: some reaches came out clipped or off-centre relative to the spec's buffer rule, and those pages needed correction. And not every divergence from the approved design was reported to me upfront; I found some myself when comparing the two PDFs side by side, which is the opposite of the arrangement I wanted, where the agent surfaces differences rather than leaving me to discover them.\nAdditional observation on the profile implementation. The cross-section plots in the layout are the SVG profiles extracted in Step 1, inserted as SVG picture items and wired per page by expression from reach_id. Every page resolves its correct profile, so the mechanism is sound and the output is right. But the ideal native implementation would have used QGIS's built-in elevation profile tool to recreate the cross-sections inside the project, rather than importing images generated by an external Python script. As built, the QGIS project is not fully self-contained: regenerating the profiles still depends on the Python pipeline. This is a real limitation of the migration, and I am recording it here rather than letting it pass as equivalent. It sits closest to Rubric 35; the export is visually equivalent to the approved design, but by a different mechanism than a native QGIS implementation implies."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "A working, exportable QGIS Atlas exists and produces the atlas PDF, which is what the step had to deliver. The collaboration was less comfortable than in earlier steps. Atlas configuration involves a lot of interacting specifics (coverage layer, page ordering, map item behaviour, expression-driven picture resolution, framing buffer) and I had to correct the agent's reading of what I wanted more than once, which is why I marked understanding lower here. It adapted precisely each time, and I retained full control of the design decisions throughout. The reconciliation against the approved plate is where I contributed most: I would have preferred divergences surfaced to me systematically rather than discovering some by comparison, and the SVG-versus-native-profile question is one I had to raise rather than being offered as a trade-off up front."
+      }
+    },
+    "Step 5": {
+      "step_name": null,
+      "step_action": null,
+      "input": "All prior outputs, plus Session 1 artefacts.",
+      "output": "Delivery folder; README.md; metadata record; verification_note.md.",
+      "tools": "Free: QGIS 3.x. Paid: Claude Pro (Cowork).",
+      "rubrics": [
+        "(Carried verbatim from S1 v1 Step 8)",
+        "Every declared deliverable is present in the delivery folder, correctly named, with no orphaned intermediates left behind.",
+        "The GPKG opens in QGIS with all layers listed, valid geometries, and a defined CRS on each layer.",
+        "The metadata record covers lineage, CRS, source attribution, production date and processing parameters — enough for someone to judge fitness for use.",
+        "The verification note documents Python-versus-QGIS divergence honestly, including anything that did not reproduce.",
+        "A competent GIS professional who receives only this folder could regenerate the atlas without asking me a single question."
+      ],
+      "ratings": {
+        "output_quality_rating": "not assessed",
+        "output_quality_reason": "No numeric rating, because this step was never opened during the recorded session and there is therefore no in-session output to rate. The rubrics below are still assessable, because the deliverables Step 5 was meant to consolidate all exist and are correct from Steps 1–4, and the delivery folder has since been assembled. Rating the step numerically would mean scoring work the agent was never asked to do; assessing the rubrics against the accumulated outputs is the honest way to report where the deliverable actually stands.\nDeferring the step was a scoping decision as much as a time-budget one. The session did run past its 60-minute budget, though by less than Session 1 did. But the deliberate part was this: by the end of Step 4 the hard problem was solved. The automation script had done the difficult work (the QGIS project, the styles, the Print Layout and the working Atlas all existed) and what remained in Step 5 was consolidation of outputs that were already compliant from the preceding steps. I also expected the QGIS project to need some manual editing before it was final, which made it a poor moment to freeze a delivery bundle around it. Packaging a project I still intended to touch would have produced a folder I would immediately have had to rebuild. Given a choice between spending the remaining session time on packaging and stopping at a completed, verified Atlas, stopping was the better use of the recording."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": "There is no interaction to evaluate. The step was never opened with the agent; not attempted and abandoned, but deliberately not started, for the scoping reasons given above. The agent's contribution to the state of this deliverable is real but sits entirely in Steps 1–4, where it produced the artefacts that make the package compliant, and it is already scored there. Rating collaboration here would double-count that work against an interaction that did not take place."
+      }
+    }
+  }
+}

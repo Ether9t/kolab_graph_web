@@ -1,0 +1,1439 @@
+{
+  "session_id": "session1",
+  "participant_id": "p38",
+  "title": "Session 1 — Participant 38 User + Claude Behavior Graph",
+  "goal": "Draft a U.S. Personal Injury Complaint by reviewing case documents, organizing facts, researching legal issues, preparing a complaint, and conducting a final legal review with assistance from Claude.",
+  "context": "I chose this goal because it reflects a realistic, work-related task that involves multiple interconnected steps, legal reasoning, document review, drafting, and iterative revisions. Throughout the workflow, I use Filevine to access and organize case information and Claude to help summarize facts, improve document structure, refine legal language, identify inconsistencies, and suggest revisions. The final deliverable is a complaint that is ready for attorney review before filing in court.",
+  "occupation": "Legal Manager",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "I was able to draft a well-structured complaint with all the required details, statutes, and claims. Working through Filevine for source documents and Claude for organization, drafting, and review meant I had a filing-ready first draft ready for attorney review within the hour."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Review and organize case documents",
+      "step_action": "Review all available case documents in Filevine, google drive, including the client intake, accident report, medical records, photographs, witness information if any, insurance details, and correspondence. Identify missing information and organize the documents before beginning the complaint.",
+      "time_range": "00:00:00-00:12:17",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Define complaint-drafting objective and open case file",
+          "detail": "States they are starting to draft a complaint for client Larry Jackson and opens the already-created case in Filevine, where the intake and related details are stored.",
+          "time": [
+            "00:00:00-00:00:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1b",
+          "actor": "user",
+          "label": "Review police report for accuracy and completeness",
+          "detail": "Goes through the police report to confirm the accident location (DeKalb County, Georgia), checks the record dates, and verifies the report is complete, noting that police reports are sometimes incomplete.",
+          "time": [
+            "00:00:19-00:01:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1c",
+          "actor": "user",
+          "label": "Verify client identity against police report",
+          "detail": "Cross-checks the client's information in Filevine against the police report, recalling a past case where records for a different person with the same name and accident date got mixed together.",
+          "time": [
+            "00:01:23-00:02:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1d",
+          "actor": "user",
+          "label": "Identify missing injury documentation and vehicle discrepancy",
+          "detail": "Notices injuries were not marked and no injury photographs exist in the intake, then spots that the intake describes the opposing vehicle as a truck while the uploaded photo doesn't look like one.",
+          "time": [
+            "00:02:45-00:04:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1e",
+          "actor": "user",
+          "label": "Upload vehicle photo to Claude for identification",
+          "detail": "Opens a new Claude conversation and uploads the on-file photo of the opposing vehicle, asking Claude to confirm whether it is the 2013 Ford F-150 listed in the case.",
+          "time": [
+            "00:04:38-00:05:13"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1f",
+          "actor": "claude",
+          "label": "Identify photo as a white crossover, not the listed truck",
+          "detail": "Responds that the vehicle in the photo is not a Ford F-150 but a white crossover-style vehicle, immediately contradicting the truck description in the file.",
+          "time": [
+            "00:05:13-00:05:20"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1g",
+          "actor_type": "user",
+          "time": [
+            "00:05:20-00:05:28"
+          ],
+          "label": "Review Claude's identification of the vehicle as a white crossover",
+          "detail": "Reads Claude's answer that the vehicle is a white crossover rather than a Ford F-150 and decides to add more photos for clarity.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1h",
+          "actor_type": "user",
+          "time": [
+            "00:05:28-00:05:48"
+          ],
+          "label": "Download more photos of the vehicle from the case files",
+          "detail": "Downloads additional photos of the same vehicle from the firm's case files to give Claude more angles.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1i",
+          "actor": "user",
+          "label": "Cross-check actual vehicle makes on file in Filevine",
+          "detail": "Goes back to the Filevine crash report and intake to check the vehicles actually on record, discovering the client drove a 2025 Nissan Altima and the defendant drove a 2013 Ford F-150 — neither of which matches the white vehicle in the photo.",
+          "time": [
+            "00:05:48-00:06:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1j",
+          "actor": "user",
+          "label": "Upload further vehicle photos to Claude for comparison",
+          "detail": "Uploads additional angles of the same vehicle to the same Claude conversation, now asking directly whether it is the 2013 Ford F-150 or the 2025 Nissan Altima on file.",
+          "time": [
+            "00:06:01-00:06:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1k",
+          "actor": "claude",
+          "label": "Identify the vehicle as a Toyota crossover from the wheel-cap logo",
+          "detail": "Responds that the vehicle is neither the F-150 nor the Altima but appears to be a Toyota compact crossover, based on the logo visible on the wheel center cap, body shape, and rocker-panel cladding.",
+          "time": [
+            "00:06:40-00:06:45"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1l",
+          "actor_type": "user",
+          "time": [
+            "00:06:45-00:07:16"
+          ],
+          "label": "Review Claude's Toyota identification and look for the logo it refers to",
+          "detail": "Reads Claude's Toyota identification and looks at the wheel-cap logo in the photo, unsure what the Toyota logo looks like.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1m",
+          "actor_type": "user",
+          "time": [
+            "00:07:16-00:07:27"
+          ],
+          "label": "Ask Claude what the Toyota logo looks like",
+          "detail": "Asks Claude to describe the Toyota logo.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1n",
+          "actor_type": "ai",
+          "time": [
+            "00:07:27-00:07:36"
+          ],
+          "label": "Describe the three-ellipse Toyota logo and match it to the wheel cap",
+          "detail": "Describes the Toyota logo as three overlapping ellipses and confirms it matches the emblem on the wheel center cap in the uploaded photo.",
+          "softwares": "Claude",
+          "actor": "claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1o",
+          "actor_type": "user",
+          "time": [
+            "00:07:36-00:08:18"
+          ],
+          "label": "Conclude the photos may belong to a different case and look for a clearer photo",
+          "detail": "Compares the logo with the photo, notes the police report lists a Nissan and a Ford, suspects the photos were uploaded for the wrong case, and finds a clearer rear photo in the case files.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1p",
+          "actor_type": "user",
+          "time": [
+            "00:08:18-00:08:34"
+          ],
+          "label": "Upload a rear photo and ask whether it is the F-150 or the Altima",
+          "detail": "Uploads a rear photo showing the badges and asks Claude again whether the vehicle is the 2013 Ford F-150 or the 2025 Nissan Altima.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1q",
+          "actor_type": "ai",
+          "time": [
+            "00:08:34-00:08:41"
+          ],
+          "label": "Identify the vehicle as a Lexus ES from its badges",
+          "detail": "Identifies the vehicle as a Lexus ES from the LEXUS and ES badges and the emblem, confirming it matches neither vehicle on file.",
+          "softwares": "Claude",
+          "actor": "claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1r",
+          "actor": "user",
+          "label": "Conclude the photos are for the wrong vehicles and review the medical records",
+          "detail": "Accepts that the vehicle is a Lexus and that the photos on file are therefore wrong, then reviews the medical records documenting pain and suffering and a bill of roughly $101x, confirming these are the only medical documents available for the case.",
+          "time": [
+            "00:08:41-00:09:59"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1",
+          "user_response": [
+            {
+              "source_node": "1e",
+              "target_ai": "1q",
+              "label": "adopt",
+              "source_node_time": "00:04:38-00:05:13",
+              "ai_node_time": "00:08:34-00:08:41",
+              "user_adoption_time": "00:08:41-00:09:59",
+              "reasoning": "accept claude's identification of vehicle"
+            }
+          ]
+        },
+        {
+          "id": "1s",
+          "actor": "user",
+          "label": "Confirm liability acceptance and reframe case focus",
+          "detail": "Checks whether liability has been accepted by the opposing side, confirms it has, and reasons that the dispute is therefore over the settlement amount and damages rather than fault.",
+          "time": [
+            "00:09:59-00:11:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1t",
+          "actor": "user",
+          "label": "Finalize document review and download records",
+          "detail": "Summarizes that the available evidence (police report and medical records) has been reviewed and organized, then downloads the medical records for use in drafting.",
+          "time": [
+            "00:11:03-00:12:17"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        },
+        {
+          "from": "1c",
+          "to": "1d",
+          "type": "sequential"
+        },
+        {
+          "from": "1d",
+          "to": "1e",
+          "type": "sequential"
+        },
+        {
+          "from": "1e",
+          "to": "1f",
+          "type": "sequential"
+        },
+        {
+          "from": "1f",
+          "to": "1g",
+          "type": "sequential"
+        },
+        {
+          "from": "1g",
+          "to": "1h",
+          "type": "sequential"
+        },
+        {
+          "from": "1h",
+          "to": "1i",
+          "type": "sequential"
+        },
+        {
+          "from": "1i",
+          "to": "1j",
+          "type": "sequential"
+        },
+        {
+          "from": "1j",
+          "to": "1k",
+          "type": "sequential"
+        },
+        {
+          "from": "1k",
+          "to": "1l",
+          "type": "sequential"
+        },
+        {
+          "from": "1l",
+          "to": "1m",
+          "type": "sequential"
+        },
+        {
+          "from": "1m",
+          "to": "1n",
+          "type": "sequential"
+        },
+        {
+          "from": "1n",
+          "to": "1o",
+          "type": "sequential"
+        },
+        {
+          "from": "1o",
+          "to": "1p",
+          "type": "sequential"
+        },
+        {
+          "from": "1p",
+          "to": "1q",
+          "type": "sequential"
+        },
+        {
+          "from": "1q",
+          "to": "1r",
+          "type": "sequential"
+        },
+        {
+          "from": "1r",
+          "to": "1s",
+          "type": "sequential"
+        },
+        {
+          "from": "1s",
+          "to": "1t",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Prepare a factual chronology and identify legal issues",
+      "step_action": "Create a detailed timeline of events from the accident through medical treatment. Identify the parties involved, potential defendants, jurisdiction, venue, and preliminary causes of action. Use Claude to help organize the chronology and identify missing factual gaps.",
+      "time_range": "00:12:17-00:25:35",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Reconstruct accident narrative from client testimony",
+          "detail": "Works through the facts as testified by client Larry Jackson: the opposing driver was preparing to exit onto Westlake, changed into Jackson's lane, and struck Jackson's vehicle on the right side near the front.",
+          "time": [
+            "00:12:17-00:13:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Filevine",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2b",
+          "actor": "user",
+          "label": "Request Claude's analysis of accident location favorability",
+          "detail": "Instead of manually working through Google Maps first, asks Claude to analyze the accident location to check whether the road layout supports the client's version of events.",
+          "time": [
+            "00:13:55-00:14:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2c",
+          "actor": "claude",
+          "label": "Provide location and liability analysis with legal caveats",
+          "detail": "Responds with a multi-point analysis arguing the damage pattern (Larry hit right-front, Olga hit left-side-center) is consistent with Olga drifting into Larry's lane, that Olga's own citation under O.C.G.A. § 40-6-48 already points the same direction, and that Olga's uncorroborated claim of a weapon isn't substantiated by the officer — while caveating that the police report lacks enough location-specific detail to be fully conclusive and that this is informational analysis, not legal advice, citing law only generally.",
+          "time": [
+            "00:14:58-00:15:45"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2d",
+          "actor_type": "user",
+          "time": [
+            "00:15:45-00:19:07"
+          ],
+          "label": "Review Claude's location and liability analysis, then assess the evidentiary gap from missing vehicle-damage photos",
+          "detail": "Reviews Claude's location and liability analysis, noting it adds a not-legal-advice caveat and states the law without citing the statute. Reflects that exact vehicle-damage photos would have strengthened the case, since judges weigh damage patterns when the drivers' accounts conflict.",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2e",
+          "actor": "user",
+          "label": "Manually verify accident location and lane layout via Google Maps",
+          "detail": "Does their own sanity check on Google Maps, working through the lane count and each vehicle's direction of travel and turning movement to confirm the client's narrative makes sense.",
+          "time": [
+            "00:19:07-00:21:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Maps",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2f",
+          "actor": "user",
+          "label": "Confirm factual chronology is settled",
+          "detail": "Concludes the location and sequence of events are now clear, having analyzed the police report, the location, and the evidence together.",
+          "time": [
+            "00:21:23-00:21:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Maps",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2g",
+          "actor": "user",
+          "label": "Prompt Claude to analyze whether medical records support the case",
+          "detail": "Uploads four medical record documents (evaluation notes, treatment plans, chiropractic records, and handwritten notes) to the same Claude conversation and asks whether the records align with the case and whether Larry's treatment supports the facts of the case.",
+          "time": [
+            "00:21:34-00:22:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2h",
+          "actor": "claude",
+          "label": "Generate medical-record gap analysis",
+          "detail": "Produces a detailed analysis finding the records generally consistent with the accident type and the referral pathway logically escalating (crash → pain management → MRI order → chiropractic care), but flags several weaknesses: a roughly two-month gap between the March crash and first chiropractic treatment in May, no injury noted at the scene, no actual MRI results included (only the order), no thoracic imaging despite a thoracic diagnosis, and identical repeated objective findings across visits.",
+          "time": [
+            "00:22:30-00:23:38"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2i",
+          "actor": "user",
+          "label": "Review Claude's medical-record gap analysis and evaluate case strengths and weaknesses",
+          "detail": "Reviews Claude's flagged gaps, including the two-month treatment gap, no injury noted at the scene, and the absence of MRI or other imaging. Considers how opposing counsel might challenge these weaknesses, appreciates that Claude surfaced them ahead of litigation, and concludes that the records are overall internally consistent with the claimed crash pattern.",
+          "time": [
+            "00:23:38-00:25:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2c",
+          "to": "2d",
+          "type": "sequential"
+        },
+        {
+          "from": "2d",
+          "to": "2e",
+          "type": "sequential"
+        },
+        {
+          "from": "2e",
+          "to": "2f",
+          "type": "sequential"
+        },
+        {
+          "from": "2f",
+          "to": "2g",
+          "type": "sequential"
+        },
+        {
+          "from": "2g",
+          "to": "2h",
+          "type": "sequential"
+        },
+        {
+          "from": "2h",
+          "to": "2i",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Develop the complaint outline",
+      "step_action": "Use the case chronology and legal issues to prepare a structured outline of the complaint, including jurisdiction, parties, factual allegations, causes of action, damages, and prayer for relief. Use Claude to suggest organization and improve the structure.",
+      "time_range": "00:25:35-00:28:40",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Describe drafting workflow and prompt Claude to build a structured complaint outline",
+          "detail": "Explains their general drafting workflow: AI creates an initial draft or outline, which they then review to verify the facts, liability, and law, adding the necessary human touch. In the same Claude conversation previously used for vehicle-photo and location analysis, they then ask Claude to organize the case facts, jurisdiction and venue, parties, causes of action, and damages into a structured complaint outline.",
+          "time": [
+            "00:25:35-00:26:08"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "2b",
+              "target_ai": "2c",
+              "label": "adopt",
+              "source_node_time": "00:13:55-00:14:58",
+              "ai_node_time": "00:14:58-00:15:45",
+              "user_adoption_time": "00:25:35-00:26:08",
+              "reasoning": "build the complaint on claude's analysis"
+            },
+            {
+              "source_node": "2g",
+              "target_ai": "2h",
+              "label": "adopt",
+              "source_node_time": "00:21:34-00:22:30",
+              "ai_node_time": "00:22:30-00:23:38",
+              "user_adoption_time": "00:25:35-00:26:08",
+              "reasoning": "build the complaint on claude's medical record analysis"
+            }
+          ]
+        },
+        {
+          "id": "3b",
+          "actor": "claude",
+          "label": "Generate structured complaint outline and full draft with attorney checklist",
+          "detail": "Responds to the user's request by preparing a formal legal complaint as a Word document, noting that it is not a licensed attorney and that the draft requires attorney review. Develops the complaint structure covering parties, jurisdiction and venue, negligence and negligence per se claims, and damages. Produces the complete 'Jackson v. Olga Complaint Draft' with a checklist of placeholders and items requiring attorney confirmation, which the participant then downloads.",
+          "time": [
+            "00:26:08-00:28:27"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3c",
+          "time": [
+            "00:28:27-00:28:40"
+          ],
+          "actor": "user",
+          "actor_type": "user",
+          "label": "Open the delivered complaint draft in Claude's file preview",
+          "detail": "Opens the complaint draft Word file that Claude delivered to take a first look before downloading it.",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Draft the complaint",
+      "step_action": "Draft the complaint using the organized facts and outline. Use Claude to improve clarity, legal language, grammar, and organization while ensuring all factual allegations remain consistent with the evidence.",
+      "time_range": "00:28:40-00:44:01",
+      "nodes": [
+        {
+          "id": "4a",
+          "actor": "user",
+          "label": "Download the complaint into Google Drive and correct the plaintiff's name",
+          "detail": "Downloads Claude's complaint draft, saves it to the client's Google Drive folder and opens it in Google Docs, then reviews the parties section and removes a 'Jr.' suffix that isn't used in the police report, likely picked up from the medical records.",
+          "time": [
+            "00:28:40-00:30:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Google Drive, Google Docs, Filevine",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "3a",
+              "target_ai": "3b",
+              "label": "modify",
+              "source_node_time": "00:25:35-00:26:08",
+              "ai_node_time": "00:26:08-00:28:27",
+              "user_adoption_time": "00:28:40-00:30:36",
+              "reasoning": "adopt claude's complaint draft and edit on g docs"
+            }
+          ]
+        },
+        {
+          "id": "4b",
+          "actor": "user",
+          "label": "Add jury trial request",
+          "detail": "Confirms the complaint should request a jury trial for damages and adds that designation, which was missing from the draft.",
+          "time": [
+            "00:30:36-00:31:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4c",
+          "actor": "user",
+          "label": "Verify defendant's address against case file",
+          "detail": "Checks the defendant's address against the case file, flagging it as unconfirmed since there's no ID or other supporting evidence and they lack access to a lookup tool like Lexis; notes the address matters because the court will serve the complaint there.",
+          "time": [
+            "00:31:29-00:33:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4d",
+          "actor": "user",
+          "label": "Verify jurisdiction and long-arm statute language",
+          "detail": "Reviews the jurisdiction paragraph's long-arm statute language given the defendant appears to reside in Florida while the complaint is filed in DeKalb County, Georgia, and confirms the long-arm basis is correctly stated.",
+          "time": [
+            "00:33:03-00:35:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4e",
+          "actor": "user",
+          "label": "Re-flag vehicle photo mismatch for client confirmation",
+          "detail": "Checks the venue paragraph's factual background and timing (March 19) against the police report, and again flags that the photos on file don't match the vehicles described (a Nissan and a Ford), noting this needs reconfirmation with the client.",
+          "time": [
+            "00:35:10-00:36:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4f",
+          "actor": "user",
+          "label": "Fix paragraph cross-reference formatting error",
+          "detail": "Reviews the factual-allegations paragraph on the lane-change collision investigated by DOT officers and fixes a paragraph cross-reference formatting issue in the negligence section.",
+          "time": [
+            "00:36:47-00:38:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4g",
+          "actor": "user",
+          "label": "Verify improper-lane-change citation against police report",
+          "detail": "Checks the improper-lane-change citation against the police report's citation and case numbers, confirming which party (Olga, the defendant) was cited.",
+          "time": [
+            "00:38:00-00:38:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4h",
+          "actor": "user",
+          "label": "Confirm negligence and negligence per se claims and elements",
+          "detail": "Confirms the draft includes negligence and negligence per se as its two causes of action and reviews each element of both claims.",
+          "time": [
+            "00:38:20-00:38:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4i",
+          "actor": "user",
+          "label": "Ask Claude whether additional causes of action apply",
+          "detail": "Switches to the Claude conversation and asks whether, apart from negligence and negligence per se, any other claim could arise on these facts.",
+          "time": [
+            "00:38:30-00:38:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4j",
+          "actor": "claude",
+          "label": "Identify additional causes of action and offer to add them to the complaint",
+          "detail": "Lays out several additional claims worth the attorney's consideration: a second negligence-per-se count for failure to stop after the accident (O.C.G.A. §§ 40-6-270/271), attorney's fees under O.C.G.A. § 13-6-11, punitive damages, a property-damage claim, and loss of consortium, and offers to add the failure-to-stop count, the attorney's fees claim, and a punitive damages prayer to the draft complaint.",
+          "time": [
+            "00:38:45-00:39:40"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4k",
+          "time": [
+            "00:39:40-00:40:00"
+          ],
+          "actor": "user",
+          "actor_type": "user",
+          "label": "Skim Claude's list of additional claims",
+          "detail": "Skims Claude's list of additional claims (negligence per se, punitive damages, property damage) without asking Claude to add them to the draft.",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4l",
+          "actor": "user",
+          "label": "Review damages section and flag unsupported medical claim",
+          "detail": "Reviews the damages paragraph (medical expenses, imaging, pain and suffering, mental and emotional impact, loss of capacity), leaving dollar amounts blank, and notices an unsupported line about a treatment (such as dry eye or vision treatment) not actually documented in the records, flagging it for correction before confirming the draft is essentially complete.",
+          "time": [
+            "00:40:00-00:41:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4m",
+          "actor": "user",
+          "label": "Request Claude draft the summons",
+          "detail": "Asks Claude to draft the Summons for the case, without taking up Claude's offer to fold the additional claims into the complaint draft.",
+          "time": [
+            "00:41:19-00:41:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4n",
+          "actor": "claude",
+          "label": "Draft the civil summons matching the complaint's caption",
+          "detail": "Generates a Summons document following Georgia's standard civil summons form under O.C.G.A. § 9-11-4, including the 30-day answer deadline notice, Defendant's Florida address, a Return of Service section, and a note that nonresident-motorist service under O.C.G.A. § 9-10-94 may apply since Olga resides out of state.",
+          "time": [
+            "00:41:33-00:42:31"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4o",
+          "time": [
+            "00:41:33-00:42:31"
+          ],
+          "actor": "user",
+          "actor_type": "user",
+          "label": "Open the client's Complaint folder in Google Drive",
+          "detail": "While Claude drafts the summons, navigates to the client's Complaint folder in Google Drive.",
+          "softwares": "Google Drive",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4p",
+          "time": [
+            "00:42:31-00:44:01"
+          ],
+          "actor": "user",
+          "actor_type": "user",
+          "label": "Upload the summons to Google Drive and review it in Google Docs",
+          "detail": "Downloads Claude's summons, uploads it to the client's Complaint folder in Google Drive, opens it in Google Docs, and checks the defendant's address block, concluding the complaint and summons are essentially done.",
+          "softwares": "Claude, Google Drive, Google Docs",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "4m",
+              "target_ai": "4n",
+              "label": "adopt",
+              "source_node_time": "00:41:19-00:41:33",
+              "ai_node_time": "00:41:33-00:42:31",
+              "user_adoption_time": "00:42:31-00:44:01",
+              "reasoning": "adopt claude's summons"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "4a",
+          "to": "4b",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4c",
+          "type": "sequential"
+        },
+        {
+          "from": "4c",
+          "to": "4d",
+          "type": "sequential"
+        },
+        {
+          "from": "4d",
+          "to": "4e",
+          "type": "sequential"
+        },
+        {
+          "from": "4e",
+          "to": "4f",
+          "type": "sequential"
+        },
+        {
+          "from": "4f",
+          "to": "4g",
+          "type": "sequential"
+        },
+        {
+          "from": "4g",
+          "to": "4h",
+          "type": "sequential"
+        },
+        {
+          "from": "4h",
+          "to": "4i",
+          "type": "sequential"
+        },
+        {
+          "from": "4i",
+          "to": "4j",
+          "type": "sequential"
+        },
+        {
+          "from": "4j",
+          "to": "4k",
+          "type": "sequential"
+        },
+        {
+          "from": "4k",
+          "to": "4l",
+          "type": "sequential"
+        },
+        {
+          "from": "4l",
+          "to": "4m",
+          "type": "sequential"
+        },
+        {
+          "from": "4m",
+          "to": "4n",
+          "type": "sequential"
+        },
+        {
+          "from": "4m",
+          "to": "4o",
+          "type": "sequential"
+        },
+        {
+          "from": "4n",
+          "to": "4p",
+          "type": "sequential"
+        },
+        {
+          "from": "4o",
+          "to": "4p",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Review the complaint for legal and factual accuracy",
+      "step_action": "Review the drafted complaint against the supporting documents in Filevine. Use Claude to identify inconsistencies, missing allegations, grammatical errors, unclear language, or organizational improvements.",
+      "time_range": "00:44:01-00:52:38",
+      "nodes": [
+        {
+          "id": "5a",
+          "actor": "user",
+          "label": "Confirm defendant's address and assess out-of-state service implications",
+          "detail": "Prioritizes confirming the defendant's out-of-state (Florida) address, noting that serving a defendant there while filing in Georgia costs more and requires appointing a process server in Florida.",
+          "time": [
+            "00:44:01-00:44:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5b",
+          "actor": "user",
+          "label": "Verify jurisdiction basis and statute citations",
+          "detail": "Confirms jurisdiction is correct based on the accident location as documented in the police report and that the cited statutes are correct.",
+          "time": [
+            "00:44:53-00:45:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5c",
+          "actor": "user",
+          "label": "Re-flag the vehicle-photo mismatch for client confirmation",
+          "detail": "Re-raises the vehicle-photo mismatch Claude identified earlier, noting it can only be resolved by calling the client to confirm which vehicles (a Nissan and a Ford) were involved before filing.",
+          "time": [
+            "00:45:36-00:46:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5d",
+          "actor": "user",
+          "label": "Verify lane-change statute citation against traffic facts",
+          "detail": "Cross-checks the lane-related statute citation (restricting center-lane driving) against the fact that the client was traveling in the left-most lane.",
+          "time": [
+            "00:46:15-00:47:26"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5e",
+          "actor": "user",
+          "label": "Verify crash report number and citation code against police report",
+          "detail": "Verifies the crash report number and citation code against the police report to confirm accuracy in the complaint.",
+          "time": [
+            "00:47:26-00:48:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5f",
+          "actor": "user",
+          "label": "Confirm impact location and address details",
+          "detail": "Double-checks the factual detail about where the impact occurred on the vehicle (front left side) and confirms an address/location detail cited in the complaint.",
+          "time": [
+            "00:48:36-00:49:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Filevine",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5g",
+          "actor": "user",
+          "label": "Confirm document formatting matches Georgia court rules",
+          "detail": "Notes the formatting (1.5 line spacing, Times New Roman 12pt) the participant specified in their prompt to Claude already matches Georgia court rules, and confirms the record-keeping section is correct.",
+          "time": [
+            "00:49:21-00:50:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5h",
+          "actor": "user",
+          "label": "Identify missing attorney fees claim and request paragraph",
+          "detail": "Realizes attorney fees were missing from the damages and prayer for relief, even though Claude had listed them as an available claim earlier, and asks Claude to draft the attorney fee paragraph for the complaint in chat.",
+          "time": [
+            "00:50:00-00:50:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5i",
+          "actor": "claude",
+          "label": "Draft attorney's fees paragraph with supporting citation",
+          "detail": "Generates a standalone 'Attorney's Fees and Expenses of Litigation' paragraph citing O.C.G.A. § 13-6-11, grounded in the citation issued at the scene and the alleged attempt to leave before officers arrived, plus notes for attorney review on evidentiary strength and a suggested prayer-for-relief addition.",
+          "time": [
+            "00:50:34-00:50:45"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5j",
+          "actor": "user",
+          "label": "Insert attorney fees paragraph and confirm complaint is ready",
+          "detail": "Reads Claude's attorney's fees paragraph and notes, pastes paragraphs 27-28 into the complaint draft in Google Docs, selects the suggested prayer-for-relief line, and confirms the whole complaint is reviewed and ready.",
+          "time": [
+            "00:50:45-00:52:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Google Docs",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "4i",
+              "target_ai": "4j",
+              "label": "adopt",
+              "source_node_time": "00:38:30-00:38:45",
+              "ai_node_time": "00:38:45-00:39:40",
+              "user_adoption_time": "00:50:45-00:52:38",
+              "reasoning": "use claude's list of additional cause of action"
+            },
+            {
+              "source_node": "4i",
+              "target_ai": "5i",
+              "label": "adopt",
+              "source_node_time": "00:38:30-00:38:45",
+              "ai_node_time": "00:50:34-00:50:45",
+              "user_adoption_time": "00:50:45-00:52:38",
+              "reasoning": "paste claude's paragraph into complaint"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "5a",
+          "to": "5b",
+          "type": "sequential"
+        },
+        {
+          "from": "5b",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5c",
+          "to": "5d",
+          "type": "sequential"
+        },
+        {
+          "from": "5d",
+          "to": "5e",
+          "type": "sequential"
+        },
+        {
+          "from": "5e",
+          "to": "5f",
+          "type": "sequential"
+        },
+        {
+          "from": "5f",
+          "to": "5g",
+          "type": "sequential"
+        },
+        {
+          "from": "5g",
+          "to": "5h",
+          "type": "sequential"
+        },
+        {
+          "from": "5h",
+          "to": "5i",
+          "type": "sequential"
+        },
+        {
+          "from": "5i",
+          "to": "5j",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 6": {
+      "key": "seg6",
+      "badge": "Step 6",
+      "step_name": "Prepare the filing package",
+      "step_action": "Conduct a final review of the complaint, verify attachments and exhibits, ensure all required information is included, and prepare the complaint package for attorney review and filing.",
+      "time_range": "00:52:38-00:58:35",
+      "nodes": [
+        {
+          "id": "6a",
+          "actor": "user",
+          "label": "Prompt Claude to generate filing-readiness checklist",
+          "detail": "Before submitting to the court, prompts Claude to draft a few pointers the attorney should be prepared with before going into litigation on this matter.",
+          "time": [
+            "00:52:38-00:53:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6b",
+          "actor": "claude",
+          "label": "Synthesize litigation-readiness checklist",
+          "detail": "Produces a multi-part checklist synthesizing gaps and risks flagged across the crash report, medical records, and draft pleadings, covering evidentiary gaps on liability, medical proof, likely defenses, insurance coverage, procedural housekeeping, and client-facing items, framed as issue-spotting for the attorney rather than a complete litigation plan.",
+          "time": [
+            "00:53:16-00:53:55"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6c",
+          "actor": "user",
+          "label": "Verify availability of recorded statement and dash-cam/body-cam footage",
+          "detail": "Reviews the checklist's first item on obtaining a recorded statement, checks the police report for dash-cam or body-cam footage, confirms none is available, and notes this is less critical since liability has already been accepted.",
+          "time": [
+            "00:53:55-00:55:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Filevine",
+          "source_steps": "Step 6",
+          "user_response": [
+            {
+              "source_node": "6a",
+              "target_ai": "6b",
+              "label": "adopt",
+              "source_node_time": "00:52:38-00:53:16",
+              "ai_node_time": "00:53:16-00:53:55",
+              "user_adoption_time": "00:53:55-00:55:36",
+              "reasoning": "work through claude's checklist"
+            }
+          ]
+        },
+        {
+          "id": "6d",
+          "actor": "user",
+          "label": "Review checklist items on driver info, MRI results, and treatment gap",
+          "detail": "Works through checklist items covering whether driver information and actual MRI results are on file, reconfirming the roughly two-month treatment gap as an important weakness to prepare for.",
+          "time": [
+            "00:55:36-00:55:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6e",
+          "actor": "user",
+          "label": "Review remaining checklist items on litigation readiness",
+          "detail": "Works through remaining checklist items covering preparation for a lengthy defense strategy, potential relapse or further treatment, sorting out insurance and a rental vehicle, and the two-year statute of limitations.",
+          "time": [
+            "00:55:57-00:56:22"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6f",
+          "actor": "user",
+          "label": "Flag need for proper out-of-state service mechanism",
+          "detail": "Confirms a proper service mechanism needs to be ready given the out-of-state defendant, marking it as very important for the attorney.",
+          "time": [
+            "00:56:22-00:56:39"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6g",
+          "actor": "user",
+          "label": "Check whether a demand letter was sent",
+          "detail": "Checks the checklist item on whether a demand letter was already sent for this matter, noting it's important to confirm before filing.",
+          "time": [
+            "00:56:39-00:57:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6h",
+          "actor": "user",
+          "label": "Perform final formatting pass before attorney handoff",
+          "detail": "Does a final formatting pass on the complaint in Google Docs and highlights the vehicle descriptions in red as items to confirm with the client before handing the package to the attorney for filing.",
+          "time": [
+            "00:57:15-00:58:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 6"
+        }
+      ],
+      "edges": [
+        {
+          "from": "6a",
+          "to": "6b",
+          "type": "sequential"
+        },
+        {
+          "from": "6b",
+          "to": "6c",
+          "type": "sequential"
+        },
+        {
+          "from": "6c",
+          "to": "6d",
+          "type": "sequential"
+        },
+        {
+          "from": "6d",
+          "to": "6e",
+          "type": "sequential"
+        },
+        {
+          "from": "6e",
+          "to": "6f",
+          "type": "sequential"
+        },
+        {
+          "from": "6f",
+          "to": "6g",
+          "type": "sequential"
+        },
+        {
+          "from": "6g",
+          "to": "6h",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Review and organize case documents",
+      "step_action": "Review all available case documents in Filevine, google drive, including the client intake, accident report, medical records, photographs, witness information if any, insurance details, and correspondence. Identify missing information and organize the documents before beginning the complaint.",
+      "input": "Client intake documents, police report, medical records, photographs, witness statements, insurance information, and correspondence stored in Filevine.",
+      "output": "An organized case file, summary of facts, and checklist of any missing information required before drafting.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.Rubric 2: Key facts are accurately extracted.Rubric 3: Missing documents or information are clearly identified.Rubric 4: Case facts are organized chronologically. Rubric 5: No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Claude quickly pulled together the scattered case documents into one organized summary and flagged the gaps  without needing several follow-up prompts. The chronology of intake was easy to work from right away."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The agent reviewed every document I provided, produced an accurate fact summary, and gave a clear checklist of missing items I still needed from the client."
+      }
+    },
+    "Step 2": {
+      "step_name": "Prepare a factual chronology and identify legal issues",
+      "step_action": "Create a detailed timeline of events from the accident through medical treatment. Identify the parties involved, potential defendants, jurisdiction, venue, and preliminary causes of action. Use Claude to help organize the chronology and identify missing factual gaps.",
+      "input": "Organized case documents from Step 1.",
+      "output": "Case chronology, list of parties, preliminary legal issues, and list of additional information required.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.",
+        "Key facts are accurately extracted.",
+        "Missing documents or information are clearly identified.",
+        "Case facts are organized chronologically.",
+        "No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The timeline Claude built was accurate and chronological, correctly separated the at-fault driver from the co-defendant entity, and correctly flagged diversity/venue considerations I needed to double check before filing."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The agent correctly sequenced the accident, treatment, and correspondence dates, and identified negligence and negligence per se as the likely causes of action based on the facts provided."
+      }
+    },
+    "Step 3": {
+      "step_name": "Develop the complaint outline",
+      "step_action": "Use the case chronology and legal issues to prepare a structured outline of the complaint, including jurisdiction, parties, factual allegations, causes of action, damages, and prayer for relief. Use Claude to suggest organization and improve the structure.",
+      "input": "Case chronology, client documents, and legal notes.",
+      "output": "A complete complaint outline ready for drafting.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.",
+        "Key facts are accurately extracted.",
+        "Missing documents or information are clearly identified.",
+        "Case facts are organized chronologically.",
+        "No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The outline followed standard state civil complaint conventions and cleanly separated jurisdiction, parties, facts, and each cause of action into numbered paragraphs, which made drafting the full complaint much faster."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The outline captured every element I needed (jurisdiction and venue, parties, factual allegations, negligence, negligence per se, damages, and prayer for relief) in a logical, filing-ready order."
+      }
+    },
+    "Step 4": {
+      "step_name": "Draft the complaint",
+      "step_action": "Draft the complaint using the organized facts and outline. Use Claude to improve clarity, legal language, grammar, and organization while ensuring all factual allegations remain consistent with the evidence.",
+      "input": "Complaint outline, medical records, accident documents, and chronology.",
+      "output": "Complete first draft of the complaint.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.",
+        "Key facts are accurately extracted.",
+        "Missing documents or information are clearly identified.",
+        "Case facts are organized chronologically.",
+        "No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "The first draft was well written and used clean, numbered paragraph formatting consistent with court rules. I only needed to tighten the damages section slightly so the alleged injuries matched the medical record language exactly."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The agent produced a complete, properly formatted complaint draft with all required statutes, elements, and claims; minor wording adjustments were still needed for precision."
+      }
+    },
+    "Step 5": {
+      "step_name": "Review the complaint for legal and factual accuracy",
+      "step_action": "Review the drafted complaint against the supporting documents in Filevine. Use Claude to identify inconsistencies, missing allegations, grammatical errors, unclear language, or organizational improvements.",
+      "input": "Draft complaint and supporting documents.",
+      "output": "Marked-up complaint with revisions and recommendations.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.",
+        "Key facts are accurately extracted.",
+        "Missing documents or information are clearly identified.",
+        "Case facts are organized chronologically.",
+        "No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Claude caught two factual inconsistencies between the complaint and the medical records, flagged a missing allegation regarding lost wages, and cleaned up several grammatical issues, all while preserving the original meaning of the facts."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The agent thoroughly cross-checked the complaint against the supporting documents and returned a clear, actionable markup of revisions."
+      }
+    },
+    "Step 6": {
+      "step_name": "Prepare the filing package",
+      "step_action": "Conduct a final review of the complaint, verify attachments and exhibits, ensure all required information is included, and prepare the complaint package for attorney review and filing.",
+      "input": "Final complaint, exhibits, supporting documents.",
+      "output": "Complaint package prepared for filing and attorney approval.",
+      "tools": "Filevine, Claude",
+      "rubrics": [
+        "All available case documents are reviewed.",
+        "Key facts are accurately extracted.",
+        "Missing documents or information are clearly identified.",
+        "Case facts are organized chronologically.",
+        "No confidential information is omitted or misinterpreted."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The final package checklist confirmed every required exhibit was attached and correctly labeled, and the complaint was internally consistent and ready to hand off for attorney review."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The agent verified all exhibits and attachments against the complaint's references and assembled a complete, filing-ready package for attorney sign-off."
+      }
+    }
+  }
+}

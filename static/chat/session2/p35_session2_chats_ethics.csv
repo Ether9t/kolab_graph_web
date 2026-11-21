@@ -1,0 +1,1339 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-13T22:22:55.002309Z,"I am designing the electrical architecture for a Rotary Escapement Feeder. The components are an Arduino Mega 2560, a TB6612FNG motor driver, and an M12 Industrial Photoeye sensor (which runs on 24V). Please provide a detailed pin-mapping table. Crucially, assign the photoeye to a hardware interrupt pin on the Mega. Also, provide the wiring logic and safety considerations for stepping down the 24V sensor signal so it doesn't fry the 5V Arduino logic pins.",,,,
+Claude,2026-08-13T22:22:54.997371Z,,Finalizing schematic documentation and ground domain isolation details.,,Architected opto-isolation schematic bridging 24V and 5V domains.,
+Claude,2026-08-13T22:24:38.183288Z,,Loading visualization helpers,visualize:read_me,Architected opto-isolation schematic bridging 24V and 5V domains.,
+Claude,2026-08-13T22:26:00.196709Z,"Here's the electrical architecture for your Rotary Escapement Feeder. I'll cover the pin mapping, the interrupt assignment, and — most importantly — the isolation stage that keeps the 24V photoeye from putting current into your 5V logic pins.
+
+## Pin-mapping table
+
+**TB6612FNG motor driver ↔ Arduino Mega 2560**
+
+| TB6612FNG pin | Function | Mega 2560 pin | Notes |
+|---|---|---|---|
+| VCC | Logic supply | 5V | Powers the driver's logic side only |
+| GND | Common ground | GND | Tie to Mega GND and motor PSU (–) |
+| VM | Motor supply | External motor PSU (+) | **Never** the Mega's 5V pin — see warning below |
+| STBY | Standby/enable | Pin 4 | HIGH = driver active. Route through an E‑stop relay (see safety) |
+| PWMA | Ch. A speed | Pin 5 (PWM) | |
+| AIN1 | Ch. A direction | Pin 6 | |
+| AIN2 | Ch. A direction | Pin 7 | |
+| PWMB | Ch. B speed *(2nd motor / stepper coil B)* | Pin 9 (PWM) | Only if you're driving a bipolar stepper or a second actuator |
+| BIN1 | Ch. B direction | Pin 10 | |
+| BIN2 | Ch. B direction | Pin 11 | |
+| AO1/AO2, BO1/BO2 | Motor outputs | To motor | |
+
+**M12 photoeye ↔ Arduino Mega 2560 (via isolation stage — see below)**
+
+| Signal | Component | Mega 2560 pin | Notes |
+|---|---|---|---|
+| Sensor output (isolated) | Opto-isolator collector node | **Pin 2 (INT0)** | Hardware interrupt |
+| Sensor +24V (brown) | Photoeye | External 24V supply | Never touches the Mega |
+| Sensor 0V (blue) | Photoeye | External 24V supply common | Isolated from Mega GND |
+
+**Available hardware interrupt pins on the Mega 2560** (for reference, if you add more sensors later):
+
+| Pin | Interrupt |
+|---|---|
+| 2 | INT0 ← assigned to photoeye |
+| 3 | INT1 |
+| 21 | INT2 |
+| 20 | INT3 |
+| 19 | INT4 |
+| 18 | INT5 |
+
+I put the photoeye on **pin 2 (INT0)** because it's the most heavily documented/least ambiguous interrupt pin, and it keeps pins 20/21 (INT2/INT3) free for I²C if you add a display or another sensor later.
+
+⚠️ **Check your motor supply voltage.** The TB6612FNG's absolute maximum VM is **15V** (recommended operating range 2.5–13.5V). If your escapement motor is on the same 24V rail as the photoeye, the TB6612FNG will be destroyed — you'd need a different driver (e.g. a 24V-rated H-bridge like a BTS7960 module) or a separate lower-voltage motor supply.
+
+## Stepping down the 24V sensor signal — wiring logic
+
+Assuming a typical M12 photoeye with an **NPN (sinking) output** — confirm this against your specific sensor's datasheet, since some are PNP or complementary — the safest approach is a 4N/PC817-style **optocoupler**, not a resistive divider. A divider only scales voltage; it does nothing to protect against the voltage spikes, noise, and ground loops that are common on industrial 24V field wiring. An optocoupler gives you full galvanic isolation between the two voltage domains.
+
+**Input side (24V):** Sensor's black (signal) wire → through a current-limiting resistor **R1 (≈4.7kΩ, ½W)** → optocoupler LED anode. LED cathode ties back to the sensor's 0V/common. When the sensor is triggered, its NPN transistor sinks the line to 0V, current flows through R1 and the LED, and the LED turns on. (R1 sized for ~5mA LED current: (24V − 1.2V) / 4.7kΩ ≈ 4.85mA — comfortably within PC817 switching spec.)
+
+**Output side (5V):** Optocoupler's phototransistor collector → 5V through a **pull-up resistor R2 (10kΩ)** → this same node feeds **Mega pin 2**. Emitter → Arduino GND. When the LED is on, the phototransistor conducts and pulls the Mega pin LOW; when off, R2 holds it HIGH. So your interrupt should trigger on `FALLING` for ""object detected"" (assuming the sensor sinks on detection — verify against your unit's light-on/dark-on setting).",,,,
+Claude,2026-08-13T22:26:16.605548Z,,Rendering interactive widget: photoeye_optoisolation_circuit,visualize:show_widget,,
+Claude,2026-08-13T22:26:28.357698Z,"## Safety considerations
+
+- **Galvanic isolation is not optional here.** The optocoupler means the 24V field wiring and the 5V Arduino logic never share a ground reference. This protects against transients (industrial 24V rails routinely see spikes well above nominal), ground loops, and a wiring mistake instantly frying a Mega pin.
+- **Verify NPN vs. PNP before wiring.** If your specific M12 sensor is PNP (sourcing) instead of NPN, the circuit flips: the output sources +24V when triggered instead of sinking to 0V, so the LED and pull-up logic need to be re-arranged accordingly. Check the datasheet first.
+- **Hardware E-stop, not just software.** Wire STBY (and ideally the motor's 24V/VM supply) through a physical E-stop relay in series, so a hung sketch or crashed loop can't leave the motor energized. Don't rely on `digitalWrite(STBY, LOW)` alone as your only stop mechanism.
+- **Keep the ISR minimal.** In the `attachInterrupt()` handler, just set a flag or increment a counter — do your escapement logic in `loop()`. Long ISRs block other interrupts and can cause missed pulses or watchdog issues.
+- **Add a small filter cap** (100pF–1nF) from the opto's collector node to GND on the 5V side to knock down high-frequency noise, without adding enough capacitance to noticeably slow the edge for the interrupt.
+- **Cable practices:** run the 24V sensor line in shielded cable, ground the shield at the controller end only, and keep it physically separated from motor power wiring — motor switching noise coupling into an edge-triggered interrupt line is a classic source of false triggers.
+- **Fuse the 24V rail** feeding the sensor (and motor supply, if separate) for overcurrent protection.
+- **Confirm TB6612FNG output diode coverage.** It has internal flyback protection for the H-bridge outputs, but double-check your specific motor's inductive characteristics against the datasheet if you're driving anything larger than a small gearmotor or stepper.
+- **Label your ground domains on the schematic** — ""24V field GND"" vs. ""Arduino logic GND"" — so nobody bridges them by accident during assembly or troubleshooting later.",,,,
+Human,2026-08-13T22:43:55.120923Z,can you give the schematic and the layout circuit diagram. can you specify the fuse rating and type to be used in this design? should it be fast acting or slow blow fuses? aside tb66... motor driver i specified for you which other motor driver would you recommend and will still perform the same function and safety,,,,
+Claude,2026-08-13T22:43:55.114564Z,,Drafting power distribution diagrams and motor driver comparison table.,,Architected comprehensive power distribution schematic with fuse calculations.,
+Claude,2026-08-13T22:45:16.368923Z,,Searching the web: TB67H420FTG datasheet motor voltage current rating,web_search,Architected comprehensive power distribution schematic with fuse calculations.,
+Claude,2026-08-13T22:45:19.538412Z,,Searching the web: DRV8871 datasheet voltage range continuous current rating,web_search,Architected comprehensive power distribution schematic with fuse calculations.,
+Claude,2026-08-13T22:45:23.577151Z,,Searching the web: TB6612FNG datasheet absolute maximum voltage VM rating,web_search,Architected comprehensive power distribution schematic with fuse calculations.,
+Claude,2026-08-13T22:46:46.951972Z,"Good catch checking these before I commit to numbers — I pulled the actual datasheet figures rather than going from memory, since fuse and driver sizing is exactly the kind of thing that shouldn't be a guess.
+
+## Fuse sizing
+
+Fuses should be split into **separate branches** so a fault on the sensor line can't take down motor power (or vice versa), and each branch should be sized close to its actual load — not the total system current.
+
+| Branch | Recommended rating | Type | Why |
+|---|---|---|---|
+| Main 24V input (before the branch split) | Sum of branch currents + ~25% margin | **Slow-blow** (time-delay, ""T"") | Must ride through the combined power-up inrush of the driver IC's capacitors and motor start, without nuisance-tripping |
+| Photoeye/sensor branch | **0.5A (500mA)** | **Fast-acting** (fast-blow, ""F"") — or a resettable PTC (polyfuse) rated ~150–200mA | This branch draws maybe 30–60mA total (sensor quiescent + opto LED current) with no inrush at all. A fast-blow gives ~8–10x headroom while still reacting quickly to protect the fine-gauge signal wire and the opto components in a fault |
+| Motor branch (to driver VM) | ~150% of the motor's rated continuous (nameplate) current | **Slow-blow** (time-delay) | Motors draw a brief inrush/stall current spike (often 3–5x running current) every time they start or reverse. A fast-blow will nuisance-trip on that transient; slow-blow tolerates it but still opens on a sustained overload or short |
+
+As a worked example: if your escapement motor is rated ~2A continuous, size that branch fuse around **3A slow-blow**. Always keep the fuse rating *below* the ampacity of the wire gauge you're using on that branch, and *above* the normal continuous draw — sizing it right at the wire's rated current means it may not blow before the insulation is damaged.",,,,
+Claude,2026-08-13T22:46:54.586328Z,,Rendering interactive widget: power_distribution_fusing_schematic,visualize:show_widget,,
+Claude,2026-08-13T22:47:10.606375Z,"## Motor driver alternative (24V-rated)
+
+Since the TB6612FNG's 15V absolute maximum rules it out for a 24V motor, here's how it compares to two drop-in-class alternatives that keep the same protective function while adding real 24V headroom:",,,,
+Claude,2026-08-13T22:47:12.252320Z,,Comparing the TB6612FNG against two 24V-rated alternatives,comparison_card_display_v0,,
+Claude,2026-08-13T22:47:19.838368Z,"My recommendation: if your escapement uses a bipolar stepper or needs two independent motor channels, go with the **TB67H420FTG** — it's from the same Toshiba family, keeps a similar PWM/direction control scheme (so your firmware logic barely changes), and adds built-in overcurrent and undervoltage protection the bare TB6612FNG doesn't have. If it's a single DC gearmotor, the **DRV8871** is simpler to wire and has the best fault protection of the three, including current sensing — but it only gives you one channel.
+
+Now the physical layout — this is about keeping the two voltage domains physically separated on your panel or board, not just electrically isolated:",,,,
+Claude,2026-08-13T22:47:23.773641Z,,Rendering interactive widget: panel_layout_voltage_zones,visualize:show_widget,,
+Claude,2026-08-13T22:47:35.196232Z,"A few notes to go with that layout:
+
+- **Motor driver placement is the exception.** It sits at the boundary between the two zones — its VM pin connects to 24V and its logic side connects to the Mega's 5V/GPIO — because the IC itself is engineered to bridge both domains safely. That's different from the photoeye's raw signal wire, which is what actually needs the optocoupler.
+- **Clearance is a practical rule of thumb, not a formal certification.** For a hobby or shop-built panel, keeping at least ~6mm of physical separation (or a routed slot/barrier) between 24V field wiring and 5V signal wiring is a reasonable working guideline. If this feeder needs to meet a formal safety standard, size the actual clearance/creepage distances from the IPC-2221 tables for your voltage class, pollution degree, and altitude rather than this rule of thumb.
+- **Route the 24V and 5V wiring in separate bundles or looms** through the enclosure, crossing at right angles where they must cross, to minimize capacitive/inductive coupling into your interrupt line.",,,,
+Human,2026-08-13T22:57:46.503996Z,"Let's stick to TB6612FNG 
+
+Generate the core C++ firmware framework for this feeder using the pins you just assigned. I need a non-blocking state-machine using 'switch(case)' logic. The states should be: IDLE, FEEDING, VERIFY, and JAMMED. Do not use any delay() functions; use millis() for all timing so the Arduino can continuously poll the sensor. Just provide the framework and state transitions for now.",,,,
+Claude,2026-08-13T22:57:46.497973Z,,,,Architected non-blocking state machine firmware with timing logic.,
+Claude,2026-08-13T22:58:49.538304Z,"Good — sticking with the TB6612FNG, so just keep the motor supply within its 13.5V recommended / 15V absolute max range. Here's the non-blocking state machine framework using the pins already assigned (STBY=4, PWMA=5, AIN1=6, AIN2=7, photoeye on INT0/pin 2).",,,,
+Claude,2026-08-13T22:58:50.622282Z,,Creating file: RotaryEscapementFeeder.ino,create_file,,RotaryEscapementFeeder.ino
+Claude,2026-08-13T22:59:12.549139Z,,Sharing file(s): RotaryEscapementFeeder.ino,present_files,,RotaryEscapementFeeder.ino
+Claude,2026-08-13T22:59:13.466427Z,"How the state transitions work:
+
+- **IDLE → FEEDING**: gated by `shouldStartFeedCycle()`, a placeholder that returns `true` — swap in your real ""ready to feed"" condition. On entry it clears any stale sensor flag, enables the driver, and starts the motor.
+- **FEEDING → VERIFY**: fires the moment the ISR sets `partDetectedFlag` — the motor stops immediately and the timer resets for the verify window.
+- **FEEDING → JAMMED**: fires if `FEED_TIMEOUT_MS` elapses with no sensor trigger — motor runs, but nothing showed up.
+- **VERIFY → IDLE or JAMMED**: after `VERIFY_WINDOW_MS`, `verifyPartPresent()` does a direct `digitalRead()` to confirm the sensor is still asserted, not just a transient blip. Confirmed → back to IDLE for the next cycle. Not confirmed → JAMMED.
+- **JAMMED**: latched — motor stays disabled until `jamResetRequested()` returns true. It's a stub by design, so a jam can't silently auto-clear until you decide how that should happen (button, serial command, timed retry, etc.).
+
+The three `TODO` hook functions (`shouldStartFeedCycle`, `verifyPartPresent`, `jamResetRequested`) are where your actual mechanism logic plugs in — the state machine itself doesn't need to change as you fill those in.",,,,
+Human,2026-08-13T23:00:40.978192Z,Please give the code as text so that i can copy and paste it in my arduino ide,,,,
+Claude,2026-08-13T23:00:42.223353Z,"Here's the full sketch as plain text:
+
+```cpp
+/*
+  Rotary Escapement Feeder - Core Firmware Framework
+  Board:        Arduino Mega 2560
+  Motor driver: TB6612FNG, Channel A (single motor)
+  Sensor:       M12 photoeye via opto-isolated input on pin 2 (INT0)
+
+  NOTE: TB6612FNG absolute max motor voltage is 15V (13.5V recommended
+  operating range). Confirm the motor supply stays within that before
+  wiring VM.
+
+  This is a non-blocking state machine skeleton - states and transitions
+  only. No delay() anywhere; all timing is done with millis() so the
+  sensor can be polled continuously. Motor tuning, the real ""start feed""
+  trigger, and jam-clearing logic are left as TODOs for your mechanism.
+*/
+
+// ---------------------------------------------------------------------
+// Pin assignments
+// ---------------------------------------------------------------------
+const uint8_t PIN_PHOTOEYE_INT = 2;   // INT0, opto-isolated photoeye input (active LOW on part detect)
+const uint8_t PIN_STBY         = 4;   // TB6612FNG standby/enable (HIGH = driver enabled)
+const uint8_t PIN_PWMA         = 5;   // TB6612FNG channel A PWM (speed)
+const uint8_t PIN_AIN1         = 6;   // TB6612FNG channel A direction
+const uint8_t PIN_AIN2         = 7;   // TB6612FNG channel A direction
+
+// ---------------------------------------------------------------------
+// Tunable timing / speed constants (all millis()-based, non-blocking)
+// ---------------------------------------------------------------------
+const unsigned long DEBOUNCE_MS      = 5;     // minimum time between valid sensor edges
+const unsigned long FEED_TIMEOUT_MS  = 3000;  // max time allowed to feed a part before declaring a jam
+const unsigned long VERIFY_WINDOW_MS = 300;   // settle time to confirm the part is actually in position
+const uint8_t       FEED_SPEED       = 150;   // PWM duty cycle (0-255) - tune to your mechanism
+
+// ---------------------------------------------------------------------
+// State machine
+// ---------------------------------------------------------------------
+enum FeederState {
+  STATE_IDLE,
+  STATE_FEEDING,
+  STATE_VERIFY,
+  STATE_JAMMED
+};
+
+FeederState   currentState  = STATE_IDLE;
+unsigned long stateEnteredAt = 0;
+
+// ---------------------------------------------------------------------
+// Sensor state - written only in the ISR, read in loop()
+// ---------------------------------------------------------------------
+volatile bool          partDetectedFlag = false;
+volatile unsigned long lastEdgeTime     = 0;
+
+void photoeyeISR() {
+  unsigned long now = millis();
+  if (now - lastEdgeTime >= DEBOUNCE_MS) {
+    partDetectedFlag = true;
+    lastEdgeTime = now;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Motor helpers
+// ---------------------------------------------------------------------
+void motorEnable()  { digitalWrite(PIN_STBY, HIGH); }
+void motorDisable() { digitalWrite(PIN_STBY, LOW); }
+
+void motorRunForward(uint8_t speed) {
+  digitalWrite(PIN_AIN1, HIGH);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, speed);
+}
+
+void motorStop() {
+  digitalWrite(PIN_AIN1, LOW);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, 0);
+}
+
+// ---------------------------------------------------------------------
+// Debug helper
+// ---------------------------------------------------------------------
+const char* stateName(FeederState s) {
+  switch (s) {
+    case STATE_IDLE:    return ""IDLE"";
+    case STATE_FEEDING: return ""FEEDING"";
+    case STATE_VERIFY:  return ""VERIFY"";
+    case STATE_JAMMED:  return ""JAMMED"";
+    default:             return ""UNKNOWN"";
+  }
+}
+
+// ---------------------------------------------------------------------
+// State transition helper - resets the state clock on every transition
+// ---------------------------------------------------------------------
+void changeState(FeederState newState) {
+  currentState = newState;
+  stateEnteredAt = millis();
+  Serial.print(F(""State -> ""));
+  Serial.println(stateName(newState));
+}
+
+// ---------------------------------------------------------------------
+// Hooks to fill in for your specific mechanism / upstream signals
+// ---------------------------------------------------------------------
+bool shouldStartFeedCycle() {
+  // TODO: replace with real logic - e.g. an upstream ""ready"" signal,
+  // a downstream ""part consumed"" acknowledgment, or simply ""always
+  // feed while idle and the escapement is clear"".
+  return true;
+}
+
+bool verifyPartPresent() {
+  // TODO: add any extra confirmation beyond the interrupt flag - e.g.
+  // a second sensor, or requiring a steady LOW read rather than a blip.
+  return digitalRead(PIN_PHOTOEYE_INT) == LOW;
+}
+
+bool jamResetRequested() {
+  // TODO: hook this to a physical reset button, a serial command, or
+  // an automatic retry timer. Returning false keeps JAMMED latched
+  // until explicitly cleared - deliberate, since auto-retrying into
+  // a jam can make it worse.
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Setup
+// ---------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(PIN_PHOTOEYE_INT, INPUT); // external R2 pull-up already provides this
+  pinMode(PIN_STBY, OUTPUT);
+  pinMode(PIN_PWMA, OUTPUT);
+  pinMode(PIN_AIN1, OUTPUT);
+  pinMode(PIN_AIN2, OUTPUT);
+
+  motorDisable();
+  motorStop();
+
+  attachInterrupt(digitalPinToInterrupt(PIN_PHOTOEYE_INT), photoeyeISR, FALLING);
+
+  changeState(STATE_IDLE);
+}
+
+// ---------------------------------------------------------------------
+// Main loop - non-blocking state machine, no delay() anywhere
+// ---------------------------------------------------------------------
+void loop() {
+  unsigned long elapsed = millis() - stateEnteredAt;
+
+  switch (currentState) {
+
+    case STATE_IDLE:
+      motorDisable();
+      motorStop();
+
+      if (shouldStartFeedCycle()) {
+        partDetectedFlag = false; // clear any stale edge before we start moving
+        motorEnable();
+        motorRunForward(FEED_SPEED);
+        changeState(STATE_FEEDING);
+      }
+      break;
+
+    case STATE_FEEDING:
+      if (partDetectedFlag) {
+        motorStop();
+        changeState(STATE_VERIFY);
+      } else if (elapsed >= FEED_TIMEOUT_MS) {
+        motorStop();
+        motorDisable();
+        changeState(STATE_JAMMED);
+      }
+      // else: keep polling, motor keeps running, no delay()
+      break;
+
+    case STATE_VERIFY:
+      if (elapsed >= VERIFY_WINDOW_MS) {
+        if (verifyPartPresent()) {
+          changeState(STATE_IDLE); // part confirmed, cycle complete
+        } else {
+          motorDisable();
+          changeState(STATE_JAMMED); // trigger didn't hold - treat as fault
+        }
+      }
+      break;
+
+    case STATE_JAMMED:
+      motorDisable();
+      motorStop();
+
+      if (jamResetRequested()) {
+        partDetectedFlag = false;
+        changeState(STATE_IDLE);
+      }
+      break;
+  }
+}
+```",,,,
+Human,2026-08-13T23:08:09.824023Z,"you did not advise me on how to get my 13.5V.  Additionally, you did not give all the electrical and electronics components and specification for this design. don't you think i need a but converter. how about implementing a virtual e-fuse in the code structure. and in the code you gave above you did not use enums for the states and avoiding delays. or  am i seeing correctly? why didn't you use enums, which is better?",,,,
+Claude,2026-08-13T23:08:09.818648Z,,,,Architected comprehensive power solution with buck converter and current sensing.,
+Claude,2026-08-13T23:10:33.274271Z,"Good catches — let me fix all four of these.
+
+## Getting to 13.5V from your 24V rail
+
+You need a **buck (step-down switching) converter**, not a linear regulator. At any real motor current, a linear regulator would dissipate huge amounts of heat: dropping 24V to 12V at a 2A stall current is (24V−12V) × 2A = 24W wasted as heat in a component that isn't built to shed that much. A switching buck converter does the same job at >90% efficiency with a small warm heatsink at most.
+
+- **Target 12V, not 13.5V.** Running right at the TB6612FNG's 13.5V recommended max leaves no margin for supply ripple, line regulation drift, or back-EMF transients from the motor. 12V gives you ~1.5V of headroom under the recommended limit and 3V under the 15V absolute max.
+- **Size the converter's current rating to your motor's stall/peak current**, not its running current — with ~150% margin. If your motor's locked-rotor/stall current is 2A, look for a converter rated ≥3A continuous.
+- **Common part families**: an adjustable LM2596-based buck module for lower-current motors, or an XL4015/synchronous buck module for anything above ~3A.
+- **Add bulk capacitance at the TB6612's VM pin** — a 220–470µF low-ESR electrolytic plus a 0.1µF ceramic, placed physically close to the pin — to absorb switching noise from the converter and the current transients of motor start/stop.
+- **On back-EMF**: stopping or reversing a motor abruptly can push a voltage spike back onto VM. The capacitor above is your first line of defense. The bigger lever is in firmware — coast the motor to a stop (both direction pins LOW, PWM at 0) rather than plugging it into reverse at full speed, which is what generates the worst spikes. A TVS diode can add a hard clamp, but sizing one correctly needs your motor's actual regen current, so I'd rather not hand you a part number that might be wrong — check your buck converter/driver vendor's app note for that if you want a hard clamp layer.
+
+## Updated bill of materials
+
+| Component | Spec | Notes |
+|---|---|---|
+| Arduino Mega 2560 | — | Controller |
+| TB6612FNG driver | Breakout board (Sparkfun/Adafruit-style) | VM ≤ 15V abs max |
+| Buck converter | 24V→12V, current rating ≥150% of motor stall current | e.g. LM2596/XL4015-based module |
+| VM bulk capacitor | 220–470µF low-ESR electrolytic + 0.1µF ceramic | At the TB6612 VM/GND pins |
+| M12 photoeye | 24V, NPN sinking output (per your model) | Confirm against your datasheet |
+| Optocoupler | PC817 or equivalent | Isolates the 24V sensor signal |
+| R1 | 4.7kΩ, ½W | Opto LED current limit |
+| R2 | 10kΩ, ¼W | Opto output pull-up to 5V |
+| Current sensor | ACS712 module, range picked to motor current (e.g. 5A or 20A variant) | For the virtual e-fuse, see below |
+| Main fuse | Slow-blow, sized to total system + 25% | Plus holder |
+| Sensor branch fuse | 0.5A fast-blow, or PTC | Plus holder |
+| Motor branch fuse | Slow-blow, ~150% of motor rated current | Plus holder |
+| 24V DC power supply | Rated ≥ sum of all loads + margin | |
+| Motor | TBD — pick based on required torque/speed, confirm stall current for driver/fuse sizing | |
+| Terminal blocks, connectors | Rated for the currents/voltages on each branch | |
+| Wire | ~22AWG signal branch, ~18–20AWG motor/power branch (size to actual current) | |",,,,
+Claude,2026-08-13T23:10:47.454968Z,,Rendering interactive widget: updated_motor_power_chain,visualize:show_widget,,
+Claude,2026-08-13T23:10:58.618566Z,"## Virtual e-fuse
+
+The hardware fuse is your last-resort, dumb protection — it always works, but it's slow and doesn't tell you anything. A software e-fuse sits in front of it: it reads actual current continuously and can trip faster, distinguish a real overload from a brief inrush, and log what happened. This needs a **current sensor in the loop** — the TB6612FNG doesn't expose one. An **ACS712 module** (Hall-effect based, so it's already galvanically isolated internally — no extra opto stage needed) placed in series with the VM line does this, feeding an analog pin on the Mega.
+
+I gave it two thresholds, mirroring the fast-blow/slow-blow logic from the physical fuses: an instant trip for a hard short, and a sustained-overload trip that has to persist for a bit so a normal motor-start inrush doesn't false-trigger it.
+
+## Updated firmware — full text
+
+```cpp
+/*
+  Rotary Escapement Feeder - Core Firmware Framework
+  Board:        Arduino Mega 2560
+  Motor driver: TB6612FNG, Channel A (single motor)
+  Sensor:       M12 photoeye via opto-isolated input on pin 2 (INT0)
+  Current sense: ACS712 module on VM line, feeding analog pin A0 (virtual e-fuse)
+
+  NOTE: TB6612FNG absolute max motor voltage is 15V (13.5V recommended
+  operating range). VM should be fed from a 24V-to-12V buck converter,
+  not directly from the 24V rail.
+
+  Non-blocking state machine - no delay() anywhere. All timing is done
+  with millis() so the sensor and current sense can be polled continuously.
+*/
+
+// ---------------------------------------------------------------------
+// Pin assignments
+// ---------------------------------------------------------------------
+const uint8_t PIN_PHOTOEYE_INT   = 2;   // INT0, opto-isolated photoeye input (active LOW on part detect)
+const uint8_t PIN_STBY           = 4;   // TB6612FNG standby/enable (HIGH = driver enabled)
+const uint8_t PIN_PWMA           = 5;   // TB6612FNG channel A PWM (speed)
+const uint8_t PIN_AIN1           = 6;   // TB6612FNG channel A direction
+const uint8_t PIN_AIN2           = 7;   // TB6612FNG channel A direction
+const uint8_t PIN_CURRENT_SENSE  = A0;  // ACS712 output, motor supply current sense
+
+// ---------------------------------------------------------------------
+// Tunable timing / speed constants (all millis()-based, non-blocking)
+// ---------------------------------------------------------------------
+const unsigned long DEBOUNCE_MS      = 5;     // minimum time between valid sensor edges
+const unsigned long FEED_TIMEOUT_MS  = 3000;  // max time allowed to feed a part before declaring a jam
+const unsigned long VERIFY_WINDOW_MS = 300;   // settle time to confirm the part is actually in position
+const uint8_t       FEED_SPEED       = 150;   // PWM duty cycle (0-255) - tune to your mechanism
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse constants - calibrate to YOUR ACS712 variant and motor
+// ---------------------------------------------------------------------
+const float ADC_REF_VOLTS               = 5.0;
+const float ADC_MAX_COUNTS              = 1023.0;
+const float CURRENT_SENSE_ZERO_VOLTS    = 2.5;   // measure your module's actual 0A output, don't assume 2.5V
+const float CURRENT_SENSE_MV_PER_AMP    = 100.0; // e.g. ACS712-20A = 100mV/A - check your module's datasheet
+const uint8_t CURRENT_SENSE_SAMPLES     = 8;     // averaged per read to reject switching noise
+
+const float EFUSE_INSTANT_LIMIT_A       = 5.0;   // trips immediately - fast-blow style
+const float EFUSE_CONTINUOUS_LIMIT_A    = 2.0;   // sustained overload threshold - slow-blow style
+const unsigned long EFUSE_CONTINUOUS_TRIP_MS = 500; // must persist this long above the continuous limit to trip
+
+// ---------------------------------------------------------------------
+// State machine
+// ---------------------------------------------------------------------
+enum FeederState {
+  STATE_IDLE,
+  STATE_FEEDING,
+  STATE_VERIFY,
+  STATE_JAMMED
+};
+
+enum FaultReason {
+  FAULT_NONE,
+  FAULT_FEED_TIMEOUT,
+  FAULT_VERIFY_FAILED,
+  FAULT_OVERCURRENT
+};
+
+FeederState   currentState   = STATE_IDLE;
+FaultReason   lastFaultReason = FAULT_NONE;
+unsigned long stateEnteredAt = 0;
+
+// ---------------------------------------------------------------------
+// Sensor state - written only in the ISR, read in loop()
+// ---------------------------------------------------------------------
+volatile bool          partDetectedFlag = false;
+volatile unsigned long lastEdgeTime     = 0;
+
+void photoeyeISR() {
+  unsigned long now = millis();
+  if (now - lastEdgeTime >= DEBOUNCE_MS) {
+    partDetectedFlag = true;
+    lastEdgeTime = now;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse state
+// ---------------------------------------------------------------------
+bool          overCurrentActive    = false;
+unsigned long overCurrentStartTime = 0;
+
+float readMotorCurrentAmps() {
+  long sum = 0;
+  for (uint8_t i = 0; i < CURRENT_SENSE_SAMPLES; i++) {
+    sum += analogRead(PIN_CURRENT_SENSE); // quick sequential reads, not a delay()
+  }
+  float raw = (float)sum / CURRENT_SENSE_SAMPLES;
+  float volts = (raw / ADC_MAX_COUNTS) * ADC_REF_VOLTS;
+  return (volts - CURRENT_SENSE_ZERO_VOLTS) / (CURRENT_SENSE_MV_PER_AMP / 1000.0);
+}
+
+const char* faultReasonName(FaultReason r) {
+  switch (r) {
+    case FAULT_FEED_TIMEOUT:  return ""FEED_TIMEOUT"";
+    case FAULT_VERIFY_FAILED: return ""VERIFY_FAILED"";
+    case FAULT_OVERCURRENT:   return ""OVERCURRENT"";
+    default:                  return ""NONE"";
+  }
+}
+
+void tripEFuse() {
+  motorStop();
+  motorDisable();
+  lastFaultReason = FAULT_OVERCURRENT;
+  Serial.print(F(""E-fuse tripped: ""));
+  Serial.println(faultReasonName(lastFaultReason));
+  changeState(STATE_JAMMED);
+}
+
+// Checked every loop pass, regardless of state - returns true if it tripped
+bool checkVirtualEFuse() {
+  float current = fabs(readMotorCurrentAmps());
+
+  if (current >= EFUSE_INSTANT_LIMIT_A) {
+    tripEFuse();
+    return true;
+  }
+
+  if (current >= EFUSE_CONTINUOUS_LIMIT_A) {
+    if (!overCurrentActive) {
+      overCurrentActive = true;
+      overCurrentStartTime = millis();
+    } else if (millis() - overCurrentStartTime >= EFUSE_CONTINUOUS_TRIP_MS) {
+      tripEFuse();
+      return true;
+    }
+  } else {
+    overCurrentActive = false; // back under the continuous limit, reset the timer
+  }
+
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Motor helpers
+// ---------------------------------------------------------------------
+void motorEnable()  { digitalWrite(PIN_STBY, HIGH); }
+void motorDisable() { digitalWrite(PIN_STBY, LOW); }
+
+void motorRunForward(uint8_t speed) {
+  digitalWrite(PIN_AIN1, HIGH);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, speed);
+}
+
+void motorStop() {
+  digitalWrite(PIN_AIN1, LOW);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, 0);
+}
+
+// ---------------------------------------------------------------------
+// Debug helper
+// ---------------------------------------------------------------------
+const char* stateName(FeederState s) {
+  switch (s) {
+    case STATE_IDLE:    return ""IDLE"";
+    case STATE_FEEDING: return ""FEEDING"";
+    case STATE_VERIFY:  return ""VERIFY"";
+    case STATE_JAMMED:  return ""JAMMED"";
+    default:             return ""UNKNOWN"";
+  }
+}
+
+// ---------------------------------------------------------------------
+// State transition helper - resets the state clock on every transition
+// ---------------------------------------------------------------------
+void changeState(FeederState newState) {
+  currentState = newState;
+  stateEnteredAt = millis();
+  Serial.print(F(""State -> ""));
+  Serial.println(stateName(newState));
+}
+
+// ---------------------------------------------------------------------
+// Hooks to fill in for your specific mechanism / upstream signals
+// ---------------------------------------------------------------------
+bool shouldStartFeedCycle() {
+  // TODO: replace with real logic - e.g. an upstream ""ready"" signal,
+  // a downstream ""part consumed"" acknowledgment, or simply ""always
+  // feed while idle and the escapement is clear"".
+  return true;
+}
+
+bool verifyPartPresent() {
+  // TODO: add any extra confirmation beyond the interrupt flag - e.g.
+  // a second sensor, or requiring a steady LOW read rather than a blip.
+  return digitalRead(PIN_PHOTOEYE_INT) == LOW;
+}
+
+bool jamResetRequested() {
+  // TODO: hook this to a physical reset button, a serial command, or
+  // an automatic retry timer. Returning false keeps JAMMED latched
+  // until explicitly cleared - deliberate, since auto-retrying into
+  // a jam (mechanical OR electrical) can make it worse.
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Setup
+// ---------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(PIN_PHOTOEYE_INT, INPUT); // external R2 pull-up already provides this
+  pinMode(PIN_STBY, OUTPUT);
+  pinMode(PIN_PWMA, OUTPUT);
+  pinMode(PIN_AIN1, OUTPUT);
+  pinMode(PIN_AIN2, OUTPUT);
+  pinMode(PIN_CURRENT_SENSE, INPUT);
+
+  motorDisable();
+  motorStop();
+
+  attachInterrupt(digitalPinToInterrupt(PIN_PHOTOEYE_INT), photoeyeISR, FALLING);
+
+  changeState(STATE_IDLE);
+}
+
+// ---------------------------------------------------------------------
+// Main loop - non-blocking state machine, no delay() anywhere
+// ---------------------------------------------------------------------
+void loop() {
+  // Virtual e-fuse runs every pass, independent of state, so a fault
+  // is caught no matter what the mechanism is doing when it happens.
+  if (checkVirtualEFuse()) {
+    return;
+  }
+
+  unsigned long elapsed = millis() - stateEnteredAt;
+
+  switch (currentState) {
+
+    case STATE_IDLE:
+      motorDisable();
+      motorStop();
+
+      if (shouldStartFeedCycle()) {
+        partDetectedFlag = false; // clear any stale edge before we start moving
+        lastFaultReason = FAULT_NONE;
+        motorEnable();
+        motorRunForward(FEED_SPEED);
+        changeState(STATE_FEEDING);
+      }
+      break;
+
+    case STATE_FEEDING:
+      if (partDetectedFlag) {
+        motorStop();
+        changeState(STATE_VERIFY);
+      } else if (elapsed >= FEED_TIMEOUT_MS) {
+        motorStop();
+        motorDisable();
+        lastFaultReason = FAULT_FEED_TIMEOUT;
+        Serial.print(F(""Fault: ""));
+        Serial.println(faultReasonName(lastFaultReason));
+        changeState(STATE_JAMMED);
+      }
+      // else: keep polling, motor keeps running, no delay()
+      break;
+
+    case STATE_VERIFY:
+      if (elapsed >= VERIFY_WINDOW_MS) {
+        if (verifyPartPresent()) {
+          changeState(STATE_IDLE); // part confirmed, cycle complete
+        } else {
+          motorDisable();
+          lastFaultReason = FAULT_VERIFY_FAILED;
+          Serial.print(F(""Fault: ""));
+          Serial.println(faultReasonName(lastFaultReason));
+          changeState(STATE_JAMMED); // trigger didn't hold - treat as fault
+        }
+      }
+      break;
+
+    case STATE_JAMMED:
+      motorDisable();
+      motorStop();
+
+      if (jamResetRequested()) {
+        partDetectedFlag = false;
+        lastFaultReason = FAULT_NONE;
+        changeState(STATE_IDLE);
+      }
+      break;
+  }
+}
+```",,,,
+Claude,2026-08-13T23:11:32.993110Z,,Overwrite the sketch with the version that adds the virtual e-fuse,bash_tool,,
+Claude,2026-08-13T23:12:02.168181Z,,Sharing file(s): RotaryEscapementFeeder.ino,present_files,,RotaryEscapementFeeder.ino
+Claude,2026-08-13T23:12:03.396836Z,"## On the enum and delay() question
+
+I did use both already — you're welcome to double-check against the code above, but here's exactly where:
+
+```cpp
+enum FeederState {
+  STATE_IDLE,
+  STATE_FEEDING,
+  STATE_VERIFY,
+  STATE_JAMMED
+};
+```
+
+That's a proper C++ `enum`, not `#define` constants or raw ints — that's why `switch(currentState)` works with named cases like `case STATE_IDLE:` throughout `loop()`.
+
+And there's no `delay()` anywhere in the file — every wait (`FEED_TIMEOUT_MS`, `VERIFY_WINDOW_MS`, `DEBOUNCE_MS`, `EFUSE_CONTINUOUS_TRIP_MS`) is checked as an elapsed-time comparison against `millis()`, for example `elapsed >= FEED_TIMEOUT_MS` inside `STATE_FEEDING`. That's what lets the sensor ISR and the current-sense polling keep running while a state is ""waiting.""
+
+If you're seeing something different, it might be worth a fresh copy-paste from the block above, in case an earlier version got cached in your editor.",,,,
+Human,2026-08-13T23:18:29.273742Z,"Please refine the 'VERIFY' state in the code. Implement a 200-millisecond timeout logic using millis(). If the motor enters the FEEDING state and the photoeye sensor does not trigger within 200ms, the code must automatically transition to the 'JAMMED' state and cut the PWM power to the motor. Also, include basic debouncing logic for the sensor interrupt so electrical noise doesn't cause a false 'double-feed",,,,
+Claude,2026-08-13T23:18:29.267831Z,,,,Clarified state logic and refined timeout debounce mechanisms.,
+Claude,2026-08-13T23:19:37.821457Z,"A quick note on the state names, then the fix: what you're describing — motor starts moving in `FEEDING`, and if the photoeye doesn't fire within a window, declare a jam — is the `FEEDING` state's job in this architecture, not `VERIFY`'s. `VERIFY` runs *after* the sensor has already triggered, to confirm the trigger holds steady rather than being a blip. I've implemented exactly the behavior you described (200ms window, JAMMED transition, PWM cut) in `FEEDING`, and renamed the constant from `FEED_TIMEOUT_MS` to `SENSOR_TRIGGER_TIMEOUT_MS` so the naming doesn't cause the same confusion again. `VERIFY`'s own 300ms settle-window is untouched. Let me know if you actually want it restructured differently.
+
+**Debounce refinement**: the previous ISR only rate-limited by time (5ms). I tightened that to a 15ms window — long enough to reject typical EMI/switching noise near the motor driver, but still under 10% of your new 200ms detection budget — and added a hard lockout: once a valid trigger sets the flag, the ISR ignores *all* further edges until the state machine explicitly clears the flag at the start of the next feed cycle. That's a stronger guarantee against a false double-feed than time-based debounce alone, since noise can't sneak a second trigger in no matter how it's timed.",,,,
+Claude,2026-08-13T23:19:42.780714Z,,"Update sketch: 200ms sensor-trigger timeout in FEEDING, and stronger ISR debounce/lockout",bash_tool,,
+Claude,2026-08-13T23:20:17.455606Z,,Sharing file(s): RotaryEscapementFeeder.ino,present_files,,RotaryEscapementFeeder.ino
+Claude,2026-08-13T23:20:18.781702Z,"Full text to copy-paste:
+
+```cpp
+/*
+  Rotary Escapement Feeder - Core Firmware Framework
+  Board:        Arduino Mega 2560
+  Motor driver: TB6612FNG, Channel A (single motor)
+  Sensor:       M12 photoeye via opto-isolated input on pin 2 (INT0)
+  Current sense: ACS712 module on VM line, feeding analog pin A0 (virtual e-fuse)
+
+  NOTE: TB6612FNG absolute max motor voltage is 15V (13.5V recommended
+  operating range). VM should be fed from a 24V-to-12V buck converter,
+  not directly from the 24V rail.
+
+  Non-blocking state machine - no delay() anywhere. All timing is done
+  with millis() so the sensor and current sense can be polled continuously.
+*/
+
+// ---------------------------------------------------------------------
+// Pin assignments
+// ---------------------------------------------------------------------
+const uint8_t PIN_PHOTOEYE_INT   = 2;   // INT0, opto-isolated photoeye input (active LOW on part detect)
+const uint8_t PIN_STBY           = 4;   // TB6612FNG standby/enable (HIGH = driver enabled)
+const uint8_t PIN_PWMA           = 5;   // TB6612FNG channel A PWM (speed)
+const uint8_t PIN_AIN1           = 6;   // TB6612FNG channel A direction
+const uint8_t PIN_AIN2           = 7;   // TB6612FNG channel A direction
+const uint8_t PIN_CURRENT_SENSE  = A0;  // ACS712 output, motor supply current sense
+
+// ---------------------------------------------------------------------
+// Tunable timing / speed constants (all millis()-based, non-blocking)
+// ---------------------------------------------------------------------
+const unsigned long SENSOR_DEBOUNCE_MS        = 15;   // ISR-level debounce, rejects EMI-induced multi-edges
+const unsigned long SENSOR_TRIGGER_TIMEOUT_MS = 200;  // FEEDING window: photoeye must fire within this or it's a jam
+const unsigned long VERIFY_WINDOW_MS          = 300;  // settle time to confirm the part is actually in position
+const uint8_t        FEED_SPEED               = 150;  // PWM duty cycle (0-255) - tune to your mechanism
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse constants - calibrate to YOUR ACS712 variant and motor
+// ---------------------------------------------------------------------
+const float ADC_REF_VOLTS               = 5.0;
+const float ADC_MAX_COUNTS              = 1023.0;
+const float CURRENT_SENSE_ZERO_VOLTS    = 2.5;   // measure your module's actual 0A output, don't assume 2.5V
+const float CURRENT_SENSE_MV_PER_AMP    = 100.0; // e.g. ACS712-20A = 100mV/A - check your module's datasheet
+const uint8_t CURRENT_SENSE_SAMPLES     = 8;     // averaged per read to reject switching noise
+
+const float EFUSE_INSTANT_LIMIT_A       = 5.0;   // trips immediately - fast-blow style
+const float EFUSE_CONTINUOUS_LIMIT_A    = 2.0;   // sustained overload threshold - slow-blow style
+const unsigned long EFUSE_CONTINUOUS_TRIP_MS = 500; // must persist this long above the continuous limit to trip
+
+// ---------------------------------------------------------------------
+// State machine
+// ---------------------------------------------------------------------
+enum FeederState {
+  STATE_IDLE,
+  STATE_FEEDING,
+  STATE_VERIFY,
+  STATE_JAMMED
+};
+
+enum FaultReason {
+  FAULT_NONE,
+  FAULT_SENSOR_TIMEOUT,
+  FAULT_VERIFY_FAILED,
+  FAULT_OVERCURRENT
+};
+
+FeederState   currentState   = STATE_IDLE;
+FaultReason   lastFaultReason = FAULT_NONE;
+unsigned long stateEnteredAt = 0;
+
+// ---------------------------------------------------------------------
+// Sensor state - written only in the ISR, read in loop()
+// partDetectedFlag doubles as a lockout: once set, the ISR ignores all
+// further edges until the state machine explicitly clears it - this is
+// what prevents electrical noise from registering a false double-feed.
+// ---------------------------------------------------------------------
+volatile bool          partDetectedFlag = false;
+volatile unsigned long lastEdgeTime     = 0;
+
+void photoeyeISR() {
+  unsigned long now = millis();
+  if (!partDetectedFlag && (now - lastEdgeTime >= SENSOR_DEBOUNCE_MS)) {
+    partDetectedFlag = true;
+    lastEdgeTime = now;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse state
+// ---------------------------------------------------------------------
+bool          overCurrentActive    = false;
+unsigned long overCurrentStartTime = 0;
+
+float readMotorCurrentAmps() {
+  long sum = 0;
+  for (uint8_t i = 0; i < CURRENT_SENSE_SAMPLES; i++) {
+    sum += analogRead(PIN_CURRENT_SENSE); // quick sequential reads, not a delay()
+  }
+  float raw = (float)sum / CURRENT_SENSE_SAMPLES;
+  float volts = (raw / ADC_MAX_COUNTS) * ADC_REF_VOLTS;
+  return (volts - CURRENT_SENSE_ZERO_VOLTS) / (CURRENT_SENSE_MV_PER_AMP / 1000.0);
+}
+
+const char* faultReasonName(FaultReason r) {
+  switch (r) {
+    case FAULT_SENSOR_TIMEOUT: return ""SENSOR_TIMEOUT"";
+    case FAULT_VERIFY_FAILED:  return ""VERIFY_FAILED"";
+    case FAULT_OVERCURRENT:    return ""OVERCURRENT"";
+    default:                   return ""NONE"";
+  }
+}
+
+void tripEFuse() {
+  motorStop();
+  motorDisable();
+  lastFaultReason = FAULT_OVERCURRENT;
+  Serial.print(F(""E-fuse tripped: ""));
+  Serial.println(faultReasonName(lastFaultReason));
+  changeState(STATE_JAMMED);
+}
+
+// Checked every loop pass, regardless of state - returns true if it tripped
+bool checkVirtualEFuse() {
+  float current = fabs(readMotorCurrentAmps());
+
+  if (current >= EFUSE_INSTANT_LIMIT_A) {
+    tripEFuse();
+    return true;
+  }
+
+  if (current >= EFUSE_CONTINUOUS_LIMIT_A) {
+    if (!overCurrentActive) {
+      overCurrentActive = true;
+      overCurrentStartTime = millis();
+    } else if (millis() - overCurrentStartTime >= EFUSE_CONTINUOUS_TRIP_MS) {
+      tripEFuse();
+      return true;
+    }
+  } else {
+    overCurrentActive = false; // back under the continuous limit, reset the timer
+  }
+
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Motor helpers
+// ---------------------------------------------------------------------
+void motorEnable()  { digitalWrite(PIN_STBY, HIGH); }
+void motorDisable() { digitalWrite(PIN_STBY, LOW); }
+
+void motorRunForward(uint8_t speed) {
+  digitalWrite(PIN_AIN1, HIGH);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, speed);
+}
+
+void motorStop() {
+  digitalWrite(PIN_AIN1, LOW);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, 0); // cuts PWM immediately
+}
+
+// ---------------------------------------------------------------------
+// Debug helper
+// ---------------------------------------------------------------------
+const char* stateName(FeederState s) {
+  switch (s) {
+    case STATE_IDLE:    return ""IDLE"";
+    case STATE_FEEDING: return ""FEEDING"";
+    case STATE_VERIFY:  return ""VERIFY"";
+    case STATE_JAMMED:  return ""JAMMED"";
+    default:             return ""UNKNOWN"";
+  }
+}
+
+// ---------------------------------------------------------------------
+// State transition helper - resets the state clock on every transition
+// ---------------------------------------------------------------------
+void changeState(FeederState newState) {
+  currentState = newState;
+  stateEnteredAt = millis();
+  Serial.print(F(""State -> ""));
+  Serial.println(stateName(newState));
+}
+
+// ---------------------------------------------------------------------
+// Hooks to fill in for your specific mechanism / upstream signals
+// ---------------------------------------------------------------------
+bool shouldStartFeedCycle() {
+  // TODO: replace with real logic - e.g. an upstream ""ready"" signal,
+  // a downstream ""part consumed"" acknowledgment, or simply ""always
+  // feed while idle and the escapement is clear"".
+  return true;
+}
+
+bool verifyPartPresent() {
+  // TODO: add any extra confirmation beyond the interrupt flag - e.g.
+  // a second sensor, or requiring a steady LOW read rather than a blip.
+  return digitalRead(PIN_PHOTOEYE_INT) == LOW;
+}
+
+bool jamResetRequested() {
+  // TODO: hook this to a physical reset button, a serial command, or
+  // an automatic retry timer. Returning false keeps JAMMED latched
+  // until explicitly cleared - deliberate, since auto-retrying into
+  // a jam (mechanical OR electrical) can make it worse.
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Setup
+// ---------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(PIN_PHOTOEYE_INT, INPUT); // external R2 pull-up already provides this
+  pinMode(PIN_STBY, OUTPUT);
+  pinMode(PIN_PWMA, OUTPUT);
+  pinMode(PIN_AIN1, OUTPUT);
+  pinMode(PIN_AIN2, OUTPUT);
+  pinMode(PIN_CURRENT_SENSE, INPUT);
+
+  motorDisable();
+  motorStop();
+
+  attachInterrupt(digitalPinToInterrupt(PIN_PHOTOEYE_INT), photoeyeISR, FALLING);
+
+  changeState(STATE_IDLE);
+}
+
+// ---------------------------------------------------------------------
+// Main loop - non-blocking state machine, no delay() anywhere
+// ---------------------------------------------------------------------
+void loop() {
+  // Virtual e-fuse runs every pass, independent of state, so a fault
+  // is caught no matter what the mechanism is doing when it happens.
+  if (checkVirtualEFuse()) {
+    return;
+  }
+
+  unsigned long elapsed = millis() - stateEnteredAt;
+
+  switch (currentState) {
+
+    case STATE_IDLE:
+      motorDisable();
+      motorStop();
+
+      if (shouldStartFeedCycle()) {
+        partDetectedFlag = false; // clear any stale edge before we start moving
+        lastFaultReason = FAULT_NONE;
+        motorEnable();
+        motorRunForward(FEED_SPEED);
+        changeState(STATE_FEEDING);
+      }
+      break;
+
+    case STATE_FEEDING:
+      if (partDetectedFlag) {
+        motorStop(); // cut PWM the instant the sensor confirms a part
+        changeState(STATE_VERIFY);
+      } else if (elapsed >= SENSOR_TRIGGER_TIMEOUT_MS) {
+        // 200ms elapsed with no photoeye trigger - treat as a jam
+        motorStop();   // cut PWM power immediately
+        motorDisable();
+        lastFaultReason = FAULT_SENSOR_TIMEOUT;
+        Serial.print(F(""Fault: ""));
+        Serial.println(faultReasonName(lastFaultReason));
+        changeState(STATE_JAMMED);
+      }
+      // else: keep polling, motor keeps running, no delay()
+      break;
+
+    case STATE_VERIFY:
+      if (elapsed >= VERIFY_WINDOW_MS) {
+        if (verifyPartPresent()) {
+          changeState(STATE_IDLE); // part confirmed, cycle complete
+        } else {
+          motorDisable();
+          lastFaultReason = FAULT_VERIFY_FAILED;
+          Serial.print(F(""Fault: ""));
+          Serial.println(faultReasonName(lastFaultReason));
+          changeState(STATE_JAMMED); // trigger didn't hold - treat as fault
+        }
+      }
+      break;
+
+    case STATE_JAMMED:
+      motorDisable();
+      motorStop();
+
+      if (jamResetRequested()) {
+        partDetectedFlag = false;
+        lastFaultReason = FAULT_NONE;
+        changeState(STATE_IDLE);
+      }
+      break;
+  }
+}
+```
+
+One thing worth testing on your actual mechanism: 200ms is a tight window from motor start to expected detection. If your feed motion genuinely needs longer than that to physically reach the sensor, you'll trip `JAMMED` on every normal cycle — worth confirming with a scope or the `Serial` state log before trusting it in production.",,,,
+Human,2026-08-13T23:27:06.954581Z,"Thank you for the code. The code compiles successfully. Finally, write a function called 'sendTelemetry()' that takes the current machine state, the sensor boolean status, and the current motor PWM value, and formats them into a clean JSON string. Output this string to the Serial Monitor at a refresh rate of 10Hz (every 100ms) using millis() so we don't flood the serial buffer. Integrate this function into the main loop.",,,,
+Claude,2026-08-13T23:27:06.947632Z,,,,Architected telemetry system with JSON formatting and optimized timing logic.,
+Claude,2026-08-13T23:27:45.883687Z,"Here's `sendTelemetry()`, plus two small supporting additions: a `currentMotorPWM` tracker (since the PWM value isn't stored anywhere currently — `motorRunForward()`/`motorStop()` just fire-and-forget to `analogWrite()`), and I read the photoeye pin live for the ""sensor boolean status"" rather than the latched `partDetectedFlag`, since a monitoring dashboard is more useful seeing real-time beam state than a one-shot event flag. I also built the JSON into a fixed `char` buffer with `snprintf()` instead of the Arduino `String` class — `String` concatenation causes heap fragmentation over long uptimes on AVR, which is exactly the kind of failure you don't want to discover on a machine running unattended.",,,,
+Claude,2026-08-13T23:27:49.153128Z,,Add sendTelemetry() function with 10Hz JSON output and integrate into loop,bash_tool,,
+Claude,2026-08-13T23:28:27.722909Z,,Sharing file(s): RotaryEscapementFeeder.ino,present_files,,RotaryEscapementFeeder.ino
+Claude,2026-08-13T23:28:28.988015Z,"Full text to copy-paste:
+
+```cpp
+/*
+  Rotary Escapement Feeder - Core Firmware Framework
+  Board:        Arduino Mega 2560
+  Motor driver: TB6612FNG, Channel A (single motor)
+  Sensor:       M12 photoeye via opto-isolated input on pin 2 (INT0)
+  Current sense: ACS712 module on VM line, feeding analog pin A0 (virtual e-fuse)
+
+  NOTE: TB6612FNG absolute max motor voltage is 15V (13.5V recommended
+  operating range). VM should be fed from a 24V-to-12V buck converter,
+  not directly from the 24V rail.
+
+  Non-blocking state machine - no delay() anywhere. All timing is done
+  with millis() so the sensor, current sense, and telemetry can all run
+  concurrently.
+*/
+
+// ---------------------------------------------------------------------
+// Pin assignments
+// ---------------------------------------------------------------------
+const uint8_t PIN_PHOTOEYE_INT   = 2;   // INT0, opto-isolated photoeye input (active LOW on part detect)
+const uint8_t PIN_STBY           = 4;   // TB6612FNG standby/enable (HIGH = driver enabled)
+const uint8_t PIN_PWMA           = 5;   // TB6612FNG channel A PWM (speed)
+const uint8_t PIN_AIN1           = 6;   // TB6612FNG channel A direction
+const uint8_t PIN_AIN2           = 7;   // TB6612FNG channel A direction
+const uint8_t PIN_CURRENT_SENSE  = A0;  // ACS712 output, motor supply current sense
+
+// ---------------------------------------------------------------------
+// Tunable timing / speed constants (all millis()-based, non-blocking)
+// ---------------------------------------------------------------------
+const unsigned long SENSOR_DEBOUNCE_MS        = 15;   // ISR-level debounce, rejects EMI-induced multi-edges
+const unsigned long SENSOR_TRIGGER_TIMEOUT_MS = 200;  // FEEDING window: photoeye must fire within this or it's a jam
+const unsigned long VERIFY_WINDOW_MS          = 300;  // settle time to confirm the part is actually in position
+const unsigned long TELEMETRY_INTERVAL_MS     = 100;  // 10Hz telemetry cadence
+const uint8_t        FEED_SPEED               = 150;  // PWM duty cycle (0-255) - tune to your mechanism
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse constants - calibrate to YOUR ACS712 variant and motor
+// ---------------------------------------------------------------------
+const float ADC_REF_VOLTS               = 5.0;
+const float ADC_MAX_COUNTS              = 1023.0;
+const float CURRENT_SENSE_ZERO_VOLTS    = 2.5;   // measure your module's actual 0A output, don't assume 2.5V
+const float CURRENT_SENSE_MV_PER_AMP    = 100.0; // e.g. ACS712-20A = 100mV/A - check your module's datasheet
+const uint8_t CURRENT_SENSE_SAMPLES     = 8;     // averaged per read to reject switching noise
+
+const float EFUSE_INSTANT_LIMIT_A       = 5.0;   // trips immediately - fast-blow style
+const float EFUSE_CONTINUOUS_LIMIT_A    = 2.0;   // sustained overload threshold - slow-blow style
+const unsigned long EFUSE_CONTINUOUS_TRIP_MS = 500; // must persist this long above the continuous limit to trip
+
+// ---------------------------------------------------------------------
+// State machine
+// ---------------------------------------------------------------------
+enum FeederState {
+  STATE_IDLE,
+  STATE_FEEDING,
+  STATE_VERIFY,
+  STATE_JAMMED
+};
+
+enum FaultReason {
+  FAULT_NONE,
+  FAULT_SENSOR_TIMEOUT,
+  FAULT_VERIFY_FAILED,
+  FAULT_OVERCURRENT
+};
+
+FeederState   currentState   = STATE_IDLE;
+FaultReason   lastFaultReason = FAULT_NONE;
+unsigned long stateEnteredAt = 0;
+
+// ---------------------------------------------------------------------
+// Sensor state - written only in the ISR, read in loop()
+// partDetectedFlag doubles as a lockout: once set, the ISR ignores all
+// further edges until the state machine explicitly clears it - this is
+// what prevents electrical noise from registering a false double-feed.
+// ---------------------------------------------------------------------
+volatile bool          partDetectedFlag = false;
+volatile unsigned long lastEdgeTime     = 0;
+
+void photoeyeISR() {
+  unsigned long now = millis();
+  if (!partDetectedFlag && (now - lastEdgeTime >= SENSOR_DEBOUNCE_MS)) {
+    partDetectedFlag = true;
+    lastEdgeTime = now;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Motor PWM tracking (for telemetry - analogWrite has no readback)
+// ---------------------------------------------------------------------
+uint8_t currentMotorPWM = 0;
+
+// ---------------------------------------------------------------------
+// Telemetry state
+// ---------------------------------------------------------------------
+unsigned long lastTelemetryTime = 0;
+char          telemetryBuffer[96]; // fixed buffer - no String class, no heap fragmentation
+
+// ---------------------------------------------------------------------
+// Virtual e-fuse state
+// ---------------------------------------------------------------------
+bool          overCurrentActive    = false;
+unsigned long overCurrentStartTime = 0;
+
+float readMotorCurrentAmps() {
+  long sum = 0;
+  for (uint8_t i = 0; i < CURRENT_SENSE_SAMPLES; i++) {
+    sum += analogRead(PIN_CURRENT_SENSE); // quick sequential reads, not a delay()
+  }
+  float raw = (float)sum / CURRENT_SENSE_SAMPLES;
+  float volts = (raw / ADC_MAX_COUNTS) * ADC_REF_VOLTS;
+  return (volts - CURRENT_SENSE_ZERO_VOLTS) / (CURRENT_SENSE_MV_PER_AMP / 1000.0);
+}
+
+const char* faultReasonName(FaultReason r) {
+  switch (r) {
+    case FAULT_SENSOR_TIMEOUT: return ""SENSOR_TIMEOUT"";
+    case FAULT_VERIFY_FAILED:  return ""VERIFY_FAILED"";
+    case FAULT_OVERCURRENT:    return ""OVERCURRENT"";
+    default:                   return ""NONE"";
+  }
+}
+
+void tripEFuse() {
+  motorStop();
+  motorDisable();
+  lastFaultReason = FAULT_OVERCURRENT;
+  Serial.print(F(""E-fuse tripped: ""));
+  Serial.println(faultReasonName(lastFaultReason));
+  changeState(STATE_JAMMED);
+}
+
+// Checked every loop pass, regardless of state - returns true if it tripped
+bool checkVirtualEFuse() {
+  float current = fabs(readMotorCurrentAmps());
+
+  if (current >= EFUSE_INSTANT_LIMIT_A) {
+    tripEFuse();
+    return true;
+  }
+
+  if (current >= EFUSE_CONTINUOUS_LIMIT_A) {
+    if (!overCurrentActive) {
+      overCurrentActive = true;
+      overCurrentStartTime = millis();
+    } else if (millis() - overCurrentStartTime >= EFUSE_CONTINUOUS_TRIP_MS) {
+      tripEFuse();
+      return true;
+    }
+  } else {
+    overCurrentActive = false; // back under the continuous limit, reset the timer
+  }
+
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Motor helpers
+// ---------------------------------------------------------------------
+void motorEnable()  { digitalWrite(PIN_STBY, HIGH); }
+void motorDisable() { digitalWrite(PIN_STBY, LOW); }
+
+void motorRunForward(uint8_t speed) {
+  digitalWrite(PIN_AIN1, HIGH);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, speed);
+  currentMotorPWM = speed;
+}
+
+void motorStop() {
+  digitalWrite(PIN_AIN1, LOW);
+  digitalWrite(PIN_AIN2, LOW);
+  analogWrite(PIN_PWMA, 0); // cuts PWM immediately
+  currentMotorPWM = 0;
+}
+
+// ---------------------------------------------------------------------
+// Debug helper
+// ---------------------------------------------------------------------
+const char* stateName(FeederState s) {
+  switch (s) {
+    case STATE_IDLE:    return ""IDLE"";
+    case STATE_FEEDING: return ""FEEDING"";
+    case STATE_VERIFY:  return ""VERIFY"";
+    case STATE_JAMMED:  return ""JAMMED"";
+    default:             return ""UNKNOWN"";
+  }
+}
+
+// ---------------------------------------------------------------------
+// Telemetry - builds a compact JSON line and prints it as one atomic
+// Serial write. Called from loop() at a fixed 10Hz cadence.
+// ---------------------------------------------------------------------
+void sendTelemetry(FeederState state, bool sensorStatus, uint8_t pwmValue) {
+  snprintf(telemetryBuffer, sizeof(telemetryBuffer),
+           ""{\""state\"":\""%s\"",\""sensor\"":%s,\""pwm\"":%u,\""uptime_ms\"":%lu}"",
+           stateName(state),
+           sensorStatus ? ""true"" : ""false"",
+           pwmValue,
+           millis());
+  Serial.println(telemetryBuffer);
+}
+
+// ---------------------------------------------------------------------
+// State transition helper - resets the state clock on every transition
+// ---------------------------------------------------------------------
+void changeState(FeederState newState) {
+  currentState = newState;
+  stateEnteredAt = millis();
+  Serial.print(F(""State -> ""));
+  Serial.println(stateName(newState));
+}
+
+// ---------------------------------------------------------------------
+// Hooks to fill in for your specific mechanism / upstream signals
+// ---------------------------------------------------------------------
+bool shouldStartFeedCycle() {
+  // TODO: replace with real logic - e.g. an upstream ""ready"" signal,
+  // a downstream ""part consumed"" acknowledgment, or simply ""always
+  // feed while idle and the escapement is clear"".
+  return true;
+}
+
+bool verifyPartPresent() {
+  // TODO: add any extra confirmation beyond the interrupt flag - e.g.
+  // a second sensor, or requiring a steady LOW read rather than a blip.
+  return digitalRead(PIN_PHOTOEYE_INT) == LOW;
+}
+
+bool jamResetRequested() {
+  // TODO: hook this to a physical reset button, a serial command, or
+  // an automatic retry timer. Returning false keeps JAMMED latched
+  // until explicitly cleared - deliberate, since auto-retrying into
+  // a jam (mechanical OR electrical) can make it worse.
+  return false;
+}
+
+// ---------------------------------------------------------------------
+// Setup
+// ---------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(PIN_PHOTOEYE_INT, INPUT); // external R2 pull-up already provides this
+  pinMode(PIN_STBY, OUTPUT);
+  pinMode(PIN_PWMA, OUTPUT);
+  pinMode(PIN_AIN1, OUTPUT);
+  pinMode(PIN_AIN2, OUTPUT);
+  pinMode(PIN_CURRENT_SENSE, INPUT);
+
+  motorDisable();
+  motorStop();
+
+  attachInterrupt(digitalPinToInterrupt(PIN_PHOTOEYE_INT), photoeyeISR, FALLING);
+
+  changeState(STATE_IDLE);
+}
+
+// ---------------------------------------------------------------------
+// Main loop - non-blocking state machine, no delay() anywhere
+// ---------------------------------------------------------------------
+void loop() {
+  unsigned long now = millis();
+
+  // Telemetry - fixed 10Hz cadence, independent of state machine timing,
+  // checked first so it's never skipped by an early return elsewhere.
+  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
+    lastTelemetryTime = now;
+    bool sensorLive = (digitalRead(PIN_PHOTOEYE_INT) == LOW); // active LOW = part present
+    sendTelemetry(currentState, sensorLive, currentMotorPWM);
+  }
+
+  // Virtual e-fuse runs every pass, independent of state, so a fault
+  // is caught no matter what the mechanism is doing when it happens.
+  if (checkVirtualEFuse()) {
+    return;
+  }
+
+  unsigned long elapsed = now - stateEnteredAt;
+
+  switch (currentState) {
+
+    case STATE_IDLE:
+      motorDisable();
+      motorStop();
+
+      if (shouldStartFeedCycle()) {
+        partDetectedFlag = false; // clear any stale edge before we start moving
+        lastFaultReason = FAULT_NONE;
+        motorEnable();
+        motorRunForward(FEED_SPEED);
+        changeState(STATE_FEEDING);
+      }
+      break;
+
+    case STATE_FEEDING:
+      if (partDetectedFlag) {
+        motorStop(); // cut PWM the instant the sensor confirms a part
+        changeState(STATE_VERIFY);
+      } else if (elapsed >= SENSOR_TRIGGER_TIMEOUT_MS) {
+        // 200ms elapsed with no photoeye trigger - treat as a jam
+        motorStop();   // cut PWM power immediately
+        motorDisable();
+        lastFaultReason = FAULT_SENSOR_TIMEOUT;
+        Serial.print(F(""Fault: ""));
+        Serial.println(faultReasonName(lastFaultReason));
+        changeState(STATE_JAMMED);
+      }
+      // else: keep polling, motor keeps running, no delay()
+      break;
+
+    case STATE_VERIFY:
+      if (elapsed >= VERIFY_WINDOW_MS) {
+        if (verifyPartPresent()) {
+          changeState(STATE_IDLE); // part confirmed, cycle complete
+        } else {
+          motorDisable();
+          lastFaultReason = FAULT_VERIFY_FAILED;
+          Serial.print(F(""Fault: ""));
+          Serial.println(faultReasonName(lastFaultReason));
+          changeState(STATE_JAMMED); // trigger didn't hold - treat as fault
+        }
+      }
+      break;
+
+    case STATE_JAMMED:
+      motorDisable();
+      motorStop();
+
+      if (jamResetRequested()) {
+        partDetectedFlag = false;
+        lastFaultReason = FAULT_NONE;
+        changeState(STATE_IDLE);
+      }
+      break;
+  }
+}
+```
+
+Sample output on the Serial Monitor at 115200 baud, ten lines a second:
+
+```
+{""state"":""IDLE"",""sensor"":false,""pwm"":0,""uptime_ms"":48213}
+{""state"":""FEEDING"",""sensor"":false,""pwm"":150,""uptime_ms"":48313}
+{""state"":""VERIFY"",""sensor"":true,""pwm"":0,""uptime_ms"":48413}
+```",,,,

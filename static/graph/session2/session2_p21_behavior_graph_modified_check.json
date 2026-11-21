@@ -1,0 +1,964 @@
+{
+  "session_id": "session2",
+  "participant_id": "p21",
+  "title": "Session 2 — Participant 21 User + Claude/Grok Behavior Graphs",
+  "goal": "Create and upload a new original-character sticker-sheet portfolio entry for my Upwork profile, offering original character design and sticker-sheet creation as a service",
+  "context": "I want to add another unique entry to my UpWork portfolio, this time being more focused on original art, as I often see many job listings throughout the week asking for original art as well as sticker sheets. This session is different because I’ll be doing more hands-on work with creating the art elements of the piece instead of mostly just focusing on text formatting. Forcing me to use AI doesn’t really change my approach much, as it’s something I do on my own anyways. Some steps have proven to be very convenient for me upon going through this workflow, such as asking the AI to fetch me a PSD mock-up file online.",
+  "occupation": "Graphic designer",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "I was able to create an original character art sticker sheet mock-up and upload it quickly and easily onto UpWork using the AI assistance."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Generate original flat black-and-white cartoon characters with simple shading using AI",
+      "step_action": "I craft detailed prompts describing the desired original characters (style, personality, poses, and simple shading approach) and generate multiple flat black-and-white cartoon character concepts. I iterate on the strongest results until I have 4–6 distinct, clean characters suitable for a sticker sheet.",
+      "time_range": "00:00–06:45",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Review workflow plan and define sticker-sheet portfolio objective",
+          "detail": "Reviews the written workflow template and states the session goal: create original egg-round imp-like cartoon characters and turn them into a sticker-sheet portfolio entry to advertise as an Upwork service.",
+          "time": "00:00–01:22",
+          "actor_type": "user",
+          "softwares": ""
+        },
+        {
+          "id": "1b",
+          "actor": "user",
+          "label": "Draft and submit detailed original-character prompt to Claude",
+          "detail": "Writes a detailed prompt describing egg-round imp characters with devil horns, mischievous expressions, simple black-and-white shading, and varied childish action poses (skateboarding, sprinting, throwing a water balloon), then submits it to Claude.",
+          "time": "01:22–03:42",
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1c",
+          "actor": "claude",
+          "label": "Generate six-character black-and-white sticker sheet",
+          "detail": "Produces six imp-like characters sharing a consistent egg-round body, horn, and expression design in flat black-and-white sticker style, each in a distinct action pose, along with notes on the style choices made.",
+          "time": "03:42–04:53",
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "1d",
+          "actor": "user",
+          "label": "Evaluate Claude's characters and judge them unsatisfying",
+          "detail": "Reviews Claude's six characters and finds them lacking: every character shares the same facial expression, the rendering is too simplistic, and some anatomy (e.g. leg vs. hand) is ambiguous.",
+          "time": "04:53–05:03",
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "1b",
+              "target_ai": "1c",
+              "label": "reject",
+              "source_node_time": "01:22–03:42",
+              "ai_node_time": "03:42–04:53",
+              "user_adoption_time": "04:53–05:03",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "1e",
+          "actor": "user",
+          "label": "Resubmit the character-generation request to Grok",
+          "detail": "Switches to a second AI assistant, Grok, and resubmits essentially the same original-character request, hoping for a stronger art style and more detail than Claude produced.",
+          "time": "05:03–05:24",
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "1f",
+          "actor": "grok",
+          "label": "Generate six-character black-and-white sticker set with cleaner outlines",
+          "detail": "Produces a six-character black-and-white set with the signature double white sticker outline already applied, judged clearly better than Claude's attempt.",
+          "time": "05:24–06:01",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "1g",
+          "actor": "user",
+          "label": "Evaluate, approve, and download Grok's character set",
+          "detail": "Reviews the five to six Grok characters, judges the count and quality to be right in the target range, downloads the outputs, and moves on to the next workflow step.",
+          "time": "06:01–06:45",
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "1b",
+              "target_ai": "1f",
+              "label": "adopt",
+              "source_node_time": "01:22–03:42",
+              "ai_node_time": "05:24–06:01",
+              "user_adoption_time": "06:01–06:45",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        },
+        {
+          "from": "1c",
+          "to": "1d",
+          "type": "sequential"
+        },
+        {
+          "from": "1d",
+          "to": "1e",
+          "type": "sequential"
+        },
+        {
+          "from": "1e",
+          "to": "1f",
+          "type": "sequential"
+        },
+        {
+          "from": "1f",
+          "to": "1g",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Generate accompanying text-wrap words to place alongside the characters using AI",
+      "step_action": "I describe each character's personality and the overall sticker-sheet theme to an AI assistant and request short, punchy text-wrap words or phrases that can sit beside or around the characters. I refine the suggestions for length, tone, and visual balance.",
+      "time_range": "06:45–09:41",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Request stylish text-wrap word embellishments for each character",
+          "detail": "Asks Grok to add a stylish one-word text element to each character that wraps around part of their body without changing the image or pose, describing what's happening in the frame (e.g. 'Run!' for the running character).",
+          "time": "06:45–08:44",
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "1f",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "05:24–06:01",
+              "user_adoption_time": "06:45–08:44",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2b",
+          "actor": "grok",
+          "label": "Generate text-wrap word overlays per character",
+          "detail": "Produces a stylish curved one-word text element for each character, such as 'BOUNCE!' wrapped around a devil sticker's body, iterating on placement and wording.",
+          "time": "08:44–09:29",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "2c",
+          "actor": "user",
+          "label": "Review and approve text-wrap results",
+          "detail": "Reviews the text-wrap embellishments across the character set and confirms the result matches what was intended, then proceeds to the next workflow step.",
+          "time": "09:29–09:41",
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "2a",
+              "target_ai": "2b",
+              "label": "adopt",
+              "source_node_time": "06:45–08:44",
+              "ai_node_time": "08:44–09:29",
+              "user_adoption_time": "09:29–09:41",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Generate and compare various color schemes for both the characters and text using AI",
+      "step_action": "I upload or describe the black-and-white characters and text phrases, then ask the AI to produce multiple complete color-scheme variations applied to both the characters and the accompanying text. I review the options side-by-side and select the strongest combination.",
+      "time_range": "09:53–11:46",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Request multiple color-scheme variations for characters and text",
+          "detail": "Asks Grok to move the characters and their text-wrap words beyond black-and-white, requesting a variety of complete color-scheme options to compare.",
+          "time": "09:53–10:31",
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "2b",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "08:44–09:29",
+              "user_adoption_time": "09:53–10:31",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "3b",
+          "actor": "grok",
+          "label": "Generate multiple color-scheme variations",
+          "detail": "Applies several complete color-scheme variations to the characters and their text (e.g. lavender/green, electric blue with yellow text, magenta, orange), giving the user side-by-side options.",
+          "time": "10:31–11:18",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "3c",
+          "actor": "user",
+          "label": "Review and select preferred color schemes",
+          "detail": "Compares the generated color schemes, expresses particular enthusiasm for the orange variant, and confirms Grok produced a strong enough range of options before moving on to sourcing a mock-up.",
+          "time": "11:18–11:46",
+          "actor_type": "user",
+          "softwares": "Grok",
+          "user_response": [
+            {
+              "source_node": "3a",
+              "target_ai": "3b",
+              "label": "adopt",
+              "source_node_time": "09:53–10:31",
+              "ai_node_time": "10:31–11:18",
+              "user_adoption_time": "11:18–11:46",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Locate a high-quality Photoshop PSD mock-up of a sticker sheet using AI-assisted search",
+      "step_action": "I instruct an AI assistant to search for and recommend downloadable Photoshop PSD sticker-sheet mock-ups that feature realistic paper texture, multiple sticker positions, and easy-to-edit smart objects. I evaluate the suggestions and download the best matching file.",
+      "time_range": "12:09–21:34",
+      "nodes": [
+        {
+          "id": "4a",
+          "actor": "user",
+          "label": "Set up Claude-generated stickers in Adobe Illustrator",
+          "detail": "Sets up the stickers generated by Claude in Adobe Illustrator to maintain full control and editability over the vector assets.",
+          "time": "12:09–13:36",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator",
+          "user_response": [
+            {
+              "source_node": "",
+              "target_ai": "3b",
+              "label": "adopt",
+              "source_node_time": "",
+              "ai_node_time": "10:31–11:18",
+              "user_adoption_time": "12:09–13:36",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "4b",
+          "actor": "user",
+          "label": "Request Grok search for a kiss-cut sticker-sheet PSD mock-up",
+          "detail": "Asks Grok to help find a free PSD mock-up of a sticker sheet, specifying a preference for a 'kiss cut' presentation where the die-cut line follows each character's own silhouette rather than a generic circle shape.",
+          "time": "13:36–14:17",
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "4c",
+          "actor": "grok",
+          "label": "Suggest several mock-up site sources",
+          "detail": "Points to a handful of free mock-up sites such as goodmockups.com as candidate sources for a sticker-sheet PSD template.",
+          "time": "14:17–15:00",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "4d",
+          "actor": "user",
+          "label": "Evaluate mock-ups and reprompt Grok for a better kiss-cut option",
+          "detail": "Evaluates the suggested mock-ups, finds they don't fit the character silhouettes, and reprompts Grok to find a free PSD suited to their unique kiss-cut shapes.",
+          "time": "15:00–17:09",
+          "actor_type": "user",
+          "softwares": "Web browser (goodmockups.com and similar mock-up sites), Grok"
+        },
+        {
+          "id": "4e",
+          "actor": "grok",
+          "label": "Suggest additional mock-up site sources",
+          "detail": "Provides additional free mock-up sites and candidate PSD templates suited to the requested kiss-cut sticker-sheet style.",
+          "time": "17:09–17:33",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "4f",
+          "actor": "user",
+          "label": "Evaluate mock-ups and reprompt Grok for a die-cut sticker sheet",
+          "detail": "Evaluates the additional mock-ups, finds they still don't fit, and clarifies that they need a single sheet where each design is individually kiss-cut.",
+          "time": "17:33–18:31",
+          "actor_type": "user",
+          "softwares": "Web browser (psfiles.com and similar mock-up sites), Grok"
+        },
+        {
+          "id": "4g",
+          "actor": "grok",
+          "label": "Suggest additional mock-up site sources",
+          "detail": "Provides additional free mock-up sites and candidate PSD templates matching the requested die-cut sticker-sheet style.",
+          "time": "18:31–18:50",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "4h",
+          "actor": "user",
+          "label": "Test a DIY silhouette-cutting workaround, then abandon the mock-up search",
+          "detail": "Tests whether an online background-eraser tool can approximate a die-cut silhouette effect, makes one last attempt at finding a matching PSD, and then decides the search has failed and pivots to building the sticker-sheet presentation manually.",
+          "time": "18:50–21:34",
+          "actor_type": "user",
+          "softwares": "Web browser (icons8 Mega Creator and several mock-up sites)",
+          "user_response": [
+            {
+              "source_node": "4b",
+              "target_ai": "4c",
+              "label": "reject",
+              "source_node_time": "13:36–14:17",
+              "ai_node_time": "14:17–15:00",
+              "user_adoption_time": "18:50–21:34",
+              "reasoning": ""
+            },
+            {
+              "source_node": "4b",
+              "target_ai": "4e",
+              "label": "reject",
+              "source_node_time": "13:36–14:17",
+              "ai_node_time": "17:09–17:33",
+              "user_adoption_time": "18:50–21:34",
+              "reasoning": ""
+            },
+            {
+              "source_node": "4b",
+              "target_ai": "4g",
+              "label": "reject",
+              "source_node_time": "13:36–14:17",
+              "ai_node_time": "18:31–18:50",
+              "user_adoption_time": "18:50–21:34",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "4a",
+          "to": "4b",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4c",
+          "type": "sequential"
+        },
+        {
+          "from": "4c",
+          "to": "4d",
+          "type": "sequential"
+        },
+        {
+          "from": "4d",
+          "to": "4e",
+          "type": "sequential"
+        },
+        {
+          "from": "4e",
+          "to": "4f",
+          "type": "sequential"
+        },
+        {
+          "from": "4f",
+          "to": "4g",
+          "type": "sequential"
+        },
+        {
+          "from": "4g",
+          "to": "4h",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Manually recreate the full sticker sheet in Adobe Illustrator and Photoshop to own every element at maximum quality",
+      "step_action": "I rebuild each character and text element from scratch as clean vectors in Adobe Illustrator, apply the chosen color scheme, and arrange the complete 4–6 piece sticker sheet layout. I then place the finished artwork into the PSD mock-up in Photoshop for final presentation and export high-resolution production files.",
+      "time_range": "21:34–49:11",
+      "nodes": [
+        {
+          "id": "5a",
+          "actor": "user",
+          "label": "Save project file and set up Illustrator workspace",
+          "detail": "Having abandoned the mock-up search, saves the selected Grok character images into a project file and opens Adobe Illustrator to begin rebuilding the sticker sheet by hand.",
+          "time": "21:34–22:30",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5b",
+          "actor": "user",
+          "label": "Vectorize all characters via Illustrator Image Trace",
+          "detail": "Uses Illustrator's Image Trace feature to quickly convert every downloaded character image into an editable, infinitely scalable vector (SVG) file.",
+          "time": "22:30–23:14",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5c",
+          "actor": "user",
+          "label": "Refine character vector colors and shading to match the chosen palette",
+          "detail": "Reduces each character to a simple two-color scheme plus accent colors, adjusting fills like eye color and shading pass by pass to match the selected color scheme across characters.",
+          "time": "23:14–26:47",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5d",
+          "actor": "user",
+          "label": "Increase Image Trace color count to recover lost balloon shading detail",
+          "detail": "Notices the simplified trace lost a shading detail on a character's balloon that was worth keeping, so re-runs Image Trace with a higher color count specifically to recover it.",
+          "time": "26:47–27:16",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5e",
+          "actor": "user",
+          "label": "Continue refining remaining characters' colors and outlines",
+          "detail": "Continues cleaning up gray backing artifacts, removing an overly detailed second highlight, recoloring the balloon, and fixing a character with a missing outline by rebuilding it from the remaining shapes.",
+          "time": "27:16–28:46",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5f",
+          "actor": "user",
+          "label": "Add consistent finishing details: gleam highlights and standardized outlines",
+          "detail": "Adds a small eye gleam to every character for consistency, then fixes a character's missing outline by joining its shapes, sending them to the back, and applying a matching outer stroke.",
+          "time": "28:46–30:33",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5g",
+          "actor": "user",
+          "label": "Standardize character scale and outline width for visual consistency",
+          "detail": "Builds a simple measurement box as a sizing benchmark so every character reads at a consistent scale, then removes and rebuilds the double white kiss-cut outline on every character so its width matches exactly.",
+          "time": "30:33–35:30",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5h",
+          "actor": "user",
+          "label": "Arrange all five characters into a sticker-sheet layout",
+          "detail": "Sets up a new artboard sized like a sticker sheet (roughly 4x6 inches), switches units to inches, and arranges all five finished characters across it in a balanced layout.",
+          "time": "35:30–36:52",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5i",
+          "actor": "user",
+          "label": "Attempt a kiss-cut removal-line detail, then abandon it as too time-consuming",
+          "detail": "Tries to hand-draw a thin gray outline around each sticker to simulate the die-cut removal line from the paper backing, but after struggling with compound paths for several minutes decides the detail isn't worth the time and moves on.",
+          "time": "36:52–42:33",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5j",
+          "actor": "user",
+          "label": "Add product title text and choose typography for the sheet",
+          "detail": "Adds a simple product headline ('Original Character Sticker Sheet, 5 piece') at the top of the sheet and picks a clean font to match the sticker aesthetic.",
+          "time": "42:33–43:55",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        },
+        {
+          "id": "5k",
+          "actor": "user",
+          "label": "Request a matching background scene from Grok",
+          "detail": "Judges the sheet too plain on its own and asks Grok to generate a simple cartoon-style background scene to composite behind the sticker sheet.",
+          "time": "43:55–44:44",
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "5l",
+          "actor": "grok",
+          "label": "Generate cartoon-style background scene options",
+          "detail": "Produces several flat cartoon-style backgrounds (e.g. a playful outdoor park scene) designed to match the sticker characters' simple shading and playful energy.",
+          "time": "44:44–45:28",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "5m",
+          "actor": "user",
+          "label": "Composite and adjust the background scene behind the sheet",
+          "detail": "Places the chosen park background behind the sticker sheet in Illustrator, removes distracting clouds, adjusts the sky to a better blue, and adds a drop shadow behind the title text for readability.",
+          "time": "45:28–47:27",
+          "actor_type": "user",
+          "softwares": "Grok, Adobe Illustrator",
+          "user_response": [
+            {
+              "source_node": "5k",
+              "target_ai": "5l",
+              "label": "modify",
+              "source_node_time": "43:55–44:44",
+              "ai_node_time": "44:44–45:28",
+              "user_adoption_time": "45:28–47:27",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "5n",
+          "actor": "user",
+          "label": "Finalize design, save, and export final files plus a thumbnail mock-up",
+          "detail": "Saves the finished sticker-sheet design, exports the high-resolution production artboard, and builds a simple gradient-background mock-up with a slight tilt and drop shadow to serve as the Upwork thumbnail, since no pre-made mock-up was ever found.",
+          "time": "47:27–49:11",
+          "actor_type": "user",
+          "softwares": "Adobe Illustrator"
+        }
+      ],
+      "edges": [
+        {
+          "from": "5a",
+          "to": "5b",
+          "type": "sequential"
+        },
+        {
+          "from": "5b",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5c",
+          "to": "5d",
+          "type": "sequential"
+        },
+        {
+          "from": "5d",
+          "to": "5e",
+          "type": "sequential"
+        },
+        {
+          "from": "5e",
+          "to": "5f",
+          "type": "sequential"
+        },
+        {
+          "from": "5f",
+          "to": "5g",
+          "type": "sequential"
+        },
+        {
+          "from": "5g",
+          "to": "5h",
+          "type": "sequential"
+        },
+        {
+          "from": "5h",
+          "to": "5i",
+          "type": "sequential"
+        },
+        {
+          "from": "5i",
+          "to": "5j",
+          "type": "sequential"
+        },
+        {
+          "from": "5j",
+          "to": "5k",
+          "type": "sequential"
+        },
+        {
+          "from": "5k",
+          "to": "5l",
+          "type": "sequential"
+        },
+        {
+          "from": "5l",
+          "to": "5m",
+          "type": "sequential"
+        },
+        {
+          "from": "5m",
+          "to": "5n",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 6": {
+      "key": "seg6",
+      "badge": "Step 6",
+      "step_name": "Write the portfolio entry title, body text, and supporting details using AI",
+      "step_action": "I provide the AI with a summary of the finished sticker-sheet project, the process highlights, and the target Upwork audience. I request a polished title, engaging project description, relevant skills list, and any process or outcome notes, then refine the copy for tone and length.",
+      "time_range": "49:11–52:55",
+      "nodes": [
+        {
+          "id": "6a",
+          "actor": "user",
+          "label": "Request Grok write the Upwork portfolio title and body text",
+          "detail": "Shares the completed sticker-sheet mock-up image with Grok and asks it to write the body text needed for the Upwork portfolio entry.",
+          "time": "49:11–49:35",
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "6b",
+          "actor": "grok",
+          "label": "Generate the portfolio entry body text",
+          "detail": "Returns a portfolio title and an engaging project description referencing the character design and sticker-sheet production.",
+          "time": "49:35–50:16",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "6bb",
+          "actor": "user",
+          "label": "Set up the new Upwork portfolio entry",
+          "detail": "Opens and begins filling out the new Upwork portfolio form.",
+          "time": "49:50–50:16",
+          "actor_type": "user",
+          "softwares": "Upwork"
+        },
+        {
+          "id": "6c",
+          "actor": "user",
+          "label": "Populate Upwork portfolio form and upload files",
+          "detail": "Opens Upwork's new portfolio entry form, enters the title ('Original Character Sticker Sheet Design'), role, and the Grok-drafted project description, and uploads the finished sticker-sheet mock-up image.",
+          "time": "50:16–51:35",
+          "actor_type": "user",
+          "softwares": "Upwork",
+          "user_response": [
+            {
+              "source_node": "6a",
+              "target_ai": "6b",
+              "label": "adopt",
+              "source_node_time": "49:11–49:35",
+              "ai_node_time": "49:35–50:16",
+              "user_adoption_time": "50:16–51:35",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "6d",
+          "actor": "user",
+          "label": "Ask Grok to identify skills for the portfolio entry",
+          "detail": "Asks Grok to identify the skills used for the completed portfolio project.",
+          "time": "51:35–51:42",
+          "actor_type": "user",
+          "softwares": "Grok"
+        },
+        {
+          "id": "6e",
+          "actor": "grok",
+          "label": "Suggest most relevant skills for the portfolio entry",
+          "detail": "Provides a list of skills relevant to the completed portfolio project for use in the Upwork entry.",
+          "time": "51:42–51:50",
+          "actor_type": "ai",
+          "softwares": "Grok"
+        },
+        {
+          "id": "6f",
+          "actor": "user",
+          "label": "Add skills, set thumbnail, publish, and arrange the portfolio entry",
+          "detail": "Adds the skills suggested by Grok, sets the portfolio thumbnail, publishes the entry, and repositions it among the existing portfolio pieces.",
+          "time": "51:50–52:55",
+          "actor_type": "user",
+          "softwares": "Grok, Upwork",
+          "user_response": [
+            {
+              "source_node": "6d",
+              "target_ai": "6e",
+              "label": "modify",
+              "source_node_time": "51:35–51:42",
+              "ai_node_time": "51:42–51:50",
+              "user_adoption_time": "51:50–52:55",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "6a",
+          "to": "6b",
+          "type": "sequential"
+        },
+        {
+          "from": "6a",
+          "to": "6bb",
+          "type": "sequential"
+        },
+        {
+          "from": "6b",
+          "to": "6c",
+          "type": "sequential"
+        },
+        {
+          "from": "6bb",
+          "to": "6c",
+          "type": "sequential"
+        },
+        {
+          "from": "6c",
+          "to": "6d",
+          "type": "sequential"
+        },
+        {
+          "from": "6d",
+          "to": "6e",
+          "type": "sequential"
+        },
+        {
+          "from": "6e",
+          "to": "6f",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Generate original flat black-and-white cartoon characters with simple shading using AI",
+      "step_action": "I craft detailed prompts describing the desired original characters (style, personality, poses, and simple shading approach) and generate multiple flat black-and-white cartoon character concepts. I iterate on the strongest results until I have 4–6 distinct, clean characters suitable for a sticker sheet.",
+      "input": "Character concept notes, preferred cartoon style references, and sticker-sheet constraints (simple shapes, readable silhouettes).",
+      "output": "Character concept notes, preferred cartoon style references, and sticker-sheet constraints (simple shapes, readable silhouettes).",
+      "tools": "AI image generation tool.",
+      "rubrics": [
+        "Originality and character clarity (score 5 = each figure is unique, instantly readable, and sticker-ready)",
+        "Flat black-and-white execution with simple shading (score 5 = clean linework, consistent simple shading, no unwanted color or complex gradients)",
+        "Suitability for a 4–6 piece sticker sheet (score 5 = characters work well together in scale and style)",
+        "Pose and composition quality (score 5 = dynamic yet balanced poses that leave room for text)",
+        "Technical cleanliness (score 5 = high-resolution, artifact-free images ready for isolation or recreation)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI was able to quickly generate exactly what I was looking for; a dynamic variety of quick and simple flat vector character illustrations with simple shading"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I was able to tell the AI exactly what I wanted and they quickly produced the results I was looking for"
+      }
+    },
+    "Step 2": {
+      "step_name": "Generate accompanying text-wrap words to place alongside the characters using AI",
+      "step_action": "I describe each character's personality and the overall sticker-sheet theme to an AI assistant and request short, punchy text-wrap words or phrases that can sit beside or around the characters. I refine the suggestions for length, tone, and visual balance.",
+      "input": "Final character concepts from Step 1 and desired sticker-sheet mood.",
+      "output": "A curated list of short text-wrap words/phrases matched to each character or to the full set.",
+      "tools": "AI language model.",
+      "rubrics": [
+        "Relevance to characters (score 5 = words feel naturally connected to each figure’s personality)",
+        "Length and sticker practicality (score 5 = short enough to fit cleanly without crowding)",
+        "Tone consistency (score 5 = cohesive voice across the entire sheet)",
+        "Visual pairing potential (score 5 = phrases leave clear space and hierarchy opportunities)",
+        "Originality and memorability (score 5 = fresh, sticky wording that enhances the design)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI accurately and satisfactorily added some wrapped text that described the character’s active movement in the scene."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I needed the wrapped text to add some more dimension to the sticker art and it placed it and did exactly what I needed it to do"
+      }
+    },
+    "Step 3": {
+      "step_name": "Generate and compare various color schemes for both the characters and text using AI",
+      "step_action": "I upload or describe the black-and-white characters and text phrases, then ask the AI to produce multiple complete color-scheme variations applied to both the characters and the accompanying text. I review the options side-by-side and select the strongest combination.",
+      "input": "Final black-and-white characters and chosen text-wrap words.",
+      "output": "Several full-color variations of the characters + text, with one preferred scheme selected for production.",
+      "tools": "AI image generation / recoloring tool.",
+      "rubrics": [
+        "Harmony between characters and text (score 5 = colors feel unified and intentional)",
+        "Sticker-sheet readability (score 5 = high contrast and clear hierarchy at small sizes)",
+        "Variety of options provided (score 5 = useful range of distinct, viable schemes)",
+        "Print-friendly color choices (score 5 = schemes that will reproduce cleanly)",
+        "Alignment with overall aesthetic (score 5 = selected palette elevates the original characters)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI was able to quickly and accurately generate some nice variety of color schemes, there was more than enough for me to choose from in the end"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI generated twice as many color variety options as I needed, which was nice because it afforded me some creative liberty in choosing my favorite"
+      }
+    },
+    "Step 4": {
+      "step_name": "Locate a high-quality Photoshop PSD mock-up of a sticker sheet using AI-assisted search",
+      "step_action": "I instruct an AI assistant to search for and recommend downloadable Photoshop PSD sticker-sheet mock-ups that feature realistic paper texture, multiple sticker positions, and easy-to-edit smart objects. I evaluate the suggestions and download the best matching file.",
+      "input": "Desired mock-up style (flat-lay, angled, die-cut edges, etc.) and technical needs for a 4–6 piece sheet.",
+      "output": "A downloaded, editable Photoshop PSD sticker-sheet mock-up ready for artwork placement.",
+      "tools": "AI search / research assistant + web browser.",
+      "rubrics": [
+        "Realism and presentation quality (score 5 = photorealistic and portfolio-ready)",
+        "Editability (score 5 = well-structured smart objects and layers)",
+        "Suitability for a multi-piece sticker sheet (score 5 = correctly accommodates 4–6 stickers)",
+        "Resolution and technical quality (score 5 = high-res, clean file)",
+        "Licensing clarity (score 5 = free or clearly permitted for portfolio use)."
+      ],
+      "ratings": {
+        "collaboration_rating": 1,
+        "The agent understood the task, context, and instructions provided": 1,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 1,
+        "The agent reduced effort, time, or cognitive load during the task": 1,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 1,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 1,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 1,
+        "I was able to guide, redirect, and override the agent's actions when desired": 1,
+        "output_quality_rating": 1,
+        "output_quality_reason": "The AI tried it’s best, but even with several specifications I wasn’t able to find what I was looking for. Although I’m not sure if it’s the AI’s fault, I don’t know if what I was looking for specifically even exists on the internet"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "The AI did it’s best searches several times, but even after several respecifications from my part, it wasn’t able to find me what I was looking for"
+      }
+    },
+    "Step 5": {
+      "step_name": "Manually recreate the full sticker sheet in Adobe Illustrator and Photoshop to own every element at maximum quality",
+      "step_action": "I rebuild each character and text element from scratch as clean vectors in Adobe Illustrator, apply the chosen color scheme, and arrange the complete 4–6 piece sticker sheet layout. I then place the finished artwork into the PSD mock-up in Photoshop for final presentation and export high-resolution production files.",
+      "input": "Selected AI-generated characters, text, color scheme, and downloaded PSD mock-up.",
+      "output": "Fully original, editable Illustrator + layered PSD files of the complete sticker sheet, plus high-quality export-ready images.",
+      "tools": "Adobe Illustrator, Adobe Photoshop.",
+      "rubrics": [
+        "Visual fidelity to the approved concepts (score 5 = characters and text match the chosen direction extremely closely)",
+        "Clean vector construction and full ownership (score 5 = every element is original, editable, and organized)",
+        "Layout balance and sticker-sheet functionality (score 5 = well-spaced, print-ready 4–6 piece arrangement)",
+        "Technical print and export quality (score 5 = correct resolution, color mode, and no quality loss)",
+        "Mock-up presentation polish (score 5 = realistic, professional final composite ready for portfolio)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Given all the resources provided by the AI, I was able to nicely make my own mock-up and print files for the sticker sheet art."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "With all the resources provided by the AI, i was able to quickly make a nice looking original character art sticker sheet"
+      }
+    },
+    "Step 6": {
+      "step_name": "Write the portfolio entry title, body text, and supporting details using AI",
+      "step_action": "I provide the AI with a summary of the finished sticker-sheet project, the process highlights, and the target Upwork audience. I request a polished title, engaging project description, relevant skills list, and any process or outcome notes, then refine the copy for tone and length.",
+      "input": "Design process notes, final artwork description, and personal brand voice.",
+      "output": "Complete, ready-to-paste portfolio entry (title + body + skills + details) optimized for an Upwork profile.",
+      "tools": "AI language model.",
+      "rubrics": [
+        "Clarity and professionalism (score 5 = concise, client-focused, error-free writing)",
+        "Accurate reflection of the work and AI integration (score 5 = clearly shows thoughtful use of AI tools alongside manual craft)",
+        "Skills relevance and completeness (score 5 = accurate, searchable skill tags that match the deliverable)",
+        "Engagement value (score 5 = makes a potential client want to inquire)",
+        "Formatting readiness (score 5 = copy-paste ready for Upwork with proper structure)."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The AI quickly wrote everything I needed for my portfolio entry text, which took a burden off of my process"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I needed some accurate description and summary of skills utilized for this portfolio entry and the AI produced satisfactory results for me"
+      }
+    }
+  }
+}

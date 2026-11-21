@@ -1,0 +1,230 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-21T19:44:41.232820Z,"Customer Call Summary Prompt
+Use this prompt with any call transcript to generate a consistent, structured summary. Paste the full transcript where indicated at the bottom, then run the prompt.
+PROMPT (copy everything below this line)
+You are a sales and marketing operations assistant helping to summarize a customer call. I will provide you with a call transcript. Analyze it carefully and produce a structured summary using the exact five sections below, in this exact order, each separated by a horizontal divider (---).
+Follow these instructions precisely:
+General rules:
+Base everything strictly on the transcript content. Do not invent, assume, or infer information that isn't clearly stated or reasonably implied by context.
+If a section has no relevant content in the transcript (e.g., no action items were discussed), state ""None identified in this call"" rather than leaving it blank or fabricating content.
+Use clear, professional, concise business language. Avoid filler.
+Use bullet points where indicated for scannability.
+1. Call Overview
+Write a brief paragraph (3-5 sentences) summarizing the call in full. Include:
+The purpose/reason for the call
+The main topics discussed
+The overall outcome or tone of the call (e.g., positive, exploratory, contract discussion, issue resolution)
+Any decisions made or key conclusions reached
+This should give someone who did NOT attend the call a complete picture of what happened, in a short, digestible summary.
+2. Participants
+List all identified participants from the transcript in this format:
+[Full Name] – [Role/Title], [Company, if identifiable] – [internal team member or client-side, if identifiable]
+If a participant's role or company isn't stated, note ""Role not specified"" rather than guessing. Group internal (our team) participants separately from client/customer participants if this distinction is clear.
+3. Key Points
+Provide a detailed, organized list of the key discussion points from the call. This section MUST be formatted entirely as bullet points — do not use paragraphs or narrative prose. For each key point:
+Start each bullet with a bolded short header/topic label, followed by 1-3 sentences of detail/context on the same bullet
+Organize bullets in the order they were discussed, or group by theme if that makes the summary clearer
+Include any concerns, objections, questions, pricing/commercial discussions, technical requirements, timelines, or client feedback raised during the call
+Use sub-bullets where needed to break down a point further
+Be thorough — this section should capture substance, not just headlines.
+4. Action Items
+List concrete items that resulted from the call that require follow-up work. For each action item, use this format:
+Action: [What needs to be done]
+Owner: [Who is responsible, if stated or clearly implied]
+Deadline/Timeframe: [If mentioned, otherwise ""Not specified""]
+Only include items that represent real tasks or commitments discussed in the call — not general discussion topics.
+5. Follow-Up Tasks & Assigned Responsibilities
+Provide a clear summary table or list of all follow-ups, structured by owner, so it's easy to see who owns what next. Format:
+Task	Assigned To	Due Date/Timeframe	Notes
+[Task description]	[Name/Team]	[If specified]	[Any relevant context]
+Include follow-ups for both our team and the client/customer side if applicable (e.g., client needs to send documentation, we need to send a proposal, etc.)
+
+The attached is the call transcript:",,,,sample_sales_demo_call_transcript.pdf
+Claude,2026-08-21T19:44:41.217882Z,"Here's the structured summary based on the prompt and transcript you provided.
+
+---
+
+## 1. Call Overview
+
+This was a demo/discovery call between Jordan Reyes (Solutions Consultant, Northlane Solutions) and Eejay Cruz (VP of IT Operations, Meridian Logistics Group), initiated after Eejay downloaded an IT service management maturity guide and connected with Jordan at a logistics tech meetup. The call covered Meridian's current ticketing pain points — a fragmented mix of a shared inbox, Slack DMs, and an underused legacy ticketing tool — followed by a tailored product demo addressing mobile ticket intake, real-time status visibility, and IT/engineering tool integration. The conversation moved into a detailed commercial discussion, including pricing, an implementation fee objection, and a negotiated concession. The call ended on a positive, high-momentum note, with Eejay indicating he would bring a real recommendation to his CIO, Priya, and a follow-up call was tentatively scheduled.
+
+---
+
+## 2. Participants
+
+**Internal (Northlane Solutions):**
+- Jordan Reyes – Solutions Consultant, Northlane Solutions – Internal
+
+**Client (Meridian Logistics Group):**
+- Eejay Cruz – VP of IT Operations, Meridian Logistics Group – Client
+
+**Mentioned but not present on the call:**
+- Priya – CIO, Meridian Logistics Group – Client (budget sign-off authority)
+- Marcus – Director of Warehouse Ops, Meridian Logistics Group – Client (stakeholder, high ticket volume owner)
+
+---
+
+## 3. Key Points
+
+- **Current ticketing process is fragmented:** Requests come in via a shared inbox, Slack DMs, and a four-year-old ticketing tool with spotty adoption; field technicians find the tool clunky and poorly suited to mobile/on-the-go work.
+- **Team size and ticket volume:** ~14 IT staff supporting 300–350 tickets/week, up from ~150 two years ago — driven by three new warehouse site openings and a fleet-wide handheld scanner rollout.
+- **Declining response times:** Same-day resolution has slipped to 2–3 days for non-emergency issues due to volume growth, straining the team.
+- **Visibility/trust issue with leadership:** A specific incident (Reno site scanner ticket) appeared open for four days on paper despite being resolved in an hour, because no one updated the ticket — raised concern from the COO and highlighted a data-trust problem, not just a speed problem.
+- **Tooling silos:** Documentation lives on an unversioned shared drive; engineering uses a separate project tool that IT ops doesn't have access to, creating a disconnect between departments.
+- **Stakeholders identified:** Priya (CIO) has budget sign-off authority; Marcus (Director of Warehouse Ops) has a vested interest given his team generates most ticket volume.
+- **Timeline driver:** Two new site openings planned for Q1 next year create urgency to resolve the current system's limitations before then.
+- **Past failed initiative:** A prior attempt to enforce stricter ticketing policy (mandatory categories/fields) failed within a month as staff reverted to Slack DMs — Eejay expressed skepticism toward any ""more process"" solution.
+- **Demo tailored to pain points:**
+  - Mobile ticket intake designed for ~15-second submission via photo and tap, tied to existing SSO, to reduce friction for field techs.
+  - Live status dashboard with automatic timestamping to prevent Reno-style visibility gaps and give leadership real-time status without chasing updates.
+  - Lightweight, automatic linking between IT ticketing and engineering's existing tool, avoiding the need for either team to change tools or share logins.
+  - Smart routing that auto-categorizes tickets from description/photo rather than requiring manual fields — directly addressing the prior failed policy rollout.
+  - Platform scales by adding new sites as teams within the existing structure, without new licenses or redesign, supporting the Q1 timeline.
+- **Pricing discussion:**
+  - Standard 12-month term: ~$58,000/year.
+  - 3-year term: $49,000/year, locked in with no price increases as sites are added.
+  - One-time implementation fee: $8,000 (covers historical data migration and onboarding).
+- **Budget objection:** Eejay raised concern about the total cost given a difficult budget season and the need to justify the spend to Priya.
+- **Negotiated concession:** Jordan offered to waive the $8,000 implementation fee entirely if Meridian signs the 3-year term by end of quarter.
+- **Payment structure adjustment:** Annual license can be billed quarterly (~$12,250/quarter) instead of a lump sum, easing budget approval.
+- **Client reaction:** Eejay indicated he would bring this to Priya as a genuine recommendation, contingent on the waived fee and quarterly billing being confirmed in writing.
+
+---
+
+## 4. Action Items
+
+- **Action:** Send written proposal reflecting the discussed deal terms (3-year term, $49,000/year billed quarterly, waived implementation fee tied to end-of-quarter signature, inclusion of 2-year historical data migration)
+ **Owner:** Jordan Reyes
+ **Deadline/Timeframe:** Same day as the call
+
+- **Action:** Send calendar hold for a follow-up call with Priya and Marcus
+ **Owner:** Jordan Reyes
+ **Deadline/Timeframe:** Tentatively next Thursday afternoon (to be confirmed)
+
+- **Action:** Confirm availability of Priya and Marcus for the follow-up call (Wednesday vs. Thursday)
+ **Owner:** Eejay Cruz
+ **Deadline/Timeframe:** Before next week's proposed call
+
+- **Action:** Review written proposal and bring recommendation to Priya
+ **Owner:** Eejay Cruz
+ **Deadline/Timeframe:** Prior to the follow-up call
+
+---
+
+## 5. Follow-Up Tasks & Assigned Responsibilities
+
+| Task | Assigned To | Due Date/Timeframe | Notes |
+|---|---|---|---|
+| Send written proposal with deal terms (3-yr term, $49K/yr quarterly billing, waived $8K implementation fee, historical data migration included) | Jordan Reyes (Northlane) | Same day as call | Needed before follow-up call so Priya/Marcus see numbers in advance |
+| Send calendar hold for follow-up call | Jordan Reyes (Northlane) | Placeholder for next Thursday afternoon | To be confirmed/adjusted by Eejay |
+| Confirm Priya and Marcus's availability | Eejay Cruz (Meridian) | Before next week | Thursday noted as more likely |
+| Review proposal and prepare recommendation for Priya | Eejay Cruz (Meridian) | Before follow-up call | Eejay wants terms in writing before presenting internally |
+| Present pricing/deal directly to Priya and Marcus | Jordan Reyes (Northlane) | Tentatively next Thursday afternoon | Eejay requested Priya hear pricing directly rather than secondhand |",,,,
+Human,2026-08-21T19:47:16.365839Z,Make the abve call output into a Dowwnloadable PDF doc..,,,,
+Claude,2026-08-21T19:47:16.359628Z,I'll check the PDF skill first to make sure I follow the right approach for creating this document.,,,,
+Claude,2026-08-21T19:47:17.258269Z,,Checking PDF creation best practices,view,,
+Claude,2026-08-21T19:47:18.378788Z,"I'll build this as a well-formatted PDF using reportlab, with proper headings, bullets, and a table for the final section.",,,,
+Claude,2026-08-21T19:47:18.961649Z,,Verify reportlab is available,bash_tool,,
+Claude,2026-08-21T19:47:22.065222Z,,Creating file: build_pdf.py,create_file,,build_pdf.py
+Claude,2026-08-21T19:48:02.191602Z,,Run the PDF generation script,bash_tool,,
+Claude,2026-08-21T19:48:04.091487Z,,Verify page count and copy to outputs,bash_tool,,
+Claude,2026-08-21T19:48:06.535469Z,,Sharing file(s): Meridian_Logistics_Call_Summary.pdf,present_files,,Meridian_Logistics_Call_Summary.pdf
+Claude,2026-08-21T19:48:07.507442Z,"Here's your call summary as a downloadable PDF, formatted with clear section headers, bulleted key points, and a structured follow-up table.",,,,
+Human,2026-08-21T19:55:41.530012Z,"I am working on tasks and a note to in key in our CRM HubSpot from the above call. 
+
+1. The note: Indicate Date: the date of the call (8/21/26) and a brief summary of the call.
+2. Tasks: populate a list of tasks from the the call. Indicate their urgency and also the assign of the individual tasks.
+
+
+Be thorough as the information draft will be used in our HubSpot CRM to manage our follow ups and Sales pipeline.",,,,
+Claude,2026-08-21T19:55:41.523278Z,"I don't have a HubSpot connector active in this chat, so let me check what's available to connect, since that would let me log this directly rather than just drafting text for you to copy in.",,,,
+Claude,2026-08-21T19:55:42.650998Z,,Searching connectors,search_mcp_registry,,
+Claude,2026-08-21T19:55:43.901544Z,HubSpot is available to connect — that would let me create the note and tasks directly in your CRM instead of you copy-pasting.,,,,
+Claude,2026-08-21T19:55:45.024072Z,,Suggesting connectors,suggest_connectors,,
+Claude,2026-08-21T19:55:46.021588Z,"I found HubSpot in the connector directory — want me to use it to log this directly, or would you rather I just draft the note and task list here for you to paste in yourself?",,,,
+Human,2026-08-21T19:56:40.384300Z,You dont need hubspot Use the above call transcript for the hubSpt tasks and give me the output here in text..,,,,
+Claude,2026-08-21T19:56:40.376162Z,"Here's the CRM-ready content for HubSpot.
+
+---
+
+## HUBSPOT NOTE
+
+**Date:** 08/21/2026
+**Associated Contact:** Eejay Cruz, VP of IT Operations
+**Associated Company:** Meridian Logistics Group
+**Note Type:** Call — Demo/Discovery
+
+**Summary:**
+Demo/discovery call with Eejay Cruz (VP of IT Operations, Meridian Logistics Group), originating from a content download plus a meetup connection. Discovery revealed a fragmented ticketing environment (shared inbox, Slack DMs, underused 4-year-old ticketing tool), volume more than doubled in 2 years (150→300-350/week across 14 IT staff) driven by 3 new warehouse sites and a fleet-wide scanner rollout, and a trust/visibility issue that reached the COO level (Reno ticket incident). Key stakeholders identified: Priya (CIO, budget authority) and Marcus (Director of Warehouse Ops). Urgency tied to 2 new site openings in Q1 2027. Client flagged a past failed ""more process"" initiative as a source of skepticism.
+
+Demo was tailored to three pain points: mobile ticket intake, real-time status visibility, and IT/engineering integration without forcing a tool change. Client response was strongly positive — specifically called out that the visibility feature ""would have completely avoided the Reno situation.""
+
+Pricing discussed directly: $58K/yr (12-month term) vs. $49K/yr (3-year term, locked rate) + $8K one-time implementation fee. Client raised a real budget objection given a tough budget season. Rep offered a concession: waived $8K implementation fee if signed by end of quarter, plus quarterly billing option (~$12,250/qtr) instead of lump sum. Client indicated he will bring this to Priya as an active recommendation, pending written confirmation.
+
+**Outcome:** Positive/advancing. Verbal agreement to proceed to a 3-way call with Priya and Marcus, tentatively next Thursday afternoon. Written proposal to follow same day.
+
+**Deal terms proposed (pending written confirmation):** 3-year term · $49,000/year billed quarterly · $8,000 implementation fee waived if signed by end of quarter · includes migration of 2 years of historical ticket data.
+
+---
+
+## HUBSPOT TASKS
+
+**Task 1**
+- **Title:** Send written proposal to Eejay Cruz (Meridian Logistics)
+- **Description:** Draft and send proposal reflecting agreed terms: 3-year term, $49,000/year billed quarterly, implementation fee ($8,000) waived if signed by end of quarter, includes migration of 2 years of historical ticket data.
+- **Assigned to:** Jordan Reyes
+- **Due date:** 08/21/2026 (same day as call)
+- **Priority:** High
+
+**Task 2**
+- **Title:** Send calendar hold for 3-way follow-up call
+- **Description:** Schedule placeholder for Thursday afternoon next week with Eejay Cruz, Priya (CIO), and Marcus (Director of Warehouse Ops). Confirm/adjust once Eejay verifies attendee availability.
+- **Assigned to:** Jordan Reyes
+- **Due date:** Week of 08/24/2026 (target: Thursday, 08/27/2026)
+- **Priority:** High
+
+**Task 3**
+- **Title:** Confirm Priya and Marcus's availability for follow-up call
+- **Description:** Client-side action — Eejay to check schedules and confirm Wednesday vs. Thursday for the 3-way pricing/deal call.
+- **Assigned to:** Eejay Cruz (Meridian Logistics — track as client-dependent task)
+- **Due date:** Before follow-up call (week of 08/24/2026)
+- **Priority:** Medium
+
+**Task 4**
+- **Title:** Follow up if proposal isn't acknowledged within 48 hours
+- **Description:** If no response/confirmation from Eejay on proposal receipt or the Thursday hold by 08/23/2026, send a check-in email/call.
+- **Assigned to:** Jordan Reyes
+- **Due date:** 08/23/2026
+- **Priority:** Medium
+
+**Task 5**
+- **Title:** Prep talking points for Priya (CIO) ahead of 3-way call**
+- **Description:** Since Priya has budget sign-off and will hear pricing directly for the first time, prepare a concise justification of the 3-year term, waived implementation fee rationale, and ROI framing (ticket volume growth, COO visibility issue, Q1 site scaling) to preempt objections.
+- **Assigned to:** Jordan Reyes
+- **Due date:** Before follow-up call (week of 08/24/2026)
+- **Priority:** High
+
+**Task 6**
+- **Title:** Log deal stage update in pipeline
+- **Description:** Move Meridian Logistics deal to ""Proposal Sent"" stage once written proposal is delivered; update deal value to reflect 3-year/$49K annual terms with waived implementation fee.
+- **Assigned to:** Jordan Reyes
+- **Due date:** 08/21/2026
+- **Priority:** Medium",,,,
+Human,2026-08-21T20:07:40.602860Z,"From the above call transcript, please give me a deal that was discussed in the call. 
+For the deal give me: 
+
+The deal Name:
+The deal Amount:
+The summary deal description of only 1sentence: 
+
+Please use the the atttached transcript.",,,,
+Claude,2026-08-21T20:07:40.597169Z,"## Deal Record
+
+**Deal Name:** Meridian Logistics Group — ITSM Platform (3-Year Agreement)
+
+**Deal Amount:** $147,000 (3-year term at $49,000/year; $8,000 one-time implementation fee waived if signed by end of quarter)
+
+**Deal Summary:** A 3-year IT service management platform agreement with Meridian Logistics Group to replace their fragmented ticketing system with mobile intake, real-time status visibility, and IT/engineering integration ahead of two new Q1 site openings.",,,,
+Human,2026-08-21T20:14:18.124167Z,Please give me a draft email to be snet to the to client ith key points from the above call. Include follow up to be made and any reelvant info to loop in the client..,,,,
+Claude,2026-08-21T20:14:18.124546Z,,Composing message,message_compose_v1,,
+Claude,2026-08-21T20:14:33.262906Z,"I've drafted two versions above — a full recap and a shorter one — both covering what was discussed, the demo highlights, commercial terms, and the concrete next steps (proposal today, Thursday hold, direct pricing walkthrough with Priya). Let me know if you'd like any tone or detail adjustments before sending.",,,,

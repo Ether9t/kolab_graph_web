@@ -1,0 +1,686 @@
+{
+  "session_id": "session1",
+  "participant_id": "p39",
+  "title": "Session 1 — Participant 39 User + Claude Behavior Graphs",
+  "goal": "My main goal for this session is to draft a short Trust indenture for attorney review compliant to the rules in the state of Texas.",
+  "context": "I am choosing this goal because it covers a very basic task all lawyers have to do at some stage - drafting. I am picking a trust indenture as that is a clear straightforward draft and can be short. However, many States have different requirements which may influence the research and writing process. AI may significantly assist in this process. The draft will not be a final version and mainly be a draft template as no client has given any specifications, but it should be good enough for attorney review.",
+  "occupation": "Lawyer/Legal Annotator",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+    "Why or why not": "Yes, after the 1 hour interaction with Claude, I had managed to create a compliant draft of a trust indenture for attorney review. Claude went through multiple steps and gave an output that had minimal issues."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Research",
+      "step_action": "Research into drafting a trust indenture in the State of Texas.",
+      "time_range": "00:00:00-00:03:40",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Narrate the goal and send the first research prompt",
+          "detail": "Narrates that the goal is drafting a Texas trust indenture, and that without Claude this step would mean reading through the Texas codes or Googling it; sends a new Claude.ai chat (which becomes titled 'Texas trust indenture requirements') the prompt 'What are the requirements needed to draft a trust indenture in the State of Texas?'",
+          "time": [
+            "00:00:00-00:00:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a2",
+          "actor": "claude",
+          "label": "Deliver a Texas Trust Code overview",
+          "detail": "Searches the web and returns an overview grounded in the Texas Trust Code (Property Code Title 9, Subtitle B): the core elements needed to create a valid trust (capacity, intent, trust property, ascertainable beneficiaries, valid purpose, a trustee), the formalities for the indenture itself (written instrument, signature, optional self-proving affidavit), and typical substantive provisions -- flagged as general information, not legal advice.",
+          "time": [
+            "00:00:50-00:01:03"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a3",
+          "actor": "user",
+          "label": "Review the overview and ask for laws/format",
+          "detail": "Narrates that Claude's information is pulled from general sources and can reflect outdated law, something to keep in mind for legal work; sends a follow-up prompt: 'I am going to draft a trust indenture which I require assistance with. Could you identify: 1. Relevant Laws and 2. Any Relevant Format for the jurisdiction of Texas.'",
+          "time": [
+            "00:01:03-00:02:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a4",
+          "actor": "claude",
+          "label": "Deliver a statute table and 16-part standard structure",
+          "detail": "Delivers a table of key Texas Property Code sections (definitions, methods of creating a trust, trustee acceptance/revocability, trustee powers, trustee duties and non-waivable exculpation limits under §114.007, district court jurisdiction) plus related statutes (Estates Code, Family Code, IRC, homestead protections), and a 16-part standard structure for a private Texas trust indenture (title/preamble through Schedule A) -- ending by offering to draft an actual working template if given a few basic parameters (revocable/irrevocable, type of trust).",
+          "time": [
+            "00:02:31-00:02:38"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a5",
+          "actor": "user",
+          "label": "Review the structure and decide to accept the template offer",
+          "detail": "Narrates that the structure/format section is the most important part, notes it will use this to ask Claude for a template since there's no real client yet, and decides to invent a scenario rather than use real client details.",
+          "time": [
+            "00:02:38-00:03:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Create draft template",
+      "step_action": "Using the research summary from Step 1, prompt to draft a bare-bones trust indenture shell with the core Texas-required clauses (e.g., trustee powers, revocability, trust property, beneficiary designation, governing law). Review the draft for missing statutory elements and iterate with follow-up prompts.",
+      "time_range": "00:03:40-00:09:16",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor": "user",
+          "label": "Compose a hypothetical scenario and template request",
+          "detail": "Narrates that client details shouldn't be real/proprietary information since Claude could use them for training, so invents a generic scenario instead: two co-trustees (Mr. X and Mr. Y) holding property for one beneficiary, with a self-dealing provision as an example clause to include.",
+          "time": [
+            "00:03:40-00:04:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "b2",
+          "actor": "user",
+          "label": "Send the template request",
+          "detail": "Sends: 'Yes, could you please create a draft Template for me, for a trust. The trust should be Texas-focused, and refer to the Texas Property code (where applicable - for example, self-dealing). The intention of the trust is to hold property for the benefit of another individual and two individuals, Mr.X and Mr.Y will be the trustees of the property.'",
+          "time": [
+            "00:04:57-00:05:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "b3",
+          "actor": "claude",
+          "label": "Build and deliver the Texas trust indenture template",
+          "detail": "Verifies the self-dealing citation via web search, builds the docx (fixing a double-numbering issue in the process), renders it to spot-check the self-dealing article and signature/schedule pages, then delivers 'Texas_Trust_Indenture_Template.docx' -- flagging that Article VII's self-dealing language is drafted off Tex. Prop. Code §§113.052-113.053 and §114.007, with an added 7.4 conflicts-between-co-trustees clause, bracketed placeholders throughout, a blank Schedule A, and an optional self-proving affidavit.",
+          "time": [
+            "00:05:55-00:08:17"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "b4",
+          "actor": "user",
+          "label": "Review the delivered template",
+          "detail": "Narrates that Claude flagged the self-dealing clause as promised, filled it with bracket/highlight placeholders, included Schedule A for the transferred property, and gave the expected attorney-review disclaimer.",
+          "time": [
+            "00:08:17-00:09:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b3",
+          "type": "sequential"
+        },
+        {
+          "from": "b3",
+          "to": "b4",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Create template with compliant format and draft placeholders",
+      "step_action": "Convert the Step 2 draft into a reusable template by replacing client-specific details (names, property, dates, trustee identity) with clearly labeled placeholders (e.g., [GRANTOR NAME], [TRUST PROPERTY]). Confirm formatting matches standard Texas filing/execution conventions (signature blocks, notary acknowledgment, witness lines if required).",
+      "time_range": "00:09:16-00:10:23",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Confirm placeholder tagging and execution formatting",
+          "detail": "Reads through the delivered template article by article (Recitals, Article I Name and Establishment of Trust, trust property description, beneficiary, trustees, powers, duties, self-dealing/liability), comparing its structure against a real attorney-approved trust template held open off-screen (which cannot be shared since it's proprietary client material); confirms the placeholder tagging (e.g. [SETTLOR FULL LEGAL NAME], [MR. X FULL LEGAL NAME]), the drafting-note disclaimer, and the execution formatting (signature blocks, self-proving affidavit) already match Texas filing conventions, judging the draft ready to work from.",
+          "time": [
+            "00:09:16-00:10:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": []
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Attorney-readiness review / summary memo",
+      "step_action": "Generate a short cover memo summarizing what the template covers, what still requires attorney judgment (e.g., state-specific tax elections, spendthrift provisions), and any assumptions made during drafting.",
+      "time_range": "00:10:23-00:14:58",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Request a companion client memo",
+          "detail": "Sends: 'Can you give me another memo with the trust indenture, identifying key points for me to go over with my client. Also, could you point out important practices that should be avoided when establishing a trust particularly in relation to taxes.'",
+          "time": [
+            "00:10:23-00:11:32"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Deliver a two-part client memo",
+          "detail": "Searches for current 2026 federal gift/estate tax figures, builds and renders the memo, and delivers 'Trust_Client_Memo.docx': Part I lists ten key discussion points needing client input (revocable/irrevocable election, distribution standard, co-trustee decision-making, successor trustee planning, funding, spendthrift clause, self-dealing, governing law, accounting frequency); Part II covers ten tax pitfalls (gift tax exposure with current 2026 figures, grantor-trust status, IRC §§2036/2038 estate inclusion, EIN/Form 1041 issues, self-dealing tax consequences, GST blind spots, multi-state nexus); flags that the tax figures should be reconfirmed with the client's CPA.",
+          "time": [
+            "00:11:32-00:13:28"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d3",
+          "actor_type": "user",
+          "time": [
+            "00:11:55-00:13:28"
+          ],
+          "label": "Review Texas trust indenture template",
+          "detail": "",
+          "softwares": "Claude"
+        },
+        {
+          "id": "d4",
+          "actor": "user",
+          "label": "Review the memo and close out this stretch",
+          "detail": "Narrates that the template and memo together would set him up to draft a solid trust document based on real client requirements, rather than spending hours finding and editing an online template.",
+          "time": [
+            "00:13:28-00:14:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d1",
+          "to": "d3",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d4",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5.1": {
+      "key": "seg5",
+      "badge": "Step 5.1",
+      "step_name": "Clients Detail addition",
+      "step_action": "Invent a hypothetical client ('Mr. O') and answer, one by one, the open questions the Step 5 memo raised (revocable vs. irrevocable election; whether the co-trustees decide jointly or independently; whether his adult children's votes on the beneficiary committee are binding or advisory; a court-appointed-guardian backstop for minors if the trustees are unavailable; a dual role for one trustee (Mr. MO) as both trustee and deadlock-resolver; the homestead property he lives in but wants to place in the trust without losing tax benefits; his own self-dealing given he is the sole trustee), feeding each answer to Claude as a personalization instruction.",
+      "time_range": "00:14:58-00:36:44",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Invent a hypothetical client's detailed instructions",
+          "detail": "Explains there's no real client yet, so invents one to demonstrate how the template/memo would actually be used: Mr. O wants to be settlor and sole trustee, with 4 children (2 over 18, 2 under 18) as beneficiaries, his wife (Mrs. SO) and brother (Mr. MO) as successor co-trustees, equal voting rights for adult children on trust decisions, his wife deciding for minors, his brother as tie-breaker on deadlocks, his sister (Ms. GO) as a further backup trustee, and a homestead exception for the home he currently lives in.",
+          "time": [
+            "00:14:58-00:20:41"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e2",
+          "actor": "user",
+          "label": "Send the personalization prompt",
+          "detail": "Sends the full restructuring prompt with Mr. O's facts, based on the template provided, and asks Claude to also update the memo for any new issues this raises.",
+          "time": [
+            "00:20:41-00:20:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e3",
+          "actor": "claude",
+          "label": "Restructure the trust and memo around Mr. O's facts",
+          "detail": "Searches for the Texas homestead qualifying-trust exemption (Tax Code §11.13(j)) and the directed-trust/trust-protector statute (Property Code §114.031), builds and spot-checks the restructured indenture and updated memo (fixing a cross-reference error along the way), and delivers 'O_Family_Trust_Indenture.docx' and 'O_Family_Trust_Client_Memo.docx' -- explaining the beneficiary voting structure was built as a formal 'Beneficiary Distribution Committee' under the directed-trust statute, the homestead provision uses the exact 'qualifying trust' language appraisal districts look for plus a spousal-consent block, and flagging that Mrs. SO voting for minors while also serving as trustee is a soft conflict, that Mr. MO holds both trustee and tie-breaker power, and asking whether the children's votes should bind the trustees or just advise them.",
+          "time": [
+            "00:20:53-00:26:21"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Review the restructured trust as still too template-like",
+          "detail": "Reviews the restructured trust, narrating that it's a more tailored version but still feels 'very template-like' and needs more personalization; decides to add further customization commands.",
+          "time": [
+            "00:26:21-00:29:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e5",
+          "actor": "user",
+          "label": "Work through the flagged conflicts one by one",
+          "detail": "Reviews Claude's flagged issues -- noting the sole-trustee/self-dealing overlap, confirming the trust type is acceptable, working through the wife's dual role as trustee-and-minors'-voter conflict and the brother's dual trustee/tie-breaker role -- narrating that these are exactly the kinds of questions she would raise with the client or a reviewing attorney in real practice.",
+          "time": [
+            "00:29:01-00:33:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "e6",
+          "actor": "user",
+          "label": "Settle the remaining points and plan the final version",
+          "detail": "Works through the remaining flagged points (a court-appointed-guardian backstop for minors, the homestead/tax treatment) and settles on answers for the hypothetical client, concluding that a disclaimer-heavy 'template' look wouldn't suit an experienced attorney and planning to ask Claude for a final version while keeping the placeholders.",
+          "time": [
+            "00:33:15-00:36:44"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e5",
+          "type": "sequential"
+        },
+        {
+          "from": "e5",
+          "to": "e6",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5.2": {
+      "key": "seg6",
+      "badge": "Step 5.2",
+      "step_name": "Finalise template and re-check any errors (spelling, format, etc.).",
+      "step_action": "Proofread the full template for spelling, grammar, and formatting consistency. Ask the AI to do a final compliance pass, flagging any clauses that may not hold up under Texas Trust Code or Property Code requirements, then make final edits.",
+      "time_range": "00:36:44-00:50:53",
+      "nodes": [
+        {
+          "id": "f1",
+          "actor": "user",
+          "label": "Send the consolidated final-version request",
+          "detail": "Sends a consolidated final-version request: rename the trust to 'O Investment Trust', remove drafting disclaimers, retitle the document, and incorporate the client's eight decisions (self-dealing kept, irrevocable, children's votes advisory-only, court-appointed-guardian backstop, MO's dual role kept, court appointment as final backstop, no mortgage, children from current relationship) while keeping placeholders for anything undecided.",
+          "time": [
+            "00:36:44-00:37:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f2",
+          "actor": "claude",
+          "label": "Deliver the retitled O Investment Trust indenture",
+          "detail": "Builds and renders the retitled 'The O Investment Trust,' spot-checking the advisory-committee and irrevocability/homestead articles, then delivers 'O_Investment_Trust_Indenture.docx' with all eight decisions incorporated into the operative language and a list of remaining open placeholders (major-transaction dollar threshold, incapacity definition, trustee compensation default, termination trigger).",
+          "time": [
+            "00:37:05-00:40:25"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f3",
+          "actor": "user",
+          "label": "Note the remaining open points",
+          "detail": "Reviews the delivered document, narrating that Claude still flags a couple of open points -- the dollar threshold for major trustee transactions and how incapacity should be defined.",
+          "time": [
+            "00:40:25-00:41:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f4",
+          "actor": "user",
+          "label": "Request a spelling/plain-language/highlighting pass",
+          "detail": "Sends a request to recheck spelling, flag any hallucinations or awkward phrasing, highlight the placeholders in yellow, and simplify the wording for the client.",
+          "time": [
+            "00:41:15-00:42:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f5",
+          "actor": "claude",
+          "label": "Deliver the plain-language, highlighted final version",
+          "detail": "Verifies two remaining citations via web search (Tex. Fam. Code §5.001 spousal joinder; Tex. Prop. Code §§112.051-112.054), then rebuilds the document with plain-language wording throughout and yellow-highlighted placeholders, delivering 'O_Investment_Trust_Indenture_FINAL.docx'.",
+          "time": [
+            "00:42:40-00:46:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f6",
+          "actor": "user",
+          "label": "Review the rewritten final version",
+          "detail": "Reviews the rewritten final version, narrating that Claude reworked the spelling, reformatted the language to be more plain, and highlighted the placeholders -- treating this as likely the final version to read over before giving it to a reviewing attorney.",
+          "time": [
+            "00:46:22-00:47:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f7",
+          "actor": "user",
+          "label": "Flag a recitals-duplication issue",
+          "detail": "Notices that a section of the recitals duplicates substance that belongs in the operative articles instead, and asks Claude to trim the recitals down to keep them straightforward and plain.",
+          "time": [
+            "00:47:14-00:48:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f8",
+          "actor": "claude",
+          "label": "Trim the recitals to a short 'who and why'",
+          "detail": "Trims the recitals to a short 'who and why' introduction, leaving the substantive rules (co-trustee succession, advisory-committee mechanics, homestead intent) only in Articles IV, V, and VIII where they already lived, and rebuilds/delivers the updated 'O_Investment_Trust_Indenture_FINAL.docx'.",
+          "time": [
+            "00:48:40-00:49:57"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "f9",
+          "actor": "user",
+          "label": "Confirm the final version and close the session",
+          "detail": "Confirms the recitals now read as a good, concise version, narrating that this document would go back to the client or attorney after her own read-through, and closes out the session noting the real-world process would typically take longer since it would involve waiting on actual client/attorney answers.",
+          "time": [
+            "00:49:57-00:50:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "a3",
+              "target_ai": "f8",
+              "label": "adopt",
+              "source_node_time": [
+                "00:01:03-00:02:31"
+              ],
+              "ai_node_time": [
+                "00:48:40-00:49:57"
+              ],
+              "user_adoption_time": [
+                "00:49:57-00:50:53"
+              ],
+              "reasoning": "The user notes that they are 'going to draft a trust indenture which [they] require assistance with' in a3. There are several prompts that get sent but they are considered text refinements since the work stays in Claude. In f9, the user verbally confirms that this is something they would give to the client or attorney after giving it another check. The user ends the video before their final check, so we don't know if they modified it later."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "f1",
+          "to": "f2",
+          "type": "sequential"
+        },
+        {
+          "from": "f2",
+          "to": "f3",
+          "type": "sequential"
+        },
+        {
+          "from": "f3",
+          "to": "f4",
+          "type": "sequential"
+        },
+        {
+          "from": "f4",
+          "to": "f5",
+          "type": "sequential"
+        },
+        {
+          "from": "f5",
+          "to": "f6",
+          "type": "sequential"
+        },
+        {
+          "from": "f6",
+          "to": "f7",
+          "type": "sequential"
+        },
+        {
+          "from": "f7",
+          "to": "f8",
+          "type": "sequential"
+        },
+        {
+          "from": "f8",
+          "to": "f9",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Research",
+      "step_action": "Research into drafting a trust indenture in the State of Texas.",
+      "input": null,
+      "output": "Get a short summary of the requirements needed to draft a trust indenture.",
+      "tools": "Google, Gemini and/or Claude. Google Docs/MS word.",
+      "rubrics": [
+        "Relevant Laws identified",
+        "Relevant format identified",
+        "Sources are current and jurisdiction-specific (Texas Property Code / Texas Trust Code, not generic US trust law)",
+        "Output distinguishes mandatory requirements vs. optional/best-practice provisions",
+        "Summary is usable as a checklist for drafting"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Gave me a very good skeletal outline draft."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Claude gave an output exactly as requested."
+      }
+    },
+    "Step 2": {
+      "step_name": "Create draft template",
+      "step_action": "Using the research summary from Step 1, prompt to draft a bare-bones trust indenture shell with the core Texas-required clauses (e.g., trustee powers, revocability, trust property, beneficiary designation, governing law). Review the draft for missing statutory elements and iterate with follow-up prompts.",
+      "input": "Research summary/checklist from Step 1",
+      "output": "First-pass draft trust indenture (Word/Google Doc), unpolished, with all core clauses present.",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "All core clauses from the Step 1 checklist are present",
+        "Clause language is legally coherent (not vague or contradictory)",
+        "Draft correctly reflects Texas-specific requirements (not generic boilerplate)",
+        "Draft is organized logically (standard indenture structure/order)",
+        "Minimal hallucinated or unsupported legal claims"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 3,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Good Draft with legally coherent language."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Accurately followed instructions."
+      }
+    },
+    "Step 3": {
+      "step_name": "Create template with compliant format and draft placeholders",
+      "step_action": "Convert the Step 2 draft into a reusable template by replacing client-specific details (names, property, dates, trustee identity) with clearly labeled placeholders (e.g., [GRANTOR NAME], [TRUST PROPERTY]). Confirm formatting matches standard Texas filing/execution conventions (signature blocks, notary acknowledgment, witness lines if required).",
+      "input": "Draft from Step 2",
+      "output": "Placeholder-based template ready for attorney customization",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "All variable/client-specific fields are clearly and consistently placeholder-tagged",
+        "Execution formatting (signatures, notary block) is complete and Texas-compliant",
+        "No client-specific detail is left un-placeholdered",
+        "Placeholder labels are unambiguous (an attorney could fill them in without guessing)",
+        "Template remains legally coherent with placeholders inserted (no broken clause logic)"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 3,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Good template and placeholders also inserted. Language is generally coherent also."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Good draft"
+      }
+    },
+    "Step 4": {
+      "step_name": "Attorney-readiness review / summary memo",
+      "step_action": "Generate a short cover memo summarizing what the template covers, what still requires attorney judgment (e.g., state-specific tax elections, spendthrift provisions), and any assumptions made during drafting.",
+      "input": "Template from Step 3",
+      "output": "Finalized draft template ready for attorney review",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "No spelling/grammar errors remain",
+        "Formatting is consistent throughout (fonts, numbering, headings)",
+        "Final compliance check flags any remaining legal gaps",
+        "Document is ready to hand to an attorney with no further cleanup needed",
+        "Turnaround time/effort saved is clearly noticeable vs. drafting manually"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Final compliance check came back with no errors."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "【No Data】"
+      }
+    },
+    "Step 5": {
+      "step_name": null,
+      "step_action": null,
+      "input": "Finalized template from Step 4",
+      "output": "One-page memo to accompany the template for attorney review",
+      "tools": "Claude, MS Word/Google Docs",
+      "rubrics": [
+        "Memo accurately reflects what's in the template",
+        "Open issues/assumptions are clearly flagged for attorney attention",
+        "Memo is concise (fits on one page)",
+        "Tone/format appropriate for internal legal use",
+        "Memo adds time-savings for the drafter"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 4,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Memo was good and useful in creating the final draft."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "【No Data】"
+      }
+    }
+  }
+}

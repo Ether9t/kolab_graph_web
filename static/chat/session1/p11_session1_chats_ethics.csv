@@ -1,0 +1,336 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-10T21:02:45.791254Z,"given my code flow, provide code uploaded in .RMD that will fit seamlessly into my flow, to use pca to check sample clustering by treatment and cell line",,,,Minnesota_final.Rmd
+Claude,2026-08-10T21:02:46.393962Z,,View the uploaded RMD file to understand code flow,bash_tool,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:02:52.461705Z,,Architected PCA visualization code for sample clustering analysis.,,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:03:02.445012Z,,Copy uploaded file to working directory for editing,bash_tool,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:03:05.778756Z,,Locate the empty PCA chunk to edit,bash_tool,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:03:10.015957Z,,"Insert PCA plot code into the empty chunk, preserving CRLF line endings",bash_tool,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:03:16.956716Z,,Verify the edit looks correct,bash_tool,Navigated technical file handling to integrate PCA analysis seamlessly.,
+Claude,2026-08-10T21:03:18.515153Z,"Good, that's clean. Copying it out now.",,,,
+Claude,2026-08-10T21:03:19.152300Z,,Copy final file to outputs,bash_tool,,
+Claude,2026-08-10T21:03:20.909121Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:03:21.989963Z,"I dropped the code straight into your empty PCA chunk, right after the ""sample-to-sample distances"" heatmap. It uses your existing `vsd` object (already VST-normalized, blind=FALSE), and the packages you've already loaded (`ggplot2`, `ggrepel`), so no new dependencies:
+
+```r
+pcaData <- plotPCA(vsd, intgroup = c(""dex"", ""cell""), returnData = TRUE)
+percentVar <- round(100 * attr(pcaData, ""percentVar""))
+
+ggplot(pcaData, aes(x = PC1, y = PC2, color = dex, shape = cell)) +
+  geom_point(size = 4, alpha = 0.85) +
+  geom_text_repel(aes(label = rownames(pcaData)), size = 3, show.legend = FALSE) +
+  xlab(paste0(""PC1: "", percentVar[1], ""% variance"")) +
+  ylab(paste0(""PC2: "", percentVar[2], ""% variance"")) +
+  coord_fixed() +
+  theme_bw() +
+  labs(
+    title = ""PCA of samples by treatment (dex) and cell line"",
+    color = ""Treatment"",
+    shape = ""Cell line""
+  )
+```
+
+A few notes on why it's built this way:
+
+- **`plotPCA()` from DESeq2** does the actual PCA under the hood (it picks the top 500 most variable genes by default), so it stays consistent with the rest of your DESeq2-based workflow rather than pulling in `prcomp` separately.
+- **Color = `dex`, shape = `cell`** directly answers your stated question — you can see at a glance whether treatment or cell line drives the separation on PC1/PC2.
+- **`geom_text_repel`** labels each point with its sample name, matching the labeling style you already used in the sample-distance heatmap (`dex`-`cell` naming).
+- `coord_fixed()` keeps the PC1/PC2 aspect ratio proportional to the variance explained, which is standard practice and avoids visually distorting the spread.
+
+If you want to go a step further, you could also pull the underlying data with `returnData = TRUE` (already done above via `pcaData`) and check `percentVar` printed in text, or extend to PC3 with a manual `prcomp()` call if two components don't cleanly separate your groups — happy to add that if this first pass leaves it ambiguous.",,,,
+Human,2026-08-10T21:05:12.799317Z,"in the same light, give one block of code to make a bar plot library sizes/total read count check  post filtering",,,,
+Claude,2026-08-10T21:05:21.284872Z,,Locate the pre-filtering chunk to insert library size plot after it,bash_tool,Crafting bar plot visualization for post-filtered library sizes.,
+Claude,2026-08-10T21:05:24.925048Z,,Insert library size bar plot chunk after pre-filtering step,bash_tool,Crafting bar plot visualization for post-filtered library sizes.,
+Claude,2026-08-10T21:05:31.386936Z,,Verify the edit looks correct,bash_tool,Crafting bar plot visualization for post-filtered library sizes.,
+Claude,2026-08-10T21:05:34.201117Z,Clean. Updated file:,,,,
+Claude,2026-08-10T21:05:34.815838Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:05:37.212856Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:05:38.243394Z,"I placed this right after your low-count filtering chunk (Step 3), since that's the natural spot to confirm the filter didn't skew library sizes across samples:
+
+```r
+libSizeDF <- data.frame(
+  sample = colnames(dds),
+  library_size = colSums(counts(dds)),
+  dex = dds$dex
+)
+
+ggplot(libSizeDF, aes(x = sample, y = library_size, fill = dex)) +
+  geom_bar(stat = ""identity"") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = ""Total read counts per sample (post-filtering)"",
+    x = ""Sample"",
+    y = ""Total read count"",
+    fill = ""Treatment""
+  )
+```
+
+Why it's built this way:
+
+- **`colSums(counts(dds))`** on the filtered `dds` object gives you the true post-filter library size, since `counts(dds)` already reflects the `keep` subsetting you did one chunk earlier.
+- **`fill = dex`** lets you spot at a glance whether treated vs. untreated samples systematically differ in sequencing depth — a common confounder worth catching before you run `DESeq()`.
+- Kept it as `ggplot2` rather than base `barplot()` to match the styling you're already using downstream (PCA plot, theme_bw, etc.), so the visual language stays consistent through the report.",,,,
+Human,2026-08-10T21:07:59.194573Z,"give code to: 
+**Run DESEq2 pipeline (size factors, dispersions and model fitting)**",,,,
+Claude,2026-08-10T21:08:00.263900Z,,Get overview of document section headers to find right insertion point,bash_tool,Crafting DESeq2 pipeline code implementation.,
+Claude,2026-08-10T21:08:14.797626Z,,View end of PCA section and start of Session info to plan insertion,bash_tool,Crafting DESeq2 pipeline code implementation.,
+Claude,2026-08-10T21:08:16.924628Z,,"Insert DESeq2 pipeline run chunk after PCA section, before Session info",bash_tool,Crafting DESeq2 pipeline code implementation.,
+Claude,2026-08-10T21:08:22.608150Z,,Verify the edit,bash_tool,Crafting DESeq2 pipeline code implementation.,
+Claude,2026-08-10T21:08:24.550882Z,Clean.,,,,
+Claude,2026-08-10T21:08:24.692265Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:08:26.663434Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:08:27.703519Z,"I added this as a new **Step 4** section, right after your PCA plot and before Session info — that's the natural handoff point since `dds` at that stage is filtered and has confirmed factor levels, but hasn't been through the actual modeling yet:
+
+```r
+dds <- DESeq(dds)
+
+# 1) size factors used to normalise for sequencing depth
+sizeFactors(dds)
+
+# 2) dispersion estimates - check the gene-wise vs. fitted trend
+plotDispEsts(dds)
+
+# 3) confirm the model was fit correctly - check the available coefficients/contrasts
+resultsNames(dds)
+```
+
+Why it's one block instead of three separate calls:
+
+- **`DESeq()`** is itself a wrapper around `estimateSizeFactors()`, `estimateDispersions()`, and `nbinomWaldTest()` — calling those individually would be redundant, so this keeps the pipeline as the single canonical call rather than reinventing what it already does internally.
+- **`sizeFactors(dds)`** surfaces the per-sample normalization factors it computed, so you can eyeball whether any sample was scaled unusually (useful cross-check against your library-size bar plot).
+- **`plotDispEsts(dds)`** is the standard DESeq2 diagnostic — you want to see gene-wise dispersion estimates shrink sensibly toward the fitted red trend line, with no wild outliers suggesting a QC problem.
+- **`resultsNames(dds)`** confirms the model actually fit the coefficients you expect from `design = ~ cell + dex` (e.g. `dex_trt_vs_untrt`), which sets you up cleanly for `results()` and `lfcShrink()` in your next step.",,,,
+Human,2026-08-10T21:09:50.158592Z,"give code to 
+Define contrasts and extract results",,,,
+Claude,2026-08-10T21:09:56.240264Z,,"Insert contrasts/results extraction chunk after Step 4, before Session info",bash_tool,Architected contrast strategy accounting for treatment and cell line variables.,
+Claude,2026-08-10T21:10:02.742217Z,,Verify the edit,bash_tool,Architected contrast strategy accounting for treatment and cell line variables.,
+Claude,2026-08-10T21:10:04.484300Z,Clean.,,,,
+Claude,2026-08-10T21:10:04.680073Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:10:06.472446Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:10:07.501806Z,"Added as **Step 5**, right after your DESeq2 pipeline run:
+
+```r
+# extract results for the treatment effect: dex trt vs. untrt, adjusting for cell line
+res <- results(dds, contrast = c(""dex"", ""trt"", ""untrt""), alpha = 0.05)
+
+# order by adjusted p-value (most significant genes first)
+res <- res[order(res$padj), ]
+
+summary(res)
+head(res)
+
+# shrink log2 fold changes for more stable, interpretable effect sizes
+# coef name comes directly from resultsNames(dds) above
+resLFC <- lfcShrink(dds, coef = ""dex_trt_vs_untrt"", type = ""apeglm"")
+
+resLFC <- resLFC[order(resLFC$padj), ]
+head(resLFC)
+```
+
+Why it's structured this way:
+
+- **`contrast = c(""dex"", ""trt"", ""untrt"")`** explicitly extracts the treatment effect while your `~ cell + dex` design adjusts for cell line automatically — this matches the biological comparison you defined back in Step 1.
+- **`alpha = 0.05`** tells `results()` to optimize its independent filtering threshold around your actual significance cutoff, which makes the `summary()` output accurate rather than defaulting to the generic 0.1.
+- **`lfcShrink(..., type = ""apeglm"")`** uses the `apeglm` package you already loaded at the top — it pulls noisy fold-change estimates (typically from low-count genes) toward zero, which prevents them from dominating downstream volcano plots or gene rankings.
+- **`coef = ""dex_trt_vs_untrt""`** is copied directly from the `resultsNames(dds)` output in Step 4, so the coefficient name is guaranteed to match what DESeq2 actually fit rather than being guessed.
+
+This sets you up cleanly for a volcano plot or MA plot as a logical next step, if you want one.",,,,
+Human,2026-08-10T21:12:33.679170Z,give code to **Convert ens to symbols**,,,,
+Claude,2026-08-10T21:12:37.106611Z,,"Insert Ensembl-to-symbol annotation chunk after Step 5, before Session info",bash_tool,Architected mapping strategy for gene ID conversion.,
+Claude,2026-08-10T21:12:45.703982Z,,Verify the edit,bash_tool,Architected mapping strategy for gene ID conversion.,
+Claude,2026-08-10T21:12:47.259681Z,Clean.,,,,
+Claude,2026-08-10T21:12:47.862901Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:12:49.104016Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:12:50.272691Z,"Added as **Step 6**, right after your contrasts/results extraction:
+
+```r
+# map Ensembl IDs to gene symbols
+resLFC$symbol <- mapIds(org.Hs.eg.db,
+                         keys = rownames(resLFC),
+                         column = ""SYMBOL"",
+                         keytype = ""ENSEMBL"",
+                         multiVals = ""first"")
+
+# also map Entrez IDs, useful for downstream pathway/enrichment analysis
+resLFC$entrez <- mapIds(org.Hs.eg.db,
+                         keys = rownames(resLFC),
+                         column = ""ENTREZID"",
+                         keytype = ""ENSEMBL"",
+                         multiVals = ""first"")
+
+head(resLFC)
+
+# check how many genes could not be mapped to a symbol
+sum(is.na(resLFC$symbol))
+```
+
+Why it's built this way:
+
+- **`org.Hs.eg.db`** is already loaded at the top of your script, so this uses it directly rather than reaching for a new annotation package.
+- **`keytype = ""ENSEMBL""`** matches your data — the `airway` dataset's row names (and thus `resLFC`'s row names) are Ensembl gene IDs, so this is the correct starting key.
+- **`multiVals = ""first""`** handles the common case where one Ensembl ID maps to multiple symbols — it picks the first match rather than erroring out or silently dropping rows, keeping `resLFC` the same length throughout.
+- Mapping **both `symbol` and `entrez`** in one pass sets you up for two common next steps at once: symbols for readable tables/volcano plots, Entrez IDs for tools like `clusterProfiler` or `GSEA` if you go that route later.
+- The final **`sum(is.na(...))`** check is a quick sanity read on annotation coverage — some Ensembl IDs (pseudogenes, deprecated entries) legitimately won't map, and it's worth knowing how many upfront.",,,,
+Human,2026-08-10T21:15:28.696055Z,"give code for publication-level violcano plot, where i see the top 10 differentially expressed genes in symbol form (both up and downregulated)",,,,
+Claude,2026-08-10T21:15:38.573810Z,,"Insert publication-quality volcano plot chunk after Step 6, before Session info",bash_tool,Architected publication-grade volcano plot with labeled top genes.,
+Claude,2026-08-10T21:15:50.252091Z,,Verify the edit,bash_tool,Architected publication-grade volcano plot with labeled top genes.,
+Claude,2026-08-10T21:15:51.789530Z,Clean.,,,,
+Claude,2026-08-10T21:15:52.396296Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:15:53.847540Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:15:54.845186Z,"Added as **Step 7**, right after your Ensembl-to-symbol annotation:
+
+```r
+volcanoData <- as.data.frame(resLFC)
+volcanoData$gene <- rownames(volcanoData)
+
+# drop genes with missing padj (independent filtering) or missing symbol
+volcanoData <- volcanoData[!is.na(volcanoData$padj) & !is.na(volcanoData$symbol), ]
+
+# classify each gene as up, down, or not significant
+volcanoData$sig <- ""NS""
+volcanoData$sig[volcanoData$padj < 0.05 & volcanoData$log2FoldChange > 1] <- ""Up""
+volcanoData$sig[volcanoData$padj < 0.05 & volcanoData$log2FoldChange < -1] <- ""Down""
+volcanoData$sig <- factor(volcanoData$sig, levels = c(""Down"", ""NS"", ""Up""))
+
+# top 10 upregulated and top 10 downregulated genes, ranked by adjusted p-value
+topUp <- volcanoData[volcanoData$sig == ""Up"", ]
+topUp <- topUp[order(topUp$padj), ][seq_len(min(10, nrow(topUp))), ]
+
+topDown <- volcanoData[volcanoData$sig == ""Down"", ]
+topDown <- topDown[order(topDown$padj), ][seq_len(min(10, nrow(topDown))), ]
+
+topGenes <- rbind(topUp, topDown)
+
+ggplot(volcanoData, aes(x = log2FoldChange, y = -log10(padj), color = sig)) +
+  geom_point(alpha = 0.6, size = 1.5) +
+  scale_color_manual(values = c(""Down"" = ""#2166AC"", ""NS"" = ""grey70"", ""Up"" = ""#B2182B"")) +
+  geom_vline(xintercept = c(-1, 1), linetype = ""dashed"", color = ""grey40"") +
+  geom_hline(yintercept = -log10(0.05), linetype = ""dashed"", color = ""grey40"") +
+  geom_text_repel(
+    data = topGenes,
+    aes(label = symbol),
+    size = 3.2,
+    max.overlaps = Inf,
+    fontface = ""italic"",
+    color = ""black"",
+    box.padding = 0.4,
+    segment.size = 0.3
+  ) +
+  theme_bw(base_size = 13) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = ""top""
+  ) +
+  labs(
+    title = ""Differential expression: dexamethasone-treated vs. untreated"",
+    x = expression(log[2] ~ ""fold change""),
+    y = expression(-log[10] ~ ""adjusted p-value""),
+    color = NULL
+  )
+```
+
+Why it's built this way:
+
+- **Uses `resLFC`** (the shrunk log2FCs from Step 5) rather than raw `res`, since shrunken fold changes are the standard for publication volcano plots — they avoid dramatic x-axis outliers from lowly-expressed genes.
+- **Significance thresholds `padj < 0.05` and `|log2FC| > 1`** are the conventional volcano cutoffs (2-fold change, 5% FDR) — dashed guide lines mark them visually so a reader doesn't need the legend to find the cutoff.
+- **Top 10 up/down by `padj`** (not by fold change) picks the most statistically confident hits, which is generally the more defensible choice for publication — happy to switch the ranking to fold-change-based if that fits your story better.
+- **`geom_text_repel`** (already loaded) keeps labels from overlapping, and `fontface = ""italic""` follows standard gene-symbol typographic convention in figures.
+- Color scheme (`#B2182B` red / `#2166AC` blue) is a colorblind-friendly diverging palette common in genomics figures, with grey for non-significant points so the signal doesn't get visually diluted.
+
+One thing worth flagging: a few genes may have `NA` `symbol` even after mapping (multi-mapping or unannotated Ensembl IDs) — the filtering step above drops those before labeling so the plot doesn't break, but you may want to double check none of your top hits got excluded that way.",,,,
+Human,2026-08-10T21:17:03.366470Z,alsongive a heatmap for the top significant genes,,,,
+Claude,2026-08-10T21:17:09.467869Z,,"Insert heatmap of top significant genes chunk after Step 7, before Session info",bash_tool,Architected heatmap visualization for significant genes with scaled expression data.,
+Claude,2026-08-10T21:17:17.221603Z,,Verify the edit,bash_tool,Architected heatmap visualization for significant genes with scaled expression data.,
+Claude,2026-08-10T21:17:19.153199Z,Clean.,,,,
+Claude,2026-08-10T21:17:19.808443Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:17:21.157499Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:17:22.196090Z,"Added as **Step 8**, right after your volcano plot:
+
+```r
+# select top 30 most significant genes by adjusted p-value
+topGenesHeatmap <- rownames(resLFC)[order(resLFC$padj)][1:30]
+
+# pull their VST-normalized expression values
+heatmapMat <- assay(vsd)[topGenesHeatmap, ]
+
+# relabel rows with gene symbols where available, fall back to Ensembl ID otherwise
+rownames(heatmapMat) <- ifelse(
+  is.na(resLFC[topGenesHeatmap, ""symbol""]),
+  topGenesHeatmap,
+  resLFC[topGenesHeatmap, ""symbol""]
+)
+
+# annotate columns by treatment and cell line
+annotationCol <- as.data.frame(colData(vsd)[, c(""dex"", ""cell"")])
+rownames(annotationCol) <- colnames(heatmapMat)
+
+pheatmap(
+  heatmapMat,
+  scale = ""row"",
+  annotation_col = annotationCol,
+  clustering_distance_rows = ""correlation"",
+  clustering_distance_cols = ""euclidean"",
+  color = colorRampPalette(rev(brewer.pal(9, ""RdBu"")))(255),
+  fontsize_row = 8,
+  main = ""Top 30 differentially expressed genes""
+)
+```
+
+Why it's built this way:
+
+- **Uses `vsd`** rather than raw counts — same rationale as your PCA/sample-distance heatmap earlier: raw counts have mean-dependent variance, which would distort clustering and color scaling.
+- **`scale = ""row""`** z-scores each gene across samples, so a highly-expressed housekeeping-level gene doesn't visually dominate a lowly-expressed but strongly-regulated one — this is the standard convention for DE heatmaps.
+- **Gene symbols on rows** (falling back to Ensembl ID if unmapped) makes the plot publication-readable, reusing the annotation you built in Step 6.
+- **`annotation_col` with `dex` and `cell`** puts colored bars above the heatmap so you can visually confirm the same treatment/cell-line clustering pattern you saw in the PCA plot — a nice cross-check between the two views.
+- Reuses your existing `pheatmap` + `RColorBrewer` pattern from the sample-distance heatmap (just swapped `""Blues""` for a diverging `""RdBu""` palette, which is more appropriate here since values are centered z-scores that can go negative).
+
+30 genes is a reasonable default for readability — easy to bump the `1:30` up or down if you want a tighter or broader view.",,,,
+Human,2026-08-10T21:19:40.791768Z,also give code for an MA plot,,,,
+Claude,2026-08-10T21:19:58.594169Z,,"Insert MA plot chunk after Step 8, before Session info",bash_tool,Architected MA plot integration using consistent visualization framework.,
+Claude,2026-08-10T21:20:05.894647Z,,Verify the edit,bash_tool,Architected MA plot integration using consistent visualization framework.,
+Claude,2026-08-10T21:20:07.681564Z,Clean.,,,,
+Claude,2026-08-10T21:20:07.819219Z,,Copy updated file to outputs,bash_tool,,
+Claude,2026-08-10T21:20:10.015953Z,,Sharing file(s): Minnesota_final.Rmd,present_files,,Minnesota_final.Rmd
+Claude,2026-08-10T21:20:11.019538Z,"Added as **Step 9**, right after your heatmap:
+
+```r
+# quick built-in diagnostic version, for reference:
+# plotMA(resLFC, ylim = c(-5, 5))
+
+ggplot(volcanoData, aes(x = baseMean, y = log2FoldChange, color = sig)) +
+  geom_point(alpha = 0.6, size = 1.3) +
+  scale_x_log10() +
+  scale_color_manual(values = c(""Down"" = ""#2166AC"", ""NS"" = ""grey70"", ""Up"" = ""#B2182B"")) +
+  geom_hline(yintercept = 0, color = ""black"", linewidth = 0.4) +
+  geom_hline(yintercept = c(-1, 1), linetype = ""dashed"", color = ""grey40"") +
+  geom_text_repel(
+    data = topGenes,
+    aes(label = symbol),
+    size = 3.2,
+    max.overlaps = Inf,
+    fontface = ""italic"",
+    color = ""black"",
+    box.padding = 0.4,
+    segment.size = 0.3
+  ) +
+  theme_bw(base_size = 13) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = ""top""
+  ) +
+  labs(
+    title = ""MA plot: dexamethasone-treated vs. untreated"",
+    x = ""Mean of normalized counts"",
+    y = expression(log[2] ~ ""fold change""),
+    color = NULL
+  )
+```
+
+Why it's built this way:
+
+- **Reuses `volcanoData` and `topGenes`** from the volcano plot in Step 7, rather than recomputing significance and top-gene selection — since both chunks run in the same R session, this keeps the two plots definitionally consistent (same genes labeled, same significance cutoffs, same color scheme) rather than risking drift between them.
+- **`scale_x_log10()` on `baseMean`** is the defining feature of an MA plot — mean expression spans orders of magnitude, so log scale is standard.
+- **Horizontal guide lines at 0 and ±1** mirror the vertical guide lines in your volcano plot, so a reader sees the same log2FC thresholds in both figures.
+- Left a **commented-out one-liner** (`plotMA(resLFC, ...)`) for quick interactive diagnostics — DESeq2's built-in version is handy while exploring, even though the ggplot version above is what you'd want for the actual report/figure.
+
+That gives you the classic diagnostic pair — volcano plot for significance vs. effect size, MA plot for effect size vs. expression level — both drawing from the same annotated `resLFC` results table.",,,,

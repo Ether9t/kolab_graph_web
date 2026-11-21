@@ -1,0 +1,841 @@
+{
+  "session_id": "session1",
+  "participant_id": "p45",
+  "title": "Session 1 — Participant 45 User + Claude Behavior Graph",
+  "goal": "Develop a research-based interview guide for an academic researcher studying Ethiopia's unsafe food system by analyzing the research, evaluating existing questions, identifying gaps, developing a stronger journalistic angle, and creating improved interview and follow-up questions.",
+  "context": "I work in journalism and research-related tasks, including preparing interviews with academic researchers. For this session, I want to improve an existing set of interview questions for an academic researcher studying Ethiopia’s unsafe food system. I already have background knowledge of the topic and a preliminary set of questions, so the goal is not to generate questions from scratch, but to use AI to analyze the research, critique my existing questions, identify gaps, develop a stronger journalistic angle, and produce a more effective interview guide.",
+  "occupation": "Journalist",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes (Partially)",
+    "Why or why not": "Yes, I was able to develop and refine my interview questions based on the research paper, identify a clear journalistic angle, and create a final set of core and follow-up questions."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Analyze the academic research",
+      "step_action": "I will provide Claude with the academic research about Ethiopia's unsafe food system and ask it to analyze the study from a journalistic interview perspective. I will ask Claude to identify the research question, main argument, methodology, key findings, limitations, and findings that could be explored further in an interview.",
+      "time_range": "00:00:00-00:07:05",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Submit paper for analysis and asking for a summary for a journalistic interview",
+          "detail": "Opens a new Claude.ai chat, uploads the PDF of the academic paper, and asks Claude to analyze it, summarizing the research questions, methodology, key findings, limitations, and the most important points for a journalistic interview.",
+          "time": [
+            "00:00:00-00:03:02"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1b",
+          "actor": "claude",
+          "label": "Analyze paper and deliver structured research breakdown",
+          "detail": "Produces a full breakdown of the scoping review, covering its methodology, four thematic contamination findings, author-acknowledged limitations, and a list of specific findings well-suited to interview questions (the $338M Master Plan, the traditional-vs-modern storage finding, legacy DDT contamination).",
+          "time": [
+            "00:03:02-00:03:23"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1c",
+          "actor": "user",
+          "label": "Read and review Claude's summary of the paper",
+          "detail": "Reviews Claude's summary of the paper and considers how the research can inform and improve their existing interview questions, including identifying weaknesses and developing new questions and follow-ups.",
+          "time": [
+            "00:03:23-00:07:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Evaluate my existing interview questions",
+      "step_action": "I will provide Claude with the five interview questions I previously drafted and ask it to evaluate them against the academic research. I will ask Claude to identify strengths, weaknesses, repetition, overly broad or leading questions, and important areas from the research that are missing from my current questions.",
+      "time_range": "00:07:05-00:19:20",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Submit pre-drafted questions for evaluation against the paper",
+          "detail": "Pastes her five existing interview questions into the same Claude chat and asks Claude to elevate them based on the paper, identifying strengths, weaknesses, and missing points.",
+          "time": [
+            "00:07:05-00:09:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app), Notepad",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2b",
+          "actor": "claude",
+          "label": "Deliver question-by-question evaluation with gaps and renumbering",
+          "detail": "Reviews each of the five questions against the paper's evidence, flagging specific strengths and weaknesses (e.g. Q3 conflating public-health and economic framings), lists six important angles missing entirely (the crisis-vs-cost tension, power imbalance, traditional-storage finding, legacy DDT, methodology limits, accountability), and proposes a renumbered final question order.",
+          "time": [
+            "00:09:34-00:10:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2c",
+          "actor": "user",
+          "label": "Review Claude's evaluation question by question",
+          "detail": "Works through Claude's critique of each question in detail, reading the specific strengths and weaknesses flagged for each and cross-referencing them against her own understanding of the paper.",
+          "time": [
+            "00:10:19-00:18:26"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2d",
+          "actor": "user",
+          "label": "Acknowledge the issues of her interview questions raised by Claude",
+          "detail": "",
+          "time": [
+            "00:18:26-00:19:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 2"
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2c",
+          "to": "2d",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Identify and select a journalistic angle",
+      "step_action": "I will ask Claude to propose several possible journalistic angles for the interview based on the research and the evaluation of my existing questions. I will compare the suggested angles and select the angle that best fits the research and the purpose of the interview.",
+      "time_range": "00:19:20-00:35:15",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Request candidate journalistic angles",
+          "detail": "Asks Claude to suggest 3-4 strong journalistic angles based on the paper and her questions and to recommend the best one for the interview.",
+          "time": [
+            "00:19:20-00:21:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "2a",
+              "target_ai": "2b",
+              "label": "reject",
+              "source_node_time": "00:07:05-00:09:34",
+              "ai_node_time": "00:09:34-00:10:19",
+              "user_adoption_time": "00:19:20-00:21:55",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "3b",
+          "actor": "claude",
+          "label": "Deliver ranked journalistic angles with recommendation",
+          "detail": "Proposes four ranked angles -- accountability/money, power imbalance, research/attention gap, and a legacy-DDT angle -- recommending the money angle as the spine with the power-imbalance angle as supporting depth.",
+          "time": [
+            "00:21:55-00:22:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3c",
+          "actor": "user",
+          "label": "Read and evaluate the proposed angles against her own judgment",
+          "detail": "",
+          "time": [
+            "00:22:19-00:27:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3d",
+          "actor": "user",
+          "label": "Decide on angles 1 and 2, requesting angle 3 expanded",
+          "detail": "Decides to move forward with angle 1 and angle 2 following Claude's recommendation, and asks Claude to expand more on angle 3 since she thinks she wants to build a question on it as well.",
+          "time": [
+            "00:27:46-00:29:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3e",
+          "actor": "claude",
+          "label": "Expand angle 3 into layered sub-angles with questions",
+          "detail": "Breaks angle 3  into three layers with suggested questions for each layer and a proposed three-act narrative structure sequencing angle 3, then 2, then 1.",
+          "time": [
+            "00:29:10-00:29:42"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3f",
+          "actor": "user",
+          "label": "Read the detailed breakdown of angle 3",
+          "detail": "Reviews the layered angle 3 breakdown, considers mixing across layers 1, 2, and 3, and finalizes her choice: angle 1 and angle 2 as primary angles, plus one question drawn from angle 3's first layer, reasoning aloud about why the money angle (interesting, concrete) and the power-imbalance angle (moral, empathy-generating) work well together.",
+          "time": [
+            "00:29:42-00:35:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3"
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3c",
+          "type": "sequential"
+        },
+        {
+          "from": "3c",
+          "to": "3d",
+          "type": "sequential"
+        },
+        {
+          "from": "3d",
+          "to": "3e",
+          "type": "sequential"
+        },
+        {
+          "from": "3e",
+          "to": "3f",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Develop the core interview questions",
+      "step_action": "Based on the selected journalistic angle, I will ask Claude to develop a new set of interview questions while incorporating useful parts of my original questions. I will review the questions and refine them to ensure that they encourage the researcher to explain evidence, findings, implications, and areas of uncertainty.",
+      "time_range": "00:35:15-00:44:00",
+      "nodes": [
+        {
+          "id": "4a",
+          "actor": "user",
+          "label": "Request new questions built on the selected angles",
+          "detail": "Asks Claude to use the research and her selected angles (1, 2, and one question from angle 3 layer 1) to create stronger, open-ended interview questions that improve on her original set.",
+          "time": [
+            "00:35:15-00:37:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "3a",
+              "target_ai": "3b",
+              "label": "adopt",
+              "source_node_time": "00:19:20-00:21:55",
+              "ai_node_time": "00:21:55-00:22:19",
+              "user_adoption_time": "00:35:15-00:37:47",
+              "reasoning": ""
+            },
+            {
+              "source_node": "3a",
+              "target_ai": "3e",
+              "label": "adopt",
+              "source_node_time": "00:19:20-00:21:55",
+              "ai_node_time": "00:29:10-00:29:42",
+              "user_adoption_time": "00:35:15-00:37:47",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "4b",
+          "actor": "claude",
+          "label": "Deliver a nine-question, three-act interview guide",
+          "detail": "Produces a roughly nine-question set organized into three acts (opening with 'Act I - The Silence Before the Crisis'), each question rebuilt to be open-ended and anchored to specific evidence from the paper.",
+          "time": [
+            "00:37:47-00:38:20"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4c",
+          "actor": "user",
+          "label": "Review the nine-question guide, judge it too many, and reject question 1",
+          "detail": "Reads through Claude's nine-question set, deciding she needs to narrow it down to five, and declining question 1.",
+          "time": [
+            "00:38:20-00:40:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4d",
+          "actor": "claude",
+          "label": "Deliver the tightened five-question set",
+          "detail": "Keeps only 5 questions and swaps out angle 3.",
+          "time": [
+            "00:40:37-00:40:53"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4e",
+          "actor": "user",
+          "label": "Evaluate individual questions for fit with the paper and appreciate two of them",
+          "detail": "Works through the five questions, noting she'll stick to the ones that align well to the paper (e.g. question two, question three) as she decides which to carry into a trimmed set.",
+          "time": [
+            "00:40:53-00:44:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 4"
+        }
+      ],
+      "edges": [
+        {
+          "from": "4a",
+          "to": "4b",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4c",
+          "type": "sequential"
+        },
+        {
+          "from": "4c",
+          "to": "4d",
+          "type": "sequential"
+        },
+        {
+          "from": "4d",
+          "to": "4e",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Develop follow-up and probing questions",
+      "step_action": "I will ask Claude to suggest follow-up questions for the core questions by anticipating possible directions in the researcher's answers. I will review the suggestions and keep follow-up questions that can meaningfully deepen the interview rather than repeat the main questions.",
+      "time_range": "00:44:00-00:48:33",
+      "nodes": [
+        {
+          "id": "5a",
+          "actor": "user",
+          "label": "Request follow-up questions for the five core questions",
+          "detail": "Asks Claude to suggest useful follow-up questions for the five main questions to help get deeper answers from the researcher during the interview.",
+          "time": [
+            "00:44:00-00:45:28"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5b",
+          "actor": "claude",
+          "label": "Deliver follow-up questions per core question",
+          "detail": "Produces 2-3 follow-up questions for each of the five core questions, designed to be used if an answer stays general or to push past a rehearsed response, plus one universal backup follow-up.",
+          "time": [
+            "00:45:28-00:45:43"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5c",
+          "actor": "user",
+          "label": "Specify angle 2 layer 3 for follow-up questions",
+          "detail": "Instructs Claude to incorporate layer 3 of angle 2 into the follow-up questions.",
+          "time": [
+            "00:45:43-00:46:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5d",
+          "actor": "claude",
+          "label": "Revise follow-up questions to incorporate layer 3",
+          "detail": "Updates the follow-up questions by incorporating the requested layer 3 point into the power-imbalance question, while noting that the point was originally under angle 3 and reframing it as a power-imbalance issue.",
+          "time": [
+            "00:46:10-00:46:29"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5e",
+          "actor": "user",
+          "label": "Read the follow-up questions",
+          "detail": "",
+          "time": [
+            "00:46:29-00:48:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 5"
+        }
+      ],
+      "edges": [
+        {
+          "from": "5a",
+          "to": "5b",
+          "type": "sequential"
+        },
+        {
+          "from": "5b",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5c",
+          "to": "5d",
+          "type": "sequential"
+        },
+        {
+          "from": "5d",
+          "to": "5e",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 6": {
+      "key": "seg6",
+      "badge": "Step 6",
+      "step_name": "Edit and fact-check the interview questions",
+      "step_action": "I will ask Claude to review the complete interview questions as an editor and fact-checking assistant. I will ask it to identify unsupported assumptions, potentially leading wording, factual issues, unclear claims, and unnecessary repetition, and then suggest revisions.",
+      "time_range": "00:48:33-00:59:23",
+      "nodes": [
+        {
+          "id": "6a",
+          "actor": "user",
+          "label": "Paste the compiled questions for bias and accuracy review",
+          "detail": "Selects questions and follow-ups from Claude's suggestions, and pastes them back into the Claude chat and asks it to review them for bias, unclear wording, repetition, and unsupported claims relative to the paper.",
+          "time": [
+            "00:48:33-00:55:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 6",
+          "user_response": [
+            {
+              "source_node": "4a",
+              "target_ai": "4d",
+              "label": "adopt",
+              "source_node_time": "00:35:15-00:37:47",
+              "ai_node_time": "00:40:37-00:40:53",
+              "user_adoption_time": "00:48:33-00:55:10",
+              "reasoning": ""
+            },
+            {
+              "source_node": "5a",
+              "target_ai": "5d",
+              "label": "adopt",
+              "source_node_time": "00:44:00-00:45:28",
+              "ai_node_time": "00:46:10-00:46:29",
+              "user_adoption_time": "00:48:33-00:55:10",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "6b",
+          "actor": "claude",
+          "label": "Deliver detailed bias and accuracy review",
+          "detail": "Reviews each question against the paper, flagging that Q1 conflates concepts, Q2 uses unsupported strong wording, Q3 and Q4 impute intent the paper never states, and 'evidence gap' challenges; proposes specific softened rewordings and confirms all underlying facts check out against the paper.",
+          "time": [
+            "00:55:10-00:56:52"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "6c",
+          "actor": "user",
+          "label": "Review flagged issues and reflect on AI fact-checking",
+          "detail": "Works through Claude's flagged issues in detail, noting there is no visual anchor in one follow-up.",
+          "time": [
+            "00:56:52-00:59:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 6"
+        }
+      ],
+      "edges": [
+        {
+          "from": "6a",
+          "to": "6b",
+          "type": "sequential"
+        },
+        {
+          "from": "6b",
+          "to": "6c",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 7": {
+      "key": "seg7",
+      "badge": "Step 7",
+      "step_name": "Finalize the interview guide",
+      "step_action": "I will use Claude to organize the revised questions into a final interview guide. I will review the final version and make any necessary changes to ensure that the questions reflect my intended journalistic angle and are practical for a real interview.",
+      "time_range": "00:59:23-01:04:29",
+      "nodes": [
+        {
+          "id": "7a",
+          "actor": "user",
+          "label": "Request Claude organize and finalize the interview guide",
+          "detail": "Asks Claude to organize and finalize the interview guide using the strongest questions and follow-ups, removing unnecessary repetition.",
+          "time": [
+            "00:59:23-01:01:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 7",
+          "user_response": [
+            {
+              "source_node": "6a",
+              "target_ai": "6b",
+              "label": "adopt",
+              "source_node_time": "00:48:33-00:55:10",
+              "ai_node_time": "00:55:10-00:56:52",
+              "user_adoption_time": "00:59:23-01:01:40",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "7b",
+          "actor": "claude",
+          "label": "Deliver the finalized interview guide document",
+          "detail": "Produces the finalized 'Interview Guide: Ethiopia's Unsafe Food System' with five questions each followed by two curated follow-ups, plus structural notes on the argument arc and a universal backup follow-up question.",
+          "time": [
+            "01:01:40-01:02:05"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (web app)",
+          "source_steps": "Step 7"
+        },
+        {
+          "id": "7c",
+          "actor": "user",
+          "label": "Review and copy the finalized guide",
+          "detail": "Reviews the finalized guide in Claude and copies it into a new titled Google Doc for continued use.",
+          "time": [
+            "01:02:05-01:04:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (web app), Google Docs",
+          "source_steps": "Step 7",
+          "user_response": [
+            {
+              "source_node": "7a",
+              "target_ai": "7b",
+              "label": "adopt",
+              "source_node_time": "00:59:23-01:01:40",
+              "ai_node_time": "01:01:40-01:02:05",
+              "user_adoption_time": "01:02:05-01:04:29",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "7a",
+          "to": "7b",
+          "type": "sequential"
+        },
+        {
+          "from": "7b",
+          "to": "7c",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Analyze the academic research",
+      "step_action": "I will provide Claude with the academic research about Ethiopia's unsafe food system and ask it to analyze the study from a journalistic interview perspective. I will ask Claude to identify the research question, main argument, methodology, key findings, limitations, and findings that could be explored further in an interview.",
+      "input": "The academic paper/research about Ethiopia’s unsafe food system",
+      "output": "A structured analysis of the research, including the research question, main argument, methodology, key findings, limitations, and potential areas for interview questions.",
+      "tools": "Claude + Google Scholar research paper",
+      "rubrics": [
+        "Correctly identifies the study’s main research question and argument",
+        "Accurately summarizes the methodology and key findings",
+        "Identifies meaningful limitations or areas requiring clarification",
+        "Identifies important findings that could support deeper interview questions",
+        "Does not introduce unsupported information or claims."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Claude provided a clear and useful analysis of the research paper, including the main research question, methodology, key findings, limitations, and points that could be explored in the interview."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes,Claude successfully analyzed the research paper and helped me identify the main findings and relevant areas to explore in the interview. The output gave me a useful foundation for the next step."
+      }
+    },
+    "Step 2": {
+      "step_name": "Evaluate my existing interview questions",
+      "step_action": "I will provide Claude with the five interview questions I previously drafted and ask it to evaluate them against the academic research. I will ask Claude to identify strengths, weaknesses, repetition, overly broad or leading questions, and important areas from the research that are missing from my current questions.",
+      "input": "The academic research paper + my five existing interview questions.",
+      "output": "A critical evaluation of my existing interview questions, including their strengths, weaknesses, redundancies, and missing topics.",
+      "tools": "Claude + research paper + existing interview questions",
+      "rubrics": [
+        "Identifies at least three strengths in the existing questions",
+        "Identifies at least four weaknesses or areas for improvement",
+        "Identifies repetitive or overlapping questions",
+        "Identifies important topics from the research that are missing",
+        "Recommendations are grounded in the academic research."
+      ],
+      "ratings": {
+        "collaboration_rating": 4.3,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Claude provided useful feedback on my existing questions and identified areas that could be improved or further explored based on the research paper."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes, Claude successfully evaluated my existing questions against the research and helped me identify areas for improvement and topics that were missing."
+      }
+    },
+    "Step 3": {
+      "step_name": "Identify and select a journalistic angle",
+      "step_action": "I will ask Claude to propose several possible journalistic angles for the interview based on the research and the evaluation of my existing questions. I will compare the suggested angles and select the angle that best fits the research and the purpose of the interview.",
+      "input": null,
+      "output": "Three to four possible journalistic angles with a rationale for each, followed by a selected primary interview angle.",
+      "tools": "Claude",
+      "rubrics": [
+        "Provides multiple distinct journalistic angles",
+        "Each angle is grounded in the research",
+        "Provides a clear rationale for each angle",
+        "The selected angle gives the interview a clear focus",
+        "The angles do not sensationalize or misrepresent the research."
+      ],
+      "ratings": {
+        "collaboration_rating": 4.9,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4.5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Claude provided several relevant journalistic angles and helped me choose a clear direction for the interview based on the research."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes,Claude successfully suggested different journalistic angles and helped me select and refine the most suitable one for the interview."
+      }
+    },
+    "Step 4": {
+      "step_name": "Develop the core interview questions",
+      "step_action": "Based on the selected journalistic angle, I will ask Claude to develop a new set of interview questions while incorporating useful parts of my original questions. I will review the questions and refine them to ensure that they encourage the researcher to explain evidence, findings, implications, and areas of uncertainty.",
+      "input": "Academic research + existing questions + selected journalistic angle + previous analysis.",
+      "output": "A draft interview guide containing approximately 10–15 core questions organized by theme.",
+      "tools": "Claude",
+      "rubrics": [
+        "Questions are directly relevant to the selected journalistic angle",
+        "Questions are grounded in the academic research",
+        "Questions are open‑ended and non‑leading",
+        "Questions cover multiple meaningful themes",
+        "The questions improve substantially on the original set."
+      ],
+      "ratings": {
+        "collaboration_rating": 4.5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4.5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4.7,
+        "output_quality_reason": "Claude helped me develop stronger interview questions based on the research and the selected journalistic angle. The questions were relevant, open-ended, and more focused than my original questions."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes, Claude successfully helped me improve my original questions and develop new questions that were more relevant to the research and the selected journalistic angle."
+      }
+    },
+    "Step 5": {
+      "step_name": "Develop follow-up and probing questions",
+      "step_action": "I will ask Claude to suggest follow-up questions for the core questions by anticipating possible directions in the researcher's answers. I will review the suggestions and keep follow-up questions that can meaningfully deepen the interview rather than repeat the main questions.",
+      "input": null,
+      "output": "Follow-up and probing questions linked to the core interview questions.",
+      "tools": "Claude",
+      "rubrics": [
+        "Follow‑up questions are linked to specific core questions",
+        "They encourage deeper explanation or clarification",
+        "They explore evidence, reasoning, implications, or uncertainty",
+        "They are journalistically useful",
+        "They do not assume or impose an answer."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 3,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4.5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Claude provided useful follow-up questions that helped deepen the main interview questions, but some of the suggestions were repetitive or needed further refinement."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes,Claude successfully suggested relevant follow-up questions that could help me explore the researcher’s answers in more depth, although some questions needed further refinement."
+      }
+    },
+    "Step 6": {
+      "step_name": "Edit and fact-check the interview questions",
+      "step_action": "I will ask Claude to review the complete interview questions as an editor and fact-checking assistant. I will ask it to identify unsupported assumptions, potentially leading wording, factual issues, unclear claims, and unnecessary repetition, and then suggest revisions.",
+      "input": null,
+      "output": "Editorial and fact-checking feedback, followed by revised interview questions.",
+      "tools": "Claude + research paper + existing interview questions",
+      "rubrics": [
+        "Identifies unsupported assumptions",
+        "Identifies leading or biased questions",
+        "Identifies factual inaccuracies or unclear claims",
+        "Identifies unnecessary repetition",
+        "Revisions preserve the intended journalistic angle."
+      ],
+      "ratings": {
+        "collaboration_rating": 4.5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Claude identified several areas that could be improved, including wording, repetition, and potentially leading questions. However, some of the feedback required my judgment and further editing."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Yes, Claude helped me review the core and follow-up questions and identify areas that needed clarification or revision before finalizing the interview guide."
+      }
+    },
+    "Step 7": {
+      "step_name": "Finalize the interview guide",
+      "step_action": "I will use Claude to organize the revised questions into a final interview guide. I will review the final version and make any necessary changes to ensure that the questions reflect my intended journalistic angle and are practical for a real interview.",
+      "input": "Revised interview questions + follow-up questions + editorial feedback.",
+      "output": "final interview guide containing the selected journalistic angle, key background points, core interview questions, and follow-up questions.",
+      "tools": "Claude",
+      "rubrics": [
+        "The final guide has a clear and logical structure",
+        "Questions are logically ordered",
+        "The guide reflects the selected journalistic angle",
+        "Questions are research‑based and suitable for an academic interview",
+        "The final guide is practical and ready to use in a real interview."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Claude successfully organized the revised core and follow-up questions into a clear and practical final interview guide with a logical structure and minimal repetition."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Claude successfully helped me finalize and organize the interview guide, making it ready to use for the actual interview."
+      }
+    }
+  }
+}

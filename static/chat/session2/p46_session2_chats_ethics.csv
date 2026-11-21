@@ -1,0 +1,400 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-20T18:04:01.224964Z,"I am working on a residental house project in Sweden in Archicad. I am focusing on the main exterior wall assembly. Could zou suggest an appropriate multi layer composite wall build-up suitable for the Swedish climate? Please list the layers from exterior to interior, specifz the function of each layer, and provide recommended thicknesses in mm for thermal insulation, structural core, air gaps, and finishes.",,,,
+Claude,2026-08-20T18:04:01.184838Z,"# Exterior Wall Assembly for Swedish Residential Construction
+
+Sweden's climate (cold winters, moisture-driven vapor pressure, and a strong building tradition around timber frame construction) calls for a well-established wall type: a **ventilated timber frame wall with an additional exterior insulation layer** to reduce thermal bridging. This is the standard ""Swedish wall"" (svensk regelvägg) used in most contemporary residential construction, meeting or exceeding BBR (Boverkets byggregler) energy requirements.
+
+## Layer Build-Up: Exterior to Interior
+
+| # | Layer | Function | Thickness (mm) |
+|---|-------|----------|-----------------|
+| 1 | **Exterior cladding** — wood panel (e.g. spruce/pine, painted or ""falu red""), fiber cement, or brick slip | Weather protection, aesthetics, UV/rain shielding | 22–28 (wood panel) |
+| 2 | **Battens/counter-battens (ventilated air gap)** | Rain screen cavity — drains bulk water, allows drying/ventilation behind cladding | 25–28 |
+| 3 | **Windbreaker/breather membrane (vindskyddsskiva or membrane)** — often a wood-fiber board or diffusion-open membrane | Wind barrier, secondary weather protection, vapor-permeable (allows outward drying) | 9–25 (board) or ~1 (membrane) |
+| 4 | **Exterior insulation layer (mineral wool, outside the structural studs)** | Reduces thermal bridging through studs, adds total R-value | 45–95 |
+| 5 | **Structural frame with insulation between studs (mineral wool)** — timber studs typically 45×195 or 45×220 mm c/c 600 | Load-bearing structure + primary thermal insulation | 195–220 (studs), same depth mineral wool |
+| 6 | **Vapor barrier (ångspärr)** — PE film or vapor-retarding membrane, ~0.20 mm, sd ≥ 10 m | Prevents interior moisture vapor from migrating into wall and condensing | ~0.2 (membrane only) |
+| 7 | **Installation layer (installationsskikt)** — horizontal battens 45 mm, often with additional mineral wool | Space for electrical/plumbing without penetrating vapor barrier; adds minor insulation | 45 |
+| 8 | **Interior lining** — gypsum board (gips), single or double layer | Interior finish surface, fire protection | 13–26 (1–2 layers of 13 mm) |
+
+## Typical Total Wall Thickness
+Roughly **360–420 mm** total, depending on chosen stud depth and exterior insulation thickness — consistent with what's needed to hit Swedish near-passive or standard new-build U-values.
+
+## Target U-value
+- Standard BBR compliance: **U ≈ 0.18 W/m²K**
+- Passive house / high-performance target: **U ≈ 0.10–0.13 W/m²K** (requires studs at 220 mm plus 95 mm exterior insulation, or thicker)
+
+## Key Technical Notes for Your Archicad Model
+
+- **Vapor barrier placement is critical**: it must sit on the *warm side*, roughly 1/3 of the way into the total insulation thickness from the interior — never behind additional insulation on the cold side, or interstitial condensation risk increases significantly.
+- **The installation layer (layer 7) is what makes this ""Swedish""**: it lets electricians and plumbers work without puncturing the vapor barrier, which is a common failure point in other national wall systems.
+- **Ventilated rain screen gap (layer 2)** should connect to open joints top and bottom (soffit and base) for continuous airflow — model this as a distinct cavity zone, not just a composite layer, if you want accurate airflow/drying performance downstream.
+- Confirm final layer thicknesses against **BBR 29 (or current edition)** energy performance requirements for your specific building's energy class and against a certified U-value/condensation risk calculation (e.g., in WUFI or Archicad's own energy add-ons) — the numbers above are a solid starting point, not a substitute for that calculation.
+
+Would you like me to also set this up as an Archicad-ready composite structure definition (layer functions, structure priorities, and pen/fill settings for the layers), or help you calculate the U-value for a specific configuration?",,,,
+Human,2026-08-20T18:08:07.947717Z,"Based on the wall assembly you proposed, i would like to compare it with the existing wall in my Archicad model. The current wall has the following layers: exterior paint, mortar, hollow concrete block, mortar, interior paint. Could you compare the existing and proposed asseblies and explain which layers you would keep, change, add or remove? Please recommend one final wall build-up that would be appropriate for this residential project, including the layer order, materials, and thicknesses.",,,,
+Claude,2026-08-20T18:08:07.942692Z,"# Comparing Your Existing Wall vs. the Proposed Timber Frame Assembly
+
+Your existing wall is a **masonry cavity-less block wall** — a completely different structural philosophy from the timber frame system I proposed. Before merging them, it's worth being direct about this:
+
+## Assessment of the Existing Assembly
+
+| Existing Layer | Function | Verdict |
+|---|---|---|
+| Exterior paint | Weather/UV finish | ⚠️ Keep concept, but insufficient alone in Swedish climate — needs cladding or render system with drainage |
+| Mortar (render) | Weatherproofing skin | ⚠️ Keep as render coat, but not as sole weather barrier |
+| Hollow concrete block | Structure | ✅ Keep as structural core (valid, especially if you want masonry) |
+| Mortar | Interior render/leveling | ✅ Keep |
+| Interior paint | Interior finish | ✅ Keep |
+
+**The core problem:** this assembly has **no thermal insulation layer at all**, and **no ventilated cavity or drainage plane**. A hollow concrete block wall with paint and mortar only, and nothing else, is very unlikely to meet Swedish BBR energy code (U-value requirements are typically ≤0.18 W/m²K for walls). This build-up is closer to a garage or utility structure than an insulated Swedish dwelling wall — it would fail energy calculations and likely have interior condensation/mold risk in winter.
+
+So this isn't really a ""layer swap"" situation — it needs a **hybrid approach**: keep the masonry structural logic you've already modeled, but add the missing thermal and moisture-management layers.
+
+## Recommended Final Assembly (Masonry-Based, Insulated)
+
+Rather than switching to full timber frame (a bigger structural change than may be warranted if the block wall is already load-bearing/modeled), here's a build-up that **keeps your concrete block core** and fixes the performance gaps:
+
+| # | Layer | Material | Thickness (mm) | Function |
+|---|-------|----------|-----------------|----------|
+| 1 | Exterior render (finish coat) | Mineral or acrylic render, painted | 5–8 | Weather/UV finish (keeps your ""exterior paint"") |
+| 2 | Base render coat with mesh | Cement-lime mortar + reinforcing mesh | 10–15 | Crack control, substrate for finish render (keeps your ""mortar"") |
+| 3 | **Exterior thermal insulation (NEW)** | Mineral wool (or EPS) render-carrier insulation | 150–200 | Primary insulation — closes the biggest gap in the current assembly |
+| 4 | **Structural core** | Hollow concrete block | 190–200 | Load-bearing structure (kept from existing) |
+| 5 | Interior mortar/render | Cement-lime mortar | 10–15 | Leveling coat, vapor-permeable (kept from existing) |
+| 6 | Interior paint | Breathable interior paint | 1–2 | Interior finish (kept from existing) |
+
+**Total wall thickness: ≈ 365–440 mm**
+
+## What Changed and Why
+
+- **Removed:** nothing outright — every original layer is retained in function
+- **Kept:** concrete block core, both mortar layers, both paint layers
+- **Added:** exterior insulation layer (150–200 mm mineral wool or EPS) — this is non-negotiable for Swedish code compliance and occupant comfort
+- **Changed:** exterior paint is now understood as the finish coat of a **render-on-insulation system** (like a Swedish ""puts på isolering"" facade), not paint applied directly to block
+
+## One Important Decision Point
+
+This assembly is a **solid render-clad insulated masonry wall** (no ventilated air gap — the insulation is directly rendered). This is a legitimate, common Swedish system, but it behaves differently from the ventilated timber wall I first proposed:
+
+- **No cavity** = simpler build-up, but less forgiving of moisture intrusion and no drying cavity behind cladding
+- Suits masonry/render aesthetic (common on Swedish apartment blocks and some houses)
+
+If you'd prefer the cladding to be ventilated (timber panel, brick slip, etc., with a drained air gap) rather than direct render, I can adjust layers 1–3 into a rainscreen version instead. Which direction fits your project's intended exterior finish?",,,,
+Human,2026-08-20T18:12:21.552957Z,"I want to implement the recommended exterior wall asembly in Archicad as a Composite wall. Could you organise the final wall build-up in a format that easy to reproduce in Archicad? Please list each layer from exterior to interior with the material type, exact thickness in mm, and its function. Also indicate which layers should be treated as the core, finish, or other relevant layer types where applicable.",,,,
+Claude,2026-08-20T18:12:21.545890Z,"# Archicad Composite Structure Setup — Exterior Wall
+
+Here's the final build-up formatted for direct entry into Archicad's **Composite Structure** dialog (Options → Element Attributes → Composites). Layer order matches Archicad's convention: **Layer 1 = exterior (outside face), last layer = interior (inside face)**.
+
+## Composite Layer Table
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Render / Plaster – Acrylic or Mineral, painted finish | 8 | Exterior weatherproof finish coat, UV/color protection |
+| 2 | **Finish** (or ""Other"" if you want it separate from top coat) | Render – Cement-Lime Base Coat + Reinforcing Mesh | 12 | Crack-resistant base for render system, substrate key layer |
+| 3 | **Core** | Thermal Insulation – Mineral Wool (render-carrier/facade grade) | 180 | Primary thermal insulation, defines wall's U-value |
+| 4 | **Core** | Concrete – Hollow Concrete Block | 200 | Structural/load-bearing core |
+| 5 | **Finish** | Render – Cement-Lime Mortar | 12 | Interior leveling coat, vapor-permeable finish base |
+| 6 | **Finish** | Paint – Interior Breathable Paint/Coating | 2 | Interior surface finish |
+
+**Total wall thickness: 414 mm**
+
+## Archicad-Specific Setup Notes
+
+**Core layers (structural/skin separation):**
+- In Archicad, only **one** layer is normally flagged as the true ""Core"" for wall thickness/dimensioning purposes — typically this should be **Layer 4 (concrete block)**, since it's your load-bearing element.
+- Set Layer 3 (insulation) as **""Core""** too *if* you want Archicad to treat both as part of the structural skin for junction/connection priority purposes — many Swedish practices do this so wall-to-wall and wall-to-slab connections cut cleanly through both insulation and block together. Otherwise, mark insulation as a regular non-core layer with a distinct **Priority value** (see below).
+
+**Skin type assignment (Archicad 25+ terminology):**
+- Layers 1–2 → **Finish (Outside Skin)**
+- Layers 3–4 → **Core**
+- Layers 5–6 → **Finish (Inside Skin)**
+
+**Priority values** (controls how layers merge/clean at junctions — lower number = higher priority/cuts through others):
+| Layer | Suggested Priority |
+|---|---|
+| Concrete block (Layer 4) | 1 (highest — structural) |
+| Insulation (Layer 3) | 3 |
+| Render base coats (2, 5) | 5 |
+| Finish coats (1, 6) | 9 (lowest) |
+
+**Pen/fill settings** (for section display):
+- Concrete block: standard concrete hatch, Pen 1 (black), Fill ""Concrete"" pattern
+- Insulation: standard insulation batting/zigzag hatch, Pen 3, Fill ""Insulation""
+- Render layers: solid fill or fine dot pattern, Pen 2
+- Paint: thin line only, no fill pattern needed (too thin to show hatch meaningfully at most scales)
+
+## Build Material Setup Reminder
+
+Before creating the composite, make sure each **Build Material** (not just the composite layer) has correct:
+- Thermal conductivity (λ) values — critical since Archicad will auto-calculate U-value from these once the composite is assembled
+- Vapor diffusion resistance factor (μ) — relevant for any condensation risk check you run later (Archicad's built-in tool or export to WUFI)
+
+Once entered, Archicad's composite dialog will show a running **total thickness** and, if Build Materials have thermal data assigned, an automatic **U-value** — worth checking against your BBR target (≤0.18 W/m²K) immediately after setup, since render-carrier mineral wool at 180 mm should land you close to or under that threshold depending on the exact λ value of the product you specify.",,,,
+Human,2026-08-20T18:14:37.426864Z,Could I change the exterior finish to Timber cladding?,,,,
+Claude,2026-08-20T18:14:37.423733Z,"Yes — switching to timber cladding is a good option, but it changes the wall system more than a simple material swap. Direct-applied render can sit straight on rigid insulation with no gap, but **timber cladding in the Swedish climate should be ventilated** (a rain screen with an open cavity behind it), not applied directly over the insulation. That's how virtually all timber-clad walls are built in Sweden — it lets any moisture that gets past the cladding drain and dry out, and it protects the insulation from wetting.
+
+So this swap means: remove the two render layers, add a wind barrier + ventilated air gap + battens, and change the insulation to a type compatible with an open-jointed system behind it.
+
+## Revised Composite Layer Table
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Timber Cladding – e.g. spruce/pine panel, painted or stained | 22 | Exterior weather/UV finish, primary rain-shedding surface |
+| 2 | **Other (Air Gap/Cavity)** | Air Gap – ventilated cavity (+ vertical battens) | 28 | Drainage + ventilation cavity behind cladding; lets moisture escape |
+| 3 | **Other** | Wind Barrier – wood-fiber board or breather membrane | 12 | Secondary weather/wind barrier, vapor-permeable |
+| 4 | **Core** | Thermal Insulation – Mineral Wool (facade grade, not render-carrier) | 180 | Primary thermal insulation |
+| 5 | **Core** | Concrete – Hollow Concrete Block | 200 | Structural/load-bearing core |
+| 6 | **Finish** | Render – Cement-Lime Mortar | 12 | Interior leveling coat, vapor-permeable |
+| 7 | **Finish** | Paint – Interior Breathable Paint/Coating | 2 | Interior surface finish |
+
+**Total wall thickness: 456 mm** (42 mm thicker than the render version, mainly from the added cavity and battens)
+
+## What Changed vs. the Render Version
+
+- **Removed:** exterior render finish coat, render base coat with mesh (both render layers)
+- **Added:** ventilated air gap with battens, wind barrier board
+- **Changed:** insulation type — swap render-carrier mineral wool for standard facade-grade mineral wool (no need for the compressive/render-bearing strength a render system requires, since nothing is fixed directly to its face)
+- **Kept unchanged:** concrete block core, interior render, interior paint
+
+## Archicad Setup Notes
+
+**Battens (Layer 2):** Archicad composites handle horizontal, continuous layers well, but battens are technically a discontinuous framing element (typically 28×70 mm timber battens at ~600 mm centers with air between them), not a solid layer. Two ways to handle this:
+- **Simplified approach:** model Layer 2 as a solid 28 mm ""Air Gap"" build material — fine for general documentation, elevations, and U-value calc, since air gap thermal resistance is what matters for energy compliance
+- **Detailed approach:** model the battens as separate 3D elements (columns/beams) or use Archicad's **Skin Separator/complex profile** if you need to show individual battens in section — typically only needed for detail drawings, not the main composite
+
+**Priority values (updated):**
+| Layer | Suggested Priority |
+|---|---|
+| Concrete block | 1 |
+| Insulation | 3 |
+| Wind barrier | 6 |
+| Timber cladding | 8 |
+| Interior render | 5 |
+| Interior paint | 9 |
+
+**Skin type assignment:**
+- Layers 1–3 → **Finish/Other (Outside Skin)** — note the air gap and wind barrier are usually tagged ""Other,"" not ""Finish,"" since they're not visible surface finishes
+- Layers 4–5 → **Core**
+- Layers 6–7 → **Finish (Inside Skin)**
+
+**U-value note:** removing the render-carrier insulation for standard facade mineral wool won't change your U-value calculation meaningfully if λ is similar — but double-check the product datasheet, since render-carrier boards sometimes have slightly different λ values than standard batts.
+
+One detail to confirm: do you want the timber **painted/stained** (common Swedish ""Falu red"" or similar) or left to **weather naturally** (untreated, silvering over time)? It doesn't change the composite structure, but it's worth deciding now since it affects maintenance guidance you might want to note in your Archicad element properties or specification.",,,,
+Human,2026-08-20T18:31:08.431517Z,"Now I would like to develop the interior partition wall for the same residential project. Could you suggest an appropriate multi-layer partition wall assembly? Please consider its intended use as an interior residential partition and provide the layers from one side to the other, including materials, functions, and recommended thicknesses in mm. Please also suggest a reasonable overall wall thickness.",,,,
+Claude,2026-08-20T18:31:08.424452Z,"# Interior Partition Wall Assembly
+
+For a standard residential interior partition (non-load-bearing, separating rooms like bedrooms, living spaces, hallways), the Swedish standard is a **timber-stud partition with double gypsum board on both faces and acoustic insulation in the cavity**. This gives good sound separation between rooms — important between bedrooms and living areas, or around bathrooms — without unnecessary bulk.
+
+## Composite Layer Table (Side A to Side B — symmetrical)
+
+| Layer # | Side | Material | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | Face A | Gypsum board (standard, or moisture-resistant near wet rooms) | 13 | Interior finish surface, paintable |
+| 2 | Face A | Gypsum board (second layer) | 13 | Added mass for sound insulation, fire resistance, surface stability |
+| 3 | Core | Timber studs 45×95 mm c/c 600, with mineral wool acoustic insulation between | 95 | Structure + primary sound/acoustic dampening |
+| 4 | Face B | Gypsum board (second layer) | 13 | Added mass for sound insulation, fire resistance |
+| 5 | Face B | Gypsum board (standard, or moisture-resistant near wet rooms) | 13 | Interior finish surface, paintable |
+
+**Total wall thickness: 147 mm**
+
+## Notes on the Build-Up
+
+**Stud depth (95 mm) vs. thinner options:** a 70 mm stud (with 95 mm total wall ~122 mm) is common for very tight plans, but 95 mm studs give noticeably better acoustic performance and more room for services (outlets, switches, small pipe runs) without notching studs excessively. For a residential project where bedroom/bathroom privacy matters, 95 mm is the safer default.
+
+**Single vs. double gypsum board per face:** single 13 mm board per side is common for low-cost or non-critical partitions (closets, storage), but **double board per face is strongly recommended** for:
+- Bedroom-to-bedroom or bedroom-to-living partitions (acoustic privacy)
+- Any partition enclosing a bathroom/WC (moisture + sound + easier future fixture mounting)
+- Fire-rated separations if required by your specific layout (e.g., partition to a garage or utility room)
+
+If the partition is genuinely low-priority (e.g., closet-to-closet), you can drop to single board per face and reduce total thickness to **121 mm**.
+
+## Variant: Partitions Adjacent to Wet Rooms (Bathroom/WC)
+
+Swap the face-side gypsum board nearest the wet room for **moisture-resistant gypsum board (grön gips / ""green board"")**, and consider adding a **waterproofing membrane** behind tiling if the partition borders a shower or wet zone directly. This doesn't change the overall thickness, just the board type on that face.
+
+## Archicad Composite Notes (brief, since you'll likely want this next)
+
+- Layers 1–2 and 4–5 → **Finish**
+- Layer 3 (studs + insulation) → **Core**
+- Studs are, like the battens in your exterior wall, technically discontinuous — for the composite you can model the core as a solid ""timber + mineral wool"" build material for U-value/acoustic documentation purposes, and add actual stud elements separately only if you need them visible in detail sections
+
+Would you like me to also calculate/estimate the **sound reduction index (Rw)** this assembly would achieve, or set this up as a full Archicad composite structure table like the exterior wall, with layer types and priorities specified?",,,,
+Human,2026-08-20T18:39:02.255565Z,"Please organize the selected interior partition wall assembly in the same Archicad friendy format as the exterior wall: list each layer from one side to the other, specify the material type and exact thickness in mm, and explain the function of each layer. Please also provide the total wall thickness so I can create the building materials and composite wall in archicad.",,,,
+Claude,2026-08-20T18:39:02.249365Z,"# Archicad Composite Structure Setup — Interior Partition Wall
+
+Formatted for direct entry into Archicad's **Composite Structure** dialog. Since this is a symmetrical interior partition, ""Side A"" and ""Side B"" are used instead of exterior/interior — orientation in the model will depend on which rooms it separates.
+
+## Composite Layer Table
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Gypsum Board – Standard (or Moisture-Resistant ""Green Board"" if adjacent to wet room) | 13 | Interior finish surface, paintable, first fire/acoustic layer |
+| 2 | **Finish** | Gypsum Board – Standard | 13 | Added mass for sound insulation, fire resistance, surface stability |
+| 3 | **Core** | Timber Studs 45×95 mm c/c 600 + Mineral Wool Acoustic Insulation (between studs) | 95 | Structure + primary acoustic dampening |
+| 4 | **Finish** | Gypsum Board – Standard | 13 | Added mass for sound insulation, fire resistance |
+| 5 | **Finish** | Gypsum Board – Standard (or Moisture-Resistant ""Green Board"" if adjacent to wet room) | 13 | Interior finish surface, paintable |
+
+**Total wall thickness: 147 mm**
+
+## Archicad Setup Notes
+
+**Skin type assignment:**
+- Layers 1–2 → **Finish (Side A Skin)**
+- Layer 3 → **Core**
+- Layers 4–5 → **Finish (Side B Skin)**
+
+**Core layer handling:** Layer 3 combines two materials (timber stud + mineral wool) occupying the same depth. Archicad composites only allow one Build Material per layer, so you have two options:
+- **Simplified (recommended for general use/energy-acoustic documentation):** create a single Build Material called something like ""Timber Stud + Acoustic Insulation (95mm)"" with averaged/equivalent thermal and acoustic properties — this is standard practice for early-stage composite walls
+- **Detailed (for construction documentation):** model the mineral wool as the composite core layer, and add the timber studs as separate 3D column/beam elements at 600 mm centers for sections that need to show individual studs
+
+**Priority values** (controls junction clean-up where this wall meets other walls):
+| Layer | Suggested Priority |
+|---|---|
+| Studs + insulation (Layer 3) | 1 (highest — structural core) |
+| Inner gypsum layers (2, 4) | 4 |
+| Outer gypsum layers (1, 5) | 7 |
+
+**Pen/fill settings (for section display):**
+- Gypsum board: fine hatch or solid fill, Pen 2
+- Timber stud + insulation core: standard insulation zigzag/batting hatch, Pen 3, Fill ""Insulation""
+
+## Build Material Reminders
+
+When setting up each Build Material in Archicad, confirm:
+- **Thermal conductivity (λ)** for the core — mainly relevant if this partition ever separates conditioned from unconditioned space (e.g., partition to an unheated storage room), otherwise less critical than the exterior wall
+- **Vapor diffusion resistance factor (μ)** — low priority here since this isn't a climate-separating wall, but keep consistent data entry practice across your project
+- If using the **moisture-resistant variant** near wet rooms, make sure that Build Material is named distinctly (e.g., ""Gypsum Board – Moisture Resistant 13mm"") so it's a separate item in your Archicad materials list from the standard board, since you'll likely need both types across the project
+
+One thing worth deciding before you build the composite: do you want **one single composite structure** used everywhere with standard gypsum on both faces (simplest, fastest to model), or should I also give you a **second composite variant** specifically for wet-room-adjacent partitions with moisture-resistant board swapped in on the relevant face? Having both ready now saves you duplicating the composite later in Archicad.",,,,
+Human,2026-08-20T18:43:14.817054Z,"Can you now help me make two types of interior walls. One would be for dry partitions with less moisture, and another one would be for places with more moisture like bathrooms?",,,,
+Claude,2026-08-20T18:43:14.809211Z,"# Two Interior Partition Composites — Dry vs. Wet Room
+
+Both share the same structural core (95 mm timber stud + mineral wool), so the only differences are board type and one added membrane layer for the wet-room version. Here they are as two separate Archicad composite structures.
+
+## Composite 1: Standard Dry Partition
+
+*(Same as previously specified — included here for completeness/comparison)*
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Gypsum Board – Standard | 13 | Interior finish surface, paintable |
+| 2 | **Finish** | Gypsum Board – Standard | 13 | Added mass for sound insulation, fire resistance |
+| 3 | **Core** | Timber Studs 45×95 mm c/c 600 + Mineral Wool Acoustic Insulation | 95 | Structure + acoustic dampening |
+| 4 | **Finish** | Gypsum Board – Standard | 13 | Added mass for sound insulation, fire resistance |
+| 5 | **Finish** | Gypsum Board – Standard | 13 | Interior finish surface, paintable |
+
+**Total thickness: 147 mm**
+
+**Use for:** bedroom/bedroom, bedroom/living, hallway, closet, and other partitions with no direct water exposure.
+
+---
+
+## Composite 2: Wet Room Partition (Bathroom/WC)
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Gypsum Board – Standard | 13 | Interior finish surface, paintable (dry-side face) |
+| 2 | **Finish** | Gypsum Board – Standard | 13 | Added mass for sound insulation, fire resistance (dry-side face) |
+| 3 | **Core** | Timber Studs 45×95 mm c/c 600 + Mineral Wool Acoustic Insulation | 95 | Structure + acoustic dampening |
+| 4 | **Finish** | Gypsum Board – Moisture-Resistant (""Green Board"") | 13 | Added mass, fire resistance, moisture-tolerant substrate (wet-side face) |
+| 5 | **Other (Waterproofing)** | Waterproof Membrane (liquid-applied or sheet membrane, tanking) | 1–2 | Continuous moisture barrier — prevents water penetration into wall cavity, required behind tiled/wet surfaces |
+| 6 | **Finish** | Gypsum Board – Moisture-Resistant (""Green Board"") | 13 | Wet-side finish substrate, ready for tile adhesive or wet-area coating |
+
+**Total thickness: 148–149 mm** (nearly identical to the dry version — the membrane adds only 1–2 mm)
+
+**Use for:** any partition with one face inside a bathroom, WC, or wet zone (shower walls especially).
+
+---
+
+## Key Differences Explained
+
+| Aspect | Dry Partition | Wet Partition |
+|---|---|---|
+| Wet-side board type | Standard gypsum | Moisture-resistant (""green board"") gypsum |
+| Waterproofing membrane | Not included | Added directly behind tile/wet-area finish |
+| Layer count | 5 | 6 |
+| Total thickness | 147 mm | 148–149 mm |
+| Structural core | Identical | Identical |
+
+## Archicad Setup Notes
+
+**Naming convention (recommended):** name the composites clearly in Archicad's composite manager so they're unambiguous during wall placement:
+- `INT-PARTITION-DRY-147` 
+- `INT-PARTITION-WET-149`
+
+**Build Materials needed:**
+- You'll need a **new Build Material** for ""Gypsum Board – Moisture Resistant"" (green board), distinct from your standard gypsum — different color/hatch in sections is useful too (many offices use a green-tinted fill to visually flag it, matching the real product color coding)
+- A new Build Material for the **waterproof membrane** — since it's very thin (1–2 mm), make sure Archicad's minimum layer thickness settings allow it; if Archicad rounds or complains about sub-2mm layers, you can model it at a flat 2 mm without meaningfully affecting the wall's total dimension
+
+**Priority values (both composites, consistent):**
+| Layer | Suggested Priority |
+|---|---|
+| Studs + insulation (core) | 1 |
+| Inner gypsum layers | 4 |
+| Waterproof membrane (wet version only) | 5 |
+| Outer/wet-side gypsum layers | 7 |
+
+**Orientation reminder for the wet composite:** when placing this wall type in your plan, pay attention to **wall flip/orientation** in Archicad so the moisture-resistant/membrane side (Layers 4–6) faces into the wet room, not out into the hallway or adjacent dry space. Worth double checking on each instance, since a flipped wet-wall placement is a common modeling error.
+
+Would you like me to also flag which specific rooms in a typical residential layout (bathroom, WC, laundry) should use the wet composite versus dry, or is your room program already defined?",,,,
+Human,2026-08-20T18:53:14.398107Z,Can you now help to make wall for the garage? You can again make a list like you did it before.,,,,
+Claude,2026-08-20T18:53:14.390692Z,"# Garage Wall Assembly
+
+Garage walls in Sweden serve a different function than the house envelope: they typically **don't need to meet the same thermal insulation standard as heated living space** (garages are usually unheated or minimally conditioned), but they do need to handle **fire separation from the house** (if attached), **durability against vehicle/moisture exposure**, and reasonable weather protection since it's still an exterior wall.
+
+Before I finalize this, it matters whether the garage is **attached to the house** (shares a wall with heated living space) or **detached** — attached garages in Sweden have fire-rating requirements (typically EI 30 or higher per Boverkets Byggregler) on the shared wall that detached garages don't need. I'll assume **attached, with the exterior-facing wall matching your house's timber-clad aesthetic** and note the fire-rated version for the shared wall separately.
+
+## Composite 1: Garage Exterior Wall (matches house cladding)
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Timber Cladding – spruce/pine panel, painted or stained | 22 | Exterior weather/UV finish, matches house facade |
+| 2 | **Other (Air Gap/Cavity)** | Air Gap – ventilated cavity + vertical battens | 28 | Drainage + ventilation cavity behind cladding |
+| 3 | **Other** | Wind Barrier – wood-fiber board or breather membrane | 12 | Secondary weather/wind barrier |
+| 4 | **Core** | Timber Studs 45×95 mm c/c 600 (minimal or no insulation — see note) | 95 | Structure, light insulation if garage is semi-conditioned |
+| 5 | **Finish** | OSB or Plywood Board (utility-grade sheathing, exposed or painted) | 12 | Interior-facing surface, durable against impact (bikes, tools, car doors) |
+
+**Total thickness: 169 mm**
+
+**Note on insulation:** if the garage is fully unheated, Layer 4 can be studs only with **no insulation batts** (cavity left empty, or minimal 45 mm batt just to reduce temperature swing near the shared house wall). If you want the garage semi-conditioned (frost-protected, occasional heating), fill the full 95 mm stud cavity with mineral wool — same as the house wall approach.
+
+---
+
+## Composite 2: Shared Wall — Garage to House (Fire-Rated)
+
+This is the wall between the garage and any heated/habitable part of the house. Swedish building code requires fire separation here (commonly **EI 30**, verify against current BBR and your specific municipality's requirements).
+
+| Layer # | Archicad Layer Type | Material (Build Material) | Thickness (mm) | Function |
+|---|---|---|---|---|
+| 1 | **Finish** | Gypsum Board – Fire-Rated Type F (""röd gips""/fire board) | 15 | Garage-side finish, fire resistance |
+| 2 | **Core** | Timber Studs 45×95 mm c/c 600 + Mineral Wool | 95 | Structure + fire/acoustic separation + insulation between conditioned/unconditioned spaces |
+| 3 | **Finish** | Gypsum Board – Fire-Rated Type F (""röd gips""/fire board) | 15 | House-side finish, fire resistance |
+
+**Total thickness: 125 mm**
+
+**Fire rating note:** confirm the exact assembly (board thickness, layer count — sometimes double fire board is required per side) against **BBR's fire safety chapter (avsnitt 5)** and Eurocode fire design tables for your specific EI rating target. Single 15 mm fire board per side often achieves EI 30, but EI 60 (sometimes required for attached garages depending on layout) may need double board — worth confirming with a fire consultant or certified assembly datasheet before construction documentation, since this is a life-safety requirement, not just a comfort one.
+
+---
+
+## Archicad Setup Notes
+
+**Naming convention:**
+- `GARAGE-EXT-169` (exterior-facing garage wall)
+- `GARAGE-FIRE-SEP-125` (shared wall to house)
+
+**Skin type assignment:**
+- Composite 1: Layers 1–3 → Finish/Other (Outside Skin); Layer 4 → Core; Layer 5 → Finish (Inside Skin)
+- Composite 2: Layers 1 and 3 → Finish (symmetrical skins); Layer 2 → Core
+
+**Priority values:**
+| Layer | Suggested Priority |
+|---|---|
+| Studs (both composites) | 1 |
+| Wind barrier | 6 |
+| Cladding | 8 |
+| Fire board / OSB | 4 |
+
+**Build Material reminder:** the fire-rated gypsum board is a distinct product from your standard/moisture-resistant boards — give it its own Build Material entry (e.g., ""Gypsum Board – Fire Type F 15mm"") with correct fire classification noted in Archicad's material description field, since this is the kind of detail that matters at building permit review.
+
+Is the garage attached or detached, and is it meant to be heated/conditioned at all? That'll confirm whether Composite 1 needs insulation and whether Composite 2's fire rating even applies to your project.",,,,

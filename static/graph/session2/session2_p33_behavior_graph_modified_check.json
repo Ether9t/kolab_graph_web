@@ -1,0 +1,1299 @@
+{
+  "session_id": "session2",
+  "participant_id": "p51",
+  "title": "Risk Register and Mitigation Plan for a Research and Reporting System Project",
+  "goal": "Develop a risk register and mitigation plan for the research and reporting system project.",
+  "context": "I chose a risk register because it's a task I'd normally do anyway as part of setting up a project.\n\nThe workflow below generally includes:\nPrepare a briefing, structure a session to surface risks, turn that into a register, check it with stakeholders, finalise owners and mitigations.\n\nHow this compares to Session 1:\nSession 1 built a plan of what needs to happen. This one builds a picture of what could go wrong and who owns fixing it. This session also does not use Jira.",
+  "occupation": "Senior Project Manager",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes (Partially)",
+    "Why or why not": "I developed a risk register for my project, as required, along with the associated senior stakeholder communications and input, and Claude was invaluable in speeding up almost every step of this process."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Draft pre-session briefing document",
+      "step_action": "Draft a briefing document covering project context, purpose of the session, and risk-prompting questions by category (technical, resourcing, stakeholder, delivery, security etc). Ask Claude to refine and review.",
+      "time_range": "00:00:00-00:11:05",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Draft initial briefing content in Google Docs",
+          "detail": "Working in a 'Session 2 - Step 1' Google Doc, the participant compares this session's context to Session 1's document and drafts the project context (20-year-old system, expiring contract, changing reporting needs, recurring friction) and a purpose-of-session bullet list.",
+          "time": [
+            "00:00:00-00:04:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a2",
+          "actor": "user",
+          "label": "Share project context and purpose draft with Claude, request refinement",
+          "detail": "The participant pastes the project context and her draft purpose-of-session bullets into Claude's chat and asks for help tightening the purpose section and generating risk-prompting questions for the workshop.",
+          "time": [
+            "00:04:09-00:05:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a3",
+          "actor": "claude",
+          "label": "Tighten the session purpose section into a coherent narrative",
+          "detail": "Claude acknowledges the context, then rewrites the purpose-of-session bullets into a framed narrative paragraph plus a bulleted list of session outcomes (risk categories, risks, scores, mitigations, owners).",
+          "time": [
+            "00:05:57-00:06:28"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a4",
+          "actor": "user",
+          "label": "Paste Claude's tightened purpose into the doc, trimming the contract-expiry clause",
+          "detail": "The participant pastes Claude's rewritten purpose section into the Google Doc, fills in the system name ('research and reporting system project'), and deletes 'implementation, ahead of the current system's end of contract' as unnecessary, keeps the list of session outcomes, then reads on to Claude's risk-prompting questions.",
+          "time": [
+            "00:06:28-00:07:43"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a5",
+          "actor": "user",
+          "label": "Ask Claude to shorten the risk-prompting questions into a few bullets",
+          "detail": "The participant tells Claude the first set of risk-prompting questions is too long; she wants only a handful of short bullet points to prime the team's thinking before the workshop, not an exhaustive list.",
+          "time": [
+            "00:07:43-00:09:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a6",
+          "actor": "claude",
+          "label": "Deliver a short set of pre-session thinking questions",
+          "detail": "Claude produces five concise bullet questions (friction with the current system, migration risks, unmet reporting needs, timeline/budget risk, who is most affected) framed as 'a few things to think about before we meet.'",
+          "time": [
+            "00:09:05-00:09:10"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a7",
+          "actor": "user",
+          "label": "Review and finalize the pre-session briefing document",
+          "detail": "The participant pastes Claude's five short risk-prompting questions into the Google Doc with light edits (changing several 'your' to 'the' and replacing em dashes with commas), then checks the finished document (context, purpose, risk-prompting questions) against her own criteria, confirming it can be read in ten minutes.",
+          "time": [
+            "00:09:10-00:11:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 1",
+          "user_response": [
+            {
+              "source_node": "a2",
+              "target_ai": "a3",
+              "label": "modify",
+              "source_node_time": "00:04:09-00:05:57",
+              "ai_node_time": "00:05:57-00:06:28",
+              "user_adoption_time": "00:09:10-00:11:05",
+              "reasoning": "delete contract-expiry clause, so modify"
+            },
+            {
+              "source_node": "a2",
+              "target_ai": "a6",
+              "label": "modify",
+              "source_node_time": "00:04:09-00:05:57",
+              "ai_node_time": "00:09:05-00:09:10",
+              "user_adoption_time": "00:09:10-00:11:05",
+              "reasoning": "change 'your' to 'the' and replace em-dash with comma"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        },
+        {
+          "from": "a5",
+          "to": "a6",
+          "type": "sequential"
+        },
+        {
+          "from": "a6",
+          "to": "a7",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Structure the risk identification session",
+      "step_action": "Design an agenda and structure for the risk identification session, including time allocations, facilitation techniques, and a capture template. Ask Claude to refine and review.",
+      "time_range": "00:11:05-00:21:54",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor": "user",
+          "label": "Build a risk-capture template by hand in Lucidspark",
+          "detail": "After reading the Step 2 task in her document and deciding to use Lucid again, the participant creates a Lucidspark board with a repeating card template for each risk category, containing fields for concept title, one-sentence summary, score and owner, and mitigation.",
+          "time": [
+            "00:11:05-00:15:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs, Lucidspark",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b2",
+          "actor": "user",
+          "label": "Ask Claude for a starting agenda to edit",
+          "detail": "The participant asks Claude to draft an example workshop agenda that she can then customize, rather than starting from a blank page.",
+          "time": [
+            "00:15:10-00:15:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b3",
+          "actor": "claude",
+          "label": "Provide a draft workshop agenda with time blocks",
+          "detail": "Claude returns a table-format agenda for a 90-minute to 2-hour risk workshop, covering welcome/purpose, context recap, identifying risk categories and risks, and scoring.",
+          "time": [
+            "00:15:34-00:15:40"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b4",
+          "actor": "user",
+          "label": "Read Claude's draft agenda while duplicating the risk card template across categories in Lucid",
+          "detail": "While reading Claude's table agenda (approving the participative format and the category-then-risks flow), the participant finalises one risk card in Lucidspark and copy-pastes it into a grid under each 'Risk Category' column, laying out two risk cards per category.",
+          "time": [
+            "00:15:40-00:17:42"
+          ],
+          "actor_type": "user",
+          "softwares": "Lucidspark, Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b5",
+          "actor": "user",
+          "label": "Direct reformatting of the agenda into a simple bulleted structure",
+          "detail": "The participant asks Claude to strip the table/grid format, present it as a bulleted list starting with 'Welcome and intro,' and replace the time column with a duration figure per item, reordering sections as needed.",
+          "time": [
+            "00:17:42-00:18:48"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b6",
+          "actor": "claude",
+          "label": "Reformat the agenda as a bulleted list with per-item durations",
+          "detail": "Claude rewrites the agenda as bullets (welcome and intro 10 min, recap 10 min, identify categories 20 min, identify risks 30 min, score risks 20 min, confirm owners 10 min, agree mitigations 20 min, wrap-up 10 min).",
+          "time": [
+            "00:18:48-00:18:54"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b7",
+          "actor": "user",
+          "label": "Read the bulleted agenda and confirm the new order",
+          "detail": "The participant reads Claude's bulleted agenda and confirms the sections now follow her requested order: categories, risks within each category, scoring, owners, then mitigations.",
+          "time": [
+            "00:18:54-00:19:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b8",
+          "actor": "user",
+          "label": "Ask Claude to total the time and estimate feasible risk categories",
+          "detail": "The participant asks Claude to sum the agenda's time allocations and, realistically, how many risk categories the session can cover if the team identifies two risks per category.",
+          "time": [
+            "00:19:04-00:19:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b9",
+          "actor": "claude",
+          "label": "Calculate total time and estimate ~3 feasible categories",
+          "detail": "Claude computes a total of 130 minutes (2 hours 10 minutes) and, working from the 30-minute risk-identification block and ~10 minutes per category for two risks, estimates roughly 3 categories fit comfortably.",
+          "time": [
+            "00:19:29-00:19:50"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b10",
+          "actor": "user",
+          "label": "Read Claude's estimate that three categories is the safer bet",
+          "detail": "The participant reads Claude's total of 130 minutes and its recommendation that about three categories fit the timing, and accepts the arithmetic before questioning whether three is enough for this project.",
+          "time": [
+            "00:19:50-00:20:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b11",
+          "actor": "user",
+          "label": "Challenge whether three categories realistically covers the project",
+          "detail": "The participant pushes back, asking Claude whether three risk categories would really be enough given what it knows about this type of system-replacement project.",
+          "time": [
+            "00:20:03-00:20:22"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b12",
+          "actor": "claude",
+          "label": "Judge that three categories is likely insufficient, recommend six",
+          "detail": "Claude concludes that for a 20-year-old system replacement touching workflows, data, and a live contract deadline, the full risk picture typically spans more like six categories (e.g., data & migration, vendor & contract, timeline & continuity).",
+          "time": [
+            "00:20:22-00:20:36"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b13",
+          "actor": "user",
+          "label": "Restructure the agenda to six categories with one key risk each",
+          "detail": "Taking up Claude's recommendation of six risk categories, the participant resolves the time-versus-coverage tension with her own approach rather than any of Claude's suggested options: six categories with only one key risk captured under each. She pastes Claude's bulleted agenda verbatim into the board's Agenda box, rearranges the risk cards into six 'Risk Category' cards with one risk each (category names left as placeholders), and confirms the agenda and structure are complete.",
+          "time": [
+            "00:20:36-00:21:54"
+          ],
+          "actor_type": "user",
+          "softwares": "Lucidspark",
+          "source_steps": "Step 2",
+          "user_response": [
+            {
+              "source_node": "b2",
+              "target_ai": "b6",
+              "label": "adopt",
+              "source_node_time": "00:15:10-00:15:34",
+              "ai_node_time": "00:18:48-00:18:54",
+              "user_adoption_time": "00:20:36-00:21:54",
+              "reasoning": "copy and paste agenda"
+            },
+            {
+              "source_node": "b2",
+              "target_ai": "b12",
+              "label": "adopt",
+              "source_node_time": "00:15:10-00:15:34",
+              "ai_node_time": "00:20:22-00:20:36",
+              "user_adoption_time": "00:20:36-00:21:54",
+              "reasoning": "adopt suggestion-6 category to be 6 risk category, but did not adopt the other 3 methods suggested by claude, partial adopt"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b3",
+          "type": "sequential"
+        },
+        {
+          "from": "b3",
+          "to": "b4",
+          "type": "sequential"
+        },
+        {
+          "from": "b4",
+          "to": "b5",
+          "type": "sequential"
+        },
+        {
+          "from": "b5",
+          "to": "b6",
+          "type": "sequential"
+        },
+        {
+          "from": "b6",
+          "to": "b7",
+          "type": "sequential"
+        },
+        {
+          "from": "b7",
+          "to": "b8",
+          "type": "sequential"
+        },
+        {
+          "from": "b8",
+          "to": "b9",
+          "type": "sequential"
+        },
+        {
+          "from": "b9",
+          "to": "b10",
+          "type": "sequential"
+        },
+        {
+          "from": "b10",
+          "to": "b11",
+          "type": "sequential"
+        },
+        {
+          "from": "b11",
+          "to": "b12",
+          "type": "sequential"
+        },
+        {
+          "from": "b12",
+          "to": "b13",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Draft risk register (Google Sheets)",
+      "step_action": "Draft a structured risk register based on the session outputs, including risk description, category, likelihood, impact, overall rating, owner, and proposed mitigation. Ask Claude to refine and review.",
+      "time_range": "00:21:54-00:38:37",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Ask Claude to role-play the project team and generate workshop-style risk content",
+          "detail": "Having closed Step 2, the participant notes she needs content to draft the register and decides to have Claude act as the team, building on the six categories it already gave. She then asks Claude to pretend to be her project team and produce, for each of the six risk categories, the biggest risk, a score, an owner, and a mitigation, as a stand-in for real workshop output.",
+          "time": [
+            "00:21:54-00:23:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c2",
+          "actor": "claude",
+          "label": "Deliver a role-played risk table for six categories",
+          "detail": "Claude returns a markdown table with category, biggest risk, score (1-5), owner, and mitigation for all six categories (data & migration, vendor & contract, system & requirements fit, people & change management, timeline & continuity, governance & compliance), explicitly framed as a draft to sense-check in the workshop.",
+          "time": [
+            "00:23:18-00:23:30"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c3",
+          "actor": "user",
+          "label": "Review the role-played risk table and decide to use it for the register",
+          "detail": "The participant reads Claude's role-played risk table, judges these are the risks she would expect from the workshop ('we're going to use this'), and decides not to paste it into the Lucid board but to use it directly for drafting the risk register, pretending the team filled it in.",
+          "time": [
+            "00:23:30-00:24:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c4",
+          "actor": "user",
+          "label": "Search for an existing risk-register template online",
+          "detail": "The participant runs a Google search for 'risk register excel template,' browsing results from GOV.UK, ProjectManager, NHS England, and others, but rejects the available options as not fitting her needs.",
+          "time": [
+            "00:24:10-00:26:27"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Search (Chrome)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c5",
+          "actor": "user",
+          "label": "Check whether a Claude-drafted table will paste cleanly into Excel",
+          "detail": "Before committing to the format, the participant asks Claude directly whether a table it drafts will copy neatly into Excel.",
+          "time": [
+            "00:26:27-00:26:39"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c6",
+          "actor": "claude",
+          "label": "Explain markdown tables paste unreliably, propose generating a real file instead",
+          "detail": "Claude explains that a markdown table usually pastes into Excel as one column of pipe-delimited text rather than clean columns, and offers to instead create an actual .xlsx file, provide CSV, or let her use Text-to-Columns.",
+          "time": [
+            "00:26:39-00:26:46"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c7",
+          "actor": "user",
+          "label": "Manually build the risk register table structure in Google Sheets",
+          "detail": "Deciding to 'do it properly' rather than rely on pasting, the participant builds an empty register structure in Google Sheets: a title row ('...research and reporting system project - Risk Register'), column headers Risk ID, Category, Risk Description, Score (Likelihood), Mitigation, Owner, Status, and Update, and Risk IDs RR1-RR6, with borders but no risk content yet.",
+          "time": [
+            "00:26:46-00:30:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c8",
+          "actor": "user",
+          "label": "Ask Claude to reorder and add columns to the shared risk table",
+          "detail": "The participant asks Claude to reorder the table to Category, Risk Description, Score, Mitigation, Owner, and add two new columns: Status (set to 'Open' for all) and Update (set to 'TBC' for all).",
+          "time": [
+            "00:30:50-00:31:42"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c9",
+          "actor": "claude",
+          "label": "Deliver the reordered table with Status and Update columns added",
+          "detail": "Claude returns the updated table in the requested column order (Category, Risk Description, Score, Mitigation, Owner, Status, Update) with the new fields populated as instructed.",
+          "time": [
+            "00:31:42-00:31:51"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c10",
+          "actor": "user",
+          "label": "Try pasting the reordered table into Google Sheets, find it doesn't paste cleanly, and choose Claude's .xlsx option",
+          "detail": "The participant tries copying Claude's reordered table into Google Sheets, sees it does not paste cleanly, then goes back to Claude's earlier options (CSV, Text-to-Columns, .xlsx) and decides to have Claude generate an actual file.",
+          "time": [
+            "00:31:51-00:32:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Google Sheets",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c11",
+          "actor": "user",
+          "label": "Ask Claude to generate the register as an actual .xlsx file",
+          "detail": "The participant asks Claude to make the finalized table into a real .xlsx file rather than a pasted table.",
+          "time": [
+            "00:32:35-00:32:43"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c12",
+          "actor": "claude",
+          "label": "Generate the .xlsx file with colour-coded severity formatting",
+          "detail": "Claude creates and delivers the risk_register.xlsx file, colour-coding the score column (red 4-5, amber 3, green 1-2) and structuring it so more rows can be added as the workshop surfaces additional risks.",
+          "time": [
+            "00:32:43-00:33:07"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c13",
+          "actor": "user",
+          "label": "Bring Claude's xlsx content into her register sheet, adjust layout and colours, and review the risks",
+          "detail": "The participant opens Claude's risk_register.xlsx and brings its content into her own register structure in Google Sheets (title row, Risk IDs, Status and Update columns), resizes the columns, and recolours Claude's red score cells to a uniform lighter red. She reads through each risk and mitigation for plausibility while trusting the content as the team's input, checks it against her five core fields, and inserts a new column to the right of the score for impact.",
+          "time": [
+            "00:33:07-00:36:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c14",
+          "actor": "user",
+          "label": "Ask Claude whether the scores are likelihood and request an impact column",
+          "detail": "The participant asks Claude to confirm whether its earlier scores represented likelihood, and if so, to add a separate impact score (1-5) for each risk.",
+          "time": [
+            "00:36:05-00:36:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c15",
+          "actor": "claude",
+          "label": "Confirm combined score and supply separate Likelihood/Impact columns",
+          "detail": "Claude acknowledges the original scores conflated likelihood and impact into one combined figure, renames the column to Likelihood, and adds a separate Impact column; it catches and corrects its own mistake of leaving stale combined values in place before delivering the fixed, independently colour-coded columns.",
+          "time": [
+            "00:36:34-00:37:02"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c16",
+          "actor": "user",
+          "label": "Enter and colour-code the final impact scores, finish the draft register",
+          "detail": "The participant enters the Likelihood and Impact scores into the Google Sheets register, applies colour-coding, and confirms the draft risk register (six risks across six categories) is complete.",
+          "time": [
+            "00:37:02-00:38:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "c1",
+              "target_ai": "c12",
+              "label": "modify",
+              "source_node_time": "00:21:54-00:23:18",
+              "ai_node_time": "00:32:43-00:33:07",
+              "user_adoption_time": "00:37:02-00:38:37",
+              "reasoning": "change the color code"
+            },
+            {
+              "source_node": "c1",
+              "target_ai": "c15",
+              "label": "adopt",
+              "source_node_time": "00:21:54-00:23:18",
+              "ai_node_time": "00:36:34-00:37:02",
+              "user_adoption_time": "00:37:02-00:38:37",
+              "reasoning": "adopt likelihood and impact score"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        },
+        {
+          "from": "c3",
+          "to": "c4",
+          "type": "sequential"
+        },
+        {
+          "from": "c4",
+          "to": "c5",
+          "type": "sequential"
+        },
+        {
+          "from": "c5",
+          "to": "c6",
+          "type": "sequential"
+        },
+        {
+          "from": "c6",
+          "to": "c7",
+          "type": "sequential"
+        },
+        {
+          "from": "c7",
+          "to": "c8",
+          "type": "sequential"
+        },
+        {
+          "from": "c8",
+          "to": "c9",
+          "type": "sequential"
+        },
+        {
+          "from": "c9",
+          "to": "c10",
+          "type": "sequential"
+        },
+        {
+          "from": "c10",
+          "to": "c11",
+          "type": "sequential"
+        },
+        {
+          "from": "c11",
+          "to": "c12",
+          "type": "sequential"
+        },
+        {
+          "from": "c12",
+          "to": "c13",
+          "type": "sequential"
+        },
+        {
+          "from": "c13",
+          "to": "c14",
+          "type": "sequential"
+        },
+        {
+          "from": "c14",
+          "to": "c15",
+          "type": "sequential"
+        },
+        {
+          "from": "c15",
+          "to": "c16",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Review and validate with stakeholders",
+      "step_action": "Ask Claude to prepare a review summary of the draft risk register highlighting the highest-rated risks, proposed owners, and any gaps or open questions, for stakeholder feedback and sign-off.",
+      "time_range": "00:38:37-00:43:02",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Ask Claude to draft a high-level stakeholder summary email",
+          "detail": "The participant asks Claude for an email summarizing the risks for senior stakeholders at a high level, focused mainly on the risks highest in both likelihood and impact, without requiring stakeholders to open the full register.",
+          "time": [
+            "00:38:37-00:39:39"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Draft the summary email with selection rationale",
+          "detail": "Claude drafts the email and explains which risks it included and why: Data & migration, Timeline & continuity, and Governance & compliance were all impact 5/5, and People & change management had the highest likelihood (4/5).",
+          "time": [
+            "00:39:39-00:40:04"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d3",
+          "actor": "user",
+          "label": "Review the summary email with selection rationale",
+          "detail": "The participant reads Claude's draft email and its rationale for which risks were included, checks it against her criteria (summary, questions, decisions), and notices it lacks a feedback deadline.",
+          "time": [
+            "00:40:04-00:40:49"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d4",
+          "actor": "user",
+          "label": "Request a feedback deadline, formal tone, and subject-line fix",
+          "detail": "The participant asks Claude to add a request for stakeholders to respond with questions or comments by the end of the month, rephrase the email to suit a senior audience, and adjust the subject line.",
+          "time": [
+            "00:40:49-00:41:52"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d5",
+          "actor": "claude",
+          "label": "Revise the email with deadline, formal tone, and corrected subject",
+          "detail": "Claude updates the subject to 'Risk Summary - Research and Reporting System Project,' shifts the tone to be more formal ('developing' instead of 'building,' 'prior to' instead of 'before'), and adds the end-of-month feedback deadline.",
+          "time": [
+            "00:41:52-00:42:01"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d6",
+          "actor": "user",
+          "label": "Compare the revised email with the first draft, paste it into the doc, and confirm it is finished",
+          "detail": "The participant checks Claude's revised email against her criteria (summary, questions, decisions, feedback; understandable; readable in the time) and compares it with the first draft, preferring the new wording such as '1 reflects low risk and 5 reflects high risk' over 'one is low and five is high'. She puts the email into the Google Doc unchanged and declares task four done, noting she would normally send it by email rather than keep it in a document.",
+          "time": [
+            "00:42:01-00:43:02"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "d1",
+              "target_ai": "d5",
+              "label": "adopt",
+              "source_node_time": "00:38:37-00:39:39",
+              "ai_node_time": "00:41:52-00:42:01",
+              "user_adoption_time": "00:42:01-00:43:02",
+              "reasoning": "compare the revised one with previous one, adopt the revised one. and refinement only so i only adopt the d5"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "type": "sequential"
+        },
+        {
+          "from": "d4",
+          "to": "d5",
+          "type": "sequential"
+        },
+        {
+          "from": "d5",
+          "to": "d6",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Finalise and embed mitigation plan",
+      "step_action": "Finalise the risk register based on stakeholder feedback and produce a mitigation plan summary, including confirmed owners, mitigation actions, target dates, and a proposed review cadence. Ask Claude to refine and review.",
+      "time_range": "00:43:02-01:01:33",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Set up documents for the stakeholder-review round",
+          "detail": "With no real senior stakeholders available, the participant prepares a fresh document to capture simulated stakeholder feedback and the register updates that will follow.",
+          "time": [
+            "00:43:02-00:44:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets, Google Docs",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e2",
+          "actor": "user",
+          "label": "Ask Claude to role-play senior stakeholders and give five pieces of feedback",
+          "detail": "The participant asks Claude to pretend to be her senior stakeholders reviewing the risk table and give five small-to-medium pieces of actionable feedback.",
+          "time": [
+            "00:44:38-00:45:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e3",
+          "actor": "claude",
+          "label": "Deliver five stakeholder-style feedback points",
+          "detail": "Claude returns five feedback items: add target/review dates, name actual owners instead of just roles, show residual risk (not just pre-mitigation risk), question why governance & compliance likelihood is scored only 2/5, and confirm the table reflects the full risk picture rather than a sample.",
+          "time": [
+            "00:45:03-00:45:16"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Record the feedback and disagree with the named-owner suggestion",
+          "detail": "The participant reads Claude's five feedback points, disagrees with the suggestion to replace role-based owners with named individuals ('we know who these people are'), and pastes all five points under a 'Feedback from senior stakeholders' heading in her Step 5 (part 1) copy of the register in Google Sheets.",
+          "time": [
+            "00:45:16-00:46:02"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e5",
+          "actor": "user",
+          "label": "Manually update the risk register based on accepted feedback",
+          "detail": "The participant removes the named-owners point from the pasted feedback list, then hand-edits the Google Sheets register to add Target Date and Review columns, Residual Risk (Likelihood) and Residual Risk (Impact) columns, and fills in the corresponding values row by row for all six risks.",
+          "time": [
+            "00:46:02-00:51:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e6",
+          "actor": "user",
+          "label": "Ask Claude to draft a stakeholder response email with a governance/compliance rationale",
+          "detail": "The participant asks Claude to draft a response confirming the added target dates and residual risks, plus a rationale for the governance & compliance likelihood score of 2, citing the organization's well-established, experienced data teams.",
+          "time": [
+            "00:51:34-00:53:14"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e7",
+          "actor": "claude",
+          "label": "Draft the response email, flagging the omitted named-owners point",
+          "detail": "Claude drafts the response addressing points 1, 3, 4, and 5 from the feedback, explicitly flags that point 2 (named owners) was left out since the participant hadn't mentioned it, and leaves the decision on whether to address it up to her.",
+          "time": [
+            "00:53:14-00:54:04"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e8",
+          "actor": "user",
+          "label": "Set up the Step 5 part 2 document while Claude drafts the reply",
+          "detail": "While Claude is generating the response email, the participant creates a new 'Session 2 - Step 5 part 2' document for the reply and clears out content she no longer needs.",
+          "time": [
+            "00:53:50-00:54:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Docs",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e9",
+          "actor": "user",
+          "label": "Read Claude's draft response email",
+          "detail": "The participant reads Claude's draft reply to the stakeholders, checking that it confirms the added target dates and residual risks, gives the data-teams rationale for the governance & compliance score, and explains that this register reflects an initial workshop to be built on and presented to the board.",
+          "time": [
+            "00:54:04-00:54:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e10",
+          "actor": "user",
+          "label": "Request an added paragraph inviting stakeholders to challenge the risk score",
+          "detail": "The participant asks Claude to add a line under the governance and compliance section stating that if stakeholders feel strongly the score should be revisited, the team will update it, along with the rationale for the original score.",
+          "time": [
+            "00:54:53-00:55:49"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e11",
+          "actor": "claude",
+          "label": "Add the paragraph and clean up dash usage in the email",
+          "detail": "Claude adds the new paragraph after the governance and compliance section and removes stray dashes/em-dashes from the body text (e.g., 'well-established' phrasing, replacing an em dash before 'however' with a comma).",
+          "time": [
+            "00:55:49-00:55:59"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e12",
+          "actor": "user",
+          "label": "Check the update context and ask for a final tone pass to suit senior stakeholders",
+          "detail": "The participant asks Claude to slightly update the email once more to ensure it reads as appropriate for a senior stakeholder audience.",
+          "time": [
+            "00:55:59-00:56:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e13",
+          "actor": "claude",
+          "label": "Apply formal tone adjustments for a senior audience",
+          "detail": "Claude changes the greeting to 'Dear all,' tightens phrasing ('Please find our response to each point below'), and applies a more formal sign-off tone throughout.",
+          "time": [
+            "00:56:38-00:56:50"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e14",
+          "actor": "user",
+          "label": "Paste the email into the doc, add her own sentence on revisiting the governance score, and check it against the Step 5 criteria",
+          "detail": "The participant reads Claude's more formal version, decides it needs some editing, considers asking Claude to split the governance section but leaves it, and types her own sentence in the document ('However, if the board feels that this risk should still be amended, please do let me know and we will update it accordingly'). She then checks the email against the Step 5 requirements (owners, mitigations, target dates, review cadence) and realises a mitigation-plan summary is still missing.",
+          "time": [
+            "00:56:50-01:00:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Google Docs",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e15",
+          "actor": "user",
+          "label": "Ask Claude to add a mitigation-plan summary for the biggest risks",
+          "detail": "The participant asks Claude to add a quick mitigation-plan summary based on the mitigations already in the risk register, focused on the biggest risks.",
+          "time": [
+            "01:00:21-01:00:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e16",
+          "actor": "claude",
+          "label": "Add a mitigation-plan summary section to the email",
+          "detail": "Claude adds a 'Mitigation plan summary' section pulling directly from the register's mitigations for the four highest risks (Data & migration, Timeline & continuity, Governance & compliance, People & change management), formatted as a numbered list for consistency.",
+          "time": [
+            "01:00:46-01:01:15"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e17",
+          "actor": "user",
+          "label": "Review Claude's mitigation-plan summary, decide it is not needed, and close the session",
+          "detail": "The participant looks for where Claude's added mitigation-plan summary would go and reads it, then decides it is not needed ('No, actually, it's not needed... leave it at that') and does not add it to the document. She confirms she has covered everything for Step 5 and ends the session.",
+          "time": [
+            "01:01:15-01:01:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Google Sheets, Google Docs",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "e2",
+              "target_ai": "e3",
+              "label": "modify",
+              "source_node_time": "00:44:38-00:45:03",
+              "ai_node_time": "00:45:03-00:45:16",
+              "user_adoption_time": "01:01:15-01:01:33",
+              "reasoning": "propose 5 feedback, pick 1 and 3 (but not agree 2nd then delete it)"
+            },
+            {
+              "source_node": "e2",
+              "target_ai": "e13",
+              "label": "modify",
+              "source_node_time": "00:44:38-00:45:03",
+              "ai_node_time": "00:56:38-00:56:50",
+              "user_adoption_time": "01:01:15-01:01:33",
+              "reasoning": "change one line"
+            },
+            {
+              "source_node": "e2",
+              "target_ai": "e16",
+              "label": "reject",
+              "source_node_time": "00:44:38-00:45:03",
+              "ai_node_time": "01:00:46-01:01:15",
+              "user_adoption_time": "01:01:15-01:01:33",
+              "reasoning": "not use"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e5",
+          "type": "sequential"
+        },
+        {
+          "from": "e5",
+          "to": "e6",
+          "type": "sequential"
+        },
+        {
+          "from": "e6",
+          "to": "e7",
+          "type": "sequential"
+        },
+        {
+          "from": "e6",
+          "to": "e8",
+          "type": "sequential"
+        },
+        {
+          "from": "e7",
+          "to": "e9",
+          "type": "sequential"
+        },
+        {
+          "from": "e8",
+          "to": "e9",
+          "type": "sequential"
+        },
+        {
+          "from": "e9",
+          "to": "e10",
+          "type": "sequential"
+        },
+        {
+          "from": "e10",
+          "to": "e11",
+          "type": "sequential"
+        },
+        {
+          "from": "e11",
+          "to": "e12",
+          "type": "sequential"
+        },
+        {
+          "from": "e12",
+          "to": "e13",
+          "type": "sequential"
+        },
+        {
+          "from": "e13",
+          "to": "e14",
+          "type": "sequential"
+        },
+        {
+          "from": "e14",
+          "to": "e15",
+          "type": "sequential"
+        },
+        {
+          "from": "e15",
+          "to": "e16",
+          "type": "sequential"
+        },
+        {
+          "from": "e16",
+          "to": "e17",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Draft pre-session briefing document",
+      "step_action": "Draft a briefing document covering project context, purpose of the session, and risk-prompting questions by category (technical, resourcing, stakeholder, delivery, security etc). Ask Claude to refine and review.",
+      "input": "Basic project context (system purpose, scope, key stakeholders).",
+      "output": "A Google document with sections for project background, purpose of the session, and risk-prompting questions by category.",
+      "tools": "Google Doc, Claude",
+      "rubrics": [
+        "Document includes a clear statement of project background",
+        "Any risk prompting questions included",
+        "Document is concise enough to be read in under 10 minutes"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "【No Data】"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I rated this step a 5because the pre-session briefing document looks exactly as I expected, and it covers everything I need it to. Claude was again, extremely helpful in drafting this."
+      }
+    },
+    "Step 2": {
+      "step_name": "Structure the risk identification session",
+      "step_action": "Design an agenda and structure for the risk identification session, including time allocations, facilitation techniques, and a capture template. Ask Claude to refine and review.",
+      "input": "The briefing document from Step 1.",
+      "output": "A structured session agenda with time allocations, facilitation method",
+      "tools": "Lucid, Claude",
+      "rubrics": [
+        "Agenda covers risk identification, categorisation, and initial scoring",
+        "Time allocations are included for each section",
+        "Structure for capturing risks complete"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Good structure if not a bit basic"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Helped me draft the agenda, and took my guidance where needed in regards to reshaping it. Also helped act as my “team” for input - content was quite accurate"
+      }
+    },
+    "Step 3": {
+      "step_name": "Draft risk register (Google Sheets)",
+      "step_action": "Draft a structured risk register based on the session outputs, including risk description, category, likelihood, impact, overall rating, owner, and proposed mitigation. Ask Claude to refine and review.",
+      "input": "Notes/outputs from the risk identification session.",
+      "output": "A structured risk register (risk ID, description, category, likelihood, impact, rating, owner, mitigation) in an Excel template.",
+      "tools": "Lucid, Excel, Claude",
+      "rubrics": [
+        "Register includes at least 5 core fields",
+        "Each risk has a likelihood and impact score using a consistent scale",
+        "Overall risk rating is calculated consistently",
+        "Each risk has a proposed mitigation and an assigned owner"
+      ],
+      "ratings": {
+        "collaboration_rating": "3/4",
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 3,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "3/4",
+        "output_quality_reason": "Took some time to get to my desired result, but perhaps due to me being unfamiliar with its excel abilities."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I had a fully formed risk register by the end of it"
+      }
+    },
+    "Step 4": {
+      "step_name": "Review and validate with stakeholders",
+      "step_action": "Ask Claude to prepare a review summary of the draft risk register highlighting the highest-rated risks, proposed owners, and any gaps or open questions, for stakeholder feedback and sign-off.",
+      "input": "The draft risk register from Step 3.",
+      "output": "A concise review document/email summarising top risks, flagging decisions needed, with a clear feedback deadline.",
+      "tools": "Word, Claude",
+      "rubrics": [
+        "Summary highlights the top-rated risks from the register",
+        "Any questions or decisions requiring stakeholder input are flagged",
+        "Feedback deadline and process are clearly stated",
+        "Summary is understandable without needing to open the full Excel register",
+        "Tone is appropriate for a senior stakeholder/sponsor audience"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "Again Claude is excellent support with drafting emails"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "I had a strong email for stakeholders summarising the risk register and meeting my rubrics"
+      }
+    },
+    "Step 5": {
+      "step_name": "Finalise and embed mitigation plan",
+      "step_action": "Finalise the risk register based on stakeholder feedback and produce a mitigation plan summary, including confirmed owners, mitigation actions, target dates, and a proposed review cadence. Ask Claude to refine and review.",
+      "input": "Stakeholder feedback from Step 4.",
+      "output": "A finalised risk register plus a short mitigation plan summary (owner, action, target date, review frequency).",
+      "tools": "Word, Claude, Excel, Email",
+      "rubrics": [
+        "All risks have a confirmed owner and mitigation action",
+        "Target dates are assigned to mitigation actions",
+        "A review cadence is clearly proposed",
+        "Stakeholder feedback from Step 4 is reflected in the final version",
+        "No unresolved high-rated risks are left without an owner or action"
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 4,
+        "output_quality_reason": "Agreed with most of the feedback but not all, however resulted in a stronger risk register"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "Helped me develop a better risk register than in step 3, however did struggle a bit with desired tone of the email"
+      }
+    }
+  }
+}

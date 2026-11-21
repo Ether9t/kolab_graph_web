@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Annotation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO — shown when no participant is selected
+     (matches Svelte: no toolbar at all on this screen)
+     ══════════════════════════════════════════════════════════ -->
+<div class="explore-hero" id="hero">
+    <h1 class="explore-hero-title">Session Explorer</h1>
+    <p class="explore-hero-sub">Select a participant to view their workflow sessions.</p>
+    <div class="explore-hero-select-wrap">
+        <select class="explore-select explore-select-hero" id="heroSelect">
+            <option value="">— select participant —</option>
+        </select>
+    </div>
+    <p class="explore-hero-weblink">
+        <a class="explore-web-link" href="https://minnesotanlp.github.io/kolab/"
+           target="_blank" rel="noopener noreferrer">Kolab webpage</a>
+    </p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN VIEW — shown after participant selected
+     (matches Svelte: page-toolbar + session-pills above viewer)
+     ══════════════════════════════════════════════════════════ -->
+<div class="page" id="mainPage" style="display:none">
+
+    <!-- Toolbar: Kolab link + participant select (right-aligned, no session pills) -->
+    <div class="page-toolbar">
+        <div class="top-actions">
+            <a class="explore-web-link toolbar-web-link"
+               href="https://minnesotanlp.github.io/kolab/"
+               target="_blank" rel="noopener noreferrer">Kolab webpage</a>
+            <div class="explore-select-wrap">
+                <label class="explore-label" for="toolbarSelect">Participant</label>
+                <select class="explore-select" id="toolbarSelect">
+                    <option value="">— select —</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session pills (below toolbar, NOT inside it) -->
+    <div class="section">
+        <div class="section-inner">
+            <div class="session-pills" aria-label="Select a session" id="sessionPills">
+                <button class="session-pill active" data-session="session1">Session 1</button>
+                <button class="session-pill" data-session="session2">Session 2</button>
+            </div>
+
+            <!-- Viewer -->
+            <section class="behavior-viewer" id="behaviorViewer">
+
+                <!-- Header -->
+                <header class="viewer-header">
+                    <div class="viewer-heading">
+                        <h2 id="sessionTitle">Loading…</h2>
+                        <div id="occupationWrap"></div>
+                        <p class="goal" id="goalText"></p>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><span class="legend-node"></span> User action</div>
+                        <div class="legend-item"><span class="legend-node claude"></span> Claude response</div>
+                        <div class="legend-item"><span class="legend-line"></span> Moves to new action</div>
+                        <div class="legend-item"><span class="legend-line loop"></span> Loop / revisit</div>
+                        <div class="legend-hint">Click a node to jump to that point in the video.</div>
+                    </div>
+                </header>
+
+                <!-- Two-col layout -->
+                <div class="viewer-layout graph-scroll-layout" id="viewerLayout" style="--video-width:680px">
+
+                    <!-- Video panel -->
+                    <aside class="video-panel" style="width:680px;flex:0 0 680px">
+                        <div class="video-container">
+                            <video id="videoEl" controls preload="metadata">
+                                <source id="videoSrc" src="" type="video/mp4" />
+                            </video>
+                        </div>
+                        <div class="video-speed-control">
+                            <span id="speedLabel">Speed: 1×</span>
+                            <input type="range" id="speedRange" min="0.5" max="10" step="0.5" value="1" />
+                        </div>
+                        <div class="video-size-control">
+                            <span>Video size</span>
+                            <input type="range" id="sizeRange" min="320" max="1000" step="20" value="680" />
+                            <span id="sizeLabel">680px</span>
+                        </div>
+                    </aside>
+
+                    <!-- Editor column -->
+                    <div class="editor-column">
+                        <div class="editor-viewport">
+                            <main class="editor-panel">
+                                <article class="step-card graph-step-card">
+
+                                    <div class="graph-fixed-top">
+                                        <!-- Step heading -->
+                                        <header class="step-card-header">
+                                            <div class="step-card-title-row">
+                                                <div class="graph-step-heading">
+                                                    <h3 id="stepTitle">
+                                                        <span class="step-tag" id="stepTag"></span>
+                                                        <span id="stepName"></span>
+                                                    </h3>
+                                                    <p id="stepAction"></p>
+                                                </div>
+                                            </div>
+                                        </header>
+
+                                        <!-- Ratings row (populated by JS) -->
+                                        <div id="ratingsWrap"></div>
+
+                                        <!-- Step buttons + actions -->
+                                        <div class="step-selector-row graph-step-selector">
+                                            <div class="step-buttons" id="stepButtons"></div>
+                                            <div class="step-selector-actions">
+                                                <label class="unroll-toggle">
+                                                    <input type="checkbox" id="unrollCheck" />
+                                                    <span>Unroll loops</span>
+                                                </label>
+                                                <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+                                                    <button class="download-json-btn" id="dlJsonBtn">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2.2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            aria-hidden="true" style="width:14px;height:14px;flex-shrink:0">
+                                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                            <polyline points="7 10 12 15 17 10"/>
+                                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                                        </svg>
+                                                        Download JSON
+                                                    </button>
+                                                    <button class="download-json-btn" id="dlChatBtn">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2.2" stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            aria-hidden="true" style="width:14px;height:14px;flex-shrink:0">
+                                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                            <polyline points="7 10 12 15 17 10"/>
+                                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                                        </svg>
+                                                        Download Chat
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /graph-fixed-top -->
+
+                                    <!-- Graph canvas -->
+                                    <div class="simple-graph-editor">
+                                        <div class="graph-canvas-shell">
+                                            <div class="graph-views-wrapper">
+                                                <div class="graph-scroll" id="graphScroll">
+                                                    <div class="graph-empty" id="graphMsg">Select a participant to begin.</div>
+                                                    <svg id="graphSvg" style="display:none"></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </article>
+                            </main>
+                        </div>
+                    </div>
+
+                </div><!-- /viewer-layout -->
+            </section>
+        </div>
+    </div>
+</div><!-- /mainPage -->
+
+<script>
+    const VIDEO_BASE = 'https://tasks-drop-challenged-cups.trycloudflare.com';
+
+    const NODE_W = 280, NODE_H = 132, H_GAP = 46, V_GAP = 54, TOP_PAD = 24, SIDE_PAD = 50;
+
+    // ── State ──────────────────────────────────────────────────
+    let state = {
+        participantId: '',
+        sessionId: 'session1',
+        graphData: null,
+        graphSteps: [],
+        selectedStep: 0,
+        unroll: false,
+    };
+
+    // ── DOM refs ───────────────────────────────────────────────
+    const $ = id => document.getElementById(id);
+    const hero         = $('hero');
+    const mainPage     = $('mainPage');
+    const heroSelect   = $('heroSelect');
+    const toolbarSelect = $('toolbarSelect');
+    const sessionTitle = $('sessionTitle');
+    const occupationWrap = $('occupationWrap');
+    const goalText     = $('goalText');
+    const stepTag      = $('stepTag');
+    const stepName     = $('stepName');
+    const stepAction   = $('stepAction');
+    const stepButtons  = $('stepButtons');
+    const graphScroll  = $('graphScroll');
+    const graphMsg     = $('graphMsg');
+    const speedRange   = $('speedRange');
+    const speedLabel   = $('speedLabel');
+    const sizeRange    = $('sizeRange');
+    const sizeLabel    = $('sizeLabel');
+    const viewerLayout = $('viewerLayout');
+    const unrollCheck  = $('unrollCheck');
+    const videoEl      = $('videoEl');
+    const videoSrc     = $('videoSrc');
+
+    // ── Populate participant dropdowns ─────────────────────────
+    function buildParticipants() {
+        const opts = [['', '— select participant —'], ...Array.from({length: 51}, (_, i) => [`p${i+1}`, `p${i+1}`])];
+        heroSelect.innerHTML = opts.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+        toolbarSelect.innerHTML = [['', '— select —'], ...opts.slice(1)].map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    }
+    buildParticipants();
+
+    // ── Show/hide hero vs main view ────────────────────────────
+    function onParticipantChange(pid) {
+        state.participantId = pid;
+        heroSelect.value = pid;
+        toolbarSelect.value = pid;
+        if (!pid) {
+            hero.style.display = 'flex';
+            mainPage.style.display = 'none';
+            return;
+        }
+        hero.style.display = 'none';
+        mainPage.style.display = 'block';
+        loadSession();
+    }
+
+    heroSelect.addEventListener('change', e => onParticipantChange(e.target.value));
+    toolbarSelect.addEventListener('change', e => onParticipantChange(e.target.value));
+
+    // ── Session pills ──────────────────────────────────────────
+    $('sessionPills').addEventListener('click', e => {
+        const btn = e.target.closest('.session-pill');
+        if (!btn) return;
+        document.querySelectorAll('.session-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.sessionId = btn.dataset.session;
+        if (state.participantId) loadSession();
+    });
+
+    // ── Load session data ──────────────────────────────────────
+    async function loadSession() {
+        const { participantId, sessionId } = state;
+        graphMsg.textContent = 'Loading…';
+        graphMsg.style.display = 'flex';
+        // Clear any previous SVG (may have been replaced, so query fresh each time)
+        const existingSvg = graphScroll.querySelector('svg');
+        if (existingSvg) existingSvg.style.display = 'none';
+        sessionTitle.textContent = `${sessionId} · ${participantId}`;
+        goalText.textContent = '';
+        occupationWrap.innerHTML = '';
+
+        // Video — VIDEO_BASE + path
+        videoSrc.src = `${VIDEO_BASE}/videos/${sessionId}_${participantId}.mp4`;
+        videoEl.load();
+
+        // JSON: static/graph/{sessionId}/{sessionId}_{participantId}_*.json
+        const graphPaths = [
+            `static/graph/${sessionId}/${sessionId}_${participantId}_behavior_graph_modified_check.json`,
+            `static/graph/${sessionId}/${sessionId}_${participantId}_behavior_graph_modified.json`,
+            `static/graph/${sessionId}/${sessionId}_${participantId}_behavior_graph.json`,
+            `static/graph/${sessionId}/${sessionId}_${participantId}.json`,
+        ];
+
+        let data = null;
+        for (const p of graphPaths) {
+            try {
+                const res = await fetch(p);
+                if (res.ok) { data = await res.json(); break; }
+            } catch { }
+        }
+
+        if (!data) {
+            graphMsg.textContent = 'No data found for this participant/session.';
+            stepButtons.innerHTML = '';
+            return;
+        }
+
+        state.graphData = data;
+        sessionTitle.textContent = data.title || `${sessionId} · ${participantId}`;
+        if (data.occupation) {
+            occupationWrap.innerHTML = `<span class="occupation-pill">${esc(data.occupation)}</span>`;
+        }
+        goalText.textContent = data.goal ? `Goal: ${data.goal}` : '';
+
+        const wg = data.workflow_graph || {};
+        state.graphSteps = Object.values(wg).sort((a, b) => timeToSecs(a.time_range) - timeToSecs(b.time_range));
+        state.selectedStep = 0;
+        renderStepButtons();
+        renderStep(0);
+    }
+
+    // ── Time helpers ───────────────────────────────────────────
+    function timeToSecs(timeRange) {
+        if (!timeRange) return 0;
+        const part = timeRange.split(/[-–—](?=\d)/)[0] || '';
+        const segs = part.trim().split(':').map(Number);
+        if (segs.length === 3) return segs[0] * 3600 + segs[1] * 60 + segs[2];
+        if (segs.length === 2) return segs[0] * 60 + segs[1];
+        return segs[0] || 0;
+    }
+    function timeStrToSecs(str) {
+        if (!str) return 0;
+        const s = str.replace('~', '').trim().split(/[–—-]/)[0]?.trim() || '';
+        const parts = s.split(':').map(Number);
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        return parts[0] || 0;
+    }
+
+    // ── Ratings constants (match Svelte COLLAB_SUB_LABELS / COLLAB_SHORT) ──
+    const COLLAB_SUB_LABELS = [
+        "The agent understood the task, context, and instructions provided",
+        "The agent responded appropriately to requests and adapted when given feedback or corrections",
+        "The agent reduced effort, time, or cognitive load during the task",
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate",
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction",
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work",
+        "I was able to guide, redirect, and override the agent's actions when desired",
+    ];
+    const COLLAB_SHORT = {
+        "The agent understood the task, context, and instructions provided": "Understood",
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": "Adapted",
+        "The agent reduced effort, time, or cognitive load during the task": "Reduced effort",
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": "Proactive",
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": "Accurate",
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": "Smooth",
+        "I was able to guide, redirect, and override the agent's actions when desired": "Guide / override",
+    };
+
+    // ── stepPlan lookup (matches Svelte: exact badge, then per-number fallback) ──
+    function getStepPlan(stepIndex) {
+        const step = state.graphSteps[stepIndex];
+        if (!step || !state.graphData) return null;
+        const hwp = state.graphData.human_workflow_plan;
+        if (!hwp) return null;
+        if (hwp[step.badge]) return hwp[step.badge];
+        // merged badge e.g. "Step 1-2" → try "Step 1", "Step 2"
+        const nums = (step.badge.match(/\d+/g) || []).map(Number);
+        for (const n of nums) {
+            if (hwp[`Step ${n}`]) return hwp[`Step ${n}`];
+        }
+        return null;
+    }
+
+    // ── Normalize a rating value ───────────────────────────────
+    // Handles: number 4, string "4", string "4/5", "【No Data】" → null
+    function parseRating(v) {
+        if (v == null) return null;
+        if (typeof v === 'number') return Number.isFinite(v) ? v : null;
+        const s = String(v).trim();
+        if (!s || s.includes('No Data') || s === 'null') return null;
+        // "4/5" → take numerator; "4" → plain number
+        const num = parseFloat(s.split('/')[0]);
+        return Number.isFinite(num) ? num : null;
+    }
+
+    // ── Render ratings row ─────────────────────────────────────
+    let ratingsExpanded = false;
+    function renderRatings(stepIndex) {
+        const wrap = $('ratingsWrap');
+        const plan = getStepPlan(stepIndex);
+        const ratings = plan?.ratings ?? null;
+        if (!ratings) { wrap.innerHTML = ''; return; }
+
+        function starsHTML(val) {
+            return Array.from({length: 5}, (_, i) =>
+                `<span class="rating-star${i < val ? ' filled' : ''}">★</span>`
+            ).join('');
+        }
+        function chipHTML(label, val, extraClass) {
+            return `<span class="rating-chip${extraClass ? ' ' + extraClass : ''}">
+                <span class="rating-chip-label">${esc(label)}</span>
+                <span class="rating-chip-stars">${starsHTML(val)}</span>
+                <span class="rating-chip-num">${val}/5</span>
+            </span>`;
+        }
+
+        const collabVal  = parseRating(ratings['collaboration_rating']);
+        const qualityVal = parseRating(ratings['output_quality_rating']);
+
+        const collabChip  = collabVal  != null ? chipHTML('Main Collaboration', collabVal, '') : '';
+        const qualityChip = qualityVal != null ? chipHTML('Output Quality', qualityVal, 'rating-chip--quality') : '';
+
+        const subChips = COLLAB_SUB_LABELS
+            .map(l => ({ l, v: parseRating(ratings[l]) }))
+            .filter(({ v }) => v != null)
+            .map(({ l, v }) => chipHTML(COLLAB_SHORT[l] || l, v, ''))
+            .join('');
+
+        // If nothing at all to show, hide the whole block
+        if (!collabChip && !qualityChip && !subChips) { wrap.innerHTML = ''; return; }
+
+        const detailHTML = subChips
+            ? `<div class="ratings-detail" id="ratingsDetail" style="display:${ratingsExpanded ? 'flex' : 'none'}">
+                 <div class="ratings-chips">${subChips}</div>
+               </div>` : '';
+        const toggleBtn = subChips
+            ? `<button class="ratings-toggle" type="button" id="ratingsToggle">
+                 ${ratingsExpanded ? 'Less ▲' : 'More ▼'}
+               </button>` : '';
+
+        wrap.innerHTML = `<div class="step-ratings">
+            <span class="ratings-group-label">Ratings</span>
+            ${collabChip}${qualityChip}${toggleBtn}${detailHTML}
+        </div>`;
+
+        const toggleEl = $('ratingsToggle');
+        if (toggleEl) {
+            toggleEl.addEventListener('click', () => {
+                ratingsExpanded = !ratingsExpanded;
+                const detail = $('ratingsDetail');
+                if (detail) detail.style.display = ratingsExpanded ? 'flex' : 'none';
+                toggleEl.textContent = ratingsExpanded ? 'Less ▲' : 'More ▼';
+            });
+        }
+    }
+
+    // ── Step buttons ───────────────────────────────────────────
+    function renderStepButtons() {
+        stepButtons.innerHTML = state.graphSteps.map((step, i) => `
+            <button class="step-btn${i === state.selectedStep ? ' active' : ''}" data-idx="${i}" title="${step.badge} · ${step.time_range}">
+                <span class="step-btn-badge">${step.badge} · ${step.time_range}</span>
+            </button>`).join('');
+        stepButtons.querySelectorAll('.step-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.idx);
+                state.selectedStep = idx;
+                renderStepButtons();
+                renderStep(idx);
+                const step = state.graphSteps[idx];
+                if (step) seekVideo(timeToSecs(step.time_range));
+            });
+        });
+    }
+
+    // ── Render step ────────────────────────────────────────────
+    function renderStep(idx) {
+        const step = state.graphSteps[idx];
+        if (!step) return;
+        stepTag.textContent = `${step.badge} · ${step.time_range}`;
+        stepName.textContent = ' ' + (step.step_name || '');
+        stepAction.textContent = step.step_action ? `Required action: ${step.step_action}` : '';
+        ratingsExpanded = false;  // collapse on step change
+        renderRatings(idx);
+        renderGraph(step);
+    }
+
+    // ── Video controls ─────────────────────────────────────────
+    speedRange.addEventListener('input', () => {
+        const v = parseFloat(speedRange.value);
+        videoEl.playbackRate = v;
+        speedLabel.textContent = `Speed: ${v}×`;
+    });
+    sizeRange.addEventListener('input', () => {
+        const v = parseInt(sizeRange.value);
+        const panel = document.querySelector('.video-panel');
+        panel.style.width = v + 'px';
+        panel.style.flex = `0 0 ${v}px`;
+        viewerLayout.style.setProperty('--video-width', v + 'px');
+        sizeLabel.textContent = v + 'px';
+    });
+    videoEl.addEventListener('timeupdate', () => {
+        const t = videoEl.currentTime;
+        const idx = state.graphSteps.findIndex((s, i) => {
+            const start = timeToSecs(s.time_range);
+            const end = i < state.graphSteps.length - 1 ? timeToSecs(state.graphSteps[i + 1].time_range) : Infinity;
+            return t >= start && t < end;
+        });
+        if (idx >= 0 && idx !== state.selectedStep) {
+            state.selectedStep = idx;
+            renderStepButtons();
+            renderStep(idx);
+        }
+    });
+    function seekVideo(secs) {
+        videoEl.currentTime = secs;
+        videoEl.play().catch(() => { });
+    }
+
+    // ── Unroll toggle ──────────────────────────────────────────
+    unrollCheck.addEventListener('change', () => {
+        state.unroll = unrollCheck.checked;
+        renderStep(state.selectedStep);
+    });
+
+    // ── Download JSON ──────────────────────────────────────────
+    $('dlJsonBtn').addEventListener('click', () => {
+        if (!state.graphData) return;
+        const blob = new Blob([JSON.stringify(state.graphData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${state.participantId}_${state.sessionId}_behavior_graph.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+
+    // ── Download Chat ──────────────────────────────────────────
+    // CSVs live at: static/chat/{sessionId}/{participantId}_session*_*.csv
+    // Known filename variants (p-prefix may be lowercase or uppercase):
+    //   p1_session1_chats_ethics.csv  |  p10_session1_ethics.csv
+    //   P48_session1_conversation_log_ethics.csv
+    // We stop at the FIRST match to avoid downloading twice on
+    // case-insensitive filesystems (p1 and P1 resolve to the same file).
+    $('dlChatBtn').addEventListener('click', async () => {
+        const { participantId, sessionId } = state;
+        const base = `static/chat/${sessionId}`;
+        const pid  = participantId;           // e.g. "p1"
+        const PID  = pid[0].toUpperCase() + pid.slice(1); // "P1"
+        // All suffix variants, lowercase prefix first
+        const suffixes = [
+            '_chats_ethics.csv',
+            '_ethics.csv',
+            '_conversation_log_ethics.csv',
+            '_chat.csv',
+            '_chats.csv',
+            '_conversation_log.csv',
+        ];
+        const candidates = [
+            ...suffixes.map(s => `${base}/${pid}_${sessionId}${s}`),
+            ...suffixes.map(s => `${base}/${PID}_${sessionId}${s}`),
+        ];
+        // Use HEAD to find which file exists, then GET it once
+        let foundPath = null;
+        for (const path of candidates) {
+            try {
+                const r = await fetch(path, { method: 'HEAD' });
+                if (r.ok) { foundPath = path; break; }
+            } catch { }
+        }
+        if (!foundPath) { alert('No chat CSV found for this participant/session.'); return; }
+        try {
+            const r = await fetch(foundPath);
+            const blob = await r.blob();
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = foundPath.split('/').pop();
+            a.click();
+            URL.revokeObjectURL(a.href);
+        } catch { alert('Download failed.'); }
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // GRAPH RENDERER
+    // ═══════════════════════════════════════════════════════════
+
+    function renderGraph(step) {
+        graphMsg.style.display = 'none';
+
+        const nodes = (step.nodes || []).map(n => ({
+            ...n,
+            actor_type: n.actor_type || n.actor || 'user',
+            time: Array.isArray(n.time) ? n.time : [n.time || ''],
+        }));
+        const edges = (step.edges || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        if (state.unroll) renderUnrolled(nodes, edges);
+        else renderLayered(nodes, edges);
+    }
+
+    // ── HTML escape ────────────────────────────────────────────
+    function esc(s) {
+        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ── Build node inner HTML (matches Svelte GraphEditor exactly) ──
+    // Params: node, optional visitNumber (unroll), optional isRevisit (unroll)
+    function nodeInnerHTML(node, visitNumber, isRevisit) {
+        const isAI = node.actor_type === 'ai';
+        const cls = ['graph-node-box', 'readonly', isAI ? 'ai' : 'human', isRevisit ? 'revisit' : ''].filter(Boolean).join(' ');
+
+        // Visit badge (unroll mode only)
+        const visitBadge = visitNumber != null
+            ? `<span class="visit-badge">${visitNumber}</span>` : '';
+
+        // Revisit tag (unroll mode only)
+        const revisitTag = isRevisit
+            ? `<div class="revisit-tag">↩ revisit</div>` : '';
+
+        // Time buttons
+        const timeBtns = (node.time || []).map(t =>
+            `<button type="button" class="graph-node-time" title="Jump to ${esc(t)}"
+                onclick="event.stopPropagation();seekFromNode('${esc(t)}')">${esc(t)}</button>`
+        ).join('');
+        const timesDiv = `<div class="graph-node-times">${timeBtns}</div>`;
+
+        // Verdict badges (adopt / modify / reject from user_response)
+        let verdictHTML = '';
+        const responses = Array.isArray(node.user_response) ? node.user_response : [];
+        const verdicts = responses.filter(r => {
+            const v = (r.label || '').toLowerCase();
+            return v === 'adopt' || v === 'modify' || v === 'reject';
+        });
+        if (verdicts.length > 0) {
+            const badges = verdicts.map(r =>
+                `<span class="verdict-badge verdict-${esc((r.label || 'unknown').toLowerCase())}">
+                    ${esc((r.label || 'unknown').toUpperCase())} | Source: ${esc(r.source_node || '')}, AI: ${esc(r.target_ai || '')}
+                 </span>`
+            ).join('');
+            verdictHTML = `<div class="node-verdict-row">${badges}</div>`;
+        }
+
+        // Node relationship pills (source / target)
+        let pillHTML = '';
+        const pills = nodePillsFor(node);
+        if (pills.length > 0) {
+            const pillSpans = pills.map(p =>
+                `<span class="node-pill node-pill-${p.role} node-pill-${p.verdict}"
+                    title="${p.role === 'source' ? 'Source node' : 'Target AI node'} for ${esc(p.otherId)} (${p.verdict})">
+                    ${p.role === 'source' ? 'Source Node' : 'Target AI Node'} for ${esc(p.otherId)}
+                 </span>`
+            ).join('');
+            pillHTML = `<div class="node-pill-row">${pillSpans}</div>`;
+        }
+
+        const labelDiv  = `<div class="graph-node-label">${esc(node.label || '')}</div>`;
+        const detailDiv = `<div class="graph-node-detail">${esc(node.detail || '')}</div>`;
+        const idDiv     = `<div class="graph-node-id">${esc(node.id || '')}</div>`;
+
+        return `<div xmlns="http://www.w3.org/1999/xhtml" class="graph-node-wrap">
+  <div class="${cls}" role="button" tabindex="0"
+       onclick="seekFromNodeFirst(this)"
+       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();seekFromNodeFirst(this)}">
+    ${visitBadge}${revisitTag}${timesDiv}${verdictHTML}${pillHTML}${labelDiv}${detailDiv}${idDiv}
+  </div>
+</div>`;
+    }
+
+    // ── Build foreignObject wrapping a node ────────────────────
+    function nodeFO(node, x, y, visitNumber, isRevisit) {
+        return `<foreignObject x="${x}" y="${y}" width="${NODE_W}" height="${NODE_H}" overflow="visible">
+  ${nodeInnerHTML(node, visitNumber, isRevisit)}
+</foreignObject>`;
+    }
+
+    // ── Compute node pills map (matches Svelte nodePillMap) ────
+    // Built fresh per step render; keyed by node.id
+    let _pillMap = new Map();
+    function buildPillMap(nodes) {
+        _pillMap = new Map();
+        for (const node of nodes) {
+            if (!Array.isArray(node.user_response)) continue;
+            for (const r of node.user_response) {
+                const verdict = (r.label || '').toLowerCase();
+                if (!verdict) continue;
+                const add = (id, role, otherId) => {
+                    if (!id) return;
+                    if (!_pillMap.has(id)) _pillMap.set(id, []);
+                    _pillMap.get(id).push({ role, verdict, otherId });
+                };
+                add(r.source_node || '', 'source', node.id);
+                add(r.target_ai   || '', 'target', node.id);
+            }
+        }
+    }
+    function nodePillsFor(node) {
+        return _pillMap.get(node.id) || [];
+    }
+
+    // ── SVG helpers ────────────────────────────────────────────
+    function makeSVG(W, H) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+<defs>
+  <marker id="arrowSeq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#2f80c9"/>
+  </marker>
+  <marker id="arrowLoop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+    <path d="M0,0 L10,5 L0,10 z" fill="#d8517a"/>
+  </marker>
+</defs>`;
+    }
+
+    // ── UNROLLED VIEW ──────────────────────────────────────────
+    function renderUnrolled(nodes, edges) {
+        buildPillMap(nodes);
+        const nodeMap = new Map(nodes.map(n => [n.id, n]));
+        const localEdges = edges.filter(e => nodeMap.has(e.from) && nodeMap.has(e.to));
+
+        let walk = [];
+        if (localEdges.length > 0) {
+            const walkIds = [localEdges[0].from, ...localEdges.map(e => e.to)];
+            const seen = new Set();
+            walk = walkIds.map((id, i) => {
+                const node = nodeMap.get(id);
+                const firstVisit = !seen.has(id);
+                seen.add(id);
+                return {
+                    node, firstVisit,
+                    visitNumber: i + 1,
+                    edgeType: i > 0 ? localEdges[i - 1].type : null,
+                    edgeIdx: i > 0 ? i - 1 : null,
+                };
+            });
+        } else {
+            walk = nodes.map((n, i) => ({ node: n, firstVisit: true, visitNumber: i + 1, edgeType: null, edgeIdx: null }));
+        }
+
+        // Orphan nodes not in walk
+        const walkedIds = new Set(walk.map(v => v.node.id));
+        const orphans = nodes.filter(n => !walkedIds.has(n.id));
+
+        const totalRows = walk.length + orphans.length;
+        const sectionGap = walk.length > 0 && orphans.length > 0 ? V_GAP : 0;
+        const W = SIDE_PAD * 2 + NODE_W;
+        const H = TOP_PAD * 2 + totalRows * NODE_H + Math.max(0, totalRows - 1) * V_GAP + sectionGap;
+        const cx = SIDE_PAD + NODE_W / 2;
+
+        let svg = makeSVG(W, H);
+
+        walk.forEach(({ node, firstVisit, visitNumber, edgeType, edgeIdx }, i) => {
+            const y = TOP_PAD + i * (NODE_H + V_GAP);
+            if (i > 0) {
+                const prevY = TOP_PAD + (i - 1) * (NODE_H + V_GAP);
+                const isLoop = edgeType === 'loop';
+                const color = isLoop ? '#d8517a' : '#2f80c9';
+                const dash = isLoop ? 'stroke-dasharray="6 4"' : '';
+                const marker = isLoop ? 'arrowLoop' : 'arrowSeq';
+                svg += `<line x1="${cx}" y1="${prevY + NODE_H}" x2="${cx}" y2="${y - 6}"
+                    stroke="${color}" stroke-width="2.5" ${dash} marker-end="url(#${marker})"/>`;
+                if (edgeIdx !== null) {
+                    const edgeClass = isLoop ? 'graph-edge-order loop' : 'graph-edge-order';
+                    svg += `<text x="${cx + 18}" y="${prevY + NODE_H + V_GAP / 2}"
+                        text-anchor="start" dominant-baseline="middle" class="${edgeClass}">${edgeIdx + 1}</text>`;
+                }
+            }
+            svg += nodeFO(node, SIDE_PAD, y, visitNumber, !firstVisit);
+        });
+
+        orphans.forEach((node, i) => {
+            const y = TOP_PAD + (walk.length + i) * (NODE_H + V_GAP) + sectionGap;
+            svg += nodeFO(node, SIDE_PAD, y, null, false);
+        });
+
+        svg += '</svg>';
+        replaceSVG(svg);
+    }
+
+    // ── LAYERED VIEW ───────────────────────────────────────────
+    function renderLayered(nodes, edges) {
+        buildPillMap(nodes);
+        const nodeMap = new Map(nodes.map(n => [n.id, n]));
+        const idxMap  = new Map(nodes.map((n, i) => [n.id, i]));
+
+        const validEdges = edges.filter(e => nodeMap.has(e.from) && nodeMap.has(e.to));
+        const seqEdges   = validEdges.filter(e => e.type !== 'loop');
+
+        // Topological sort
+        const outAdj = {}, indeg = {};
+        nodes.forEach(n => { outAdj[n.id] = []; indeg[n.id] = 0; });
+        seqEdges.forEach(e => { outAdj[e.from].push(e.to); indeg[e.to]++; });
+
+        const rem = new Set(nodes.map(n => n.id)), work = { ...indeg }, order = [];
+        while (rem.size > 0) {
+            let pick = null, pickIdx = Infinity;
+            for (const id of rem) {
+                if (work[id] === 0 && idxMap.get(id) < pickIdx) { pick = id; pickIdx = idxMap.get(id); }
+            }
+            if (!pick) {
+                let best = Infinity;
+                for (const id of rem) {
+                    if (work[id] < best || (work[id] === best && idxMap.get(id) < pickIdx)) {
+                        pick = id; best = work[id]; pickIdx = idxMap.get(id);
+                    }
+                }
+            }
+            if (!pick) break;
+            order.push(pick);
+            rem.delete(pick);
+            outAdj[pick].forEach(t => { if (rem.has(t)) work[t] = Math.max(0, work[t] - 1); });
+        }
+
+        const orderPos = {};
+        order.forEach((id, i) => orderPos[id] = i);
+
+        const fwdEdges = seqEdges.filter(e => orderPos[e.from] < orderPos[e.to]);
+        const fwdKeys  = new Set(fwdEdges.map(e => `${e.from}|||${e.to}`));
+        const preds    = {};
+        fwdEdges.forEach(e => { (preds[e.to] = preds[e.to] || []).push(e.from); });
+
+        // Assign layers
+        const layer = {};
+        order.forEach(id => {
+            const ps = preds[id] || [];
+            layer[id] = ps.length ? Math.max(...ps.map(p => layer[p] || 0)) + 1 : 0;
+        });
+
+        // Assign columns within each layer
+        const layerGroups = [];
+        order.forEach(id => { (layerGroups[layer[id]] = layerGroups[layer[id]] || []).push(id); });
+
+        // Dummy nodes for long edges
+        let dummyCtr = 0;
+        const chainOf = {}, chainChildren = {}, chainParents = {};
+        fwdEdges.forEach(e => {
+            const chain = [e.from];
+            for (let l = layer[e.from] + 1; l < layer[e.to]; l++) {
+                const id = `__d${dummyCtr++}`; layer[id] = l;
+                (layerGroups[l] = layerGroups[l] || []).push(id);
+                chain.push(id);
+            }
+            chain.push(e.to);
+            for (let i = 0; i < chain.length - 1; i++) {
+                (chainChildren[chain[i]] = chainChildren[chain[i]] || []).push(chain[i + 1]);
+                (chainParents[chain[i + 1]] = chainParents[chain[i + 1]] || []).push(chain[i]);
+            }
+            chainOf[`${e.from}|||${e.to}`] = chain;
+        });
+
+        const col = {};
+        layerGroups.forEach((group, gl) => {
+            if (gl === 0) { group.forEach((id, i) => col[id] = i); return; }
+            const ordered = group.map(id => {
+                const ps = (chainParents[id] || []).filter(p => col[p] !== undefined);
+                const desired = ps.length ? ps.reduce((s, p) => s + col[p], 0) / ps.length : (idxMap.get(id) || 999);
+                return { id, desired, orig: idxMap.get(id) || 999 };
+            });
+            ordered.sort((a, b) => a.desired - b.desired || a.orig - b.orig);
+            ordered.forEach((item, i) => col[item.id] = i);
+        });
+
+        const maxCols = Math.max(1, ...layerGroups.map(g => g.length));
+        const gridW   = maxCols * NODE_W + Math.max(0, maxCols - 1) * H_GAP;
+
+        // Count back-edges for extra right margin
+        const backEdges = validEdges.filter(e => !(e.type !== 'loop' && fwdKeys.has(`${e.from}|||${e.to}`)));
+        const selfLoops = backEdges.filter(e => e.from === e.to).length;
+        const otherBack = backEdges.filter(e => e.from !== e.to).length;
+        const leftExtra  = selfLoops ? 30 + selfLoops * 24 : 0;
+        const rightExtra = otherBack ? 50 + otherBack * 28 : 0;
+
+        const W = SIDE_PAD + leftExtra + gridW + SIDE_PAD + rightExtra;
+        const H = TOP_PAD * 2 + layerGroups.length * NODE_H + Math.max(0, layerGroups.length - 1) * V_GAP;
+        const centerX = SIDE_PAD + leftExtra + gridW / 2;
+
+        function nodeX(id) {
+            const gl = layer[id] || 0;
+            const grp = layerGroups[gl] || [id];
+            const gw = grp.length * NODE_W + Math.max(0, grp.length - 1) * H_GAP;
+            return centerX - gw / 2 + (col[id] || 0) * (NODE_W + H_GAP);
+        }
+        function nodeY(id) { return TOP_PAD + (layer[id] || 0) * (NODE_H + V_GAP); }
+
+        // Deduplicate edges (group same from→to pairs)
+        const edgeMap = new Map();
+        edges.filter(e => nodeMap.has(e.from) && nodeMap.has(e.to)).forEach((e, ei) => {
+            const key = `${e.from}|||${e.to}`;
+            if (!edgeMap.has(key)) edgeMap.set(key, { ...e, indices: [ei], nums: [ei + 1] });
+            else { const ex = edgeMap.get(key); ex.indices.push(ei); ex.nums.push(ei + 1); if (e.type === 'loop') ex.type = 'loop'; }
+        });
+
+        let svg = makeSVG(W, H);
+
+        // Draw edges
+        const backEdgeList = [...edgeMap.values()].filter(e => !(e.type !== 'loop' && fwdKeys.has(`${e.from}|||${e.to}`)));
+        let backNonSelfIdx = 0, selfIdx = 0;
+
+        edgeMap.forEach(edge => {
+            const key = `${edge.from}|||${edge.to}`;
+            const isFwd = edge.type !== 'loop' && fwdKeys.has(key);
+            const isLoop = edge.type === 'loop';
+            const color  = isLoop ? '#d8517a' : '#2f80c9';
+            const dash   = !isFwd ? 'stroke-dasharray="6 4"' : '';
+            const marker = isLoop ? 'arrowLoop' : 'arrowSeq';
+            const edgeClass = isLoop ? 'graph-edge-order loop' : 'graph-edge-order';
+
+            let path, labelX, labelY;
+
+            if (isFwd) {
+                // Forward curved path through chain
+                const chain = chainOf[key] || [edge.from, edge.to];
+                const segs = chain.length - 1;
+                const labelSeg = Math.floor((segs - 1) / 2);
+                let d = '';
+                for (let i = 0; i < segs; i++) {
+                    const fx = nodeX(chain[i]) + NODE_W / 2;
+                    const fy = nodeY(chain[i]) + (i === 0 ? NODE_H : NODE_H / 2);
+                    const tx = nodeX(chain[i + 1]) + NODE_W / 2;
+                    const ty = nodeY(chain[i + 1]) + (i === segs - 1 ? -6 : NODE_H / 2);
+                    const dy = Math.max(20, ty - fy);
+                    if (i === 0) d += `M ${fx} ${fy} `;
+                    d += `C ${fx} ${fy + dy / 2}, ${tx} ${ty - dy / 2}, ${tx} ${ty} `;
+                    if (i === labelSeg) { labelX = (fx + tx) / 2; labelY = (fy + ty) / 2; }
+                }
+                path = d.trim();
+            } else if (edge.from === edge.to) {
+                // Self-loop on left side
+                const reach = 34 + selfIdx * 24; selfIdx++;
+                const x = nodeX(edge.from);
+                const y = nodeY(edge.from);
+                const yTop = y + NODE_H * 0.28, yBot = y + NODE_H * 0.72;
+                path = `M ${x} ${yTop} C ${x - reach} ${yTop - 8}, ${x - reach} ${yBot + 8}, ${x} ${yBot}`;
+                labelX = x - reach - 9; labelY = (yTop + yBot) / 2;
+            } else {
+                // Back-edge on right side
+                const bulge = centerX + (maxCols * (NODE_W + H_GAP)) / 2 + 40 + backNonSelfIdx * 28;
+                backNonSelfIdx++;
+                const sx = nodeX(edge.from) + NODE_W, sy = nodeY(edge.from) + NODE_H / 2;
+                const tx = nodeX(edge.to)   + NODE_W, ty = nodeY(edge.to)   + NODE_H / 2;
+                path = `M ${sx} ${sy} C ${bulge} ${sy}, ${bulge} ${ty}, ${tx} ${ty}`;
+                labelX = bulge; labelY = (sy + ty) / 2;
+            }
+
+            svg += `<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" ${dash} marker-end="url(#${marker})" pointer-events="none"/>`;
+            svg += `<text x="${labelX}" y="${labelY}" text-anchor="middle" dominant-baseline="middle" class="${edgeClass}">${edge.nums.join(', ')}</text>`;
+        });
+
+        // Draw nodes
+        nodes.forEach(n => {
+            if (layer[n.id] === undefined) return;
+            svg += nodeFO(n, nodeX(n.id), nodeY(n.id), null, false);
+        });
+
+        svg += '</svg>';
+        replaceSVG(svg);
+    }
+
+    // ── Replace SVG in DOM and rebind seek handlers ─────────────
+    function replaceSVG(svgString) {
+        graphMsg.style.display = 'none';
+        // Parse the new SVG
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = svgString;
+        const newSvg = wrapper.firstElementChild;
+        // Reuse existing svg element if present, otherwise append
+        const existing = graphScroll.querySelector('svg');
+        if (existing) {
+            // Copy attributes (viewBox, width, height) and content
+            existing.setAttribute('viewBox', newSvg.getAttribute('viewBox') || '');
+            existing.setAttribute('width',   newSvg.getAttribute('width')   || '');
+            existing.setAttribute('height',  newSvg.getAttribute('height')  || '');
+            existing.innerHTML = newSvg.innerHTML;
+            existing.style.display = 'block';
+        } else {
+            graphScroll.appendChild(newSvg);
+        }
+    }
+
+    // ── Global seek handlers (called from inline SVG onclick) ──
+    window.seekFromNode = function (timeStr) {
+        if (!timeStr) return;
+        seekVideo(timeStrToSecs(timeStr));
+    };
+    window.seekFromNodeFirst = function (el) {
+        const t = el.querySelector('[class~="graph-node-time"]')?.textContent?.trim();
+        if (t) seekVideo(timeStrToSecs(t));
+    };
+
+</script>
+</body>
+</html>

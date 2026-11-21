@@ -1,0 +1,276 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-19T21:52:28.747446Z,How can I choose a suitable Mixamo animation for my character? how Can I import and retarget in Maya?,,,,
+Claude,2026-08-19T21:52:28.740365Z,,,,Synthesized comprehensive Maya-Mixamo retargeting workflow using HumanIK.,
+Claude,2026-08-19T21:52:57.723045Z,"Here's the full workflow, broken into the two things you're asking about: picking the right clip, then getting it onto your rig.
+
+## Choosing the right Mixamo animation
+
+**1. Match skeleton type to your character**
+Mixamo's library is built for a standard biped skeleton. If your character isn't already rigged, Mixamo can auto-rig it (upload the mesh, mark chin/wrists/elbows/knees/groin, and it generates a skeleton). If it's already rigged, you'll be retargeting the *animation* onto your own skeleton — the download doesn't need to match bone names, just bipedal proportions reasonably well.
+
+**2. Check proportions before committing**
+Preview the animation on the Mixamo character viewer first. If your character has very different limb proportions (long arms, short legs, oversized head, etc.), some animations will show foot sliding or hand clipping once retargeted — this is worth eyeballing before you build a whole scene around a clip.
+
+**3. Decide in-place vs. root motion**
+Mixamo has an ""In Place"" toggle for locomotion cycles (walk, run, etc.). Turn it on if you plan to drive movement yourself (game engine, path animation) — off if you want the baked-in root translation for a cinematic.
+
+**4. Trim to get a clean loop**
+The Mixamo preview lets you drag start/end frame markers before downloading — useful for getting a clean loop point on cycles like idles or walks, rather than fixing it in Maya after.
+
+**5. Set download options deliberately**
+- **Format:** FBX for Maya (binary)
+- **Skin:** ""With Skin"" if you want Mixamo's mesh+skeleton too; ""Without Skin"" if you're only after the animation to retarget onto your own rig
+- **FPS:** match your project's frame rate (default 30)
+- **Keyframe reduction:** leave as ""none"" unless file size is a real concern — reduction can subtly smooth out fast motion
+
+## Importing into Maya
+
+`File > Import`, select the FBX. If you downloaded ""With Skin,"" you'll get the Mixamo character and skeleton (joints prefixed `mixamorig:`) as a new hierarchy in your scene alongside your own rig.
+
+## Retargeting with HumanIK (Maya's built-in tool)
+
+This is the standard path when the Mixamo skeleton doesn't match your character's joint names/hierarchy.
+
+1. **Have both skeletons in the same scene** — your custom rig and the imported Mixamo animated skeleton.
+2. Open **Windows > Animation Editors > HumanIK**.
+3. **Define the source (Mixamo) character**: create a new Character Definition, and in the skeleton mapping dropdown look for the **""Mixamo.com""** preset — Maya ships with this template and it auto-maps the `mixamorig:` joints to HIK's standard slots. Big time-saver.
+4. **Define your target character**: create another Character Definition and manually drag each of your rig's joints (hips, spine, clavicles, arms, legs, etc.) into the matching HIK slots. Both definitions need enough of the required joints filled in to ""lock"" (they'll show green when fully mapped).
+5. **Align T-pose/A-pose**: make sure both skeletons are in a matching rest pose before you go further — mismatched rest poses are the #1 cause of twisted limbs or popping after retargeting.
+6. **Retarget**: in the HIK Character Controls window, select your target character, then under the **Source** dropdown choose the Mixamo character. Your rig should immediately start playing the Mixamo animation live.
+7. **Bake it**: this live retarget won't survive on its own — use **Bake to Skeleton** (or Bake to Control Rig if you're driving controls) to convert it into real keyframes on your rig.
+8. **Clean up**: disconnect the HIK source link, delete the imported Mixamo skeleton/mesh if you don't need it anymore, and check for foot sliding or clipping frame by frame.
+
+**Common gotchas:** joint orientation mismatches (causes limb twisting), scale differences between the Mixamo skeleton and your rig, and non-standard rigs (extra twist joints, IK-only setups) that HIK's basic mapping doesn't handle gracefully. If your rig is unusual, tools like Advanced Skeleton or Rokoko's retargeter sometimes handle edge cases better than stock HIK.
+
+If you run into a specific error or a particular joint behaving badly once you're in there, send me a screenshot or describe what you're seeing and I can help troubleshoot.",,,,
+Human,2026-08-19T22:00:56.730381Z,what settings should I use when exporting my animated character from maya and importing it to Unreal? Should I use fbx with skeleton or alembic?,,,,
+Claude,2026-08-19T22:00:56.724551Z,,,,"Weighed FBX versus Alembic, then synthesized export-import settings.",
+Claude,2026-08-19T22:01:19.994385Z,"FBX with skeleton is the right call for animated character work — Alembic isn't a good fit here.
+
+## Why not Alembic
+
+Alembic exports baked vertex-cache geometry, not a skeleton hierarchy. Unreal can import Alembic (mainly for cloth sims, crowd caches, or complex non-skeletal deformation), but you lose the actual joint hierarchy — meaning no retargeting, no Animation Blueprint blending, no reusing the skeleton across multiple animation clips, and much larger file sizes since every vertex position is baked per frame instead of just joint transforms. Alembic is really for baked simulation results, not character rigs meant to be reused/blended in an engine.
+
+## Maya export settings (FBX)
+
+**Selection:** Select the skeleton + skinned mesh together (root joint, mesh, and any blend shapes/deformers). If you're exporting animation-only to reuse on an already-imported skeleton, just select the skeleton.
+
+**File > Export Selection**, FBX options:
+- **Animation:** ✅ checked
+- **Bake Animation:** ✅ checked (bakes controller/constraint-driven motion down to joint keys — critical if you're using IK, constraints, or a control rig, since Unreal only reads joint transforms)
+- **Resample All:** ✅ checked
+- **Deformed Models > Skins:** ✅ checked
+- **Deformed Models > Blend Shapes:** ✅ if used
+- **Smoothing Groups:** ✅ checked (helps normals import cleanly)
+- **Smooth Mesh:** off unless you want the subdivided result baked in
+
+**Units and axes — the usual source of pain:**
+- Set Maya's working units to **centimeters** (Windows > Settings/Preferences > Preferences > Settings) to match Unreal's default unit scale. You *can* let the FBX exporter's ""Convert Units"" handle mismatches, but matching upfront avoids scale-related bugs later (e.g. physics, cloth, attachment offsets).
+- Leave **Up Axis as Y-up** in the exporter — don't manually force Z-up. Both Maya's FBX exporter and Unreal's importer already know how to reconcile Maya's Y-up with Unreal's Z-up internally; forcing it yourself is a common cause of characters importing rotated 90°.
+- **Scale Factor:** 1.0 (avoid scaling in the export dialog — scale in-engine instead if needed)
+
+## Unreal import settings
+
+- **Import Mesh:** checked (uncheck this if you're only importing an animation clip onto an *existing* skeleton — point it at your shared **Skeleton asset** instead)
+- **Skeleton:** leave blank on the first import to create a new one; on every subsequent animation-only FBX, assign it to that same Skeleton asset — this is what lets all your animations share one skeleton and retarget/blend together in an Animation Blueprint
+- **Import Animations:** checked if the FBX has keyed data
+- **Normal Import Method:** ""Import Normals and Tangents"" if you baked tangents in Maya (avoids Unreal recomputing them, which can shift shading slightly)
+- **Convert Scene:** leave on default/checked — this is the setting that reconciles axis/unit differences automatically
+- Skip **Create Physics Asset** on every animation-only import after the first — you only need one per skeleton
+
+## Typical pipeline
+
+Import the skinned mesh + skeleton once (creates the Skeleton and Physics Asset). Every animation after that: export animation-only FBX from Maya (skeleton selected, baked), import in Unreal pointing at that existing Skeleton asset, ""Import Mesh"" unchecked. Keeps everything sharing one skeleton so Unreal can blend and retarget across all your clips.
+
+If you hit a specific import warning or the mesh comes in rotated/scaled wrong, paste the exact message or a screenshot and I can pin down which setting's off.",,,,
+Human,2026-08-19T22:15:35.913044Z,How should I connect my substance painter texture maps in UE so the character materials display correctly yo the scene lighting?,,,,
+Claude,2026-08-19T22:15:35.883427Z,,,,Synthesized PBR workflow from Substance Painter to Unreal Engine materials.,
+Claude,2026-08-19T22:15:58.495720Z,"The key is matching Substance Painter's export packing to what Unreal's material graph expects to read — most ""washed out"" or ""flat"" results come from a mismatch there, not from lighting itself.
+
+## Export from Substance Painter
+
+Use the **""Unreal Engine 4 (Packed)""** export preset (`File > Export Textures`, choose that config in the dropdown). It outputs:
+
+- **BaseColor** — straight RGB
+- **Normal** — make sure your project's normal format is set to **OpenGL**, not DirectX (check `Edit > Project Configuration`). Unreal reads OpenGL-style normals (green channel Y+); DirectX normals will make surface detail look inverted/dented instead of raised.
+- **OcclusionRoughnessMetallic (ORM)** — a single packed texture: R = AO, G = Roughness, B = Metallic
+
+The packed ORM approach is what you want for a game-ready character — one texture sample instead of three saves texture bandwidth. If you're just prototyping, unpacked (separate AO/Roughness/Metallic files) works too but isn't worth it long-term.
+
+## Import settings in Unreal
+
+This is where most lighting issues actually come from:
+
+- **BaseColor:** sRGB ✅ checked, compression Default
+- **Normal map:** sRGB ❌ unchecked, Compression Settings set to **Normalmap** — Unreal usually auto-detects this from the `_N` suffix, but verify it
+- **ORM packed texture:** sRGB ❌ **unchecked** — this is the single most common mistake. If sRGB is left on for the ORM map, Unreal gamma-corrects the roughness/metallic values and your lighting response will be subtly wrong (too glossy or too matte in ways that are hard to diagnose). Set Compression to **Masks**.
+
+## Material graph setup
+
+1. Three Texture Sample nodes: BaseColor, Normal, ORM
+2. On the Normal texture sample, set its texture's **Texture > Details > Compression** to Normalmap (should carry over from import) — plug straight into the material's **Normal** input
+3. BaseColor RGB → **Base Color** input
+4. On the ORM sample, break out channels: **R → Ambient Occlusion**, **G → Roughness**, **B → Metallic** (drag directly from the R/G/B output pins on the texture sample node — no need for a separate mask node)
+5. Metallic should read as clean black or white — if it looks grey/muddy in the material preview, double check sRGB is off on that texture
+
+## Why lighting can still look ""off"" even with correct maps
+
+If materials read correctly in the material editor but look wrong *in the level*, the cause is usually scene lighting setup, not the material:
+
+- **Skylight** — you need one for the material's AO/metallic response to read correctly against ambient light; without it, metallic surfaces especially will look flat black in shadow areas
+- **Lightmass build (UE4 / UE5 without Lumen)** — static lighting needs a build (`Build > Build Lighting`) or you'll see incorrect indirect bounce, especially noticeable on skin/cloth roughness values
+- **Lumen (UE5)** — if enabled, this is handled dynamically, but make sure **Lumen Reflections** are on, not just Lumen GI, or metallic surfaces won't pick up proper reflections
+- **Reflection captures** — a Sphere or Box Reflection Capture near the character helps a lot for glossy/metal surfaces reading correctly, especially indoors
+
+If you're seeing a specific visual artifact — patchy AO, glossy plastic-looking skin, dark rim on metal — tell me what it looks like and I can narrow down which of these is the culprit.",,,,
+Human,2026-08-19T22:40:06.668386Z,What kind of simple environment would help keep my character the main visual focus?,,,,
+Claude,2026-08-19T22:40:06.660952Z,,,,Synthesized design principles to prioritize character prominence.,
+Claude,2026-08-19T22:40:12.169351Z,"Simplicity here isn't really about having *less* — it's about controlling contrast so the viewer's eye has nowhere else to land. A few principles, then some concrete ways to execute them in Unreal.
+
+## Core principles
+
+**Value contrast over detail.** The single most reliable trick: keep your environment's value range (light/dark) narrower and closer together than your character's. If your character has strong highlights and deep shadows and the environment sits in a tighter midtone band, the eye reads the character as the ""loudest"" thing in the frame regardless of how much geometry is around them.
+
+**Desaturate and simplify the palette.** A near-monochrome or two-tone environment (a wall, a floor, a horizon) lets your character's color — especially skin tones and any saturated costume elements — pop by contrast. Save your most saturated color for the character.
+
+**Negative space is your friend.** A large empty plane (a wall, sky, fog bank, wide floor) behind the character does more work than a detailed set. It gives the eye room to rest and makes the silhouette read instantly.
+
+**Depth separation via blur/atmosphere.** Push anything not-the-character back with atmospheric perspective (haze, fog) or actual camera depth of field. Even a subtle DOF falloff on background elements immediately signals ""this isn't the subject.""
+
+**Silhouette clarity.** Whatever background shapes you do include, avoid lines or edges that intersect your character's outline (a doorway edge running right through their arm, a pillar behind their head). Simple vertical/horizontal environment shapes with the character breaking them cleanly reads best.
+
+## A few environment archetypes that work well
+
+- **Studio/void setup** — seamless backdrop curve (like a photography cyc wall), single key light + rim light, maybe a soft gradient floor-to-wall. Zero narrative context, maximum character focus. Good for portfolio/turntable-style presentation.
+- **Single architectural plane** — one wall or large simple structure (concrete, stone, wood) with real material detail but no competing props, lit so it falls into shadow toward the edges.
+- **Open landscape with a horizon line** — sky/ground split, maybe distant terrain pushed into haze. Works well when you want scale/mood without prop clutter.
+- **Fog/mist environment** — cheap to set up, naturally isolates the character since everything past a certain depth just fades to a flat color.
+
+## Executing this in Unreal
+
+- **Exponential Height Fog** — instantly pushes background into a flat, desaturated value, even over a fairly detailed level
+- **Post Process Volume → Depth of Field** — keep focal distance locked on the character, let background fall soft
+- **Single strong key light + rim/back light** on the character, environment lit by a dimmer, cooler fill or just skylight — the contrast in light *intensity* between character and environment reads as importance
+- **Post Process → Vignette**, subtle, darkens frame edges and re-centers attention
+- A **large simple plane with a gradient or subtly noisy material** (not pure flat color, which can look cheap/CG under real-time lighting) makes an efficient backdrop
+- If you want ground contact without a full set, a **circular or rectangular platform** the character stands on, fading to black/fog past its edge, is a common presentation trick
+
+If you tell me whether this is for a portfolio render, a game level, or an animated short, I can get more specific — the ""right"" simple environment differs a bit depending on whether it needs to hold up from multiple camera angles or just one hero shot.",,,,
+Human,2026-08-19T22:45:44.974544Z,What easy lighting setup would you recommend to clearly separate my character from the background?,,,,
+Claude,2026-08-19T22:45:44.968533Z,,Architecting three-point lighting for character separation.,,Architected three-point lighting diagram with spatial positioning.,
+Claude,2026-08-19T22:45:55.363005Z,,Loading visualization helpers,visualize:read_me,Architected three-point lighting diagram with spatial positioning.,
+Claude,2026-08-19T22:47:19.506537Z,Here's a visual for the light placement:,,,,
+Claude,2026-08-19T22:47:19.511916Z,,Rendering interactive widget: three_point_lighting_separation,visualize:show_widget,,
+Claude,2026-08-19T22:47:27.992493Z,"## The classic setup: three-point lighting
+
+**Key light** — your main, brightest source, angled roughly 30–45° off the camera axis. This does most of the modeling on your character's face/form and defines the primary shadow direction.
+
+**Fill light** — much dimmer (often 1/4 to 1/2 the key's intensity) and on the opposite side, just enough to soften the shadows the key creates without flattening them out. Too strong and you lose the separation the key was giving you in the first place.
+
+**Rim/back light** — the one doing the actual separation work. Placed behind the character, aimed back toward camera, it kicks a thin line of light along their silhouette edge — hair, shoulders, arm outlines. This is what visually lifts a character off a background of similar value, even when key/fill alone would let them blend in.
+
+## In Unreal specifically
+
+- **Key:** a Spot Light or Directional Light at that 30–45° angle, moderate-high intensity, slightly warm color temp
+- **Fill:** a Spot Light or just Skylight intensity turned up, cooler color temp for contrast against the key, much lower intensity
+- **Rim:** a Spot Light placed behind/above the character pointing back at camera — narrow cone angle so it doesn't spill onto the background and wash out the contrast you're trying to create
+- Keep the **background's light levels lower** than the character's — even a well-placed rim light won't read if your backdrop is as bright as your subject
+- If using Lumen, these still work as direct lights; just make sure **Lumen Reflections** and **Global Illumination** are on so the rim light's contribution reads correctly rather than looking like a flat highlight
+
+## Quick gut-check
+
+If you disable everything but the rim light, you should still be able to make out your character's outline clearly against the background. If you can't, push its intensity up or narrow its cone until the edge separation is obvious — then bring key and fill back in.
+
+If you paste a screenshot of your current lighting once it's set up, I can help you dial in the specific intensities and angles for your scene.",,,,
+Human,2026-08-19T22:52:48.827855Z,what adjustments should I adjust to control the intensity of a Fx Niagara effect?,,,,
+Claude,2026-08-19T22:52:48.822252Z,,,,Synthesized multiple control approaches for effect intensity adjustment.,
+Claude,2026-08-19T22:53:05.368243Z,"""Intensity"" for a Niagara effect usually means one of a few different things depending on what you're after — worth being precise about which, since the settings live in different places.
+
+## If you mean visual brightness (glow, HDR punch)
+
+This lives in the **material**, not Niagara itself:
+- Open the particle material, find the **Emissive Color** node
+- Multiply it by a scalar parameter (e.g. `EmissiveIntensity`) rather than hardcoding — this is what lets bloom/eye-adaptation react properly instead of just looking like a brighter flat color
+- If using a **Niagara Light Renderer** (particles that cast actual dynamic light, not just emissive material), the **Intensity** field is directly on that renderer in the emitter — no material involved
+
+## If you mean how dense/strong the effect reads (more particles, bigger, faster)
+
+These are emitter-level modules:
+- **Spawn Rate / Spawn Burst Instantaneous** — more particles = a ""thicker,"" more intense-looking effect (smoke, sparks, magic swirl)
+- **Initialize Particle → Sprite Size** (or Scale Sprite Size module) — bigger particles read as more intense
+- **Initialize Particle → Lifetime** — longer-lived particles accumulate on screen, increasing perceived density
+- **Velocity modules** (Add Velocity, Gravity Force) — faster motion often reads as higher energy/intensity
+
+## If you mean opacity/alpha over the particle's life
+
+- **Color modules** (Scale Color, Curl Noise Color, or a Color over Life curve) — control the alpha channel directly; this is usually where ""fade in/fade out"" and overall translucency-based intensity get tuned
+
+## Making it a single adjustable knob (the usual production goal)
+
+If you want one slider that scales ""how intense"" the whole effect looks — from Blueprint, Sequencer, or a gameplay system — expose a **User Parameter**:
+
+1. In the Niagara System/Emitter, add a **User Parameter** (e.g. a float named `Intensity`)
+2. Reference it inside relevant modules via **Set Variables** or as a multiplier — e.g. multiply your Spawn Rate by it, multiply your Color module's alpha/emissive value by it, or feed it into a **Dynamic Material Parameter** that the material reads
+3. On the placed **Niagara Component** in the level (or via Blueprint using `Set Niagara Variable (Float)`), that parameter now shows up as a single override you can drive at runtime — including animating it over time for effects that ramp up or fade
+
+This last approach is the one most VFX artists actually build toward, since it decouples ""tuning the effect"" from ""controlling it in gameplay"" — designers/programmers get one clean float instead of needing to touch the Niagara graph.
+
+If you can tell me what kind of effect this is (explosion, magic aura, ambient particles, muzzle flash) and what ""intensity"" is supposed to represent for it, I can point to the specific module chain that'll get you there fastest.",,,,
+Human,2026-08-19T22:57:56.779111Z,WHAT UE settings would you recommend for a cinematic sequence?,,,,
+Claude,2026-08-19T22:57:56.772260Z,,,,Synthesized optimal Unreal Engine cinematic rendering configurations.,
+Claude,2026-08-19T22:58:08.866250Z,"For a proper cinematic, you're juggling three separate concerns: **render quality** (Movie Render Queue), **camera realism** (Sequencer/CineCamera), and **visual polish** (post-process). Here's how I'd approach each.
+
+## Movie Render Queue (the actual renderer)
+
+This is what you use instead of just hitting record in Sequencer — it renders offline, frame-by-frame, at much higher quality than realtime playback.
+
+- **Anti-Aliasing:** Set **Spatial Sample Count** to 4–8 and **Temporal Sample Count** to 8+ (higher for scenes with fine detail like hair or foliage). This is what eliminates shimmer/noise that realtime playback can't hide.
+- **Output resolution:** Render higher than your final delivery target if you have headroom (e.g. render at 4K, deliver 1080p) — downsampling cleans up remaining aliasing.
+- **Console Variable overrides** (set directly in the MRQ preset):
+  - `r.MotionBlurQuality 4`
+  - `r.AntiAliasingMethod 2` (TSR/TAA, or switch to path tracer if quality budget allows)
+  - `r.ScreenPercentage 100` (or higher for supersampling)
+- **Output format:** EXR sequence (not a compressed video) if this is going into any color grading/compositing pipeline — gives you the bit depth to grade properly. MP4/PNG only if this is truly final and untouched after.
+
+## Lumen / Nanite / shadows
+
+- **Lumen:** bump **Global Illumination Quality** and **Reflections Quality** up from their realtime defaults — cinematics can afford the frame-time hit realtime gameplay can't. Look for `r.Lumen.Reflections.Quality` and `r.Lumen.TranslucencyReflections.FrameStyleTemporalIndex` type settings, or use the **Post Process Volume → Lumen** overrides directly.
+- **Nanite:** should already be solid at default settings for cinematic-quality static geometry — main thing is making sure imported meshes actually have Nanite enabled, not falling back to lower LODs.
+- **Shadows:** enable **Virtual Shadow Maps** if not already — massively improves shadow crispness for hero shots over the older shadow map system.
+- If you have the budget, **Path Tracing** (Show → Path Tracer, or set as the render mode in MRQ) gives genuinely offline-renderer-quality lighting — this is the ""if it needs to look like a trailer"" option, at the cost of much longer render times.
+
+## Camera (CineCameraActor + Sequencer)
+
+- Use a **CineCameraActor**, not a regular camera — gives you real-world controls: focal length (mm), aperture (f-stop), sensor size, all matched to real lens presets if you want a specific look.
+- **Depth of field:** set a realistic aperture (f/1.4–f/2.8 for shallow, cinematic falloff; f/8+ for deep focus) and use **focus tracking** on your subject — either manual focus distance keyframed, or attach focus to an actor so it stays locked as they move.
+- **Motion blur:** controlled by shutter speed on the CineCamera — don't disable it globally for cinematics the way you might for gameplay; it's part of what sells the ""filmed"" look. Just make sure MRQ's temporal sampling is high enough that it renders clean, not just blurry/noisy.
+- **Exposure:** switch from Auto to **Manual** in the Post Process settings for the sequence — you want consistent, intentional exposure per shot, not the engine's auto-exposure hunting between frames.
+
+## Post-process / color
+
+- **Color grading:** use a Post Process Volume (or per-camera settings) for shadows/midtones/highlights color wheels — even subtle grading makes a huge difference in reading as ""cinematic"" vs ""engine viewport.""
+- **Film grain:** small amount, subtle — sells the filmic look without looking noisy.
+- **Chromatic aberration / vignette:** light touch, easy to overdo.
+- **Bloom & auto-exposure:** keep bloom modest unless going for a stylized look; with manual exposure set, auto-exposure settings become irrelevant.
+
+## A couple of things people forget
+
+- **Frame rate:** match your Sequencer/MRQ output frame rate to your delivery target (24fps for a film look, not the engine's default 30/60) — set this in the Level Sequence's display rate.
+- **Streaming/LOD:** force highest LOD and disable distance-based streaming pop-in for the render (MRQ has settings for this) — nothing kills a cinematic like a texture popping to a higher mip mid-shot.
+
+If you tell me whether you're going for a realtime-playback cinematic (in-engine cutscene, needs to run at frame rate) versus an offline-rendered trailer piece (quality over render time), I can narrow this down — the settings priorities shift quite a bit between those two goals.",,,,
+Human,2026-08-19T22:59:05.196477Z,where do I activate the Movie Render Queue?,,,,
+Claude,2026-08-19T22:59:05.190214Z,,,,Recalled stable UI navigation knowledge for Unreal Engine.,
+Claude,2026-08-19T22:59:12.379321Z,"It's a menu item, not something you need to separately install (it ships with Unreal, though it's a plugin under the hood):
+
+**Window → Cinematics → Movie Render Queue**
+
+That opens the Movie Render Queue window where you build your render job — add your Level Sequence, pick your output settings/preset, and hit Render (Local) or Render (Remote) if you've got a render farm set up.
+
+A couple of things worth knowing:
+
+- If you don't see it in the Window menu at all, check **Edit → Plugins → search ""Movie Render Queue""** — it should be enabled by default in recent UE5 versions, but if it's been disabled you'll need to re-enable it and restart the editor.
+- You can also launch it straight from **Sequencer's toolbar** — there's a small render icon/dropdown next to the regular playback controls that jumps directly into Movie Render Queue with that sequence pre-loaded, which is usually faster than opening it fresh each time.
+- The **MRQ window itself is just the job queue/settings UI** — the actual render doesn't start until you configure an output config (resolution, format, anti-aliasing samples, etc.) on the job and hit render. If you open it and see an empty queue, that's normal — click ""+ Render"" to add your current sequence as a job.
+
+If it's not showing up even after checking the plugin, let me know your UE version and I can check if anything's changed in where it lives.",,,,

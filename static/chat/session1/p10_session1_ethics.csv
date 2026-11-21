@@ -1,0 +1,266 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-10T22:07:45.669153Z,This is last year's powerpoint overview for the research requirements for the residency. I want to update it for today's information and also to make it sound less aggressive (I do not like the previous person who presented it and her attitude about things). Please note what would need updated to make those changes,,,,Research Intro 2026.pptx
+Claude,2026-08-10T22:07:46.210572Z,,Reading pptx skill before working with the file,view,"Identified outdated dates, tone issues, and security concerns requiring revision.",
+Claude,2026-08-10T22:07:48.665604Z,,Extract text content from the pptx,bash_tool,"Identified outdated dates, tone issues, and security concerns requiring revision.",
+Claude,2026-08-10T22:08:12.408145Z,"I went through the full deck. Here's what I found, split into three buckets: a genuine problem to fix immediately, content that's stale and needs current info, and language that reads as scolding/aggressive rather than informative.
+
+## ???? Fix this regardless of anything else
+**Slide 23 speaker notes contain a personal Gmail address and a plaintext password** (`[email address]` / `[password]`). This shouldn't be in a file that gets shared/reused year over year ?€? pull it out before this circulates further, and let [name] know in case that password is reused elsewhere.
+
+## Content that needs updated info (not just editing, but new facts from you)
+- **Slide 1**: Title year ""2025-2026"" and presenter name/role ?€? needs whoever is presenting this year.
+- **Every slide's footer**: ""7/18/2025"" is hardcoded on all 26 slides ?€? needs this year's date.
+- **Slide 3**: References ""end of PGY-3"" deadlines ?€? confirm these timelines haven't changed with any program updates.
+- **Slide 4**: ""Redcap site:"" has no link filled in ?€? needs the actual URL.
+- **Slide 5**: A screenshot placeholder image ?€? worth confirming it still reflects the current SharePoint/folder layout.
+- **Slide 6**: ""Case Report Patient Consent Form ?€? see ***"" ?€? the location was never filled in; needs a real pointer.
+- **Slide 13**: The Microsoft Forms link for the quarterly Research Update Form ?€? confirm it's still live.
+- **Slides 15?€?16**: Conference tables with specific due dates/conference dates ?€? these shift year to year and need to be re-verified (NEOMED, CLESOG, CCAG Scientific Session, ACOG, SASGOG, CREOG, AUGS, SMFM, SFP, ASRM).
+- **Slide 19**: Faculty contact table ?€? ""PAG: (recent person hired, name TBD)"" needs a real name now; worth double-checking the rest of the list is still current.
+- **Slide 20**: Key contacts table ?€? confirm names/emails/roles are still accurate (research chief will likely change).
+- **Slide 25**: ""Free journals to submit manuscripts"" slide appears to have no actual list/content ?€? needs to be filled in.
+
+## Tone edits (the ""sounding aggressive"" part)
+The deck leans heavily on commands, ALL CAPS emphasis, and warning-style phrasing. A few concrete examples and how I'd soften them:
+
+- Slide 3: *""If a summer research fellow writes the majority of your manuscript, this does NOT count for YOUR research requirement""* ??? reads like a scolding aside. Something like: *""Note: manuscripts primarily written by a summer research fellow don't fulfill your personal requirement.""*
+- Slide 10: *""you MUST submit this form... You are NOT guaranteed ability to attend conference, even if your abstract is accepted""* ??? very stern/caps-heavy. Could become: *""This form needs to be submitted 2 weeks before the abstract deadline. Acceptance of your abstract doesn't guarantee conference attendance ?€? the form lets admin check scheduling and coverage.""*
+- Slide 2: The repeated ""I am responsible for..."" framing (four times) reads like a legal disclosure rather than a helpful overview. Could reframe as a simple checklist: *""Before graduation, residents complete: a first-author poster, a first-author oral presentation, a first-author manuscript...""*
+- General pattern: words in ALL CAPS (NOT, MUST, YOUR) used for emphasis throughout the deck come across as scolding. Bolding key phrases instead of capitalizing them reads as informative rather than admonishing.
+- Slide 21: mostly fine, but *""Encourage med student they must be persistent in emailing if awaiting next step""* could soften to *""Encourage the med student to follow up if they haven't heard back.""*
+
+**My suggestion for next steps:** if you can give me (a) this year's dates/presenter name, (b) any updated contacts or conference dates, and (c) confirmation the Redcap/journals slides need placeholder content filled in ?€? I can produce the fully updated, re-toned deck in one pass rather than doing it piecemeal.",,,,
+Human,2026-08-10T22:10:17.374076Z,I want to do it piecemeal so that I can update the slides in the powerpoint myself,,,,
+Claude,2026-08-10T22:10:17.368648Z,"Makes sense ?€? that way you stay in control of the specifics. Here's a slide-by-slide punch list you can work through directly in PowerPoint:
+
+## Do these first (quick, mechanical)
+- **Slide 1**: Update title year and swap in this year's presenter name/role.
+- **All 26 slides**: Footer date ""7/18/2025"" ??? this year's date (Find & Replace works well here since it's identical text on every slide).
+- **Slide 23 notes**: Delete the personal email/password from the speaker notes entirely ?€? don't just update it, remove it.
+
+## Content to verify/fill in (you'll need current info for these)
+- **Slide 3**: Confirm PGY-3 deadline language still matches program policy.
+- **Slide 4**: Fill in the blank Redcap link.
+- **Slide 5**: Check the SharePoint screenshot still matches the current folder layout; re-screenshot if not.
+- **Slide 6**: Fill in the ""***"" placeholder for where the Case Report Patient Consent Form actually lives.
+- **Slide 13**: Confirm the Microsoft Forms link still works.
+- **Slides 15?€?16**: Update the conference due-date/conference-date tables (NEOMED, CLESOG, CCAG Scientific Session, ACOG, SASGOG, CREOG, AUGS, SMFM, SFP, ASRM).
+- **Slide 19**: Fill in the PAG faculty name; spot-check the rest of the table.
+- **Slide 20**: Update the Key Contacts table (research chief will likely be a new person).
+- **Slide 25**: Add actual content ?€? this slide currently has no journal list.
+
+## Tone rewrites (softening the ""aggressive"" phrasing)
+- **Slide 2**: Reframe the four repeated ""I am responsible for..."" lines as a plain checklist instead of a declaration, e.g. *""Before graduation, residents complete: a first-author poster presentation, a first-author oral presentation, a first-author manuscript...""*
+- **Slide 3**: *""...this does NOT count for YOUR research requirement""* ??? *""...doesn't fulfill your personal requirement.""* Drop the caps.
+- **Slide 9?€?10**: *""you MUST submit this form""* / *""You are NOT guaranteed...""* ??? *""This form needs to be submitted 2 weeks before the abstract deadline""* / *""Acceptance of your abstract doesn't guarantee you'll be able to attend ?€? this lets admin check scheduling and coverage.""*
+- **Slide 21**: *""Encourage med student they must be persistent...""* ??? *""Encourage the med student to follow up if they haven't heard back.""*
+- **General sweep**: search for ALL CAPS words used for emphasis (NOT, MUST, YOUR, etc.) and either remove the caps or bold the phrase instead ?€? caps reads as scolding, bold reads as ""pay attention to this.""
+
+If you get partway through and want a second pass or want me to proof the tone on specific slides once you've edited them, just paste the text back in and I'll take a look.",,,,
+Human,2026-08-10T22:12:55.787684Z,How do I delete the date from each slide?,,,,
+Claude,2026-08-10T22:12:55.780030Z,,,,Deliberated dual approaches for removing date elements.,
+Claude,2026-08-10T22:13:02.412447Z,"Depends on whether it's a built-in date placeholder or a text box someone typed the date into manually ?€? worth checking first, since the fix is different.",,,,
+Claude,2026-08-10T22:13:02.960444Z,,How to remove the date from all slides in PowerPoint,step_card_display_v0,,
+Claude,2026-08-10T22:13:09.951597Z,"Given that ""7/18/2025"" appears identically on every slide of your deck, it's likely either the placeholder or a layout-level text box ?€? so the Header & Footer method (steps 1?€?3) has a good chance of clearing it in one go. If it doesn't, the Slide Master fix (step 5) is your next best bet before falling back to editing slides one by one.",,,,
+Human,2026-08-10T22:20:04.466670Z,Please take the important info regarding research requirements from the last section of this powerpoint and help me incorporate it into mine,,,,Introduction to Research and Scholarly Activity at Cleveland Clinic Akron General_RB_OBGYN_26-27 (002)_updated.pptx
+Claude,2026-08-10T22:20:05.731337Z,,Extract text from the new uploaded pptx,bash_tool,Identified key updates and flagged discrepancies between presentations.,
+Claude,2026-08-10T22:20:32.346627Z,"I found the requirements section ?€? it runs from slide 41 (""Scholarly Activity: Requirements for 2026-2027 Academic Year"") to slide 46. Here's how it compares to your slides 2?€?3, and what's new to fold in.
+
+## Already covered, no change needed
+Slide 42 in the new deck (the four core requirements: poster, oral, manuscript, end-of-PGY3 deadline) matches your slide 2 almost word-for-word. Nothing to add there beyond the year update we already discussed.
+
+## New content to add to your Slide 3
+The 2026-2027 deck adds one line your version doesn't have:
+- **""Must review data, any presentations, and updates with PI/mentor.""** ?€? worth adding as a bullet on your requirements-clarification slide.
+
+## ?????? Discrepancy to verify ?€? don't just copy this over
+Your slide 3 includes: *""PGY-4 are exempt from this timeline and will have until end of PGY-4 to complete.""* **This line does not appear anywhere in the new 2026-2027 deck.** That could mean the exemption was removed for this academic year, or it could just mean the new deck omitted it by oversight. Worth confirming directly with Rachida before you either keep or drop it ?€? this is exactly the kind of thing that trips up a resident if it's wrong.
+
+## Entirely new ?€? not in your deck at all (add as a new slide, or two)
+The new deck has two chunks of policy your version is missing entirely:
+
+**Manuscript non-publication policy (their slide 44):**
+- If a manuscript isn't published but has been submitted, the resident is responsible for giving the Health Scientist and all co-authors a forwarding email address before graduation.
+- If the resident doesn't respond in a timely manner to requests for rewriting, editing, review, or approval for resubmission, they'll be removed as an author.
+- ""Timely manner"" is defined jointly by the Health Scientist, corresponding author, co-author(s), and/or journal editor(s).
+
+**Exceptions process (their slide 45):**
+- Any exception to these requirements needs written approval from: the Chair of OB/GYN, the Program Director, the Program Coordinator, and the Health Scientist.
+- Residents are encouraged to find a faculty mentor as early as PGY-1 and start engaging in scholarly activity early.
+
+## Note on tone for the new material
+The source language here is pretty blunt by nature (""will be removed as an author"") because it's describing a real consequence ?€? I'd keep the substance intact rather than soften it, since residents genuinely need to know that's the stakes. But you can still frame it plainly rather than as a threat, e.g.:
+
+> *""If a manuscript is submitted but not yet published, you'll need to give the Health Scientist and co-authors a forwarding email before graduating, and stay responsive to revision requests ?€? unresponsiveness can result in being removed as an author.""*
+
+That keeps the real consequence visible without it reading as a warning shot.
+
+Want me to also check slide 46 (their condensed ""Presenting Scholarly Work"" summary) against your slides 15?€?17 for consistency, or is this enough to work from for now?",,,,
+Human,2026-08-10T22:21:56.964472Z,Convert this info into slide format so I can include it in my powerpoint,,,,Research Meetings & Deadlines Update for CCAG.docx
+Claude,2026-08-10T22:21:58.105475Z,,Read docx skill before handling docx file,view,Architected slide-ready content structure for PowerPoint integration.,
+Claude,2026-08-10T22:22:00.365063Z,,Read the docx content,bash_tool,Architected slide-ready content structure for PowerPoint integration.,
+Claude,2026-08-10T22:22:14.446927Z,"Here's the meeting/deadline timeline reorganized into slide-ready content, broken out by PGY year to match the structure of your existing deck. A couple of typos/unclear items are flagged at the end ?€? worth checking with Rachida before you finalize.
+
+---
+
+**Slide: Research Meetings & Deadlines ?€? PGY-1**
+- **July (Orientation):** Class meeting with Rachida ?€? intro to research division and CITI Training
+- **July?€?August:** Complete research requirement paperwork/review
+- **October?€?December:** Individual meetings with Rachida/Heiselman to discuss research ideas and pair with mentors
+- **January?€?April:** Meet with research mentor to develop research project
+- **April?€?May:** Class meeting ?€? Departmental Research & Brainstorming
+- **June?€?July:** Meet with Research division to shape project ideas ahead of formal research proposal presentation in October
+
+**Slide: Research Meetings & Deadlines ?€? PGY-2**
+- **August?€?September:** Meet with Research division/biostatistician ?€? power analysis/data analysis plan
+- **October:** Biannual class meeting ?€? research proposal presentation
+- **October?€?November:** Meet with RRD Director ?€? project updates, help with IRB package
+- **December:** Submit IRB package / QA-QI form
+- **January?€?March:** Start research project
+- **March?€?April:** Meet with Research division for project updates
+- **April?€?June:** Biannual class meeting ?€? updates
+
+**Slide: Research Meetings & Deadlines ?€? PGY-3**
+- **September?€?October:** Meet with Research division for project updates
+- **October:** Biannual class meeting ?€? resident research project updates
+- **January?€?February:** Meet with Research division ?€? project updates, discuss analysis plans
+- **April 1:** Submit final data for analysis
+- **Late April/May:** Meet with Research division/biostatistician to review analysis and results
+- **April?€?May:** Meet with Research division as needed
+- **2 weeks before presentation:** Mock oral presentation for feedback
+- Note: CLESOG (oral) and Scientific Session (oral, requires a manuscript) ?€? presentation type is set by the conference; NEOMED lets the resident choose oral vs. poster
+
+**Slide: Ongoing Expectations (all years)**
+- Residents should check in with research mentors regularly, virtually or by email
+- One poster presentation and/or video submission (requires a written abstract)
+- One oral presentation (based on real research)
+- One manuscript
+
+---
+
+**Two things to verify before finalizing:**
+1. ""QA/AI form"" in the PGY-2 December line ?€? I'm reading this as a likely typo for ""QA/QI form"" (matches the QA/QI language elsewhere in your deck), but worth confirming with Rachida.
+2. The source doc has a bracketed note ?€? ""**Review research requirement"" ?€? under PGY-1 that reads like an internal reminder/placeholder rather than finished content. Worth checking what specifically that's meant to reference before it goes on a slide.
+
+Want me to actually build these as slides in your pptx file, or is this text enough for you to paste in yourself?",,,,
+Human,2026-08-10T22:41:49.099599Z,Please give feedback for slides 1-7 and anything you would change based on the parameters/discussion above,,,,Research Intro 2026.pptx
+Claude,2026-08-10T22:41:50.849521Z,,Generate thumbnail grid to review slides visually,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:02.368045Z,,View first thumbnail grid to see slides 1-7,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:04.455739Z,,Analyzed deck restructuring and reorganized slide framework.,,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:08.801726Z,,Convert to high-res images for close inspection,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:15.579747Z,,Slide 1 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:19.898668Z,,Extract text to check slide 1 content and compare,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:25.611654Z,,Inspect slide1 XML for text color/positioning issue,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:29.217278Z,,Find which layout slide1 uses,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:31.335463Z,,Check layout5 title placeholder styling,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:35.327522Z,,Check background fill and accent1 color,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:40.652805Z,,Search for bg fill and theme colors using python for multiline safety,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:44.236983Z,,Investigated color mapping discrepancies and layout override issues.,,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:48.055823Z,,Print layout5 beginning to see structure,bash_tool,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:54.411961Z,,Slide 2 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:42:56.216293Z,,Critiquing slide formatting and image integration choices.,,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:01.126880Z,,Slide 3 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:07.342606Z,,Slide 4 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:12.363110Z,,Slide 5 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:16.081742Z,,Slide 6 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:17.830026Z,,Identifying chronological inconsistencies and timeline discrepancies.,,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:23.361999Z,,Slide 7 close-up,view,Identified formatting errors and compiled detailed feedback across seven slides.,
+Claude,2026-08-10T22:43:32.137307Z,"Good news first: it looks like you've already worked in a lot of the earlier feedback (PGY-4 exemption is back, the new PGY1?€?3 timelines are in, requirements are cleaner). Here's what I'd flag on slides 1?€?7 specifically.
+
+**Slide 1 ?€? Title slide: this is broken, not just a style choice.**
+When I rendered it, the slide is a solid orange rectangle with no visible text at all ?€? ""Research Introduction / 2026-2027"" is there in the file, but the title text color and the background rectangle are both set to the same orange (your theme's accent color), so the text is literally invisible against the background. This isn't a font-size or contrast nitpick ?€? nothing is readable on this slide right now. You'll want to either change the title text color to white/dark, or pick a different title layout. This one needs fixing before anything else on the list.
+
+**Slide 2 ?€? This is now a screenshot, not text.**
+It looks like this slide got replaced with an embedded image of an attestation-style document (""I, the undersigned, am aware of the scholarly activity requirements..."") rather than native slide text. A few issues with that:
+- It's in a serif font that doesn't match the rest of your deck's sans-serif style, so it visually clashes.
+- It still has the repeated ""I am responsible for a first-author poster/oral/manuscript..."" legalistic phrasing we talked about softening ?€? but since it's now a flattened image, you can't edit that text at all without regenerating the image.
+- Small text in a screenshot risks being unreadable if anyone's viewing this from the back of a room, or on a smaller shared screen.
+I'd recommend converting this back into native slide text (even if it's meant to look like a signed attestation, you can recreate that visually with a text box) so it's both editable and legible.
+
+**Slide 3 ?€? the tone fix didn't make it onto this slide.**
+The two lines we flagged before are still here verbatim: *""data are NOT publishable""* and *""this does NOT count for YOUR research requirement""* ?€? still in caps. Worth applying the softer phrasing we discussed here specifically, since this slide is otherwise in great shape (the PGY-4 exemption callout is a nice touch, styled in orange to draw the eye).
+
+**Slide 4 ?€? one ambiguous line.**
+*""October?€?December: Individual vs class-wide meeting to discuss research ideas...""* ?€? ""vs"" here reads like an unresolved either/or note rather than finished guidance. Worth clarifying whether it's individual meetings, class-wide meetings, or both, so it doesn't read as a placeholder you forgot to settle.
+
+**Slide 5 ?€? a stray placeholder mark.**
+*""November-May(?): Await IRB approval""* ?€? that `(?)` looks like a note to yourself flagging uncertainty about the date range, not something meant for residents to see. Worth resolving the actual timeline before this goes out, or removing the `(?)` if the range is intentional.
+
+**Slide 6 ?€? clean, no issues.**
+This one's in good shape ?€? clear structure, bolded date ranges, logical flow.
+
+**Slide 7 ?€? small grammar/word-choice cleanup.**
+*""2 weeks before presentation of any time: Mock oral presentation with mentor vs Dr Heiselman for feedback""* ?€? two small things: ""of any time"" reads awkwardly (maybe ""before any presentation""?), and ""vs Dr Heiselman"" should probably be ""or Dr Heiselman"" (currently reads like a competition rather than an alternative option).
+
+**One structural note across all of these:** slides 3?€?7 are solid text blocks with no visual variety ?€? all bullets, no icons, dividers, or visual anchors. That's a stylistic call rather than an error, but if you want the deck to feel less like a wall of policy text, even simple icons next to each PGY timeline (a calendar icon, a milestone marker) would help break it up.
+
+Want me to fix the slide 1 text-visibility bug for you directly, since that one isn't really an editorial judgment call ?€? it's just broken?",,,,
+Human,2026-08-10T22:49:52.112138Z,Slide 1 looks fine on my end so going to keep it that way. Slide 2 is unfortunately a document I cannot change,,,,
+Claude,2026-08-10T22:49:52.105193Z,,,,Deferred to user preference and acknowledged constraints.,
+Claude,2026-08-10T22:49:55.573128Z,"Got it ?€? makes sense if it's rendering fine in PowerPoint itself; LibreOffice's renderer can sometimes show colors differently than PowerPoint does, so that's likely just a conversion quirk on my end rather than a real problem in your file. Worth a quick glance next time you're in PowerPoint just to be sure it's not device-specific, but I'll leave it as-is.
+
+And that's fair on slide 2 ?€? if it's a locked/required document image, the content itself is out of your hands. The one thing you could still adjust without touching the image is the frame around it: a subtle border, drop shadow, or matching background color behind it could help it feel more intentional next to your other slides rather than like a dropped-in screenshot. Totally optional if you'd rather not touch it at all.
+
+Want me to move on to feedback for the rest of the deck (slides 8 onward), or is there anything else on 1?€?7 you want to dig into first?",,,,
+Human,2026-08-10T22:50:03.016900Z,Here is the updated slide 3 for feedback:,,,,
+Claude,2026-08-10T22:50:03.011298Z,I don't see an attachment come through with this message ?€? could you try uploading the updated slide 3 again (either the image or the updated pptx file)?,,,,
+Human,2026-08-10T22:50:15.878778Z,,,,,1786402212904_image.png
+Claude,2026-08-10T22:50:15.862640Z,,,,Scrutinized slide alignment with requirements and identified missing exemption details.,
+Claude,2026-08-10T22:50:35.191045Z,"This is a big improvement on tone ?€? nice work. No more ""I am responsible for,"" no ALL CAPS ""NOT""/""YOUR,"" and the language throughout now reads as informative rather than like a signed pledge. A few things worth double-checking before you finalize it:
+
+**Content that seems to have dropped out ?€? worth confirming this was intentional:**
+- **The PGY-4 exemption is gone.** Your previous version had *""PGY-4 are exempt from this timeline and will have until end of PGY-4 to complete""* right under the PGY-3 deadline. This version ends at ""Scholarly activity requirements must be met by the end of PGY-3"" with nothing about PGY-4. If that exemption still applies, this is worth adding back ?€? a PGY-4 resident reading this slide without it could reasonably think they're already out of compliance.
+- **The manuscript-type logic got simplified quite a bit.** Your old version spelled out four distinct scenarios (research study ??? matching manuscript; QA/QI publishable ??? matching manuscript; QA/QI *not* publishable ??? alternative manuscript, case report allowed; publishable data ??? manuscript + oral to Scientific Session or a journal). The new version condenses this to ""if participating in research, goal should be producing a manuscript... applies for original research and QA/QI projects."" That's cleaner, but it loses the specific guidance that a case report is an acceptable alternative manuscript when QA/QI data isn't publishable ?€? which seems like useful, actionable info for someone in that exact situation. Worth deciding if that's a detail residents need spelled out or if it's fine folded into a general statement.
+
+**Nice additions that weren't in the old version:**
+- ""Should be of your original research"" under Oral presentation ?€? good clarification.
+- ""(medical student)"" clarifying who counts as a ""summer research fellow"" ?€? removes ambiguity.
+- ""Video submissions also count ?€? need to have written an abstract"" is a good, concrete callout.
+
+**Small polish items:**
+- Title is now ""Research Requirement"" ?€? very close to slide 2's title (""CCAG Research Requirement""). Two nearly-identical titles back to back could make it feel repetitive; something like ""Requirements, in Detail"" or ""What Counts"" would differentiate them.
+- The nesting gets three levels deep under ""Additional requirements"" (bullet ??? sub-bullet ??? sub-sub-bullet for ""Applies for original research and QA/QI projects""). Might be worth flattening that one to a second-level bullet ?€? three levels is a lot to track visually.
+
+Overall: tone-wise, this is exactly the direction you wanted. I'd just double check the PGY-4 line and the case-report detail didn't get cut by accident rather than by choice.",,,,
+Human,2026-08-10T23:19:44.762720Z,Final draft - any big updates? I did not want to incorporate any of the feedback on slides 1-7 you gave,,,,Research Intro 2026.pptx
+Claude,2026-08-10T23:19:44.750446Z,,Assessed revision request and noted feedback preferences.,,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:19:47.532736Z,,Thumbnail the final draft deck,bash_tool,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:00.221937Z,,View first grid of final deck,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:06.121974Z,,View second grid of final deck,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:08.943103Z,,Reviewed presentation while respecting user's feedback boundaries.,,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:11.240337Z,,Render final deck to high-res images,bash_tool,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:18.692491Z,,Slide 11 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:21.971528Z,,Slide 12 close-up (Important Links),view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:28.192547Z,,Slide 13 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:30.116801Z,,Identified inconsistency between presentation slides regarding link functionality.,,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:33.550239Z,,Find which slides reference the Application form and check for hyperlinks,bash_tool,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:35.805761Z,,Check slide13 for hyperlink relationship,bash_tool,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:41.576118Z,,Slide 16 table close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:45.299313Z,,Slide 17 table close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:47.341359Z,,Reconciling conflicting conference dates and timelines.,,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:53.529224Z,,Slide 18 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:20:56.734413Z,,Spotting missing contact information in revised slides.,,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:21:01.339832Z,,Slide 8 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:21:10.129047Z,,Slide 9 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:21:14.896905Z,,Slide 10 close-up,view,Identified interface obstruction and navigation accessibility concerns.,
+Claude,2026-08-10T23:21:17.441292Z,"Good, this walkthrough sequence (8???9???10???11) reads clearly overall ?€? nice touch pointing residents to the right SharePoint hub with red circles. Slide 8 has one issue worth a look though. Here's the full rundown of what I'd call genuinely ""big"" items in the final draft (skipping 1?€?7 per your note):
+
+**Slide 12 ?€? leftover note-to-self, not resident-facing content.**
+*""Application to Present Scholarly Work ?€? Needs hosted somewhere and updated, but important for attending conference!""* ?€? this reads like a task you left yourself, not something meant for the audience. Worth resolving (find/host the link) and rewriting as a normal bullet, or pulling it for now if it's not ready.
+
+**Slide 12 vs. Slide 13 ?€? inconsistency on that same item.**
+Slide 13 styles ""Application to Present Scholarly Work"" in orange like a live hyperlink ?€? but I checked the file, and it's not actually linked to anything. So residents will see what looks like a clickable resource that goes nowhere, right after (or before) a slide admitting the link isn't hosted yet. I'd either get the real link in before presenting, or drop the link-style formatting until it exists.
+
+**Slide 8 ?€? screenshot shows a personal browser bookmarks bar.**
+The screenshot captures your actual bookmarks toolbar (Textbooks, Studies, NYT, PROLOG, Hampton Knoll, EpicU, LPS, CREOGs, ""2026-2027 Residency Di..."") above the SharePoint nav. It's not sensitive info, but it's distracting clutter that doesn't belong on a shared teaching slide. Also, the red ""no"" symbol lands directly on top of a nav label (looks like it's covering the word ""Research""), so it's not clear what you're telling people *not* to click. Worth re-cropping this screenshot above the bookmarks bar and repositioning the ""no"" mark so the covered label is still legible.
+
+**Slide 17 ?€? one data point looks like it may have shifted unintentionally.**
+Back when we first reviewed the old deck, SMFM's abstract due date/conference date were ""Early August"" / ""Late Jan-early Feb."" This version now says ""Early September"" / ""March."" That's a meaningful change, not a typo-level tweak ?€? worth a quick double check that this is the actual updated SMFM schedule and not a transcription slip, since it's the kind of thing a resident would plan travel around.
+
+**Slide 17 ?€? one placeholder still unresolved.**
+SASGOG's conference date is still listed as ""May / September?"" ?€? same uncertainty flagged in the source document. Worth pinning down before this goes out, since it's the only one left with a question mark.
+
+**Slide 18 ?€? no contact info.**
+Your original deck's contacts slide included emails for everyone; this version lists names and roles only. If residents are meant to actually reach these people, you'll probably want emails back in ?€? otherwise this slide is more ""org chart"" than ""who do I contact.""
+
+Everything else ?€? timelines, requirement slides, conference tables ?€? is looking solid. Want me to help track down the SMFM dates or dig up what typically hosts an ""Application to Present Scholarly Work"" form at CCAG?",,,,

@@ -1,0 +1,1028 @@
+{
+  "session_id": "session1",
+  "participant_id": "p13",
+  "title": "Session 1 — Participant 13 User + Claude Behavior Graph",
+  "goal": "Import and logistics reports — turn a warehouse/shipping Excel workbook into a set of interactive visual reports (warehouse stock, landed containers, in-transit shipment, upcoming orders, and a consolidated overview) with Claude's help.",
+  "context": "【No Data】",
+  "occupation": "Import and Logistics Manager",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "【No Data】",
+    "Why or why not": "【No Data】"
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Warehouse stock report",
+      "step_action": "Create a visual image showing inventory stock by item and current inventory value.",
+      "time_range": "00:00:00–00:08:11",
+      "nodes": [
+        {
+          "id": "1a",
+          "actor": "user",
+          "label": "Define the reporting objective and submit the warehouse data",
+          "detail": "Uploads the 'Landed cost and allocation' Excel workbook to a new Claude desktop chat and asks for a report showing every warehouse item with all of its info displayed.",
+          "time": [
+            "00:00:00–00:00:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1b",
+          "actor": "claude",
+          "label": "Extract warehouse data and generate an initial tabular report",
+          "detail": "Reads and validates the warehouse sheet's 35 line items, builds a full landscape Word table report with every column plus a totals row, catches and fixes a page-dimension bug so the table fits the page, and delivers the finished document.",
+          "time": [
+            "00:00:37–00:02:15"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1c",
+          "actor": "user",
+          "label": "Review the initial report and request a more visual redesign",
+          "detail": "Judges the plain table report insufficient and asks for something more visually attractive, with the item list moved to a side panel instead of the main body.",
+          "time": [
+            "00:02:15–00:03:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1d",
+          "actor": "claude",
+          "label": "Redesign the report as an interactive dashboard, resolving rendering bugs",
+          "detail": "Rebuilds the report as an industrial-style 'Warehouse Manifest' HTML dashboard with stat cards, a stock-value-by-vendor chart, and a searchable sidebar tag list of all items, diagnosing and fixing several rendering issues along the way (a missing-font fallback and a JS compatibility bug that was silently halting the script) before delivering the finished file.",
+          "time": [
+            "00:03:16–00:07:33"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "1e",
+          "actor": "user",
+          "label": "Review the finished warehouse dashboard",
+          "detail": "Watches the live dashboard preview render in the split-pane view, checking the stat cards and vendor breakdown before moving on to the next report.",
+          "time": [
+            "00:07:33–00:08:11"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "1a",
+          "to": "1b",
+          "type": "sequential"
+        },
+        {
+          "from": "1b",
+          "to": "1c",
+          "type": "sequential"
+        },
+        {
+          "from": "1c",
+          "to": "1d",
+          "type": "sequential"
+        },
+        {
+          "from": "1d",
+          "to": "1e",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Landed container report",
+      "step_action": "Create a visual report showing each landed container, including items, quantities, and value.",
+      "time_range": "00:08:11–00:15:55",
+      "nodes": [
+        {
+          "id": "2a",
+          "actor": "user",
+          "label": "Request an analogous multi-container overview",
+          "detail": "Asks Claude for the same kind of visual file but covering sheets 1 through 7, explaining that each sheet represents one landed container.",
+          "time": [
+            "00:08:11–00:09:12"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2b",
+          "actor": "claude",
+          "label": "Reconcile data across all seven container sheets and build a drill-down dashboard",
+          "detail": "Extracts and cross-checks each container sheet's structure, headers, and totals (working around inconsistent 'Final' rows and missing shipment dates), verifies computed CBM/volume against the workbook's own totals, and builds a 'Cargo Manifest' dashboard with a cross-container comparison chart plus a switchable per-container detail view and sidebar item list.",
+          "time": [
+            "00:09:12–00:14:14"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "2ba",
+          "actor": "user",
+          "label": "Save and briefly review Claude's generated report from previous step",
+          "detail": "Downloads Claude's previous HTML report and briefly review it.",
+          "time": [
+            "00:11:25–00:11:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2",
+          "user_response": [
+            {
+              "source_node": "1a",
+              "target_ai": "1d",
+              "label": "adopt",
+              "source_node_time": "00:00:00–00:00:37",
+              "ai_node_time": "00:03:16–00:07:33",
+              "user_adoption_time": "00:11:25–00:11:46",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2c",
+          "actor": "user",
+          "label": "Review the container overview dashboard",
+          "detail": "Watches the tabbed container dashboard render, checking the landed-value comparison chart and per-container detail before moving to the next report.",
+          "time": [
+            "00:14:14–00:15:26"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2",
+          "user_response": [
+            {
+              "source_node": "2a",
+              "target_ai": "2b",
+              "label": "adopt",
+              "source_node_time": "00:08:11–00:09:12",
+              "ai_node_time": "00:09:12–00:14:14",
+              "user_adoption_time": "00:14:14–00:15:26",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "2d",
+          "actor": "user",
+          "label": "Review the excel about the warehosue data used as an input for Claude and compare with Claude's answer",
+          "detail": "",
+          "time": [
+            "00:15:26–00:15:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 2"
+        }
+      ],
+      "edges": [
+        {
+          "from": "2a",
+          "to": "2b",
+          "type": "sequential"
+        },
+        {
+          "from": "2a",
+          "to": "2ba",
+          "type": "sequential"
+        },
+        {
+          "from": "2b",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2ba",
+          "to": "2c",
+          "type": "sequential"
+        },
+        {
+          "from": "2c",
+          "to": "2d",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Container in Transit Report",
+      "step_action": "Create a visual report showing containers currently in transit, including items, quantities, and estimated value.",
+      "time_range": "00:15:55–00:21:47",
+      "nodes": [
+        {
+          "id": "3a",
+          "actor": "user",
+          "label": "Request an analogous report for the in-transit shipment",
+          "detail": "Asks for a similar report about the TRANSIT sheet, explaining it represents a container currently on its way to Omaha.",
+          "time": [
+            "00:15:55–00:16:24"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3b",
+          "actor": "claude",
+          "label": "Restructure the transit data into the shared schema and build a shipment dashboard",
+          "detail": "Maps the TRANSIT sheet's line items and cost-composition rows into the same data schema used for the container reports, catches and fixes two string-escaping bugs that were breaking the page's JavaScript, and delivers a 'Transit Shipment Manifest' dashboard with a landed-cost build-up, freight/duty charge breakdown, and an explicit caveat that the figures are pre-customs estimates.",
+          "time": [
+            "00:16:24–00:20:54"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "3c",
+          "actor": "user",
+          "label": "Review the transit shipment dashboard",
+          "detail": "Checks the transit dashboard's route status, cost build-up, and sidebar manifest before moving on to the next report.",
+          "time": [
+            "00:20:54–00:21:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "3a",
+              "target_ai": "3b",
+              "label": "adopt",
+              "source_node_time": "00:15:55–00:16:24",
+              "ai_node_time": "00:16:24–00:20:54",
+              "user_adoption_time": "00:20:54–00:21:47",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "3a",
+          "to": "3b",
+          "type": "sequential"
+        },
+        {
+          "from": "3b",
+          "to": "3c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Next Order Report",
+      "step_action": "Create a comprehensive visual report summarizing the next order, including items, quantities, and estimated order value.",
+      "time_range": "00:21:47–00:31:08",
+      "nodes": [
+        {
+          "id": "4a",
+          "actor": "user",
+          "label": "Request a comparable overview for the upcoming orders",
+          "detail": "Asks for a similar file covering the three planned-order sheets (NEXT 1, NEXT 2, NEXT 3).",
+          "time": [
+            "00:21:47–00:23:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4b",
+          "actor": "claude",
+          "label": "Reconcile the order sheets and quantify prospective cost savings",
+          "detail": "Verifies each order sheet's item counts, quantities, and totals, computes a current-supplier-cost-versus-landed-cost comparison across all 27 items (a $5,891.48 / 13.9% projected saving), and builds a violet-accented 'Next Orders Overview' dashboard distinguishing its 'planned / not yet ordered' status from the earlier reports, including per-order tabs, vendor breakdowns, and a top-items-by-value table.",
+          "time": [
+            "00:23:01–00:30:39"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4ba",
+          "actor": "user",
+          "label": "Review Claude's generated reports from previous steps",
+          "detail": "Review Claude's HTML reports from previous steps",
+          "time": [
+            "00:23:05–00:25:13"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "4c",
+          "actor": "user",
+          "label": "Review the next-orders dashboard generated by Claude",
+          "detail": "Checks the Next Orders Overview dashboard's per-order tabs, cost-savings panel, and top-items table before moving on to request the consolidated report.",
+          "time": [
+            "00:30:39–00:31:08"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "4a",
+              "target_ai": "4b",
+              "label": "adopt",
+              "source_node_time": "00:21:47–00:23:01",
+              "ai_node_time": "00:23:01–00:30:39",
+              "user_adoption_time": "00:30:39–00:31:08",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "4a",
+          "to": "4b",
+          "type": "sequential"
+        },
+        {
+          "from": "4a",
+          "to": "4ba",
+          "type": "sequential"
+        },
+        {
+          "from": "4b",
+          "to": "4c",
+          "type": "sequential"
+        },
+        {
+          "from": "4ba",
+          "to": "4c",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Consolidated Inventory and Logistics Report",
+      "step_action": "Create a comprehensive visual report combining all previous reports into a single overview of inventory and logistics activities.",
+      "time_range": "00:31:08–00:58:15",
+      "nodes": [
+        {
+          "id": "5a",
+          "actor": "user",
+          "label": "Request a consolidated overview combining the prior reports",
+          "detail": "Asks Claude to combine the warehouse, container, and transit dashboards into a single report, explicitly excluding the two order-planning dashboards.",
+          "time": [
+            "00:31:08–00:32:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5b",
+          "actor": "claude",
+          "label": "Assemble a unified dashboard with shared navigation",
+          "detail": "Merges the three separate dashboards under one top navigation bar into a single 'Supply Chain Overview' file, resolving duplicate-script and DOM ID-collision bugs that arose from combining independently-built HTML documents, then delivers the consolidated report.",
+          "time": [
+            "00:32:00–00:35:16"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5ba",
+          "actor": "user",
+          "label": "Review Claude's generated report about next orders, specifically on order details",
+          "detail": "",
+          "time": [
+            "00:32:13–00:33:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5bb",
+          "actor": "user",
+          "label": "Plan the next prompt for Claude by drafting it about visual overview for tariffs and transportation costs",
+          "detail": "",
+          "time": [
+            "00:34:13–00:35:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5c",
+          "actor": "user",
+          "label": "Review and save the consolidated dashboard, specifically checking the container detail section since the volume looks incorrect",
+          "detail": "Checks the merged dashboard's navigation between sections, then asks for a new visual overview of how tariff and transportation costs evolved across the seven containers.",
+          "time": [
+            "00:35:16–00:36:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5d",
+          "actor": "user",
+          "label": "Send the previously drafted prompt about a visual overview on tariff and transportation costs",
+          "detail": "Asks for a new visual overview of how tariff and transportation costs evolved across the seven containers.",
+          "time": [
+            "00:36:30–00:36:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5e",
+          "actor": "claude",
+          "label": "Analyze and chart the cross-container tariff/transportation cost trend",
+          "detail": "Reconciles each container's tariff and transportation-cost figures from the workbook and renders an interactive dual-series chart comparing how the two cost components moved across the seven containers, noting they evolved quite differently from one another.",
+          "time": [
+            "00:36:38–00:38:05"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5ea",
+          "actor": "user",
+          "label": "Plan the next prompt for Claude to make sure it has the correct volumes",
+          "detail": "",
+          "time": [
+            "00:36:45–00:37:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5eb",
+          "actor": "user",
+          "label": "Check out the excel file about the volume",
+          "detail": "",
+          "time": [
+            "00:36:45–00:37:49"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Excel",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5ec",
+          "actor": "user",
+          "label": "Check out the Claude's incorrect volumes in the Supply Chain Overview report",
+          "detail": "",
+          "time": [
+            "00:38:00–00:38:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5f",
+          "actor": "user",
+          "label": "Open the delivered reports directly and request a data-accuracy check",
+          "detail": "Opens the generated HTML files across several browser tabs to inspect them directly (Warehouse Manifest, Container Shipments, Transit Shipment, Next Orders, Supply Chain Overview) rather than only viewing them in Claude's split-pane preview, then asks Claude to make sure the container volumes are correct.",
+          "time": [
+            "00:38:53–00:39:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, web browser (local HTML files)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5g",
+          "actor": "claude",
+          "label": "Audit the volume calculations and correct a real bug",
+          "detail": "Investigates the volume/CBM figures across the container data sources, identifies and confirms a genuine calculation bug rather than a false alarm, and patches the corrected volumes into the affected dashboard files before confirming the fix.",
+          "time": [
+            "00:39:00–00:41:31"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5ga",
+          "actor": "user",
+          "label": "Checking out previous Claude's answer about tarriffs and transportation",
+          "detail": "",
+          "time": [
+            "00:39:04–00:39:51"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5gb",
+          "actor": "user",
+          "label": "Draft the next prompt to make an email for his boss abot this report",
+          "detail": "",
+          "time": [
+            "00:40:10–00:40:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5h",
+          "actor": "user",
+          "label": "Review Claude's answer why data inconsistencies happened and compare the numbers with the original data source",
+          "detail": "",
+          "time": [
+            "00:41:31–00:43:06"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Microsoft Excel",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5i",
+          "actor": "user",
+          "label": "Send the previously drafted prompt to Claude that requests a stakeholder summary email",
+          "detail": "Asks Claude to write an email to his boss summarizing what's currently in the warehouse and the status of the seven containers.",
+          "time": [
+            "00:43:06–00:43:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5j",
+          "actor": "claude",
+          "label": "Synthesize the session's findings into a management summary email",
+          "detail": "Composes a concise email draft opening in Outlook, summarizing current warehouse stock, top vendors by value, and the seven landed containers, specifically flagging Container 3 as a cost/volume outlier, and offers to add further detail (e.g. the tariff/freight breakdown) if wanted.",
+          "time": [
+            "00:43:09–00:43:30"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude, Outlook",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5k",
+          "actor": "user",
+          "label": "Review the drafted email",
+          "detail": "Reads through the composed draft in Outlook, checking the wording and figures, but leaves the recipient field blank and does not send it during this recording.",
+          "time": [
+            "00:43:30–00:44:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5l",
+          "actor": "user",
+          "label": "Add and revise the email draft in Outlook and check out previous reports",
+          "detail": "",
+          "time": [
+            "00:44:50–00:49:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Outlook, Claude",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "5i",
+              "target_ai": "5j",
+              "label": "modify",
+              "source_node_time": "00:43:06–00:43:09",
+              "ai_node_time": "00:43:09–00:43:30",
+              "user_adoption_time": "00:44:50–00:49:19",
+              "reasoning": ""
+            }
+          ]
+        },
+        {
+          "id": "5m",
+          "actor": "user",
+          "label": "Examine Claude's answer again and compare with the real data",
+          "detail": "",
+          "time": [
+            "00:49:19–00:53:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Microsoft Excel",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5n",
+          "actor": "user",
+          "label": "Identify and report a data-entry error",
+          "detail": "Returns to the reports and points out that the walk-in cold room line in Container 3 should be quantity 1, not the quantity 4 currently shown.",
+          "time": [
+            "00:53:03–00:53:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5o",
+          "actor": "claude",
+          "label": "Clarify the correction's financial implication before applying it",
+          "detail": "Before changing any numbers, asks whether the line's existing $51,676.75 total reflects a true total price (with only the unit-count label wrong) or should itself drop to the single-unit price, to avoid silently applying the wrong fix.",
+          "time": [
+            "00:53:47–00:54:33"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5p",
+          "actor": "user",
+          "label": "Confirm the correct total cost",
+          "detail": "Clarifies that the total cost should become $12,919.19 for the single unit, confirming the per-unit price was correct and only the quantity was the error.",
+          "time": [
+            "00:54:33–00:54:39"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5q",
+          "actor": "claude",
+          "label": "Recompute and patch the correction across both reports, delivering reconciled totals",
+          "detail": "Fixes the walk-in cold room's quantity and cost, recomputes Container 3's and the fleet-wide grand totals, patches the corrected figures into both the Container Shipments Overview and Supply Chain Overview files, and reports the resulting before/after numbers -- also noting the fix incidentally resolves a volume mismatch against the workbook's own note that had been flagged earlier as a data-quality concern.",
+          "time": [
+            "00:54:39–00:56:20"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "5r",
+          "actor": "user",
+          "label": "Checking out Claude's answer that is still wrong figures and decides to end the session because the user needs to be the one who makes the excel clearer.",
+          "detail": "Reads the reconciled before/after totals, confirming the fix is complete, then wraps up the session, briefly switching to the Outlook calendar as the recording ends.",
+          "time": [
+            "00:56:20–00:58:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude, Outlook",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "5a",
+              "target_ai": "5q",
+              "label": "reject",
+              "source_node_time": "00:31:08–00:32:00",
+              "ai_node_time": "00:54:39–00:56:20",
+              "user_adoption_time": "00:56:20–00:58:15",
+              "reasoning": ""
+            },
+            {
+              "source_node": "5a",
+              "target_ai": "5g",
+              "label": "reject",
+              "source_node_time": "00:31:08–00:32:00",
+              "ai_node_time": "00:39:00–00:41:31",
+              "user_adoption_time": "00:56:20–00:58:15",
+              "reasoning": ""
+            },
+            {
+              "source_node": "5a",
+              "target_ai": "5e",
+              "label": "reject",
+              "source_node_time": "00:31:08–00:32:00",
+              "ai_node_time": "00:36:38–00:38:05",
+              "user_adoption_time": "00:56:20–00:58:15",
+              "reasoning": ""
+            },
+            {
+              "source_node": "5a",
+              "target_ai": "5b",
+              "label": "reject",
+              "source_node_time": "00:31:08–00:32:00",
+              "ai_node_time": "00:32:00–00:35:16",
+              "user_adoption_time": "00:56:20–00:58:15",
+              "reasoning": ""
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "5a",
+          "to": "5b",
+          "type": "sequential"
+        },
+        {
+          "from": "5b",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5a",
+          "to": "5ba",
+          "type": "sequential"
+        },
+        {
+          "from": "5ba",
+          "to": "5bb",
+          "type": "sequential"
+        },
+        {
+          "from": "5bb",
+          "to": "5c",
+          "type": "sequential"
+        },
+        {
+          "from": "5c",
+          "to": "5d",
+          "type": "sequential"
+        },
+        {
+          "from": "5d",
+          "to": "5e",
+          "type": "sequential"
+        },
+        {
+          "from": "5d",
+          "to": "5ea",
+          "type": "sequential"
+        },
+        {
+          "from": "5e",
+          "to": "5f",
+          "type": "sequential"
+        },
+        {
+          "from": "5ea",
+          "to": "5eb",
+          "type": "sequential"
+        },
+        {
+          "from": "5eb",
+          "to": "5ec",
+          "type": "sequential"
+        },
+        {
+          "from": "5ec",
+          "to": "5f",
+          "type": "sequential"
+        },
+        {
+          "from": "5f",
+          "to": "5g",
+          "type": "sequential"
+        },
+        {
+          "from": "5f",
+          "to": "5ga",
+          "type": "sequential"
+        },
+        {
+          "from": "5g",
+          "to": "5h",
+          "type": "sequential"
+        },
+        {
+          "from": "5ga",
+          "to": "5gb",
+          "type": "sequential"
+        },
+        {
+          "from": "5gb",
+          "to": "5h",
+          "type": "sequential"
+        },
+        {
+          "from": "5h",
+          "to": "5i",
+          "type": "sequential"
+        },
+        {
+          "from": "5i",
+          "to": "5j",
+          "type": "sequential"
+        },
+        {
+          "from": "5j",
+          "to": "5k",
+          "type": "sequential"
+        },
+        {
+          "from": "5k",
+          "to": "5l",
+          "type": "sequential"
+        },
+        {
+          "from": "5l",
+          "to": "5m",
+          "type": "sequential"
+        },
+        {
+          "from": "5m",
+          "to": "5n",
+          "type": "sequential"
+        },
+        {
+          "from": "5n",
+          "to": "5o",
+          "type": "sequential"
+        },
+        {
+          "from": "5o",
+          "to": "5p",
+          "type": "sequential"
+        },
+        {
+          "from": "5p",
+          "to": "5q",
+          "type": "sequential"
+        },
+        {
+          "from": "5q",
+          "to": "5r",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Warehouse stock report",
+      "step_action": "Create a visual image showing inventory stock by item and current inventory value.",
+      "input": "Excel file sheet ”stock in warehouse”",
+      "output": "Visual representation of our inventory.",
+      "tools": "Claude",
+      "rubrics": [
+        "Visually simple and easy to understand",
+        "Graphically attractive and professional",
+        "Very clear presentation of quantities, items, and inventory value",
+        "Include an information box with detailed data for each stock item",
+        "Include a clear title and report name."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output quality was very good with minimal changes"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The result was a professional report"
+      }
+    },
+    "Step 2": {
+      "step_name": "Landed container report",
+      "step_action": "Create a visual report showing each landed container, including items, quantities, and value.",
+      "input": "Seven Excel sheets containing container data",
+      "output": "Visual representation of all landed containers.",
+      "tools": "Claude",
+      "rubrics": [
+        "Visually simple and easy to understand",
+        "Graphically attractive and professional",
+        "Clearly present quantities, items, and container value",
+        "Include an information box with detailed data for each container",
+        "Include a clear title and report name."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output quality was very good with minimal changes"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The result was a professional report"
+      }
+    },
+    "Step 3": {
+      "step_name": "Container in Transit Report",
+      "step_action": "Create a visual report showing containers currently in transit, including items, quantities, and estimated value.",
+      "input": "One Excel sheet containing container transit data.",
+      "output": "Visual representation of all containers currently in transit.",
+      "tools": "Claude",
+      "rubrics": [
+        "Visually simple and easy to understand",
+        "Graphically attractive and professional",
+        "Clearly present quantities, items, and estimated container value",
+        "Include an information box with detailed data for the container in transit",
+        "Include a clear title and report name."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output quality was very good with minimal changes"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The result was a professional report"
+      }
+    },
+    "Step 4": {
+      "step_name": "Next Order Report",
+      "step_action": "Create a comprehensive visual report summarizing the next order, including items, quantities, and estimated order value.",
+      "input": "One Excel sheet containing next order data",
+      "output": "Visual representation of the next order details",
+      "tools": "Claude",
+      "rubrics": [
+        "Visually simple, organized, and easy to understand",
+        "Graphically attractive and professional",
+        "Clearly present quantities, items, and estimated next order value",
+        "Include an information box with detailed data for the next order",
+        "Include a clear title and report name."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output quality was very good with minimal changes"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The result was a professional report"
+      }
+    },
+    "Step 5": {
+      "step_name": "Consolidated Inventory and Logistics Report",
+      "step_action": "Create a comprehensive visual report combining all previous reports into a single overview of inventory and logistics activities.",
+      "input": "Previous report outputs.",
+      "output": "Visual representation of overall inventory status, landed containers, containers in transit, and related logistics activities.",
+      "tools": "Claude",
+      "rubrics": [
+        "Visually simple, organized, and easy to understand",
+        "Graphically attractive and professional",
+        "Clearly present quantities, items, and inventory/logistics values",
+        "Include information boxes with detailed data for containers in transit, landed containers, and current inventory",
+        "Include a clear title and report name."
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output quality was very good but I had to work a little bit in order to get the correct result"
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The result was a professional report"
+      }
+    }
+  }
+}

@@ -1,0 +1,746 @@
+{
+  "session_id": "session1",
+  "participant_id": "p42",
+  "title": "Session 1 — Participant 42 User + Claude Behavior Graphs",
+  "goal": "Develop a complete outbound prospecting campaign targeting startups and mid-sized B2B companies that are likely to need a project management solution.",
+  "context": "I frequently work on outbound lead generation and appointment setting for B2B SaaS companies. For this session, I will build a complete prospecting strategy targeting startups and mid-sized B2B companies that need a project management solution, including ICP definition, prospect research, decision-maker identification, messaging, and campaign preparation.",
+  "occupation": "Sales Development Representative (SDR) / B2B Lead Generation Specialist / Appointment Setter",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes (Partially)",
+    "Why or why not": "Reason being that I achieved the goal I set for the session. I did not change the original goal because it remained appropriate throughout the workflow. By the end of the session, I had developed the prospecting campaign and completed the key activities I initially set out to accomplish."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Define the ICP",
+      "step_action": "Research companies and define the ideal company size, industries, pain points, buying signals, and decision-makers.",
+      "time_range": "00:00:00-00:18:04",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Narrate the ICP research goal to camera",
+          "detail": "Explains to camera that the task is finding an Ideal Customer Profile (ICP) for lead generation, targeting companies that will need a project management tool, and that the plan is to prompt Claude for the ICP first before taking it to the lead-generation tool, Apollo.",
+          "time": [
+            "00:00:00-00:01:06"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a2",
+          "actor": "user",
+          "label": "Compose and send a detailed ICP prompt to a new Claude chat",
+          "detail": "Opens a fresh Claude.ai chat and sends a detailed prompt describing the B2B prospecting target: startups and mid-sized companies with 5-200 employees, primarily US-based, in SaaS/software development/IT services/marketing agencies, managing multiple projects/teams/clients, with decision makers being CEOs, founders, COOs, operations leaders, and PM leaders — asking Claude to build a practical yes/no qualification checklist usable while researching in Apollo.io.",
+          "time": [
+            "00:01:06-00:11:42"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a3",
+          "actor": "claude",
+          "label": "Deliver a structured B2B prospect qualification checklist",
+          "detail": "Responds that a fast yes/no gate works better than a scoring essay, and produces a 'B2B prospect qualification checklist' artifact: Sections 1, 2, and 4 are hard filters (employee count, HQ location, industry/keywords) that disqualify immediately if failed, Section 3 requires research (a 2-of-5 threshold on operational-complexity signals) since it's what separates a company that merely fits the size range from one that actually needs PM software, and everything is mapped to something checkable in Apollo — with a caveat that blank Apollo technographic data should be treated as 'unknown,' not 'no.'",
+          "time": [
+            "00:11:42-00:12:47"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a4",
+          "actor": "user",
+          "label": "Review the firmographic-fit and decision-maker sections before moving to Apollo",
+          "detail": "Narrates checking and analyzing the checklist's Section 1 firmographic filter, confirming it correctly reflects wanting small startups and mid-sized companies (~5,600 matching Apollo companies) and the SaaS/software/IT-services industry keywords. Reviews the decision-maker section, narrating that targeting the right decision-maker (the person who actually decides to buy or not) matters a lot for this project, and confirms the email-verification criterion before switching over to Apollo to begin the company search.",
+          "time": [
+            "00:12:47-00:18:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "user_response": [
+            {
+              "source_node": "a2",
+              "target_ai": "a3",
+              "label": "adopt",
+              "source_node_time": "00:01:06-00:11:42",
+              "ai_node_time": "00:11:42-00:12:47",
+              "user_adoption_time": "00:12:47-00:18:04",
+              "reasoning": "Source a2: USer requests ICP qualification checklist for Apollo research.\nTarget a3: Outputs the B2B prospect qualification checklist artifact.\nReasoning: User confirms it matches her ICP (a4), then moves to Apollo."
+            }
+          ],
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Build Target Company List",
+      "step_action": "Find startups and mid-sized companies matching the ICP.",
+      "time_range": "00:18:04-00:47:32",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor": "user",
+          "label": "Navigate to Apollo and choose the company search mode",
+          "detail": "Switches to Apollo.io, the lead-generation tool, narrating that this is where the ICP-matching leads will actually be found, and selects the 'Find companies' search (as opposed to 'Find people') to begin building the target list.",
+          "time": [
+            "00:18:04-00:19:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b2",
+          "actor": "user",
+          "label": "Set the Account Location filter to United States",
+          "detail": "Sets the Account Location filter to United States since the ICP targets US-based companies, and begins configuring the #Employees range filter.",
+          "time": [
+            "00:19:34-00:21:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b3",
+          "actor": "user",
+          "label": "Apply employee-count and industry/keyword filters",
+          "detail": "Applies the employee-count range bands matching the startup/mid-size ICP definition and industry/keyword filters (SaaS, software development, IT services, marketing agencies), narrating that this narrows the pool toward companies that will need a PM tool as they expand, while noting the result count is still broad and needs further narrowing.",
+          "time": [
+            "00:21:16-00:24:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b4",
+          "actor": "user",
+          "label": "Set the B2B segment filter",
+          "detail": "Continues refining the filter set and sets the business segment filter to B2B only, excluding B2C companies from the result pool.",
+          "time": [
+            "00:24:38-00:28:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b5",
+          "actor": "user",
+          "label": "Add decision-maker job-title filters and watch the count narrow",
+          "detail": "Adds Job Title filters for decision-maker roles (CEO, Founder, Owner, VP Sales, Operations Manager) to prepare for later contact targeting, narrating that these filters together narrow the pool from an initial count of over 70 million down to 1,089 matching company records.",
+          "time": [
+            "00:28:31-00:35:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "user_response": [],
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b6",
+          "actor": "user",
+          "label": "Select a batch of matching companies and save them to a new list",
+          "detail": "Selects a batch of the 1,089 filtered company records, opens the List Settings panel, and saves them into a new Apollo list named 'Company list for PMT' (Apollo confirms 'Adding 10 selected records to list').",
+          "time": [
+            "00:35:09-00:47:32"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 2"
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b3",
+          "type": "sequential"
+        },
+        {
+          "from": "b3",
+          "to": "b4",
+          "type": "sequential"
+        },
+        {
+          "from": "b4",
+          "to": "b5",
+          "type": "sequential"
+        },
+        {
+          "from": "b5",
+          "to": "b6",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Identify Decision Makers",
+      "step_action": "Research CEOs, Founders, COOs, VPs of Operations and other decision makers.",
+      "time_range": "00:47:32-01:54:00",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Search Apollo 'Find People' for decision-maker contacts",
+          "detail": "Switches to Apollo's 'Find People' search, applying the same job-title filters (CEO, COO, Founder, Owner, VP Sales, Operations Manager) narrowed to companies in the saved list, returning roughly 2,670 matching individual contacts; uses a 'select number of people' dialog to narrow the selection down to about 10 decision-makers and confirms Apollo has verified their emails as valid.",
+          "time": [
+            "00:47:32-00:47:43"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c2",
+          "actor": "user",
+          "label": "Prepare shortlisted contact list for Claude for validation",
+          "detail": "Returns to the Claude conversation and pastes in the shortlisted companies/contacts, narrating that she wants Claude to validate the picks and give its own analysis before she makes use of them: 'I have pulled the following companies from Apollo based on my initial ICP filters. Evaluate them against the qualification criteria we established. For each company, classify it as High Fit, Medium Fit or Low Fit and explain the main reason for the classification. Do not assume information that is not provided. Tell me what additional information I should verify before qualifying a company. Also remove all the unnecessary data in this file' (uploading the Apollo contacts export CSV).",
+          "time": [
+            "00:47:43-00:53:05",
+            "01:14:31-01:16:59"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c3",
+          "actor_type": "user",
+          "time": [
+            "00:53:05-01:14:31"
+          ],
+          "label": "Export list of company names, check and edit the download Excel",
+          "detail": "",
+          "softwares": "Apollo, Microsoft Excel",
+          "actor": "user",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c4",
+          "actor": "claude",
+          "label": "Review the Apollo export, run a cleanup script, and deliver the evaluated workbook",
+          "detail": "Views the uploaded Apollo contacts export, notes it has only 10 rows with no Industry, company-description, or technographic fields (so only two of the four hard-filter sections can be confirmed directly), checks spreadsheet-creation guidance, and writes and runs a Python script (build_qualified_list.py) to clean and classify the data. Shares the finished \"PMT_apollo_prospects_evaluated.xlsx\" workbook: explains it removed Primary Email Source, Mobile Phone/Other Phone, and Account Owner columns and added Fit Classification/Main Reason/What to Verify columns; reports all 10 contacts came back Medium Fit (none High or Low) since Industry and operational-complexity data are unconfirmed from the export; flags Sage's domain \"sagehealth.com\" as a possible healthcare-focus concern worth checking first; and lists seven items to verify per company before qualifying (industry, multi-project evidence, job postings, current PM-tool usage, subsidiary status, company age, contact's role tenure).",
+          "time": [
+            "01:16:59-01:19:42"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c5",
+          "actor": "user",
+          "label": "Review the evaluated workbook and manually tidy it",
+          "detail": "Reviews the returned workbook, adding one more matched contact into the Apollo list, spot-checking rows for a duplicate entry and manually deleting it, and further trimming the sheet down to the core identifying fields (name, last name, title, company) she needs going forward.",
+          "time": [
+            "01:19:42-01:21:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo, Excel",
+          "user_response": [
+            {
+              "source_node": "c2",
+              "target_ai": "c4",
+              "label": "adopt",
+              "source_node_time": "00:47:43-00:53:05, 01:14:43-01:16:59",
+              "ai_node_time": "01:16:59-01:19:42",
+              "user_adoption_time": "01:19:42-01:21:36",
+              "reasoning": "Source c2: Requests a High,Medium,Low fit evaluation of the Apollo export, with unnecessary data removed.\nTarget c4: Outputs PMT_apollo_prospects_evaluated.xlsx\nReasoning: User accepts the output without modifications"
+            }
+          ],
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Load another Claude prompt for CRM-readiness review",
+          "detail": "Narrates loading another prompt before importing the evaluated records, asking Claude: 'Review these prospect records for CRM readiness. Identify missing information, obvious inconsistencies, duplicate companies or contacts and any prospect that does not appear to meet ICP. Do not change information without evidence. Give me a concise list of corrections or verification points before I add these records to Hubspot' (uploading 'PMT for hubspot_apollo_prospects_evaluated.xlsx').",
+          "time": [
+            "01:21:36-01:26:22"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Inspect the workbook and deliver the CRM-readiness report",
+          "detail": "Inspects the uploaded workbook's sheet names and columns, prints the full contents to confirm it is the same 10 records as the prior evaluation, then reports CRM-readiness findings: Corporate Phone is blank for 5 of 10 records and Company Address lacks street-level detail for 6 of 10; populated phone numbers carry a stray leading apostrophe and Title values use inconsistent capitalization, word order, and connectors; flags a possible identity mismatch since Laminar's contact email domain is \"sre.ai\" rather than a Laminar-branded domain; notes two different contacts share the local-part \"raj\" but are likely just a common name; reconfirms the unresolved Sage healthcare-domain concern; and confirms no duplicate companies or emails in the set.",
+          "time": [
+            "01:26:22-01:27:55"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "d3",
+          "actor_type": "user",
+          "time": [
+            "01:27:55–01:28:54"
+          ],
+          "label": "Review Claude's response about inspecting the workbook and delivering the CRM-readiness report",
+          "detail": "",
+          "softwares": "Claude",
+          "actor": "user",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "d1",
+              "target_ai": "d2",
+              "label": "reject",
+              "source_node_time": "01:21:36-01:26:22",
+              "ai_node_time": "01:26:22-01:27:55",
+              "user_adoption_time": "01:27:55–01:28:54",
+              "reasoning": "Source d1: Requests a CRM readiness review of the evaluated prospects \nTarget d2: Outputs a CRM readiness report of missing data, inconsistencies, and flags.\nReasoning: User reads the report but says she'll build the pipeline without applying Claude's flags (d3), then imports the file unchanged (d5)."
+            }
+          ]
+        },
+        {
+          "id": "d4",
+          "actor": "user",
+          "label": "Build out the HubSpot sales pipeline stages",
+          "detail": "Navigates to the Deals object's Pipeline settings (Settings > Objects > Deals > Pipelines) and builds out a 'Sales Pipeline,' configuring named stages starting with 'New Prospect' at 20% probability and continuing on to roughly seven total stages.",
+          "time": [
+            "01:28:54-01:38:41"
+          ],
+          "actor_type": "user",
+          "softwares": "HubSpot",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "d5",
+          "actor": "user",
+          "label": "Import the evaluated contacts into HubSpot",
+          "detail": "Opens HubSpot's contact Import flow (Data Integration > New Import > Standard), names the import 'PMT for hubspot_apollo_prospects_evaluated.xlsx' on the naming step, selects 'Legitimate interest - Lead' as the legal basis for processing, and finishes the import so the Apollo-sourced, Claude-evaluated decision-maker contacts load into HubSpot as CRM records tied to the new pipeline.",
+          "time": [
+            "01:38:41-01:41:52"
+          ],
+          "actor_type": "user",
+          "softwares": "HubSpot",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "d6",
+          "actor": "user",
+          "label": "Review the finished pipeline's stage structure",
+          "detail": "Reviews the completed pipeline for the camera, confirming it has seven different stages ending in a 'lost' stage reserved for deals that don't convert.",
+          "time": [
+            "01:41:52-01:54:00"
+          ],
+          "actor_type": "user",
+          "softwares": "HubSpot",
+          "source_steps": "Step 3"
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        },
+        {
+          "from": "c3",
+          "to": "c2",
+          "type": "loop"
+        },
+        {
+          "from": "c2",
+          "to": "c4",
+          "type": "sequential"
+        },
+        {
+          "from": "c4",
+          "to": "c5",
+          "type": "sequential"
+        },
+        {
+          "from": "c5",
+          "to": "d1",
+          "type": "sequential"
+        },
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "type": "sequential"
+        },
+        {
+          "from": "d4",
+          "to": "d5",
+          "type": "sequential"
+        },
+        {
+          "from": "d5",
+          "to": "d6",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Create Personalized Outreach",
+      "step_action": "Create cold email and LinkedIn outreach.",
+      "time_range": "01:54:00-02:01:20",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Create the outreach sequence in Apollo",
+          "detail": "Returns to Apollo, narrating that this is the last part of the project, and opens the Sequences feature, creating a new sequence named 'PMT Sequence' with a single automatic-email step ('Step 1: Automatic email / Test A', scheduled to send in 30 minutes).",
+          "time": [
+            "01:54:00-01:57:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "e2",
+          "actor": "user",
+          "label": "Prompt Claude for a cold email with a catchy subject line",
+          "detail": "Sends a short prompt to the Claude conversation: 'craft a cold email with a catchy subject line to these decision makers.'",
+          "time": [
+            "01:57:57-01:58:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "e3",
+          "actor": "claude",
+          "label": "Deliver three cold-email angle variants",
+          "detail": "Since the list is a mixed group of founders/COOs/ops leads, delivers three email angles as an artifact (tabs including 'B: Curiosity, low-friction' and 'C: Outcome-focused'), each using merge fields {{FirstName}}/{{Company}}/{{EmployeeCount}} and bracket placeholders [Product]/[Your Name]; flags holding Sage out of the batch until its industry is confirmed, since the healthcare-sounding domain concern is still unresolved.",
+          "time": [
+            "01:58:55-01:59:28"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Choose the 'Curiosity, low-friction' variant",
+          "detail": "Reviews the three drafted variants and settles on the 'Curiosity, low-friction' angle ('Quick question — as {{Company}} has grown to {{EmployeeCount}} people...') as the one to use.",
+          "time": [
+            "01:59:28-01:59:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "e5",
+          "actor": "user",
+          "label": "Paste the chosen email into Apollo's composer",
+          "detail": "Pastes the chosen variant's body into Apollo's Sequence email composer (Test A), working first in Apollo's own 'Prompt' mode AI composer (backed by 'Anthropic Claude Haiku 4.5') before switching to 'Template' mode to finalize the wording.",
+          "time": [
+            "01:59:35-02:01:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 4"
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e5",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Review and Optimize",
+      "step_action": "I will review the ICP, target accounts, contacts, and outreach messaging together to identify gaps, inconsistencies, weak prospects, and areas where the personalization can be improved. I will use Claude to help evaluate the complete campaign against the original ICP and make final adjustments before the campaign is considered ready for execution.",
+      "time_range": "02:01:20-02:04:56",
+      "nodes": [
+        {
+          "id": "f1",
+          "actor": "user",
+          "label": "Cross-check the drafted email against the evaluated contact list",
+          "detail": "Reviews Claude's three drafted email variants side-by-side with the still-open evaluated-prospects Excel workbook, then pastes the chosen 'Curiosity, low-friction' variant's body into the Apollo email composer, leaving the subject line blank for now.",
+          "time": [
+            "02:01:20-02:01:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo, Claude, Excel",
+          "user_response": [],
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "f2",
+          "actor": "user",
+          "label": "Finalize the subject line and add a personalization token",
+          "detail": "Copies the 'Still tracking {{Company}}'s projects across 5 tools?' subject line out of Claude's artifact and pastes it into Apollo's blank Subject field, then opens the merge-field picker (Person > Name) and inserts a {{First name}} token after the 'Best,' sign-off.",
+          "time": [
+            "02:01:45-02:03:05"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo, Claude",
+          "user_response": [
+            {
+              "source_node": "e2",
+              "target_ai": "e3",
+              "label": "modify",
+              "source_node_time": "01:57:57-01:58:55",
+              "ai_node_time": "01:58:55-01:59:28",
+              "user_adoption_time": "02:01:45-02:03:05",
+              "reasoning": "Source e2: Requests a cold email \nTarget e3: Outputs three cold-email variants.\nReasoning: User copies and pastes Claude's draft (e4) into Apollo (e5), then makes modifications to the email."
+            }
+          ],
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "f3",
+          "actor": "user",
+          "label": "Confirm the finished preview and wrap up the session",
+          "detail": "Refreshes the live contact preview for Hassaan Raza at Tavus (hassaan@tavus.io) to confirm the finished subject line and personalization variables ({{FirstName}}, {{Company}}, {{EmployeeCount}}) all resolve correctly, then narrates to camera how the dynamic variables work and that the finished sequence will send the outreach email, closing with 'so this is the end of the sales process for this task.'",
+          "time": [
+            "02:03:05-02:04:56"
+          ],
+          "actor_type": "user",
+          "softwares": "Apollo",
+          "source_steps": "Step 5"
+        }
+      ],
+      "edges": [
+        {
+          "from": "f1",
+          "to": "f2",
+          "type": "sequential"
+        },
+        {
+          "from": "f2",
+          "to": "f3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Define the ICP",
+      "step_action": "Research companies and define the ideal company size, industries, pain points, buying signals, and decision-makers.",
+      "input": "General business goal and my existing knowledge of B2B lead generation and project management software prospects.",
+      "output": "A detailed ICP and prospect qualification framework that can be applied during company research.",
+      "tools": "Google Docs Paid: Claude Max",
+      "rubrics": [
+        "The ICP clearly identifies the target company size, industries, geographic market, and relevant decision maker roles",
+        "The qualification criteria distinguish strong prospects from companies that only superficially match the target market",
+        "The criteria include specific indicators that can be checked using Apollo.io and other sales research tools",
+        "The ICP is specific enough to guide consistent qualification decisions throughout the prospecting process",
+        "The final qualification framework can be directly applied to evaluate individual companies without requiring major interpretation"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output provided a clear and practical framework for identifying ICP-matched companies and relevant decision makers. It helped structure the prospecting process, prioritize qualified prospects, and prepare the information needed for the next steps in the sales workflow."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent successfully supported the prospecting workflow by helping define and refine the ICP, evaluate prospects, prioritize decision makers, review CRM information, and identify areas requiring further verification. It adapted to my instructions and provided recommendations that I could review and apply to my sales research process."
+      }
+    },
+    "Step 2": {
+      "step_name": "Build Target Company List",
+      "step_action": "Find startups and mid-sized companies matching the ICP.",
+      "input": "ICP and qualification criteria from Step 1.",
+      "output": "A qualified list of target companies that fit the defined ICP, including relevant company information and reasons for their potential fit.",
+      "tools": "Free: [http://apollo.io](http://apollo.io), Paid: Claude Max",
+      "rubrics": [
+        "The search results contain companies that satisfy the defined employee count, industry, and geographic criteria",
+        "Each shortlisted company has enough information to evaluate its initial fit, including company name, industry, employee count, and location",
+        "Companies that clearly fall outside the ICP are excluded from the shortlist",
+        "The shortlist contains a manageable number of relevant accounts that can be investigated further within the session",
+        "The selected companies show characteristics that make project management software relevant to their operations, such as multiple teams, projects, clients, or complex workflows"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output was clear, relevant, and actionable. It helped me identify and qualify companies that matched the ICP and provided useful guidance for prioritizing the most relevant prospects and decision makers."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent understood the prospecting objective and helped me work through the ICP and qualification process. It responded to my instructions, adapted when I refined the criteria, and provided useful recommendations that supported my decision-making rather than requiring me to start the research process from scratch."
+      }
+    },
+    "Step 3": {
+      "step_name": "Identify Decision Makers",
+      "step_action": "Research CEOs, Founders, COOs, VPs of Operations and other decision makers.",
+      "input": "Qualified company list from Step 2.",
+      "output": "A qualified contact list containing relevant decision makers associated with the selected companies.",
+      "tools": "Apollo.io,Clay, HubSpot CRM, Paid: LinkedIn Sales Navigator, Claude Max",
+      "rubrics": [
+        "Each selected company has at least one contact whose role is relevant to evaluating or influencing a project management software purchase",
+        "Contact titles and company associations are consistent with the information available in Apollo.io",
+        "Decision makers are prioritized based on their likely responsibility for operations, project management, team coordination, or workflow decisions",
+        "The selected contact is more appropriate for outreach than lower level or unrelated employees at the same company",
+        "The output provides a clear reason for prioritizing each selected decision maker"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output was relevant to the task and provided a clear, structured approach for qualifying prospects and identifying appropriate decision makers. It aligned with the ICP and gave me actionable information that could be used in the next stage of the prospecting workflow with minimal correction."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent understood the objective, followed the ICP criteria I provided, and helped me refine the prospect qualification process. It adapted to my instructions and provided useful recommendations that supported my prospecting decisions and reduced the amount of manual research required."
+      }
+    },
+    "Step 4": {
+      "step_name": "Create Personalized Outreach",
+      "step_action": "Create cold email and LinkedIn outreach.",
+      "input": "ICP, qualified company list, decision maker information, and relevant prospect research from Steps 1 to 3.",
+      "output": "Personalized cold email and LinkedIn outreach messages suitable for the selected prospects.",
+      "tools": "[http://apollo.io](http://apollo.io) ,Google Docs, Paid: Claude Max",
+      "rubrics": [
+        "The messaging reflects the prospect's company characteristics and the specific problems identified through the ICP and research",
+        "Personalization is based on actual prospect information and does not introduce unsupported claims about the company or individual",
+        "The messaging communicates a clear and relevant reason for contacting the prospect without relying on generic sales language",
+        "The email and LinkedIn versions are appropriate for their respective channels and contain a clear, low friction call to action",
+        "The messaging is concise enough for cold outreach while providing enough relevance and context to justify a response"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output was accurate, relevant, and useful for the task. It helped me identify the appropriate decision makers within the qualified companies and prioritize contacts based on their likely influence over operations, project management, and workflow decisions. The results were clear and actionable for the next stage of the sales workflow."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent successfully helped me evaluate and prioritize the decision makers identified during prospect research. It considered the ICP, company context, seniority, and relevance of each role, while allowing me to make the final qualification decisions. This made the process more efficient and reduced the amount of manual analysis required."
+      }
+    },
+    "Step 5": {
+      "step_name": "Review and Optimize",
+      "step_action": "I will review the ICP, target accounts, contacts, and outreach messaging together to identify gaps, inconsistencies, weak prospects, and areas where the personalization can be improved. I will use Claude to help evaluate the complete campaign against the original ICP and make final adjustments before the campaign is considered ready for execution.",
+      "input": "ICP, qualified company list, decision maker list, research notes, and personalized outreach created in Steps 1 to 4.",
+      "output": "A final outreach ready prospecting campaign containing the refined ICP, prioritized accounts and contacts, and finalized messaging.",
+      "tools": "Free: [http://apollo.io](http://apollo.io), Google docs, Paid: Linkedin Sales Navigator, Claude Max",
+      "rubrics": [
+        "The final prospect list remains consistent with the ICP and does not contain obvious low fit companies or contacts",
+        "Company and contact information is internally consistent across the campaign and any missing or questionable information is clearly identified",
+        "The outreach messaging is appropriately aligned with the characteristics, roles, and potential pain points of the selected prospects",
+        "The final campaign contains all of the information needed to begin prospect outreach without requiring another major research or planning stage",
+        "The campaign is logically organized and prioritized so that a sales professional can immediately identify who to contact, why they are a fit, and which message to use"
+      ],
+      "ratings": {
+        "collaboration_rating": 5,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 5,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 5,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 5,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": 5,
+        "output_quality_reason": "The output was clear, relevant, and actionable. It helped me create personalized outreach based on the ICP, target company characteristics, and decision-maker roles. The messaging was appropriate for the intended prospects and provided a practical foundation for the next stage of the sales process."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes",
+        "Why or why not": "The AI agent understood the target audience and outreach objective and helped develop messaging that was aligned with the prospect's company profile and role. It adapted to the information provided and reduced the time required to develop relevant outreach."
+      }
+    }
+  }
+}

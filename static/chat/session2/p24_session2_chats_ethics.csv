@@ -1,0 +1,303 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-21T05:55:15.411534Z,"i am setting up a cfd validation of the onera m6 wing at mach 0.8395 , angke of attach 3.06 degree , reynold number of 11.72 * 10^6 , c&an you confirm these standad benvhmark condotopns  anf give me the full set of referenc evalues i will need for a pressure farfiled boundary in fleunt",,,,
+Claude,2026-08-21T05:55:15.406057Z,"Yes — those are the standard ONERA M6 test conditions, matching the widely used AGARD-AR-138 case 2308 (and the NASA CFL3D/TMR validation case). Let me confirm the numbers and give you the full Fluent farfield reference set.
+
+## Standard ONERA M6 conditions (Case 2308)
+
+| Parameter | Value |
+|---|---|
+| Mach number | 0.8395 |
+| Angle of attack (α) | 3.06° |
+| Reynolds number (based on MAC) | 11.72 × 10⁶ |
+| Reference temperature | 255.56 K (varies by source; NASA TMR uses 255.56 K, some use 288.15 K) |
+
+Your Mach/AoA/Re combination matches the case exactly, so you're set up correctly for the benchmark.
+
+## Geometry reference values
+
+| Quantity | Value |
+|---|---|
+| Root chord | 0.8059 m |
+| Mean aerodynamic chord (MAC) | 0.64607 m |
+| Semi-span | 1.1963 m |
+| Reference area (S_ref) | 0.7532 m² (this is the **half-wing** planform area — used since only the half-model is typically simulated with a symmetry plane) |
+| Reference length | 0.64607 m (MAC) |
+
+## Fluent Reference Values panel setup
+
+In **Reference Values → Compute from → farfield** (or inlet), Fluent will auto-populate density, velocity, viscosity from your boundary condition — but double check these:
+
+- **Area**: 0.7532 m²
+- **Length**: 0.64607 m
+- **Depth**: 1 m (default, unused for 3D)
+- **Temperature**: 255.56 K (or 288.15 K — pick one and be consistent; NASA's TMR page uses 255.56 K)
+- **Velocity**: computed from Mach × speed of sound at reference T (≈ 268.16 m/s if T = 255.56 K)
+- **Viscosity**: computed from Sutherland's law at reference T
+- **Ratio of specific heats (γ)**: 1.4
+
+## Pressure Far-Field boundary panel
+
+- **Mach Number**: 0.8395
+- **Gauge Pressure**: use standard atmospheric static pressure at altitude, or simply set it to match the reference pressure you're normalizing against — commonly **101325 Pa** if using sea-level conditions, though many implementations back-calculate static pressure from Re, Mach, T, and MAC instead of assuming standard atmosphere. **This is the one value you should double check against your source**, since NASA TMR and AGARD don't always report freestream static pressure directly — it's derived from Reynolds number.
+- **Temperature**: 255.56 K (static temperature — must match whatever you use for Reference Values)
+- **X, Y, Z Components of Flow Direction**: 
+  - X = cos(3.06°) = 0.99857
+  - Y = 0
+  - Z = sin(3.06°) = 0.05335
+  (assuming AoA rotates about Y-axis with X as freestream axis — confirm against your mesh orientation)
+- **Turbulence specification**: typically Turbulence Intensity + Turbulent Viscosity Ratio, or Spalart-Allmaras modified turbulent viscosity if using SA (very common for this case — NASA TMR's baseline results use SA)
+
+## Deriving static pressure from Reynolds number
+
+Since Re is your controlling parameter, back-calculate freestream static pressure rather than assuming 1 atm:
+
+$$Re = \frac{\rho \, U \, L}{\mu}$$
+
+With $\rho = p/(RT)$ and $\mu$ from Sutherland's law at T = 255.56 K, solve for $p$ given Re = 11.72×10⁶, U = M·a, L = 0.64607 m. This typically lands close to standard atmospheric pressure at altitude (not sea level) — I'd recommend computing it explicitly rather than guessing, since a mismatch here will shift your Re away from 11.72×10⁶ even with correct Mach and temperature.
+
+Want me to run that calculation explicitly with your chosen reference temperature so you have an exact gauge pressure value to enter?",,,,
+Human,2026-08-21T06:00:20.865073Z,what is the role of setting a body of influence around a wing geometry ion cfd analysus,,,,
+Claude,2026-08-21T06:00:20.858730Z,"A Body of Influence (BOI) is a sizing control you place around (or near) a geometry to force local mesh refinement in a region — without that region being an actual solid body in the simulation. It's purely a meshing tool, not a boundary condition.
+
+## What it actually does
+
+Normally, mesh size near a surface is controlled by sizing functions tied to curvature, proximity, or the surface mesh itself. But away from the wing surface — in the volume where you expect wakes, shock waves, tip vortices, or flow gradients — the default volume mesh growth rate takes over and cells rapidly coarsen with distance from walls. A BOI overrides that: it's a (usually invisible/non-participating) enclosure — a box, cylinder, or custom shape — inside which you impose a maximum cell size, independent of the growth-rate-driven coarsening happening outside it.
+
+## Why it matters for a case like the ONERA M6
+
+The M6 case is exactly where this becomes important, because the interesting physics isn't just at the wall:
+
+- **Shock capturing**: at M = 0.8395 you'll get a lambda shock on the upper surface. If cells coarsen too fast just above the surface, you smear the shock and lose the characteristic double-shock structure that this case is famous for validating.
+- **Tip vortex**: the M6's wingtip vortex needs sustained fine resolution downstream to avoid being numerically dissipated (this is a classic failure mode — vortices ""disappearing"" a few chords downstream because the mesh coarsens).
+- **Wake resolution**: for accurate drag and downstream comparisons, the near-wake needs consistent cell size, not a sudden jump to farfield-sized cells right behind the trailing edge.
+
+## Practical setup
+
+You'd typically define:
+- A tight BOI hugging the wing and extending a short distance normal to the surface (to protect the shock region)
+- A second, elongated BOI (box or cylinder) extending downstream from the tip to preserve the vortex core
+- Possibly a wake BOI extending downstream of the trailing edge
+
+Each gets a target max cell size smaller than what the background growth rate would naturally produce there, and Fluent Meshing (or the older TGrid workflow) honors that size irrespective of distance from the wall.
+
+## Trade-off
+
+It's a blunt instrument compared to adaptive mesh refinement — you're guessing the region a priori rather than letting gradients drive refinement. It increases cell count (sometimes substantially) in the BOI region, so there's a real cost to over-sizing it. For a validation case like M6 where the shock location and vortex behavior are well documented, this a priori placement is usually fine since you roughly know where those features will sit; for a novel geometry you might combine BOIs with a first solve → adapt → resolve loop instead.",,,,
+Human,2026-08-21T06:35:31.456435Z,"what is an inflation layer , and for the onera wing m6 , calculate the firt layer thickness i need for y+=1 and check whehter 0.0012 m with 5 layers is appropriate",,,,
+Claude,2026-08-21T06:35:31.449880Z,"## What an inflation layer is
+
+An inflation layer (also called a prism layer or boundary layer mesh) is a stack of thin, highly anisotropic cells grown normal to a wall surface, transitioning into the regular tetrahedral/polyhedral volume mesh farther out. Instead of letting the general volume mesher fill the near-wall region with isotropic tets (which would need an enormous number of cells to resolve the steep gradients in a boundary layer), you explicitly stack layers of prisms (or hexahedra) that are very thin in the wall-normal direction but much larger tangentially.
+
+This matters because near-wall gradients in velocity, turbulence quantities, and (for compressible flow) temperature/density are extremely steep — resolving them with isotropic cells would be prohibitively expensive. Prism layers give you the resolution you need in the one direction that matters (wall-normal) without over-refining tangentially.
+
+Key parameters you specify:
+- **First layer thickness** — height of the cell immediately at the wall, sized to hit a target y+
+- **Growth rate** — ratio of each layer's thickness to the previous one (typically 1.15–1.3)
+- **Number of layers** — how many prism rows before transitioning to the bulk mesh
+- **Total thickness** — should be sized to roughly match or exceed the actual boundary layer thickness, so the transition to tets doesn't happen inside a region with strong gradients
+
+## Calculating first layer thickness for y+ = 1
+
+The standard approach: estimate the wall shear stress using a flat-plate turbulent boundary layer correlation, get friction velocity, then back out the wall-normal spacing.
+
+Let me compute this properly rather than hand-wave it.",,,,
+Claude,2026-08-21T06:35:38.073716Z,,Calculate freestream properties and first inflation layer thickness for y+=1,bash_tool,,
+Claude,2026-08-21T06:35:52.176456Z,"Good — this also gives us the derived static pressure for your farfield BC (**≈ 80,507 Pa**, close to ~7 km altitude conditions, consistent with 255.56 K), which answers the open question from your first message.
+
+## First layer thickness result
+
+Using the Schlichting flat-plate turbulent correlation at the reference conditions:
+
+| Quantity | Value |
+|---|---|
+| Freestream velocity | 269.04 m/s |
+| Freestream density | 1.0974 kg/m³ |
+| Freestream static pressure | 80,507 Pa |
+| Dynamic viscosity (Sutherland, T=255.56K) | 1.628×10⁻⁵ kg/m·s |
+| Wall shear stress τ_w | ~97–100 Pa |
+| Friction velocity u_τ | ~9.4–9.5 m/s |
+| **First layer height for y+ = 1** | **≈ 1.55–1.58 × 10⁻⁶ m (≈ 0.0016 mm)** |
+
+This is based on root chord and MAC as characteristic lengths — both give essentially the same answer since Cf is a weak function of Re_L (the -0.2-ish power dependence flattens things out). So **y₁ ≈ 1.6 µm** is your target first-layer thickness for a true y+ = 1 at these conditions.
+
+## Checking your proposed 0.0012 m
+
+That's **1.2 mm**, roughly **750× too thick** compared to the ~1.6 µm needed for y+ = 1.",,,,
+Claude,2026-08-21T06:35:57.736993Z,,Check y+ achieved with proposed 1.2mm first layer and estimate total stack thickness vs actual BL thickness,bash_tool,,
+Claude,2026-08-21T06:36:03.685019Z,"**0.0012 m is not appropriate — it's off by roughly three orders of magnitude.**
+
+### Two separate problems with your proposed setup
+
+**1. First layer thickness (0.0012 m = 1.2 mm)**
+This would give **y+ ≈ 772**, not y+ = 1. At y+ ≈ 772 you're sitting well up in the log-law region — this only works if you're deliberately using wall functions (not resolving the viscous sublayer). For a proper low-Re, wall-resolved approach (which is what y+ = 1 implies, and what's standard for ONERA M6 validation against experimental Cp and force data), you need **y₁ ≈ 1.6 µm**, not 1.2 mm.
+
+**2. Even if you fix the first layer, 5 layers isn't enough**
+With the correct y₁ ≈ 1.6 µm and a typical growth rate of 1.2–1.3, 5 layers only gets you to a total stack thickness of ~0.012–0.014 mm. But the actual turbulent boundary layer at these conditions is roughly **9–11 mm thick** (estimated via flat-plate correlation). Your inflation layer needs to span most or all of that boundary layer — otherwise you get a sharp, non-physical transition from tiny anisotropic prism cells straight into coarse isotropic tets *inside* the boundary layer, which corrupts the velocity/turbulence gradient resolution exactly where it matters.
+
+### What you actually need
+
+| Parameter | Recommended |
+|---|---|
+| First layer height (y₁) | ~1.6 × 10⁻⁶ m (1.6 µm) for y+ ≈ 1 |
+| Growth rate | 1.2 (conservative) or 1.15 for smoother transition |
+| Number of layers | 25–35+ (to reach total stack ≥ BL thickness) |
+| Total stack thickness target | ≥ 10–12 mm (matching estimated BL thickness, err on the high side) |
+
+Let me verify how many layers you'd actually need at a sensible growth rate:",,,,
+Claude,2026-08-21T06:36:11.353839Z,,Determine number of layers needed at various growth rates to span the boundary layer,bash_tool,,
+Claude,2026-08-21T06:36:14.337651Z,"### Bottom line
+
+You'd realistically need **30–40 layers** at a growth rate of 1.2–1.3 (not 5) to properly span the boundary layer while starting from a y+ = 1 first cell. That's a big jump from your proposed setup, and it's normal for this kind of wall-resolved validation case — this is exactly why ONERA M6 meshes in the literature (e.g., NASA TMR, AIAA papers) commonly report prism counts in that range.
+
+**Practical recommendations:**
+- If cell count is a concern, Fluent's ""smooth transition"" or ""last ratio"" inflation options can help taper more efficiently than a fixed geometric growth rate.
+- Double-check whether you actually need y+ = 1 — if you're using a wall-function-based turbulence model (standard k-ε with standard wall functions), y+ in the 30–300 range with far fewer layers is appropriate instead. But since you specifically asked for y+ = 1, I've assumed you're running SA or k-ω SST in **low-Re / wall-resolved mode**, which is the typical choice for ONERA M6 validation.
+- Verify your actual y+ post-solve — the flat-plate correlation is only an estimate; local τ_w varies over the wing (higher near the shock, lower near separation-prone regions), so check the y+ contour on the wing surface after your first solve and adjust if needed.",,,,
+Human,2026-08-21T06:54:24.000421Z,"help me set the pressure far filed boundary conditions , mach =0.8395 , gauge presure 315000 pa ,",,,,
+Claude,2026-08-21T06:54:23.991044Z,"I want to flag something before you lock in that number: **315,000 Pa is almost certainly not right for this case.**
+
+## Why this looks off
+
+Two issues:
+
+**1. Units — is this gauge or absolute?**
+In Fluent, ""Gauge Pressure"" on the Pressure Far-Field panel is relative to the **operating pressure** (set separately, default 101,325 Pa). If you type 315,000 Pa as *gauge* pressure, Fluent will compute:
+
+$$p_{static} = p_{operating} + p_{gauge} = 101{,}325 + 315{,}000 = 416{,}325 \text{ Pa (absolute)}$$
+
+That's over 4× atmospheric — an extremely high-pressure, low-altitude condition that has no connection to the ONERA M6 benchmark data.
+
+**2. It doesn't match the Reynolds number you specified**
+Earlier we derived the static pressure required to *actually hit* Re = 11.72×10⁶ at M = 0.8395, T = 255.56 K, using the reference chord — and got **p ≈ 80,507 Pa (absolute)**. Let me double check that against your new number to see if there's a unit or reference-frame mismatch I'm missing:",,,,
+Claude,2026-08-21T06:54:28.923168Z,,Check what Reynolds number results from the proposed 315000 Pa value under different interpretations,bash_tool,,
+Claude,2026-08-21T06:54:37.294643Z,"Confirmed — neither interpretation of 315,000 Pa gets you anywhere near Re = 11.72×10⁶. Both land you at **Re ≈ 46–61 million**, roughly 4–5× too high. Using this value would silently break the Reynolds number match, which is one of the three defining parameters of this benchmark case — your Mach and AoA would be right, but your viscous physics (boundary layer thickness, separation behavior, shock/BL interaction) would be wrong, and your results wouldn't be comparable to the AGARD-AR-138 experimental data.
+
+## What I'd recommend instead
+
+Set the **Operating Pressure to 0 Pa** (common practice for external aero at these speeds, so Gauge Pressure = Absolute Pressure directly — avoids confusion), then:
+
+| Field | Value |
+|---|---|
+| **Operating Pressure** (Cell Zone Conditions or General panel) | 0 Pa |
+| **Gauge Pressure** (Pressure Far-Field) | **80,507 Pa** |
+| **Mach Number** | 0.8395 |
+| **Temperature** | 255.56 K |
+| **X-Component of Flow Direction** | cos(3.06°) = 0.99857 |
+| **Y-Component of Flow Direction** | 0 |
+| **Z-Component of Flow Direction** | sin(3.06°) = 0.05335 |
+| **Turbulence** (if SA) | Modified Turbulent Viscosity, typically 3×ν∞ |
+
+If you instead keep the default **Operating Pressure = 101,325 Pa**, then Gauge Pressure needs to be **negative**: 80,507 − 101,325 = **−20,818 Pa**. Fluent allows negative gauge pressure as long as operating + gauge stays physically sensible (it does here, since absolute pressure is still positive).
+
+Can you tell me where the 315,000 Pa number came from? If it's from a different source or a different form of this benchmark (e.g., a scaled wind-tunnel total pressure rather than freestream static), I want to make sure I'm not missing context — but as it stands, I'd strongly recommend using 80,507 Pa (or the equivalent −20,818 Pa gauge with default operating pressure) to keep your Re matched to the benchmark.",,,,
+Human,2026-08-21T07:00:30.925342Z,how to calculate the density for an ideal gas,,,,
+Claude,2026-08-21T07:00:30.921788Z,"## Ideal gas density formula
+
+The ideal gas law is:
+
+$$pV = nRT$$
+
+Rewritten in terms of density (ρ = mass/volume), using specific gas constant R (per unit mass, not molar):
+
+$$\rho = \frac{p}{RT}$$
+
+where:
+- **ρ** = density (kg/m³)
+- **p** = absolute static pressure (Pa) — **not gauge pressure**
+- **R** = specific gas constant (J/kg·K) — for air, R = 287.05 J/kg·K
+- **T** = absolute static temperature (K)
+
+## Important: use absolute pressure, not gauge
+
+This is the detail that trips people up in Fluent specifically. If you only have gauge pressure, convert first:
+
+$$p_{absolute} = p_{gauge} + p_{operating}$$
+
+Then plug $p_{absolute}$ into the density formula — never gauge pressure directly, or you'll get nonsense (or even negative) density.
+
+## Worked example — your ONERA M6 case
+
+Using the static pressure we derived earlier (80,507 Pa absolute) and T = 255.56 K:
+
+$$\rho = \frac{80{,}507}{287.05 \times 255.56} = \frac{80{,}507}{73{,}367} \approx 1.097 \text{ kg/m}^3$$
+
+This matches the density we computed earlier when back-solving for pressure from your target Reynolds number — good consistency check.
+
+## Where this shows up in your Fluent setup
+
+- **Density-based solver**: density is computed automatically from the ideal gas law every iteration using local static p and T — you don't set it directly.
+- **Pressure-based solver with compressible flow (ideal gas)**: same — Fluent's material panel has ""ideal-gas"" as a density option, and it evaluates ρ = p/(RT) using absolute pressure at each cell.
+- **Reference Values panel**: if you ""Compute from"" the farfield boundary, Fluent computes a single reference density this way using your farfield gauge pressure + operating pressure + temperature — this is the ρ∞ used to normalize your Cp, Cl, Cd outputs.
+
+For your case specifically: as long as you enter absolute static pressure correctly (either via gauge + operating summing to 80,507 Pa) and T = 255.56 K, Fluent will compute ρ∞ ≈ 1.097 kg/m³ automatically — you don't need to hard-code it anywhere.",,,,
+Human,2026-08-21T07:02:34.606072Z,explain the meaning of cl and cd of a wing,,,,
+Claude,2026-08-21T07:02:34.599938Z,"## Cl and Cd — what they represent
+
+**Cl (lift coefficient)** and **Cd (drag coefficient)** are dimensionless numbers that describe how efficiently a wing generates lift and how much drag it produces, normalized so you can compare wings of different size, or the same wing at different speeds/altitudes, on equal footing.
+
+## The formulas
+
+$$C_l = \frac{L}{\tfrac{1}{2}\rho_\infty U_\infty^2 S_{ref}} \qquad C_d = \frac{D}{\tfrac{1}{2}\rho_\infty U_\infty^2 S_{ref}}$$
+
+where:
+- **L** = lift force (N) — force perpendicular to freestream flow direction
+- **D** = drag force (N) — force parallel to freestream flow direction
+- **½ρU²** = freestream dynamic pressure (this is your ""reference values"" density and velocity from earlier)
+- **S_ref** = reference area (for your M6 case, 0.7532 m², the half-wing planform area)
+
+## Why normalize at all
+
+Raw lift and drag forces in Newtons depend on wing size, air density, and speed — a 747 wing and a model wing at wind-tunnel speed will have wildly different force numbers even if they're aerodynamically similar shapes at the same angle of attack. Dividing by dynamic pressure and reference area strips out those scale effects, leaving a number that reflects purely the **shape's aerodynamic efficiency** at a given Mach number and angle of attack. This is what lets you compare your CFD result directly against the AGARD-AR-138 wind tunnel data, even though the tunnel model and your simulation aren't the same physical size or tested at the same absolute speed.
+
+## Physical meaning of each
+
+**Cl** tells you how much lift the wing shape produces relative to the dynamic pressure hitting it. It rises roughly linearly with angle of attack in the pre-stall regime — more AoA tilts the pressure distribution to push more air down, generating more lift, until flow separation causes it to break down (stall).
+
+**Cd** captures total drag, which for a 3D wing like the M6 has two main contributors:
+- **Profile drag** — skin friction + pressure drag from the airfoil shape and (at transonic speed) **wave drag** from the shock system you'll see in your solution
+- **Induced drag** — drag caused by the wingtip vortex, a direct consequence of generating lift on a finite-span wing (this is why the tip vortex resolution question you asked about earlier actually matters for getting Cd right, not just for looking pretty in a flow visualization)
+
+## Specific relevance to your ONERA M6 case
+
+At M = 0.8395 and α = 3.06°, you're in transonic flow with the wing's signature lambda-shock on the upper surface. This means your Cd will have a nontrivial **wave drag** component from the shock, on top of the usual viscous and induced drag — this is actually one of the reasons the M6 is used as a validation case: it's a demanding test of whether your solver, mesh, and turbulence model correctly capture shock-induced pressure drag, not just skin friction.
+
+When you report results, you'll typically also get **Cm** (pitching moment coefficient) from Fluent's reference values, and you should compare your Cl, Cd (and ideally the Cp distribution at the standard span stations: η = 0.20, 0.44, 0.65, 0.80, 0.90, 0.95, 0.99) against the AGARD-AR-138 experimental values — Cl and Cd alone are a coarse check; the spanwise Cp comparison is what actually validates shock location and strength.",,,,
+Human,2026-08-21T07:28:33.927914Z,what is the cp and how its calculated,,,,
+Claude,2026-08-21T07:28:33.922009Z,"## What Cp is
+
+**Cp (pressure coefficient)** is a dimensionless number describing how much the local static pressure at a point on the surface differs from the freestream static pressure, normalized by freestream dynamic pressure. It's the fundamental quantity used to characterize pressure distributions over an airfoil or wing — and it's exactly what you'll be comparing against the AGARD-AR-138 experimental data at those standard span stations (η = 0.20, 0.44, 0.65, 0.80, 0.90, 0.95, 0.99).
+
+## Formula
+
+$$C_p = \frac{p - p_\infty}{\tfrac{1}{2}\rho_\infty U_\infty^2}$$
+
+where:
+- **p** = local static pressure at the point of interest (on the wing surface, or anywhere in the flow field)
+- **p∞** = freestream static pressure (your 80,507 Pa)
+- **½ρ∞U∞²** = freestream dynamic pressure (same reference dynamic pressure used for Cl and Cd)
+
+## Physical meaning
+
+- **Cp = 0** → local pressure equals freestream pressure (no pressure disturbance)
+- **Cp > 0** → local pressure is higher than freestream (compression, e.g. near a stagnation point)
+- **Cp < 0** → local pressure is lower than freestream (expansion/suction, e.g. over the upper surface of a lifting wing)
+- **Cp = 1** → the theoretical maximum at a true stagnation point in **incompressible** flow, where local velocity goes to zero
+
+At transonic speeds like your M = 0.8395 case, there's also a special reference value:
+
+$$C_{p,crit}$$ 
+
+— the pressure coefficient at which the local flow first reaches Mach 1 (sonic). Anywhere on your wing where Cp drops below Cp,crit, the local flow is supersonic, which is exactly the region that terminates in a shock (visible as a sharp jump back up in Cp on your plots — that jump *is* the shock).
+
+## Compressible correction
+
+Because you're at M = 0.8395 (well into compressible territory), Fluent computes Cp using the actual compressible pressure field — no correction needed on your end, it comes directly from p and p∞ as defined above. But if you're hand-checking against incompressible-flow intuition, be aware that compressibility increases the magnitude of Cp excursions compared to what thin-airfoil incompressible theory would predict — part of why this case is a good transonic validation test.
+
+## How to get it in Fluent
+
+- **Reports → Surface Integrals**, or directly **plot Cp** via **Results → Plots → XY Plot**, selecting ""Pressure Coefficient"" from the Y-axis function list, evaluated on the wing wall surface.
+- This automatically uses your **Reference Values** (p∞, ρ∞, U∞) — which is exactly why getting your Reference Values panel right (the density we calculated, the 80,507 Pa static pressure, etc.) matters: if those are wrong, every Cp value you extract will be scaled incorrectly, even if your actual flow solution is physically correct.
+
+## For your validation specifically
+
+You'll want to extract Cp vs. x/c (chordwise position normalized by local chord) at each of the standard η span stations by creating **iso-surfaces** at those spanwise locations, then plotting Cp along the resulting chord line — upper and lower surface curves overlaid. The classic ONERA M6 signature is the **double-shock (lambda shock)** pattern visible in the Cp plot at the outboard stations (η = 0.80, 0.90), which is the most sensitive feature for checking turbulence model and mesh quality.",,,,

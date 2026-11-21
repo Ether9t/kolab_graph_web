@@ -1,0 +1,1713 @@
+{
+  "session_id": "p28_session2",
+  "participant_id": "P28",
+  "title": "Blender bouncing-ball animation via Claude MCP integration",
+  "goal": "Using a custom Claude MCP integration inside Blender, the participant (a professional game developer) iteratively builds a scene from scratch (ball, ground, materials), animates a bouncing ball, then extends the task to two interacting balls with collision, rotation, lighting, glow materials, color-change-on-interaction, a background, and camera tracking/zoom effects, writing all prompts himself without AI assistance (no ChatGPT).",
+  "context": null,
+  "occupation": "Game Developer, Designer",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+    "Why or why not": null
+  },
+  "workflow_graph": {
+    "All Steps": {
+      "key": "seg_all",
+      "badge": "All Steps",
+      "step_name": "Full session",
+      "step_action": "Clear the default Blender scene and create initial primitives (a ball from a sphere, and a resized ground plane) purely from typed natural-language prompts.",
+      "time_range": "00:00:00-00:50:48",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Define session goal and approach",
+          "detail": "States today's goal is to animate an object in Blender using a custom Claude MCP integration, and commits to writing all prompts himself without ChatGPT's help (unlike a possible other-session comparison).",
+          "time": [
+            "00:00:00-00:00:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Zoom screen-share)",
+          "source_steps": "No workflow doc; SRT cues 1-6"
+        },
+        {
+          "id": "a2",
+          "actor": "user",
+          "label": "Request scene cleanup",
+          "detail": "Types a prompt asking Claude to open the Blender file and delete everything in the scene.",
+          "time": [
+            "00:00:45-00:01:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 10-11; frame ~60s"
+        },
+        {
+          "id": "a3",
+          "actor": "claude",
+          "label": "Clear scene objects",
+          "detail": "Executes generated Python code to delete the default camera, light, and cube, confirming three objects removed.",
+          "time": [
+            "00:01:00-00:01:25"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 15-17"
+        },
+        {
+          "id": "a4",
+          "actor": "user",
+          "label": "Request ball and ground primitives",
+          "detail": "Asks Claude to make a ball object from a sphere, and separately to add a ground base.",
+          "time": [
+            "00:01:25-00:01:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 18-19; frame ~120s"
+        },
+        {
+          "id": "a5",
+          "actor": "claude",
+          "label": "Create ball primitive with unprompted color",
+          "detail": "Generates an orange sphere named 'Ball' and adds a color material on its own initiative, without being asked.",
+          "time": [
+            "00:01:55-00:02:10"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 19-22"
+        },
+        {
+          "id": "a6",
+          "actor": "user",
+          "label": "Verify ball creation and note AI's creative addition",
+          "detail": "Confirms the ball object exists and remarks that Claude added color automatically without being asked.",
+          "time": [
+            "00:02:10-00:02:23"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cues 20-22"
+        },
+        {
+          "id": "a7",
+          "actor": "user",
+          "label": "Request 20-meter ground base",
+          "detail": "Types a request for Claude to create a ground base roughly 20 meters in size.",
+          "time": [
+            "00:02:23-00:02:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 23-24; frame ~180s"
+        },
+        {
+          "id": "a8",
+          "actor": "claude",
+          "label": "Create ground plane",
+          "detail": "Builds a 'Ground' object, initially sized 20x20x1m (0.1m thick), reported to the user in chat.",
+          "time": [
+            "00:02:47-00:03:08"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 25-27"
+        },
+        {
+          "id": "a9",
+          "actor": "user",
+          "label": "Refine ground dimensions",
+          "detail": "Reviews the 20x20 ground and decides it's too square; asks Claude to resize it to 20x5.",
+          "time": [
+            "00:03:08-00:03:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 28-29"
+        },
+        {
+          "id": "a10",
+          "actor": "claude",
+          "label": "Resize ground to 20x5x0.1m",
+          "detail": "Adjusts the ground plane to a long, narrow 20x5x0.1m 'road or runway' shape as requested.",
+          "time": [
+            "00:03:34-00:03:43"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 30; frame ~240s"
+        },
+        {
+          "id": "a11",
+          "actor": "user",
+          "label": "Request wood ground material",
+          "detail": "Asks Claude to analyze the scene and turn the ground into a wooden material rather than a flat color.",
+          "time": [
+            "00:03:43-00:04:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 31; frame ~240s"
+        },
+        {
+          "id": "a12",
+          "actor": "claude",
+          "label": "Apply wood-look shader",
+          "detail": "Generates a 'Mat_Wood_Ground' material using a Color Ramp node to approximate a wood-grain look on the ground.",
+          "time": [
+            "00:04:04-00:04:28"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 (Shading workspace)",
+          "source_steps": "SRT cues 32-34; frame ~300s"
+        },
+        {
+          "id": "a13",
+          "actor": "user",
+          "label": "Verify material via shader editor",
+          "detail": "Opens the shader/material editor to check what Claude built, discovering it produced a procedural Color Ramp rather than a full textured wood material.",
+          "time": [
+            "00:04:28-00:05:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Shading workspace)",
+          "source_steps": "SRT cues 35-39",
+          "user_response": [
+            {
+              "source_node": "a4",
+              "target_ai": "a12",
+              "label": "adopt",
+              "source_node_time": "00:01:25-00:01:55",
+              "ai_node_time": "00:04:04-00:04:28",
+              "user_adoption_time": "00:04:28-00:05:03",
+              "reasoning": "a4 starts building the scene, asking for a ball and a ground base. a7 and a9 refine the ground (20 m, then 20x5), and a11 asks for a wood material. These are refinements through Claude, not rejects. a12 is Claude's last output in the chain. He opens the shader editor, sees it is a Color Ramp wood look rather than a full texture, keeps it unchanged, and builds the bounce animation on it."
+            }
+          ]
+        },
+        {
+          "id": "a14",
+          "actor": "user",
+          "label": "Request simple bouncing-ball animation",
+          "detail": "Asks Claude to make the ball bounce from up to down, deliberately leaving the exact motion style and frame count to Claude's discretion as a test of open-ended instruction following.",
+          "time": [
+            "00:05:03-00:05:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 41-45"
+        },
+        {
+          "id": "a15",
+          "actor": "claude",
+          "label": "Generate bounce keyframe animation",
+          "detail": "Inserts keyframes for the ball's position across a 120-147 frame range, producing an initial bounce animation with physics-accurate timing.",
+          "time": [
+            "00:05:46-00:07:11"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 (Timeline/Dope Sheet)",
+          "source_steps": "SRT cues 46-49; frame ~540s"
+        },
+        {
+          "id": "a16a",
+          "actor": "user",
+          "label": "Monitor animation generation in Timeline",
+          "detail": "Switches to the Timeline and watches the animation appear as Claude generates it.",
+          "time": [
+            "00:05:48-00:06:19"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 48-56"
+        },
+        {
+          "id": "a16b",
+          "actor": "user",
+          "label": "Review animation in timeline and playback",
+          "detail": "Scrubs the timeline and plays back the animation, observing the ball move from center to right to left as keyframes populate.",
+          "time": [
+            "00:06:58-00:07:11"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 48-56"
+        },
+        {
+          "id": "a17",
+          "actor": "user",
+          "label": "Critique unrequested squash-and-stretch, request removal",
+          "detail": "Notices Claude automatically added a squash-and-stretch effect that wasn't requested and asks for it to be removed for a simpler bounce.",
+          "time": [
+            "00:07:11-00:07:47"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 57-61"
+        },
+        {
+          "id": "a18",
+          "actor": "claude",
+          "label": "Remove squash-and-stretch effect",
+          "detail": "Simplifies the animation by removing the squash-and-stretch keyframes as requested.",
+          "time": [
+            "00:07:47-00:08:05"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 61"
+        },
+        {
+          "id": "a19",
+          "actor": "user",
+          "label": "Review result, identify floating look",
+          "detail": "Plays back the simplified animation and observes the ball now looks like it's floating rather than bouncing with weight.",
+          "time": [
+            "00:08:05-00:08:27"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 62-64; frame ~660s"
+        },
+        {
+          "id": "a20",
+          "actor": "user",
+          "label": "Request realistic bouncing motion",
+          "detail": "Asks Claude to fix the animation so the ball bounces realistically rather than floating.",
+          "time": [
+            "00:08:27-00:08:55"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 65"
+        },
+        {
+          "id": "a21",
+          "actor": "claude",
+          "label": "Regenerate realistic bounce physics",
+          "detail": "Reworks the animation to simulate a more realistic bounce, though it still forgets to constrain the ball's motion to the ground.",
+          "time": [
+            "00:08:55-00:09:29"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 66-70"
+        },
+        {
+          "id": "a22",
+          "actor": "user",
+          "label": "Review the revised bouncing-ball animation",
+          "detail": "",
+          "time": [
+            "00:09:29-00:09:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a23",
+          "actor": "user",
+          "label": "Request ground-constrained, paced bounce",
+          "detail": "Points out the ball must bounce only on the ground, and asks Claude to control the pace/speed of keyframes while keeping the animation within 144 frames.",
+          "time": [
+            "00:09:57-00:10:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 69-73"
+        },
+        {
+          "id": "a24",
+          "actor": "claude",
+          "label": "Recalculate keyframe timing and speed",
+          "detail": "Recomputes bounce timing/speed to fit the frame budget, calculating the ball's travel distance in the process.",
+          "time": [
+            "00:10:34-00:10:57"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 74"
+        },
+        {
+          "id": "a25",
+          "actor": "user",
+          "label": "Review result, catch ground-size mismatch",
+          "detail": "Notices Claude calculated a 34-meter bounce distance despite the ground only being 20 meters long. Plays back the animation again and judges it 'looks good, not perfect, but as AI generated, it looks good.'",
+          "time": [
+            "00:10:57-00:11:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 75-76"
+        },
+        {
+          "id": "a28",
+          "actor": "user",
+          "label": "Request faster ball speed",
+          "detail": "Asks Claude to increase the ball's overall movement speed.",
+          "time": [
+            "00:11:21-00:11:29"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 82"
+        },
+        {
+          "id": "a29",
+          "actor": "claude",
+          "label": "Apply increased speed",
+          "detail": "Adjusts the keyframe timing to speed up the ball's motion.",
+          "time": [
+            "00:11:29-00:11:45"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 82"
+        },
+        {
+          "id": "a30",
+          "actor": "user",
+          "label": "Review the faster bouncing-ball animation",
+          "detail": "",
+          "time": [
+            "00:11:45-00:11:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cue RECHECK"
+        },
+        {
+          "id": "a31",
+          "actor": "user",
+          "label": "Request roll to end of ground",
+          "detail": "Asks Claude to make the ball roll until it reaches the end of the ground.",
+          "time": [
+            "00:11:57-00:12:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 83"
+        },
+        {
+          "id": "a32",
+          "actor": "claude",
+          "label": "Implement rolling motion with creative workaround",
+          "detail": "Adds a rolling animation; since the ball is already at the edge of the ground, Claude creatively decides to roll it backward instead of off the edge.",
+          "time": [
+            "00:12:15-00:12:59"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 84-86; frame ~780s"
+        },
+        {
+          "id": "a33",
+          "actor": "user",
+          "label": "Review creative solution",
+          "detail": "Watches the backward-roll result and remarks positively that it was a creative solution to the edge-of-ground constraint.",
+          "time": [
+            "00:12:47-00:12:59"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 87-88"
+        },
+        {
+          "id": "a34",
+          "actor": "user",
+          "label": "Decide to test multi-object interaction",
+          "detail": "Decides to move on from single-ball animation and try a new challenge: two balls that react to each other.",
+          "time": [
+            "00:12:59-00:13:26"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cue 89",
+          "user_response": [
+            {
+              "source_node": "a14",
+              "target_ai": "a32",
+              "label": "adopt",
+              "source_node_time": "00:05:03-00:05:46",
+              "ai_node_time": "00:12:15-00:12:59",
+              "user_adoption_time": "00:12:59-00:13:26",
+              "reasoning": "a14 is where he first asks for a bouncing-ball animation. a17, a20, a23, a28 and a31 are refinements through Claude (remove squash and stretch, realistic bounce, stay on ground, faster, roll to the end), not rejects. a32 is Claude's last output in the chain. He watches the backward roll, calls it creative (a33), keeps it unchanged and moves on to the two-ball task (a34)."
+            }
+          ]
+        },
+        {
+          "id": "a35",
+          "actor": "user",
+          "label": "Request second, heavier ball with its own bounce",
+          "detail": "Asks Claude to create a second ball (behaving as heavier, via material) with its own separate bounce animation, in a single multi-part prompt.",
+          "time": [
+            "00:13:26-00:13:41"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 90-94"
+        },
+        {
+          "id": "a36",
+          "actor": "claude",
+          "label": "Create Ball_Heavy with darker material and bounce",
+          "detail": "Creates a second sphere named 'Ball_Heavy' with an unprompted darker material (implying greater mass) and its own bounce keyframes, executing three sub-steps in one response.",
+          "time": [
+            "00:13:41-00:14:33"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 95-96; frame ~900s"
+        },
+        {
+          "id": "a37",
+          "actor": "user",
+          "label": "Review new object naming and materials",
+          "detail": "Checks the outliner and notes the naming convention ('Ball' and 'Ball_Heavy') and material choices Claude made.",
+          "time": [
+            "00:14:20-00:14:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Outliner)",
+          "source_steps": "SRT cue 96"
+        },
+        {
+          "id": "a38",
+          "actor": "user",
+          "label": "Request direction change and mutual reaction",
+          "detail": "Asks Claude to change the heavy ball's direction and make the two balls react to each other, without specifying that they should physically collide.",
+          "time": [
+            "00:14:33-00:14:59"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 98-99; frame ~900s"
+        },
+        {
+          "id": "a39",
+          "actor": "claude",
+          "label": "Attempt first interaction implementation",
+          "detail": "Implements a first pass at making the balls interact, reporting completion.",
+          "time": [
+            "00:14:59-00:15:27"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 100"
+        },
+        {
+          "id": "a40",
+          "actor": "user",
+          "label": "Test result: balls pass through each other",
+          "detail": "Plays back the animation and observes the balls simply pass through one another with no collision response.",
+          "time": [
+            "00:15:27-00:15:45"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cue 101"
+        },
+        {
+          "id": "a41",
+          "actor": "user",
+          "label": "Request heavy-ball speed adjustment",
+          "detail": "Decides to first address the heavy ball's speed before tackling the collision issue.",
+          "time": [
+            "00:15:45-00:15:52"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 102-103"
+        },
+        {
+          "id": "a42",
+          "actor": "claude",
+          "label": "Adjust heavy-ball speed",
+          "detail": "Applies the requested speed change to the heavy ball's motion.",
+          "time": [
+            "00:15:52-00:16:16"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 103"
+        },
+        {
+          "id": "a43",
+          "actor": "user",
+          "label": "Review speed change",
+          "detail": "Checks the result and judges it 'not realistic, but it's working.'",
+          "time": [
+            "00:16:16-00:16:28"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cue 104",
+          "user_response": [
+            {
+              "source_node": "a35",
+              "target_ai": "a42",
+              "label": "adopt",
+              "source_node_time": "00:13:26-00:13:41",
+              "ai_node_time": "00:15:52-00:16:16",
+              "user_adoption_time": "00:16:16-00:16:28",
+              "reasoning": "a35 starts a new feature, a second heavier ball with its own bounce. a38 (change direction) and a41 (slow it down) refine the same ball. a42 is the final heavy-ball adjustment. He accepts it (\"not realistic, but it's working\") and moves on without changing it."
+            }
+          ]
+        },
+        {
+          "id": "a44",
+          "actor": "user",
+          "label": "Request mutual reaction on contact",
+          "detail": "Asks Claude to make the two balls react to each other, clarifying he only wants a reaction, not necessarily physical contact.",
+          "time": [
+            "00:16:28-00:16:54"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 106-108"
+        },
+        {
+          "id": "a45",
+          "actor": "claude",
+          "label": "Set matching Y-position to trigger reaction",
+          "detail": "Places both balls at the same Y coordinate, expecting this alignment to trigger the reaction logic.",
+          "time": [
+            "00:16:54-00:18:16"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 109-110"
+        },
+        {
+          "id": "a46",
+          "actor": "user",
+          "label": "Test result: collision fails to trigger",
+          "detail": "Plays back the animation and finds the collision/reaction still does not work.",
+          "time": [
+            "00:17:58-00:18:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cue 111"
+        },
+        {
+          "id": "a47",
+          "actor": "user",
+          "label": "Request re-check of collision logic",
+          "detail": "Asks Claude to check again why the collision isn't working.",
+          "time": [
+            "00:18:16-00:18:44"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 112"
+        },
+        {
+          "id": "a48",
+          "actor": "claude",
+          "label": "Rebuild collision system from scratch",
+          "detail": "Decides to completely rebuild the interaction logic to ensure the balls interact properly.",
+          "time": [
+            "00:18:44-00:19:26"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 113-114"
+        },
+        {
+          "id": "a49",
+          "actor": "user",
+          "label": "Test rebuilt collision: still fails",
+          "detail": "Tests the rebuilt logic and finds it still doesn't work ('not again').",
+          "time": [
+            "00:19:26-00:19:40"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 115-116"
+        },
+        {
+          "id": "a50",
+          "actor": "user",
+          "label": "Request another attempt with push-apart reaction",
+          "detail": "Asks Claude to work on it again, specifying the balls should react to each other and push each other away.",
+          "time": [
+            "00:19:40-00:20:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 117-118"
+        },
+        {
+          "id": "a51",
+          "actor": "claude",
+          "label": "Rework collision and push-apart logic",
+          "detail": "Implements a new version of the collision/reaction logic aiming for a push-apart effect.",
+          "time": [
+            "00:20:04-00:21:22"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 119; frame ~1200s"
+        },
+        {
+          "id": "a51a",
+          "actor": "user",
+          "label": "Check the balls' physics properties",
+          "detail": "",
+          "time": [
+            "00:20:46-00:21:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 120-122"
+        },
+        {
+          "id": "a52",
+          "actor": "user",
+          "label": "Test final collision result",
+          "detail": "Plays back the new result to check whether the collision now works.",
+          "time": [
+            "00:21:22-00:21:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 120-122"
+        },
+        {
+          "id": "a53",
+          "actor": "user",
+          "label": "Review collision as plastic merge effect",
+          "detail": "Observes that the current collision result behaves like a plastic merge: balls overlap and then push apart rather than bouncing elastically.",
+          "time": [
+            "00:21:35-00:22:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 122-124"
+        },
+        {
+          "id": "a54",
+          "actor": "user",
+          "label": "Request realistic elastic effect, not merge",
+          "detail": "Asks Claude for a realistic elastic bounce-back rather than a merge-then-push behavior.",
+          "time": [
+            "00:22:03-00:22:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 124-125"
+        },
+        {
+          "id": "a55",
+          "actor": "claude",
+          "label": "Implement distance-based collision detection",
+          "detail": "Diagnoses that both balls start at X=0 and overlap; implements detection that triggers collision response once the balls are one diameter apart, so they never interpenetrate.",
+          "time": [
+            "00:22:20-00:24:02"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 126; frame ~1380s"
+        },
+        {
+          "id": "a56",
+          "actor": "user",
+          "label": "Test animation playback",
+          "detail": "Hits space to preview the new elastic-collision animation.",
+          "time": [
+            "00:24:02-00:24:11"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cue 131"
+        },
+        {
+          "id": "a57",
+          "actor": "user",
+          "label": "Verify result and flag redundant keyframes",
+          "detail": "Judges the simulated collision satisfying though not fully physically realistic, and notices a stretch of unnecessary 'dead' keyframes between roughly frame 150 and 404.",
+          "time": [
+            "00:24:11-00:25:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Dope Sheet)",
+          "source_steps": "SRT cues 132-140"
+        },
+        {
+          "id": "a58",
+          "actor": "user",
+          "label": "Confirm overall two-ball simulation works",
+          "detail": "Summarizes that the two-ball bounce-and-interact simulation is now functioning as intended.",
+          "time": [
+            "00:25:01-00:25:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 141-148"
+        },
+        {
+          "id": "a59",
+          "actor": "user",
+          "label": "Request rolling rotation for both balls",
+          "detail": "Asks Claude to add rotation so that as the balls move left-to-right, they visibly roll like real balls.",
+          "time": [
+            "00:25:58-00:26:16"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 148-152"
+        },
+        {
+          "id": "a60",
+          "actor": "claude",
+          "label": "Implement rotation keyframes",
+          "detail": "Adds rotation keyframes synchronized to each ball's translation to simulate rolling.",
+          "time": [
+            "00:26:16-00:28:37"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 153"
+        },
+        {
+          "id": "a61",
+          "actor": "user",
+          "label": "Verify rotation is applied",
+          "detail": "Confirms both balls are now rotating, though the effect is visually hard to see given the current plain materials.",
+          "time": [
+            "00:28:37-00:28:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 154-156",
+          "user_response": [
+            {
+              "source_node": "a44",
+              "target_ai": "a60",
+              "label": "adopt",
+              "source_node_time": "00:16:28-00:16:54",
+              "ai_node_time": "00:26:16-00:28:37",
+              "user_adoption_time": "00:28:37-00:28:58",
+              "reasoning": "a44 starts the ball-to-ball reaction task. Collision failed (a46, a49) and looked like a plastic merge (a53), so he kept fixing it through Claude (a47, a50, a54) until it worked, then added rolling (a59). All of this is one two-ball physics task, so it is refinement. a60 is Claude's last output. He confirms both balls rotate and keeps everything unchanged."
+            }
+          ]
+        },
+        {
+          "id": "a62",
+          "actor": "user",
+          "label": "Decide to set up camera and lighting",
+          "detail": "Decides that before continuing with animation, the scene needs a proper camera and lighting setup for visualization.",
+          "time": [
+            "00:28:58-00:29:10"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cue 157"
+        },
+        {
+          "id": "a63",
+          "actor": "user",
+          "label": "Request camera and 3-point lighting",
+          "detail": "Asks Claude to create a camera and a standard three-light setup for the scene.",
+          "time": [
+            "00:29:10-00:29:20"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 158-161"
+        },
+        {
+          "id": "a64",
+          "actor": "claude",
+          "label": "Create camera and four-light rig",
+          "detail": "Creates a camera plus four named light objects (Key_Light, Fill_Light, Rim_Light, Bounce_Light), referencing standard Blender lighting/scale conventions.",
+          "time": [
+            "00:29:20-00:30:06"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 162-163; frame ~1860s"
+        },
+        {
+          "id": "a65",
+          "actor": "user",
+          "label": "Review new scene hierarchy",
+          "detail": "Checks the outliner and confirms the ball, ground, camera, and lights are all present.",
+          "time": [
+            "00:30:06-00:30:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Outliner)",
+          "source_steps": "SRT cues 163-165"
+        },
+        {
+          "id": "a66",
+          "actor": "user",
+          "label": "Notice lights are deactivated",
+          "detail": "Observes that all four created lights appear deactivated in the viewport and is unsure why.",
+          "time": [
+            "00:30:38-00:30:49"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Outliner/Viewport)",
+          "source_steps": "SRT cues 166-168"
+        },
+        {
+          "id": "a67",
+          "actor": "user",
+          "label": "Request explanation for deactivated lights",
+          "detail": "Asks Claude to explain why the lights are deactivated.",
+          "time": [
+            "00:30:49-00:31:06"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 169-171"
+        },
+        {
+          "id": "a68",
+          "actor": "claude",
+          "label": "Restore hidden lights to the viewport",
+          "detail": "",
+          "time": [
+            "00:31:06-00:31:27"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a69",
+          "actor": "user",
+          "label": "Compare viewport vs. render shading",
+          "detail": "Discovers the lights only appear active in Render shading mode, not viewport shading, and switches modes to confirm.",
+          "time": [
+            "00:31:27-00:31:56"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Shading modes)",
+          "source_steps": "SRT cues 172-176"
+        },
+        {
+          "id": "a70",
+          "actor": "user",
+          "label": "Request emission/glowing material",
+          "detail": "Asks Claude to change the material of both balls to have an emission, glowing effect.",
+          "time": [
+            "00:31:56-00:32:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 177-179; frame ~1980s"
+        },
+        {
+          "id": "a71",
+          "actor": "user",
+          "label": "Plan color-change-on-interaction phase",
+          "detail": "Outlines a follow-up, harder task: making both balls change color when they interact, anticipating it will require more complex logic than the glow material.",
+          "time": [
+            "00:32:18-00:32:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cues 180-183"
+        },
+        {
+          "id": "a72",
+          "actor": "claude",
+          "label": "Apply emission glow materials",
+          "detail": "Builds and applies glowing emission materials to both balls.",
+          "time": [
+            "00:32:46-00:34:56"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 (Cycles render, Rendered viewport)",
+          "source_steps": "SRT cue 184; frame ~2100s"
+        },
+        {
+          "id": "a73",
+          "actor": "user",
+          "label": "Verify glow materials in rendered view",
+          "detail": "Switches to rendered viewport shading to confirm both balls now glow with the emission material.",
+          "time": [
+            "00:34:56-00:35:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Rendered viewport)",
+          "source_steps": "SRT cues 185-186"
+        },
+        {
+          "id": "a74",
+          "actor": "user",
+          "label": "Request color change on interaction",
+          "detail": "Asks Claude to make the balls change color when they interact/track with each other.",
+          "time": [
+            "00:35:15-00:35:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 187"
+        },
+        {
+          "id": "a75",
+          "actor": "claude",
+          "label": "Implement proximity-triggered color-change logic",
+          "detail": "Adds color-change keyframes tied to ball proximity/speed, reporting completion.",
+          "time": [
+            "00:35:30-00:36:41"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 188-189"
+        },
+        {
+          "id": "a76",
+          "actor": "user",
+          "label": "Carefully review color-change behavior",
+          "detail": "Tests the result closely, noting the balls change color just before contact (going from one color value to zero) and reset to steady state once their speed returns to zero.",
+          "time": [
+            "00:36:41-00:38:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Timeline)",
+          "source_steps": "SRT cues 190-197"
+        },
+        {
+          "id": "a77",
+          "actor": "user",
+          "label": "Request full background",
+          "detail": "Asks Claude to create a big background that covers the whole viewport and the scene objects.",
+          "time": [
+            "00:38:04-00:38:35"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 197-198"
+        },
+        {
+          "id": "a78",
+          "actor": "claude",
+          "label": "Generate background geometry",
+          "detail": "Builds enclosing background geometry (ceiling and back/side walls, named BG_Ceiling, BG_Wall_Back/Left/Right).",
+          "time": [
+            "00:38:35-00:39:29"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cue 199; frame ~2340s"
+        },
+        {
+          "id": "a79",
+          "actor": "user",
+          "label": "Review background from camera view",
+          "detail": "Switches to the camera's view to check the background, noting it has walls and a ceiling but nothing covering the floor/bottom.",
+          "time": [
+            "00:39:29-00:40:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Camera view)",
+          "source_steps": "SRT cues 200-202",
+          "user_response": [
+            {
+              "source_node": "a63",
+              "target_ai": "a78",
+              "label": "adopt",
+              "source_node_time": "00:29:10-00:29:20",
+              "ai_node_time": "00:38:35-00:39:29",
+              "user_adoption_time": "00:39:29-00:40:09",
+              "reasoning": "a63 starts the camera and lighting setup. The follow-ups (lights deactivated, glow materials, color change on interaction, full background) all build on the same scene through Claude with no manual edits. a78 is Claude's last output. He reviews the background from the camera view, keeps it, and moves on to tracking."
+            }
+          ]
+        },
+        {
+          "id": "a80",
+          "actor": "user",
+          "label": "Request camera to track both balls",
+          "detail": "Explains the viewport vs. camera distinction and asks Claude to make the camera track and follow both balls at the same time.",
+          "time": [
+            "00:40:09-00:40:31"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 203-208"
+        },
+        {
+          "id": "a81",
+          "actor": "claude",
+          "label": "Implement dual-object tracking constraint",
+          "detail": "Adds a camera tracking constraint aimed at keeping both balls within frame.",
+          "time": [
+            "00:40:31-00:41:19"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 208"
+        },
+        {
+          "id": "a82",
+          "actor": "user",
+          "label": "Test dual-ball tracking result",
+          "detail": "Checks the camera view and confirms both balls are kept within a single frame.",
+          "time": [
+            "00:41:19-00:41:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Camera view)",
+          "source_steps": "SRT cues 209-212; frame ~2460-2520s"
+        },
+        {
+          "id": "a83",
+          "actor": "user",
+          "label": "Request tracking of only the light ball",
+          "detail": "Asks Claude to make the camera track just the lighter-colored ball instead of both.",
+          "time": [
+            "00:41:50-00:42:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 213"
+        },
+        {
+          "id": "a84",
+          "actor": "claude",
+          "label": "Configure the camera to track only the light ball",
+          "detail": "",
+          "time": [
+            "00:42:00-00:43:07"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude"
+        },
+        {
+          "id": "a85",
+          "actor": "user",
+          "label": "Evaluate literal vs. intended tracking behavior",
+          "detail": "Observes that Claude interpreted 'tracking' as simply keeping the light ball inside the frame rather than smoothly following its full left-to-right movement.",
+          "time": [
+            "00:42:37-00:43:07"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Camera view)",
+          "source_steps": "SRT cues 214-217"
+        },
+        {
+          "id": "a86",
+          "actor": "user",
+          "label": "Request focus and zoom on light ball",
+          "detail": "Asks Claude to focus the camera completely on the light-colored ball and create a zoom effect toward it.",
+          "time": [
+            "00:43:07-00:43:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cues 217-219; frame ~2640s"
+        },
+        {
+          "id": "a87",
+          "actor": "claude",
+          "label": "Implement depth-of-field zoom animation",
+          "detail": "Adds a depth-of-field/focus-distance animation on the camera targeting the light ball.",
+          "time": [
+            "00:43:37-00:44:23"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 219"
+        },
+        {
+          "id": "a88",
+          "actor": "user",
+          "label": "Evaluate imperfect focus tracking",
+          "detail": "Reviews the result and finds the camera loses the light ball out of frame during the balls' interaction, then regains it afterward -- an imperfect but partial success.",
+          "time": [
+            "00:44:23-00:45:11"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Camera view)",
+          "source_steps": "SRT cues 220-224"
+        },
+        {
+          "id": "a89",
+          "actor": "user",
+          "label": "Request removal of focus effect",
+          "detail": "Decides the zoom/focus effect isn't working well enough and asks Claude to remove it.",
+          "time": [
+            "00:45:11-00:45:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 225; frame ~2760s"
+        },
+        {
+          "id": "a90",
+          "actor": "claude",
+          "label": "Remove focus effect, reset camera",
+          "detail": "Disables depth of field, clears the lens animation, and fixes the camera at a flat 50mm shot that still tracks the light ball's movement.",
+          "time": [
+            "00:45:21-00:45:40"
+          ],
+          "actor_type": "ai",
+          "softwares": "Blender 5.1.2 with embedded Claude MCP chat panel",
+          "source_steps": "SRT cue 225; frame ~2760s"
+        },
+        {
+          "id": "a91",
+          "actor": "user",
+          "label": "Verify final camera result",
+          "detail": "Reviews the reset camera framing and judges it improved but still not perfectly centered on the ball.",
+          "time": [
+            "00:45:40-00:47:21"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2 (Camera view)",
+          "source_steps": "SRT cues 226-233; frame ~2880-2940s",
+          "user_response": [
+            {
+              "source_node": "a80",
+              "target_ai": "a90",
+              "label": "adopt",
+              "source_node_time": "00:40:09-00:40:31",
+              "ai_node_time": "00:45:21-00:45:40",
+              "user_adoption_time": "00:45:40-00:47:21",
+              "reasoning": "a80 starts camera tracking. He narrows it to the light ball (a83), tries focus and zoom (a86), finds it unreliable (a88) and asks Claude to remove it (a89). Undoing an effect through chat is refinement, not a reject. a90 is the final camera setup (flat 50mm, still tracking the light ball). He reviews it, calls it improved, and keeps it as the final state."
+            }
+          ]
+        },
+        {
+          "id": "a92",
+          "actor": "user",
+          "label": "Compare outcome to session 1",
+          "detail": "Reflects aloud that today's result is roughly '10 times better' than the prior session's character rigging attempt, which failed to produce a usable armature.",
+          "time": [
+            "00:47:21-00:49:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cues 234-248"
+        },
+        {
+          "id": "a93",
+          "actor": "user",
+          "label": "Evaluate Claude's capability as a professional tool",
+          "detail": "As a working game developer/animator, assesses that Claude (used here as Sonnet 4.6 Low) can speed up simple animation tasks but is not yet reliable enough, noting it is a lightweight, widely-used model tier.",
+          "time": [
+            "00:49:15-00:50:00"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cues 249-258"
+        },
+        {
+          "id": "a94",
+          "actor": "user",
+          "label": "Compare Claude to specialized 3D-generation tools",
+          "detail": "Contrasts general-purpose Claude with dedicated 3D-asset AI tools (e.g., Meshy, Tripo), discussing their strengths for photo-to-mesh generation and the production/optimization tradeoffs of using such high-poly assets in a real game.",
+          "time": [
+            "00:50:00-00:50:48"
+          ],
+          "actor_type": "user",
+          "softwares": "Blender 5.1.2",
+          "source_steps": "SRT cues 259-271"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        },
+        {
+          "from": "a5",
+          "to": "a6",
+          "type": "sequential"
+        },
+        {
+          "from": "a6",
+          "to": "a7",
+          "type": "sequential"
+        },
+        {
+          "from": "a7",
+          "to": "a8",
+          "type": "sequential"
+        },
+        {
+          "from": "a8",
+          "to": "a9",
+          "type": "sequential"
+        },
+        {
+          "from": "a9",
+          "to": "a10",
+          "type": "sequential"
+        },
+        {
+          "from": "a10",
+          "to": "a11",
+          "type": "sequential"
+        },
+        {
+          "from": "a11",
+          "to": "a12",
+          "type": "sequential"
+        },
+        {
+          "from": "a12",
+          "to": "a13",
+          "type": "sequential"
+        },
+        {
+          "from": "a13",
+          "to": "a14",
+          "type": "sequential"
+        },
+        {
+          "from": "a14",
+          "to": "a15",
+          "type": "sequential"
+        },
+        {
+          "from": "a14",
+          "to": "a16a",
+          "type": "sequential"
+        },
+        {
+          "from": "a16a",
+          "to": "a16b",
+          "type": "sequential"
+        },
+        {
+          "from": "a15",
+          "to": "a17",
+          "type": "sequential"
+        },
+        {
+          "from": "a16b",
+          "to": "a17",
+          "type": "sequential"
+        },
+        {
+          "from": "a17",
+          "to": "a18",
+          "type": "sequential"
+        },
+        {
+          "from": "a18",
+          "to": "a19",
+          "type": "sequential"
+        },
+        {
+          "from": "a19",
+          "to": "a20",
+          "type": "sequential"
+        },
+        {
+          "from": "a20",
+          "to": "a21",
+          "type": "sequential"
+        },
+        {
+          "from": "a21",
+          "to": "a22",
+          "type": "sequential"
+        },
+        {
+          "from": "a22",
+          "to": "a23",
+          "type": "sequential"
+        },
+        {
+          "from": "a23",
+          "to": "a24",
+          "type": "sequential"
+        },
+        {
+          "from": "a24",
+          "to": "a25",
+          "type": "sequential"
+        },
+        {
+          "from": "a25",
+          "to": "a28",
+          "type": "sequential"
+        },
+        {
+          "from": "a28",
+          "to": "a29",
+          "type": "sequential"
+        },
+        {
+          "from": "a29",
+          "to": "a30",
+          "type": "sequential"
+        },
+        {
+          "from": "a30",
+          "to": "a31",
+          "type": "sequential"
+        },
+        {
+          "from": "a31",
+          "to": "a32",
+          "type": "sequential"
+        },
+        {
+          "from": "a31",
+          "to": "a33",
+          "type": "sequential"
+        },
+        {
+          "from": "a32",
+          "to": "a34",
+          "type": "sequential"
+        },
+        {
+          "from": "a33",
+          "to": "a34",
+          "type": "sequential"
+        },
+        {
+          "from": "a34",
+          "to": "a35",
+          "type": "sequential"
+        },
+        {
+          "from": "a35",
+          "to": "a36",
+          "type": "sequential"
+        },
+        {
+          "from": "a35",
+          "to": "a37",
+          "type": "sequential"
+        },
+        {
+          "from": "a36",
+          "to": "a38",
+          "type": "sequential"
+        },
+        {
+          "from": "a37",
+          "to": "a38",
+          "type": "sequential"
+        },
+        {
+          "from": "a38",
+          "to": "a39",
+          "type": "sequential"
+        },
+        {
+          "from": "a39",
+          "to": "a40",
+          "type": "sequential"
+        },
+        {
+          "from": "a40",
+          "to": "a41",
+          "type": "sequential"
+        },
+        {
+          "from": "a41",
+          "to": "a42",
+          "type": "sequential"
+        },
+        {
+          "from": "a42",
+          "to": "a43",
+          "type": "sequential"
+        },
+        {
+          "from": "a43",
+          "to": "a44",
+          "type": "sequential"
+        },
+        {
+          "from": "a44",
+          "to": "a45",
+          "type": "sequential"
+        },
+        {
+          "from": "a44",
+          "to": "a46",
+          "type": "sequential"
+        },
+        {
+          "from": "a45",
+          "to": "a47",
+          "type": "sequential"
+        },
+        {
+          "from": "a46",
+          "to": "a47",
+          "type": "sequential"
+        },
+        {
+          "from": "a47",
+          "to": "a48",
+          "type": "sequential"
+        },
+        {
+          "from": "a48",
+          "to": "a49",
+          "type": "sequential"
+        },
+        {
+          "from": "a49",
+          "to": "a50",
+          "type": "sequential"
+        },
+        {
+          "from": "a50",
+          "to": "a51",
+          "type": "sequential"
+        },
+        {
+          "from": "a50",
+          "to": "a51a",
+          "type": "sequential"
+        },
+        {
+          "from": "a51",
+          "to": "a52",
+          "type": "sequential"
+        },
+        {
+          "from": "a51a",
+          "to": "a52",
+          "type": "sequential"
+        },
+        {
+          "from": "a52",
+          "to": "a53",
+          "type": "sequential"
+        },
+        {
+          "from": "a53",
+          "to": "a54",
+          "type": "sequential"
+        },
+        {
+          "from": "a54",
+          "to": "a55",
+          "type": "sequential"
+        },
+        {
+          "from": "a55",
+          "to": "a56",
+          "type": "sequential"
+        },
+        {
+          "from": "a56",
+          "to": "a57",
+          "type": "sequential"
+        },
+        {
+          "from": "a57",
+          "to": "a58",
+          "type": "sequential"
+        },
+        {
+          "from": "a58",
+          "to": "a59",
+          "type": "sequential"
+        },
+        {
+          "from": "a59",
+          "to": "a60",
+          "type": "sequential"
+        },
+        {
+          "from": "a60",
+          "to": "a61",
+          "type": "sequential"
+        },
+        {
+          "from": "a61",
+          "to": "a62",
+          "type": "sequential"
+        },
+        {
+          "from": "a62",
+          "to": "a63",
+          "type": "sequential"
+        },
+        {
+          "from": "a63",
+          "to": "a64",
+          "type": "sequential"
+        },
+        {
+          "from": "a64",
+          "to": "a65",
+          "type": "sequential"
+        },
+        {
+          "from": "a65",
+          "to": "a66",
+          "type": "sequential"
+        },
+        {
+          "from": "a66",
+          "to": "a67",
+          "type": "sequential"
+        },
+        {
+          "from": "a67",
+          "to": "a68",
+          "type": "sequential"
+        },
+        {
+          "from": "a68",
+          "to": "a69",
+          "type": "sequential"
+        },
+        {
+          "from": "a69",
+          "to": "a70",
+          "type": "sequential"
+        },
+        {
+          "from": "a70",
+          "to": "a71",
+          "type": "sequential"
+        },
+        {
+          "from": "a71",
+          "to": "a72",
+          "type": "sequential"
+        },
+        {
+          "from": "a72",
+          "to": "a73",
+          "type": "sequential"
+        },
+        {
+          "from": "a73",
+          "to": "a74",
+          "type": "sequential"
+        },
+        {
+          "from": "a74",
+          "to": "a75",
+          "type": "sequential"
+        },
+        {
+          "from": "a75",
+          "to": "a76",
+          "type": "sequential"
+        },
+        {
+          "from": "a76",
+          "to": "a77",
+          "type": "sequential"
+        },
+        {
+          "from": "a77",
+          "to": "a78",
+          "type": "sequential"
+        },
+        {
+          "from": "a78",
+          "to": "a79",
+          "type": "sequential"
+        },
+        {
+          "from": "a79",
+          "to": "a80",
+          "type": "sequential"
+        },
+        {
+          "from": "a80",
+          "to": "a81",
+          "type": "sequential"
+        },
+        {
+          "from": "a81",
+          "to": "a82",
+          "type": "sequential"
+        },
+        {
+          "from": "a82",
+          "to": "a83",
+          "type": "sequential"
+        },
+        {
+          "from": "a83",
+          "to": "a84",
+          "type": "sequential"
+        },
+        {
+          "from": "a83",
+          "to": "a85",
+          "type": "sequential"
+        },
+        {
+          "from": "a84",
+          "to": "a86",
+          "type": "sequential"
+        },
+        {
+          "from": "a85",
+          "to": "a86",
+          "type": "sequential"
+        },
+        {
+          "from": "a86",
+          "to": "a87",
+          "type": "sequential"
+        },
+        {
+          "from": "a87",
+          "to": "a88",
+          "type": "sequential"
+        },
+        {
+          "from": "a88",
+          "to": "a89",
+          "type": "sequential"
+        },
+        {
+          "from": "a89",
+          "to": "a90",
+          "type": "sequential"
+        },
+        {
+          "from": "a90",
+          "to": "a91",
+          "type": "sequential"
+        },
+        {
+          "from": "a91",
+          "to": "a92",
+          "type": "sequential"
+        },
+        {
+          "from": "a92",
+          "to": "a93",
+          "type": "sequential"
+        },
+        {
+          "from": "a93",
+          "to": "a94",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {}
+}

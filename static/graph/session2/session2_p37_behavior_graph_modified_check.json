@@ -1,0 +1,603 @@
+{
+  "session_id": "P37_session2",
+  "participant_id": "P37",
+  "title": "P37 Session 2: Solar Dispute Case Chronology",
+  "goal": "Produce a litigation-ready case chronology for a residential solar dispute from a multi-document file: a single dated timeline of every material event, each entry citing the source document and page, with conflicts between documents flagged rather than resolved, plus a short cover note identifying the sequencing issues the chronology reveals and the evidentiary gaps that remain.",
+  "context": "Session 1 was a statutory compliance analysis: reading a contract clause by clause against California disclosure law and deciding, for each requirement, whether the document met it. That work is interpretive. Every step depended on my legal judgment, and the hour was mentally expensive because I was checking the model's statements about the law against primary sources continuously.",
+  "occupation": "Paralegal",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+    "Why or why not": null
+  },
+  "workflow_graph": {
+    "Step-1 + Step-2": {
+      "key": "seg0a",
+      "badge": "Step-1 + Step-2",
+      "step_name": "Inventory the document set and build the initial chronology",
+      "step_action": "I load the case document set and ask Claude to produce a document inventory, identify relevant dates and likely event categories, and propose an agreed chronology schema. Claude then uses that schema to extract date-bearing statements from the documents and populate an initial chronology with source citations, which I review before moving to source-level verification.",
+      "time_range": "00:00:00-00:15:03",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Load case document set and request a document inventory with chronology schema",
+          "detail": "After narrating the session goal to camera, opens a fresh Claude chat, attaches five new source PDFs (reusing two documents from Session 1 for seven total: statutory disclosure template, sample HIC, financing contract, building permit, interconnection application, monitoring summary, correspondence chain), and sends a prompt asking Claude to explain each document, its relevant dates and likely event categories, and to propose an agreed chronology schema.",
+          "time": [
+            "00:00:00-00:05:37"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a2",
+          "actor": "claude",
+          "label": "Produce document inventory and populate the initial chronology",
+          "detail": "Produces a structured inventory of the seven documents, explains their contents and relevant dates, proposes a chronology schema, and continues within the same response to populate an initial chronology with date-bearing events from the document set, including commissioning, utility verification and correction, PTO, monthly production, and complaint/correspondence entries.",
+          "time": [
+            "00:05:37-00:09:20"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a3",
+          "actor": "user",
+          "label": "Review and cross-check the initial chronology against source documents",
+          "detail": "Reviews Claude's initial extraction and remarks that the document breakdown appears largely correct, then opens the source PDFs directly in the browser and cross-checks the extracted entries against the underlying documents, confirming dates and figures across the disclosure template, Sample HIC, Building Permit, System Monitoring Summary, and correspondence chain.",
+          "time": [
+            "00:09:20-00:15:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface); Microsoft Edge (browser PDF viewer)",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-3": {
+      "key": "seg0c",
+      "badge": "Step-3",
+      "step_name": "Verify every extracted entry against source",
+      "step_action": "I check each row of the extraction table back to the document, confirming the date is correct and the citation resolves. Where Claude has misread or mislocated a date I correct it and record the type of error. I use Claude here as a second pass - asking it to re-check its own extraction against specified pages - but the determination is mine.",
+      "time_range": "00:15:03-00:19:09",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Request Claude re-check its own extraction against cited pages",
+          "detail": "Sends 'claude, can you please recheck your own extraction against the specified pages,' using Claude as a second verification pass rather than accepting its own spot-check as final.",
+          "time": [
+            "00:15:03-00:15:34"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c2",
+          "actor": "claude",
+          "label": "Self-audit extraction and correct three errors",
+          "detail": "After a 1m4s reasoning pass, Claude confirms most figures but self-reports three errors: understating the service-response gap as '~2.5 months' rather than the actual 71 days; missing that Doc 7's 'third time writing' line implies an undocumented earlier complaint; and omitting two figures (Doc 3's First Payment Due, Doc 6's 17,400 kWh baseline). It also proposes softening its paraphrase of the 1/23/2026 email and offers a corrected version.",
+          "time": [
+            "00:15:34-00:16:51"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c3",
+          "actor": "user",
+          "label": "Accept the corrected extraction table",
+          "detail": "Accepts Claude's offer to issue a corrected version of the full chronology table with the three fixes and the softened phrasing incorporated.",
+          "time": [
+            "00:16:51-00:19:09"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 3",
+          "user_response": [
+            {
+              "source_node": "a1",
+              "target_ai": "c2",
+              "label": "adopt",
+              "source_node_time": "00:00:00-00:05:37",
+              "ai_node_time": "00:15:34-00:16:51",
+              "user_adoption_time": "00:16:51-00:19:09",
+              "reasoning": "Source a1: Requests a document inventory, event categories, chronology schema for the pdfs.\nTarget c2: Self-audits the extraction and corrects three errors.\nReasoning: a2 delivers the inventory and initial chronology, c1 asks Claude to recheck it against the pages (refinement), user accepts c2's corrections"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-4": {
+      "key": "seg0d",
+      "badge": "Step-4",
+      "step_name": "Sequence the timeline and identify conflicts",
+      "step_action": "I have Claude order the verified entries chronologically and identify every place where two documents give inconsistent dates for what appears to be the same event, or where the sequence is internally implausible. Conflicts get flagged and preserved side by side rather than resolved.",
+      "time_range": "00:19:09-00:28:26",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Request chronological ordering and conflict identification",
+          "detail": "Thanks Claude for the corrections and sends: 'may you please produce the verified entries in a chronological order and identify every place where 2 documents give inconsistent dates for what appear to be the event, or where the event/sequence is implausible.'",
+          "time": [
+            "00:19:09-00:20:53"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Produce ordered chronology and flag cross-document inconsistencies",
+          "detail": "After a 1m11s reasoning pass, Claude returns a full Chronological Table (Verified Entries) from 3/11/2025 through 3/3/2026, followed by an Inconsistencies and Implausible Sequences section: the Commercial Operation Date (5/8) recorded before PTO (5/27) and before the meter-configuration fix (5/23); Doc 7's internal 'third time writing' inconsistency; and a bonus finding that Doc 3's stated Total of Payments doesn't arithmetically match its own payment schedule ($30.38 discrepancy).",
+          "time": [
+            "00:20:53-00:22:24"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d3",
+          "actor": "user",
+          "label": "Review and cross-check the initial chronology",
+          "detail": "",
+          "time": [
+            "00:22:24-00:28:26"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 4",
+          "user_response": [
+            {
+              "source_node": "d1",
+              "target_ai": "d2",
+              "label": "adopt",
+              "source_node_time": "00:19:09-00:20:53",
+              "ai_node_time": "00:20:53-00:22:24",
+              "user_adoption_time": "00:22:24-00:28:26",
+              "reasoning": "Source d1: Requests the verified entries in chronological order, with flags.\nTarget d2: Outputs the ordered chronology \nReasoning: User reviews and accepts."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-5": {
+      "key": "seg0e",
+      "badge": "Step-5",
+      "step_name": "Analyse sequencing significance",
+      "step_action": "I work through the ordered timeline with Claude to identify which sequences carry legal significance in this practice area - financing executed before the home improvement contract, work commenced before permit issuance, installation before the cancellation period expired, interconnection after the claimed commercial operation date. I decide which are genuinely significant; Claude's role is to surface candidates and argue the contrary reading.",
+      "time_range": "00:28:26-00:33:43",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Request significant sequences framed around the client's interests",
+          "detail": "Sends: 'can you state the list of significant sequences and state what the order was and why it matters, make it so we ensure the client is put as our utmost priority.'",
+          "time": [
+            "00:28:26-00:29:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e2",
+          "actor": "claude",
+          "label": "Surface seven significant sequences with client-favoring rationale",
+          "detail": "Returns seven significant sequences (system recorded operating before authorization complete; loan disbursement tied to milestones that may not have been verified; payments beginning amid declining performance; ... a scheduled repair falling 71 days after the fault report), each with an Order and a 'Why it matters' explanation written from the client's position, closing with a 'net read across all seven' noting the timeline consistently places the client's conduct ahead of or independent from the installer's/lender's conduct.",
+          "time": [
+            "00:29:30-00:30:09"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e3",
+          "actor": "user",
+          "label": "Review Claude's significant-sequence analysis",
+          "detail": "",
+          "time": [
+            "00:30:09-00:33:43"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 5",
+          "user_response": [
+            {
+              "source_node": "e1",
+              "target_ai": "e2",
+              "label": "adopt",
+              "source_node_time": "00:28:26-00:29:30",
+              "ai_node_time": "00:29:30-00:30:09",
+              "user_adoption_time": "00:30:09-00:33:43",
+              "reasoning": "Source e1: User asks for the significant sequences\nTarget e2: Outputs the significant sequences \nReasoning: User reviews, and accepts with no modification"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-6": {
+      "key": "seg0f",
+      "badge": "Step-6",
+      "step_name": "Identify evidentiary gaps",
+      "step_action": "I ask Claude to work backwards from the timeline and identify what is missing - events the documents imply happened but do not evidence, periods with no documentation, and documents referenced in the file but not present. I then decide which gaps matter and what would fill them.",
+      "time_range": "00:33:43-00:36:04",
+      "nodes": [
+        {
+          "id": "f1",
+          "actor": "user",
+          "label": "Request identification of unevidenced or implied events",
+          "detail": "Sends: 'work backwards and identify what is missing such as events that the documents imply but lack any form of evidence.'",
+          "time": [
+            "00:33:43-00:34:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "f2",
+          "actor": "claude",
+          "label": "Enumerate fifteen evidentiary gaps and a net pattern",
+          "detail": "Returns fifteen numbered gaps, including no evidence of when physical construction began, no underwriting/credit-approval or Truth-in-Lending paperwork behind the executed loan terms, no insurance disclosures, no identified salesperson, and the undocumented earlier complaint implied by Doc 7. Closes with a 'net pattern' observation that almost every gap sits either right before a disbursement of money or right after a client complaint.",
+          "time": [
+            "00:34:30-00:35:20"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 6"
+        },
+        {
+          "id": "f3",
+          "actor": "user",
+          "label": "Review Claude's identified evidentiary gaps",
+          "detail": "",
+          "time": [
+            "00:35:20-00:36:04"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude",
+          "source_steps": "Step 6",
+          "user_response": [
+            {
+              "source_node": "f1",
+              "target_ai": "f2",
+              "label": "adopt",
+              "source_node_time": "00:33:43-00:34:30",
+              "ai_node_time": "00:34:30-00:35:20",
+              "user_adoption_time": "00:35:20-00:36:04",
+              "reasoning": "Source f1: Requests to work backwards and identify anything missing\nTarget f2: Outputs evidentiary gaps and a net pattern.\nReasoning: User reviews and accpets with no modifications."
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "f1",
+          "to": "f2",
+          "type": "sequential"
+        },
+        {
+          "from": "f2",
+          "to": "f3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-7": {
+      "key": "seg0g",
+      "badge": "Step-7",
+      "step_name": "Produce the chronology document and cover note",
+      "step_action": "I have Claude assemble the verified timeline into a formatted chronology document and draft a cover note summarising the significant sequences and evidentiary gaps. I rewrite the cover note into my own register - factual, no argument, no characterisation beyond what the entries support.",
+      "time_range": "00:36:04-00:39:15",
+      "nodes": [
+        {
+          "id": "g1",
+          "actor": "user",
+          "label": "Request generation of the chronology document and cover note",
+          "detail": "Sends the simple instruction: 'Claude, make the chronology doc and the cover note.'",
+          "time": [
+            "00:36:04-00:36:25"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 7"
+        },
+        {
+          "id": "g2",
+          "actor": "claude",
+          "label": "Generate chronology and cover note as formatted DOCX files",
+          "detail": "Loads its docx-generation skill and runs a script to build the files ('Node script to build the Chronology of Events docx'), then delivers two downloadable DOCX documents: 'Chronology of events delgado' (full verified table, three flagged inconsistencies, fifteen unevidenced events, priority follow-up list) and 'Cover note delgado' (three highest-priority issues), both left with [Name/File] and [Preparer Name] placeholders.",
+          "time": [
+            "00:36:25-00:38:29"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Sonnet 5, docx-generation skill); Microsoft Word (DOCX output)",
+          "source_steps": "Step 7"
+        },
+        {
+          "id": "g3",
+          "actor": "user",
+          "label": "Review the generated chronology document",
+          "detail": "Opens the generated 'Chronology of events delgado' DOCX and reviews the completed chronology, including its verified timeline, flagged inconsistencies, evidentiary gaps, and priority follow-up items.",
+          "time": [
+            "00:38:29-00:39:15"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Edge (PDF viewer); Microsoft Word (DOCX viewer)",
+          "source_steps": "Step 7"
+        }
+      ],
+      "edges": [
+        {
+          "from": "g1",
+          "to": "g2",
+          "type": "sequential"
+        },
+        {
+          "from": "g2",
+          "to": "g3",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    },
+    "Step-8": {
+      "key": "seg0h",
+      "badge": "Step-8",
+      "step_name": "Final audit against source",
+      "step_action": "I audit the finished chronology against the source documents one last time, spot-checking citations at random and confirming that nothing drifted during formatting. I use Claude to run a consistency check between the cover note and the timeline, then confirm the flagged discrepancies myself.",
+      "time_range": "00:39:15-00:53:01",
+      "nodes": [
+        {
+          "id": "h1",
+          "actor": "user",
+          "label": "Request a consistency check between the cover note and chronology",
+          "detail": "Returns to Claude and asks it to 'do a consistency check' between the cover note and the chronology.",
+          "time": [
+            "00:39:15-00:39:33"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude chat (Sonnet 5, Moonlit interface)",
+          "source_steps": "Step 8"
+        },
+        {
+          "id": "h2",
+          "actor": "claude",
+          "label": "Check document consistency and deliver corrected versions",
+          "detail": "Checks the cover note and chronology against each other, the accepted chronology, and the source documents, identifying two issues: misleading phrasing around the scheduled site visit and the lack of traceability for the 71-day gap. Claude then edits the chronology and cover note to address these issues and redelivers corrected versions of both DOCX files.",
+          "time": [
+            "00:39:33-00:41:50"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (Sonnet 5, docx-generation skill); Microsoft Word (DOCX output)",
+          "source_steps": "Step 8"
+        },
+        {
+          "id": "h3",
+          "actor": "user",
+          "label": "Spot-check the generated chronology against source Documents 3 and 4",
+          "detail": "Opens the generated chronology alongside source Documents 3 and 4 and cross-checks entries against the underlying documents, confirming financing figures and dates from the Retail Installment Contract and permit dates from the Building Permit.",
+          "time": [
+            "00:39:40-00:41:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Word (DOCX viewer); Microsoft Edge (PDF viewer)",
+          "source_steps": "Step 8"
+        },
+        {
+          "id": "h4",
+          "actor": "user",
+          "label": "Review the corrected cover note and confirm accuracy",
+          "detail": "Opens the corrected cover note delivered by Claude, reviews its summary of the key sequencing issues and evidentiary gaps, and confirms that the dates and factual statements are accurate.",
+          "time": [
+            "00:41:50-00:53:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Microsoft Word (DOCX viewer)",
+          "source_steps": "Step 8",
+          "user_response": [
+            {
+              "source_node": "g1",
+              "target_ai": "h2",
+              "label": "adopt",
+              "source_node_time": "00:36:04-00:36:25",
+              "ai_node_time": "00:39:33-00:41:50",
+              "user_adoption_time": "00:41:50-00:53:01",
+              "reasoning": "Source g1: User requests the chronology document and cover note.\nTarget h2: Outputs corrected versions of both DOCX files: Chronology and cover \nReasoning: g2 delivers both files, h1 asks for a consistency check, h2 fixes two issues, user confirms accuracy"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "h1",
+          "to": "h2",
+          "type": "sequential"
+        },
+        {
+          "from": "h1",
+          "to": "h3",
+          "type": "sequential"
+        },
+        {
+          "from": "h2",
+          "to": "h4",
+          "type": "sequential"
+        },
+        {
+          "from": "h3",
+          "to": "h4",
+          "type": "sequential"
+        }
+      ],
+      "custom": false
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Inventory the document set and build the initial chronology",
+      "step_action": "I load the case document set and ask Claude to produce a document inventory, identify relevant dates and likely event categories, and propose an agreed chronology schema. Claude then uses that schema to extract date-bearing statements from the documents and populate an initial chronology with source citations, which I review before moving to source-level verification.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 2": {
+      "step_name": "Inventory the document set and build the initial chronology",
+      "step_action": "I load the case document set and ask Claude to produce a document inventory, identify relevant dates and likely event categories, and propose an agreed chronology schema. Claude then uses that schema to extract date-bearing statements from the documents and populate an initial chronology with source citations, which I review before moving to source-level verification.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 3": {
+      "step_name": "Verify every extracted entry against source",
+      "step_action": "I check each row of the extraction table back to the document, confirming the date is correct and the citation resolves. Where Claude has misread or mislocated a date I correct it and record the type of error. I use Claude here as a second pass - asking it to re-check its own extraction against specified pages - but the determination is mine.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 4": {
+      "step_name": "Sequence the timeline and identify conflicts",
+      "step_action": "I have Claude order the verified entries chronologically and identify every place where two documents give inconsistent dates for what appears to be the same event, or where the sequence is internally implausible. Conflicts get flagged and preserved side by side rather than resolved.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 5": {
+      "step_name": "Analyse sequencing significance",
+      "step_action": "I work through the ordered timeline with Claude to identify which sequences carry legal significance in this practice area - financing executed before the home improvement contract, work commenced before permit issuance, installation before the cancellation period expired, interconnection after the claimed commercial operation date. I decide which are genuinely significant; Claude's role is to surface candidates and argue the contrary reading.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 6": {
+      "step_name": "Identify evidentiary gaps",
+      "step_action": "I ask Claude to work backwards from the timeline and identify what is missing - events the documents imply happened but do not evidence, periods with no documentation, and documents referenced in the file but not present. I then decide which gaps matter and what would fill them.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 7": {
+      "step_name": "Produce the chronology document and cover note",
+      "step_action": "I have Claude assemble the verified timeline into a formatted chronology document and draft a cover note summarising the significant sequences and evidentiary gaps. I rewrite the cover note into my own register - factual, no argument, no characterisation beyond what the entries support.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    },
+    "Step 8": {
+      "step_name": "Final audit against source",
+      "step_action": "I audit the finished chronology against the source documents one last time, spot-checking citations at random and confirming that nothing drifted during formatting. I use Claude to run a consistency check between the cover note and the timeline, then confirm the flagged discrepancies myself.",
+      "input": null,
+      "output": null,
+      "tools": null,
+      "rubrics": [],
+      "ratings": {},
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": null,
+        "Why or why not": null
+      }
+    }
+  }
+}

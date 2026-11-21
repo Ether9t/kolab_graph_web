@@ -1,0 +1,173 @@
+speaker,timestamp,chat,ai_workflow,input_files,output_files
+Human,2026-08-05 18:52:07.817 UTC,"Help me do a brand audit. What I'm uploading here are the logo, a questionnaire and a brief from this client. What this client wants is to grow their ecommerce. 
+I want you to research five competitors and their positioning, visual language and e-commerce. With that information, create a comparison matrix, and then draft a creative brief with audience, objective, tone and mandatories.",,"Long_Way_Client_Questionnaire.pdf, Long_Way_Client_Brief.pdf, long way logo.png",
+Claude,2026-08-05 18:52:11.571 UTC,I'll start by reading the two PDFs to ground the audit in what the client actually said.,,,
+Claude,2026-08-05 18:52:14.365 UTC,,Read file: Long_Way_Client_Brief.pdf,Long_Way_Client_Brief.pdf,
+Claude,2026-08-05 18:52:15.638 UTC,,Read file: Long_Way_Client_Questionnaire.pdf,Long_Way_Client_Questionnaire.pdf,
+Claude,2026-08-05 18:52:32.442 UTC,,Ask user question: Which competitor set should I research for the matrix? | What format do you want the deliverables in? | How deep should the audit go on Long Way's own brand?,,
+Human,2026-08-05 18:52:58.952 UTC,"Your questions have been answered: ""Which competitor set should I research for the matrix?""=""Argentina only"", ""What format do you want the deliverables in?""=""Two PDFs (Recommended)"", ""How deep should the audit go on Long Way's own brand?""=""Include logo critique (Recommended)"". You can now continue with these answers in mind.",,,
+Claude,2026-08-05 18:53:01.482 UTC,,"Search available tools: select:WebSearch,TaskCreate,TaskUpdate",,
+Claude,2026-08-05 18:53:05.904 UTC,,Plan task: Research 5 Argentine competitor brands,,
+Claude,2026-08-05 18:53:06.964 UTC,,Plan task: Audit Long Way's current logo and identity,,
+Claude,2026-08-05 18:53:08.088 UTC,,Plan task: Build comparison matrix PDF,,
+Claude,2026-08-05 18:53:09.096 UTC,,Plan task: Draft creative brief PDF,,
+Claude,2026-08-05 18:53:09.959 UTC,,Plan task: Verify claims and sources,,
+Claude,2026-08-05 18:53:13.702 UTC,,Web search: Montagne Argentina camperas t??cnicas marca outdoor,,
+Claude,2026-08-05 18:53:14.171 UTC,,Web search: Ansilta Argentina ropa t??cnica monta??a San Juan marca,,
+Claude,2026-08-05 18:53:32.700 UTC,,Web search: Card??n marca argentina indumentaria campo historia posicionamiento ecommerce,,
+Claude,2026-08-05 18:53:32.950 UTC,,Web search: Omb?? ropa de trabajo marca argentina historia durabilidad,,
+Claude,2026-08-05 18:53:49.765 UTC,,Web search: Amphibia marca argentina indumentaria t??cnica outdoor ecommerce,,
+Claude,2026-08-05 18:53:50.029 UTC,,Web search: camperas impermeables artesanales Mar del Plata f??brica marca argentina,,
+Claude,2026-08-05 18:54:08.962 UTC,"Found a strong local competitor I didn't expect ?€? Centomo, also a Mar del Plata jacket maker since 1985. Let me look at the actual sites.",,,
+Claude,2026-08-05 18:54:09.459 UTC,,Fetch webpage: https://www.centomoargentina.com.ar/,,
+Claude,2026-08-05 18:54:09.868 UTC,,Fetch webpage: https://ansilta.com/,,
+Claude,2026-08-05 18:54:29.882 UTC,"Centomo ?€? the closest local competitor ?€? says outright ""No hacemos ventas online ni env??os."" That's a real opening.",,,
+Claude,2026-08-05 18:54:30.397 UTC,,Fetch webpage: https://www.montagne.com.ar/empresa,,
+Claude,2026-08-05 18:54:30.546 UTC,,Fetch webpage: https://www.ansilta.com/marca/ansilta.html,,
+Claude,2026-08-05 18:54:50.999 UTC,,Update task: in_progress,,
+Claude,2026-08-05 18:54:51.287 UTC,,Fetch webpage: https://www.cardon.com.ar/,,
+Claude,2026-08-05 18:55:16.648 UTC,,Fetch webpage: https://www.tiendaombu.com.ar/indumentaria-de-trabajo/,,
+Claude,2026-08-05 18:55:28.763 UTC,,Update task: completed,,
+Claude,2026-08-05 18:55:29.200 UTC,,Update task: completed,,
+Claude,2026-08-05 18:55:30.967 UTC,,Read file: SKILL.md,SKILL.md,
+Claude,2026-08-05 18:56:10.297 UTC,,"Run shell command: which weasyprint chromium chromium-browser google-chrome wkhtmltopdf 2>/dev/null; python3 -c ""import weasyprint; print('weasyprint ok', weasyprint.__version__)""",,
+Claude,2026-08-05 18:56:15.929 UTC,,"Run shell command: pip install weasyprint --break-system-packages -q 2>&1 | tail -3; python3 -c ""import weasyprint; print('ok', weasyprint.__version__)""",,
+Claude,2026-08-05 18:58:37.004 UTC,,Create file: audit.html,,audit.html
+Claude,2026-08-05 18:58:39.471 UTC,Now the creative brief.,,,
+Claude,2026-08-05 19:00:26.213 UTC,,Create file: brief.html,,brief.html
+Claude,2026-08-05 19:00:30.497 UTC,,"Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && export PATH=$PATH:/sessions/compassionate-magical-mccarthy/.local/bin && weasyprint audit.html ""Long_","audit.html, brief.html","Long_Way_Brand_Competitive_Audit.pdf, Long_Way_Creative_Brief.pdf"
+Claude,2026-08-05 19:00:36.158 UTC,Now verifying the rendered output.,,,
+Claude,2026-08-05 19:00:38.022 UTC,,"Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && pip install pdf2image --break-system-packages -q 2>&1|tail -1; python3 -c """,,"Long_Way_Brand_Competitive_Audit.pdf, Long_Way_Creative_Brief.pdf"
+Claude,2026-08-05 19:00:44.716 UTC,,Read file: audit_1.png,audit_1.png,
+Claude,2026-08-05 19:00:45.901 UTC,,Read file: audit_3.png,audit_3.png,
+Claude,2026-08-05 19:00:54.639 UTC,,Read file: audit_4.png,audit_4.png,
+Claude,2026-08-05 19:00:55.494 UTC,,Read file: brief_3.png,brief_3.png,
+Claude,2026-08-05 19:01:06.515 UTC,,Edit file: audit.html,,audit.html
+Claude,2026-08-05 19:01:11.923 UTC,,Edit file: audit.html,,audit.html
+Claude,2026-08-05 19:01:19.418 UTC,,Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && export PATH=$PATH:/sessions/compassionate-magical-mccarthy/.local/bin && sed -i 's|^tr { page-break-i,"audit.html, brief.html","Long_Way_Brand_Competitive_Audit.pdf, Long_Way_Creative_Brief.pdf"
+Claude,2026-08-05 19:01:31.775 UTC,,Read file: audit_4.png,audit_4.png,
+Claude,2026-08-05 19:01:32.939 UTC,,Read file: audit_5.png,audit_5.png,
+Claude,2026-08-05 19:01:42.256 UTC,,Read file: audit_6.png,audit_6.png,
+Claude,2026-08-05 19:01:43.271 UTC,,Read file: brief_5.png,brief_5.png,
+Claude,2026-08-05 19:01:53.399 UTC,,Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && export PATH=$PATH:/sessions/compassionate-magical-mccarthy/.local/bin && sed -i 's|\.section { margin,audit.html,Long_Way_Brand_Competitive_Audit.pdf
+Claude,2026-08-05 19:02:08.113 UTC,,Edit file: audit.html,,audit.html
+Claude,2026-08-05 19:02:14.661 UTC,,"Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && export PATH=$PATH:/sessions/compassionate-magical-mccarthy/.local/bin && weasyprint audit.html ""Long_",audit.html,Long_Way_Brand_Competitive_Audit.pdf
+Claude,2026-08-05 19:02:27.554 UTC,,Read file: final_last.png,final_last.png,
+Claude,2026-08-05 19:02:30.275 UTC,,Update task: completed,,
+Claude,2026-08-05 19:02:30.746 UTC,,Update task: completed,,
+Claude,2026-08-05 19:02:30.884 UTC,,Update task: completed,,
+Claude,2026-08-05 19:02:37.871 UTC,,"Share files with user: Long_Way_Brand_Competitive_Audit.pdf, Long_Way_Creative_Brief.pdf",,"Long_Way_Brand_Competitive_Audit.pdf, Long_Way_Creative_Brief.pdf"
+Claude,2026-08-05 19:02:49.466 UTC,"Competitive set: **Ansilta** (technical benchmark), **Montagne** (volume/discount), **Card??n** (heritage territory), **Omb??** (durability), and **Centomo** ?€? which turned out to be the find of the research: a Mar del Plata jacket maker since 1985, three shops on the same streets, and its homepage says *""No hacemos ventas online ni env??os.""* Long Way's nearest rival has ceded the entire national market.
+
+Three things worth flagging beyond the matrix:
+
+**The logo works against the brief.** The brush script is genuinely handmade-looking, but fast brush lettering is surf/skate visual language ?€? the exact category the client ruled out in writing. It also has thin interlocking swashes that will fill in at favicon and IG-avatar scale, a ~5:1 ratio with no stacked lockup, and no monogram fallback since ""LW"" is forbidden. I've recommended refining rather than redrawing, with specifics.
+
+**Long Way still appears in directories selling children's and casual clothing** ?€? both explicitly excluded. Those listings will outrank a brand-new store on the brand's own name.
+
+**The coast is unclaimed.** Every brand in the set that uses landscape uses the Andes or the pampa. Nobody uses the Atlantic ?€? which happens to be the exact weather these jackets were built for.
+
+One thing to confirm with the client before presenting: which of those legacy directory listings are actually theirs versus stale, since correcting them is a launch task.
+
+**Sources:** [Ansilta](https://ansilta.com/) ?? [Montagne](https://www.montagne.com.ar/empresa) ?? [Card??n](https://www.cardon.com.ar/) ?? [Omb??](https://www.tiendaombu.com.ar/) ?? [Centomo](https://www.centomoargentina.com.ar/)",,,
+Human,2026-08-05 19:05:38.132 UTC,Prepare a .doc so I can edit it in google docs,,,
+Claude,2026-08-05 19:05:46.158 UTC,,Read file: SKILL.md,SKILL.md,
+Claude,2026-08-05 19:05:49.503 UTC,,"Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && node -e ""const d=require('docx'); console.log('docx ok')"" 2>&1 | tail -2",,
+Claude,2026-08-05 19:05:54.274 UTC,,"Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && npm install docx 2>&1 | tail -3 && node -e ""require('docx'); console.log('ok')""",,
+Claude,2026-08-05 19:07:10.125 UTC,,Create file: build_docx.js,,build_docx.js
+Human,2026-08-05 19:07:52.837 UTC,[Request interrupted by user],,,
+Human,2026-08-05 19:10:55.427 UTC,Continue from where you left off.,,,
+Claude,2026-08-05 19:10:55.428 UTC,No response requested.,,,
+Human,2026-08-05 19:10:55.887 UTC,"Taking the attached brief, help me develop three distinctive visual territories in which the brand can live. Each of these visual territories has to have its own keyword set and a rationale.",,Long_Way_Creative_Brief_edited.pdf,
+Claude,2026-08-05 19:11:00.408 UTC,"Let me read your edited brief first ?€? I want to build the territories off your version, not mine.",,,
+Claude,2026-08-05 19:11:03.982 UTC,,Read file: Long_Way_Creative_Brief_edited.pdf,Long_Way_Creative_Brief_edited.pdf,
+Claude,2026-08-05 19:11:59.027 UTC,"Your edit changes something important ?€? ""mostly sold to tourists during the summer high season"" is a different business than ""made for fishermen."" It reframes e-commerce as the fix for seasonality, not just for the lost boutique. I'll build that into the territories.",,,
+Claude,2026-08-05 19:12:05.541 UTC,,"Ask user question: How should I deliver the three territories? | Should I recommend one, or keep all three genuinely open?",,
+Human,2026-08-05 19:12:27.686 UTC,"Your questions have been answered: ""How should I deliver the three territories?""=""Visual boards + PDF (Recommended)"", ""Should I recommend one, or keep all three genuinely open?""=""Neutral ?€? no recommendation"". You can now continue with these answers in mind.",,,
+Claude,2026-08-05 19:12:32.307 UTC,,Plan task: Define three visual territories,,
+Claude,2026-08-05 19:12:33.742 UTC,,Plan task: Render visual boards in chat,,
+Claude,2026-08-05 19:12:34.686 UTC,,Plan task: Build matching territories PDF,,
+Claude,2026-08-05 19:12:35.620 UTC,,Plan task: Check territories against brief mandatories,,
+Claude,2026-08-05 19:12:38.915 UTC,,Load visualization guide,,
+Claude,2026-08-05 19:12:46.742 UTC,,"Run shell command: cd ""/var/folders/28/b3nny2_s6wl285kfpjd1kyt40000gn/T/claude-hostloop-plugins/5068bc9ddb76fa76/projects/-Users-florbenitez-Library-Application-Support-Claude-loc",toolu_01CJVL7pTDpAXTqbDdbp8RUB.js,
+Claude,2026-08-05 19:12:53.556 UTC,,Read file: toolu_01CJVL7pTDpAXTqbDdbp8RUB.json,toolu_01CJVL7pTDpAXTqbDdbp8RUB.json,
+Claude,2026-08-05 19:13:38.479 UTC,"Three organizing ideas ?€? evidence, place, and time. Each maps to a different reason-to-believe in your brief, and each carries a different production cost and audience skew.",,,
+Claude,2026-08-05 19:14:09.941 UTC,,Render visual widget,,
+Claude,2026-08-05 19:14:28.344 UTC,"Each territory takes a different answer to ""what is this brand actually about.""
+
+**01 ?? El taller** treats the brand as a working document. The organizing principle is *annotation* ?€? pattern paper, chalk marks, spec tickets, stitch counts, a measurement written by hand next to the thing measured. Product pages read like specification sheets that a person filled in. It proves the proposition most directly, because it argues price structurally rather than emotionally: here is the work, here is what it cost in hours. It's also the cheapest to produce well ?€? a macro shot of a seam on a phone is on-brief ?€? and it clears the accessibility gate naturally, since the whole system is built on legible labelling. Risk: it can read cold. The handwriting and the hands are what keep it warm.
+
+**02 ?? Viento del este** treats the brand as the weather it was built for. This is the territory that claims the gap the audit found ?€? Ansilta owns the Andes, Card??n owns the pampa, nobody owns the Atlantic. Grey light, salt haze, horizon lines, and a single signal orange used the way a channel marker uses it: rarely, and to mean something. Given your edit, this one does specific strategic work ?€? it moves the jacket from ""summer souvenir bought in Mar del Plata"" to ""what you wear when the weather turns,"" which is a year-round argument and a national one. That's the seasonality fix. Risk: it's the closest to the surf-brand trap the brief rules out, so it has to be governed by working weather, never leisure beach. It's also the most expensive and least controllable to shoot.
+
+**03 ?? Cuarenta a??os** treats the brand as an unbroken record. Not nostalgia ?€? the brief forbids heritage as decoration ?€? but heritage as *durability evidence*: a fifteen-year-old jacket photographed next to this season's, dates as navigation, service records, the old boutique signage. It's the only territory whose central asset belongs to the customer rather than the brand, which makes it nearly free to produce and impossible to fake. It's the strongest for the loyal base and it's the only one I'd set in a serif, which also happens to be the most readable choice for older buyers. Risk: it skews old, and skewing old is the exact problem the project exists to fix. It needs modern layout discipline to avoid looking like a museum.
+
+Worth noting they're not equally distributed across your two audiences ?€? 01 sits in the middle, 02 pulls young, 03 pulls old. And they can pair: a system territory for the store plus a campaign territory for Instagram is a common and workable split.
+
+Let me build the presentation document.",,,
+Claude,2026-08-05 19:16:19.098 UTC,,Create file: territories.html,,territories.html
+Claude,2026-08-05 19:16:24.736 UTC,,Run shell command: cd /sessions/compassionate-magical-mccarthy/mnt/outputs && export PATH=$PATH:/sessions/compassionate-magical-mccarthy/.local/bin && weasyprint territories.html,territories.html,Long_Way_Visual_Territories.pdf
+Claude,2026-08-05 19:16:39.873 UTC,,Read file: terr_3.png,terr_3.png,
+Claude,2026-08-05 19:16:41.877 UTC,,Read file: terr_6.png,terr_6.png,
+Claude,2026-08-05 19:16:45.548 UTC,,Update task: completed,,
+Claude,2026-08-05 19:16:46.003 UTC,,Update task: completed,,
+Claude,2026-08-05 19:16:46.476 UTC,,Update task: completed,,
+Claude,2026-08-05 19:16:46.710 UTC,,Update task: completed,,
+Claude,2026-08-05 19:16:53.731 UTC,,Share files with user: Long_Way_Visual_Territories.pdf,,Long_Way_Visual_Territories.pdf
+Claude,2026-08-05 19:17:01.979 UTC,"Six pages, presented neutrally ?€? each territory gets a full spread with palette, photography, typography, layout logic, a sample application, and a candid risk note. The last page checks all three against the brief's mandatories, which surfaced one real condition: in Viento del este, type has to sit on solid bands rather than over photography, or it fails the accessibility gate on a phone in daylight.
+
+Two things I'd flag for the client conversation. The framing that makes this decision tractable is ""what should the brand argue ?€? the work, the weather, or the years?"" rather than which one looks best. And the production cost gap is wide: 01 and 03 can be run by one person indefinitely, while 02 needs a photographer standing in bad weather on an ongoing basis. For a self-funded team of three coming off a hard year, that's a strategic input, not a footnote.
+
+I stopped short of building the DOCX from earlier ?€? say the word and I'll finish that, and I can include this territories document in the same batch.",,,
+Human,2026-08-05 19:26:52.108 UTC,I created two moodboards for the first two territory ideas you gave me (third one was not good for this brand) https://www.[figma_link] here they are. Pressure-test these two moodboards against the brief and tell me which is the weakest.,,,
+Claude,2026-08-05 19:27:00.693 UTC,,Search available tools: figma get design context read file screenshot,,
+Claude,2026-08-05 19:27:09.965 UTC,"Figma is client-rendered, so I need to actually open and look at it. Let me load the browser tools.",,,
+Claude,2026-08-05 19:27:10.851 UTC,,"Search available tools: select:mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__list_connected_browsers",,
+Claude,2026-08-05 19:27:18.784 UTC,,Browser: navigate: https://www.[figma_link],,
+Claude,2026-08-05 19:27:39.785 UTC,,Browser: navigate: https://www.[figma_link],,
+Claude,2026-08-05 19:28:04.394 UTC,"I can't see them. The Figma link needs either the Chrome extension (not connected right now) or the Figma connector (needs authorising in an interactive session ?€? can't run OAuth here). I'm not going to critique moodboards I haven't actually looked at.
+
+Fastest fix: in Figma, select both boards ??? Export as PNG at 2x, or File ??? Export frames to PDF ??? upload here. Then I'll do this properly. Alternatively install the Chrome extension and sign in with the same account as this app: https://chromewebstore.google.com/detail/fcoeoabgfenejglbffodgkkbkcdhcgfn
+
+So the turnaround is quick when you upload, here's what I'll be testing them against:
+
+**Hard gates** (fail = fix required, not a matter of taste) ?€? palette stays inside the mandated family with no fifth colour sneaking in; type legible at senior-buyer sizes and not floating over busy imagery; nothing that reads casual, surf or fashion-leisure; the making visible, not just the mood; no imagery a three-person team couldn't realistically reshoot.
+
+**Territory integrity** ?€? does El taller still argue evidence, or has it drifted into generic artisan-workshop warmth? Does Viento del este still show weather being *worked in*, or has it drifted to beach? Board drift almost always happens through image sourcing, because the beautiful stock shot is usually the off-brief one.
+
+**Proposition proof** ?€? can I point at a specific image and say ""that's what makes the price make sense""? If neither board does that, both are weak regardless of how they look.
+
+My prior, worth stating so you can prove me wrong: I'd expect **Viento del este** to be the weaker board. It's the harder one to source honestly ?€? coastal imagery skews overwhelmingly toward calm, golden, leisure-coded photography, and the shots that show real working weather are rare and mostly not stock. El taller is easier to keep on-brief because macro workshop imagery has fewer ways to go wrong. But that's a prediction about the failure mode, not a judgement of your boards.
+
+One thing that follows from dropping territory 03: the durability evidence it carried ?€? customers' worn jackets as proof the thing lasts ?€? doesn't disappear as a need. It'll have to live somewhere else, most likely in reviews and social proof on the product pages. Worth keeping on the list so it doesn't quietly fall off.",,,
+Human,2026-08-05 19:51:20.134 UTC,"Here are the two moodboards. the one on top is for territory 1, the one in the bottom is for territory 2.",,Captura de pantalla 2026-08-05 a la(s) 16.28.32.png,
+Claude,2026-08-05 19:52:53.153 UTC,"**Frame 1 ?€? El taller ?€? is the weaker board.** Not by a little.
+
+**Where it fails**
+
+The palette is the clearest break. The brief says deep greens, slate, weathered orange, canvas, off-white, and ""nothing neon or synthetic-looking."" The board delivers candy pink, mint, mustard, pastel blue, bright red ?€? the thread-spool shot and the clay stamp samples are essentially a sweet shop. That's the one hard gate in the brief and it's broken comprehensively rather than incidentally.
+
+The fabric warehouse actively contradicts the business. Racks of bolts and someone hauling rolls says industrial supply at scale. Reason-to-believe number one is ""three people, no factory line."" A board that pictures the opposite of the core claim is worse than one that just omits it.
+
+The casting is wrong. A young guy in a cap in a riso-bright studio reads contemporary creative practice ?€? the trendy register the client explicitly excluded. Long Way is a master jacket-maker and a seamstress who have done this for four decades.
+
+Most importantly, it drifted off its own idea. El taller was defined as *evidence* ?€? measured, annotated, tactile. What's on the board is *ambience*: a nice workshop. Almost nothing here is a measurement, a spec ticket, a tag, a number, or a chalk line on cloth. The chalkboard scribbles are the only nod and they're a decorative texture, not an annotation of a garment. You've assembled a craft-studio board, not an evidence board.
+
+What survives: the black-and-white hands sewing is excellent and more on-brief than the rest of the board combined. The pattern pieces on the rail and the label-sewing shot also hold.
+
+**Why Frame 2 survives the same test better**
+
+It's genuinely about weather and place, which is the idea. The rocky coast with the skyline behind and the figure on the fogged beach are the two best images across both boards ?€? ownable, specific, and unmistakably Mar del Plata. Frame 1 could be Copenhagen or Portland.
+
+It has real problems, but they're different in kind. It's blue where the brief is green-earth, and the weathered orange signal is entirely absent ?€? so it drifts toward generic maritime, which is the trap. Every figure is passive and solitary, so it reads contemplative rather than *worked in*. And the cotton candy cart is the single most off-brief image on either board: leisure, tourism, summer, pink. It's the seasonality problem rendered as a photograph. Beautiful image, wrong brand ?€? though it's a good argument for the place.
+
+**The asymmetry that matters for your decision**
+
+Frame 2 fails by omission ?€? no product, no maker, no orange, no warmth. Those are all addable, and the best three images stay. Frame 1 fails by contradiction ?€? roughly half of it has to go, and what's left is generic enough to belong to any garment brand anywhere.
+
+But weakest *board* isn't the same as weakest *territory*. Every one of Frame 1's failures comes from photographing other people's workshops. Shoot in Long Way's actual workshop, with their waxed cloth and their two makers, and the palette problem, the scale problem and the casting problem all disappear at once. Frame 2's problems can't be solved by control in the same way ?€? you can't schedule weather.
+
+**One thing true of both**
+
+There is no jacket on either board. Two moodboards for an outerwear brand and no outerwear, no waxed or waterproof cloth, nothing with a hood or a seam-sealed seam. That absence is why neither board yet proves the proposition ?€? I can't point at an image and say *that's why it costs what it costs*.
+
+Want me to mark up both boards image by image with keep / cut / replace calls, and write the shot list that fills the gaps?",,,

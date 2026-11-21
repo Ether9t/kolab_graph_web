@@ -1,0 +1,267 @@
+speaker,timestamp,chat,ai_workflow,tool_use,AI_high_level_action,file
+Human,2026-08-28T03:17:37.079383Z,Create a basic NDA template outline. Keep any contextual information required as placeholders.,,,,
+Claude,2026-08-28T03:17:45.625713Z,,Checking which public skills exist before creating a file,bash_tool,Deliberating artifact versus inline formatting approach.,
+Claude,2026-08-28T03:17:50.198587Z,,Creating file: nda-template-outline.md,create_file,Deliberating artifact versus inline formatting approach.,nda-template-outline.md
+Claude,2026-08-28T03:18:22.422540Z,,Sharing file(s): nda-template-outline.md,present_files,Deliberating artifact versus inline formatting approach.,nda-template-outline.md
+Claude,2026-08-28T03:18:23.768504Z,"Here's the outline. Everything party-specific, jurisdiction-specific, or duration-related is bracketed as a placeholder, and Section 12 collects the optional clauses so you can drop them if they don't apply.
+
+Two decisions worth making early, since they shape the rest: whether it's mutual or one-way, and how long the confidentiality obligations survive (Section 6.2). Those drive most of the negotiation.
+
+I'm not a lawyer, so treat this as a starting structure rather than a finished document — an attorney in the relevant jurisdiction should review it before you use it. I can also convert it to a Word doc if you'd like something editable to send around.",,,,
+Human,2026-08-28T03:21:10.933351Z,"Can you give sources for this template, that you referred to in your search.",,,,
+Claude,2026-08-28T03:21:12.407840Z,"I didn't run a search. I wrote that outline from general knowledge of how NDAs are typically structured, so there are no sources to cite — and I shouldn't invent a list after the fact.
+
+That's worth flagging as a limitation. The structure and clause names are standard and match what you'd find in most commercial NDAs, but nothing in it was checked against a specific authority, jurisdiction, or current statute. The non-solicitation note in Section 12.1 is a good example: enforceability there varies a lot by state and has shifted in recent years, and I flagged it as something to check rather than something I verified.
+
+If you want it grounded, I can search now for publicly available templates and guidance — sources like state bar association model forms, the ABA, university or government tech-transfer offices (which often publish their standard NDAs), or Practical Law-style summaries — and tell you where each section's language lines up or diverges. Tell me the governing jurisdiction and I'll narrow it to that.",,,,
+Human,2026-08-28T03:23:40.445487Z,"This will be an NDA structured for the disclosing parties side in the USA, Please be sure to add: 1. Non-soliciation clause for 12 months, No Publicity, Governing Law is California, USA, Dispute Resolution will be by the AAA, No Assignment, Severability as needed, Notices 30 days prior, No Counterparts, And Relationship clause (no partnership, etc.)",,,,
+Claude,2026-08-28T03:23:40.438786Z,,,,Examined California law restrictions on non-compete enforceability.,
+Claude,2026-08-28T03:23:47.861698Z,"I'll check the California non-solicitation point before drafting it, since that clause has specific problems in California.",,,,
+Claude,2026-08-28T03:23:48.564843Z,,Searching the web: California employee non-solicitation clause enforceable Business and Professions Code 16600,web_search,Evaluated legal enforceability and drafted disclosing-party favorable NDA terms.,
+Claude,2026-08-28T03:24:03.040542Z,"Searched — and the non-solicitation clause has a real problem under California law, which I'll flag after the document. Drafting it now.",,,,
+Claude,2026-08-28T03:24:03.745975Z,,Creating file: nda-disclosing-party-california.md,create_file,,nda-disclosing-party-california.md
+Claude,2026-08-28T03:25:07.147433Z,,Sharing file(s): nda-disclosing-party-california.md,present_files,,nda-disclosing-party-california.md
+Claude,2026-08-28T03:25:08.663705Z,"All nine items are in. Four things you should look at before you use it.
+
+**The non-solicitation clause is the weak point.** California Business & Professions Code § 16600 voids every contract by which anyone is restrained from engaging in a lawful profession, trade, or business, and California courts regularly void non-compete and non-solicitation agreements on that basis. In *AMN Healthcare v. Aya Healthcare* (2018), the Court of Appeal confirmed § 16600 reaches employee non-solicitation provisions, extending the logic of *Edwards v. Arthur Andersen* to hold that such agreements are unenforceable even when narrowly written. The one thing working in your favor is the structure: yours is a restriction between two companies rather than one imposed on an individual, and a genuine no-hire agreement between two employers, as opposed to one between an employer and an employee, may survive in some commercial contexts. That's a narrower reed than most people expect. Company-to-company no-hire clauses also draw federal antitrust attention, so this is the clause to raise with counsel first. I kept the 12 months you asked for and added general-advertisement carve-outs, which help.
+
+**Arbitration plus injunctions needed a bridge.** Pure AAA arbitration would leave you waiting for a panel while information is already out. I added Section 17.4 so you can go straight to a California court for injunctive relief without waiving arbitration.
+
+**""Notices 30 days prior"" was ambiguous,** so I covered both readings: termination requires 30 days' prior written notice (6.2), and Section 15 handles delivery method and effectiveness. Tell me if you meant something else.
+
+**""No counterparts"" is unusual** and I drafted it literally in Section 21 — one physical original, both signatures on it. That rules out signing separate copies or most e-signature workflows. Easy to reverse if that wasn't the intent.
+
+Sources for the California analysis:",,,,
+Claude,2026-08-28T03:25:18.585755Z,,Four sources on California non-solicitation enforceability under § 16600.,link_preview_display_v0,,
+Claude,2026-08-28T03:25:25.232921Z,"These are law-firm commentary rather than primary authority — useful for orientation, but your attorney should work from § 16600 and the cases themselves. I'm not a lawyer, and a disclosing-party-favorable NDA under California law is exactly the kind of document where the drafting choices carry real consequences.
+
+I can convert this to Word if you want something to redline.",,,,
+Human,2026-08-28T03:28:36.947026Z,"Just to re-confirm, is deconstruction and use of information by the parties not allowed?",,,,
+Claude,2026-08-28T03:28:36.939104Z,,,,Analyzed NDA restrictions and clarified unilateral application nuances.,
+Claude,2026-08-28T03:28:48.857033Z,"Correct in substance, but two clarifications on how it actually works in the draft.
+
+**It's one-directional.** This is a unilateral NDA, so none of these restrictions bind the Disclosing Party. Section 4 constrains the Receiving Party only. If information will actually flow both ways in your discussions, this structure leaves your counterparty's disclosures to you unprotected — and leaves your own disclosures unprotected if the deal later flips and they start sharing.
+
+**Use is permitted, but only for one thing.** Section 4.2 doesn't ban use outright; it confines it to the Purpose you define in Section 1. That's why the drafting note said to define the Purpose narrowly — it's the boundary that makes 4.2 mean anything. A vague Purpose like ""exploring a business relationship"" gives the Receiving Party a lot of room.
+
+**Deconstruction is only partly covered.** Section 4.5 prohibits reverse engineering, disassembly, and decompilation of prototypes, samples, software, and other tangible objects. It does not clearly reach analytical deconstruction of disclosed information itself — running your datasets through analysis to derive underlying methods, or working backward from specifications to your architecture. If that's the concern, 4.5 needs broadening.
+
+Three other provisions do real work here that are easy to miss:
+
+- **Derivative Materials** (2.1) — the Receiving Party's own notes, analyses, and summaries are Confidential Information, so they can't treat their internal work product as unrestricted.
+- **No residuals clause** — I deliberately left one out. A residuals clause would let their people use what they retain in unaided memory, which substantially undercuts 4.2. Expect the other side to ask for one.
+- **Independent development** (3(d)) — this is the permitted route. Clean-room work by people with no access to your information falls outside the agreement entirely.
+
+Worth knowing: reverse engineering is normally a *lawful* way to acquire a trade secret, so 4.5 is doing work that trade secret law alone wouldn't do for you. That's an argument for making it broad rather than narrow.
+
+Want me to widen 4.5 to cover analytical deconstruction of the information itself, not just tangible objects? It's a small edit and it closes the gap you're pointing at.
+
+One unrelated gap while we're in Section 4: if the Receiving Party is ever an individual contractor rather than a company, the agreement should carry the Defend Trade Secrets Act whistleblower immunity notice under 18 U.S.C. § 1833(b). Omitting it can cost you exemplary damages and fees in a later DTSA claim. Your attorney will know whether it applies to your counterparty.",,,,
+Human,2026-08-28T03:30:12.463732Z,Can you give me some cases on the main issues in this NDA (which is non-solicitation and reverse-engineering),,,,
+Claude,2026-08-28T03:30:12.458042Z,,,,Verified case citations and sourced relevant NDA precedents.,
+Claude,2026-08-28T03:30:20.807476Z,"Case citations are exactly where I shouldn't rely on memory, so let me verify these.",,,,
+Claude,2026-08-28T03:30:20.808400Z,,Searching the web: Edwards v. Arthur Andersen AMN Healthcare Aya Loral Moyes California non-solicitation case citations,web_search,,
+Claude,2026-08-28T03:30:24.628489Z,Now the reverse-engineering side.,,,,
+Claude,2026-08-28T03:30:25.339605Z,,Searching the web: Bowers v. Baystate Technologies contractual prohibition reverse engineering enforceable Kewanee Oil Chicago Lock Fanberg,web_search,Synthesized California case law on non-solicitation and reverse engineering issues.,
+Claude,2026-08-28T03:30:45.256702Z,"Here are the main lines of authority, with the caveat that these came from law-firm commentary and case summaries rather than from reading the opinions — your attorney should pull the originals before relying on any of it.
+
+**Non-solicitation: a three-case arc going the wrong way for you**
+
+Loral Corp. v. Moyes, 174 Cal. App. 3d 268 (1985) was the foundation for decades. It held employee non-solicitation provisions enforceable so long as they were reasonable in time and scope. This is the case most people are unknowingly relying on when they assume a 12-month non-solicit is fine.
+
+Edwards v. Arthur Andersen LLP, 44 Cal. 4th 937 (2008) undercut it. The California Supreme Court struck down a customer non-solicitation provision because it restricted Edwards from practicing as an accountant, and rejected the common-law rule-of-reason analysis, reasoning that the legislature could have written § 16600 to void only unreasonable restraints if that was the intent. Edwards left open whether employee non-solicits survived.AMN Healthcare, Inc. v. Aya Healthcare Services, Inc., 28 Cal. App. 5th 923 (2018)
+
+ closed that question. The court disagreed with Loral and found employee non-solicitation agreements an unlawful restraint under § 16600 even though they don't entirely prevent employees from moving to a competitor — pointing out that the statute bans ""restraints"" on trade, not ""prohibitions."" Two federal decisions followed quickly: Barker v. Insight Global, LLC, 2019 WL 176260 (N.D. Cal. Jan. 11, 2019), and WeRide Corp. v. Kun Huang, 379 F. Supp. 3d 834, 852 (N.D. Cal. 2019), both adopting AMN's reading.
+
+**The case that should worry you most isn't about Section 11 at all**
+
+Brown v. TGS Management Co. (2020) extended AMN to confidentiality provisions drafted so broadly that they functionally restrained competition, on the reasoning that a contract cannot do indirectly what § 16600 prohibits directly. That points straight at Section 2 of your draft, which I wrote deliberately broad — no marking requirement, sweeping category list, Derivative Materials, existence-of-discussions. Under Brown, breadth that looks like protection can read to a court as a disguised restraint. Worth asking your attorney whether Section 2 needs trimming, which cuts against the disclosing-party posture you asked for. I'm least confident of Brown's reporter citation; treat the year and name as the reliable part.
+
+**One real distinction in your favor**
+
+AMN itself noted Loral was factually distinguishable because it didn't involve individuals who were in the recruiting business. More importantly, this whole line concerns restraints on *individuals*. Your Section 11 binds a company. As noted last time, that's the version with the better odds — but I found no case squarely blessing it, which is itself the answer: it's unsettled.
+
+**Reverse engineering: your Section 4.5 is doing genuinely necessary work**
+
+Kewanee Oil Co. v. Bicron Corp., 416 U.S. 470, 476 (1974) is the baseline — reverse engineering has long been treated as a legitimate way to work backward from a product to the process behind it. Trade secret law will not stop it.
+
+Bowers v. Baystate Technologies, Inc., 320 F.3d 1317 (Fed. Cir. 2003) is why the clause matters. The Federal Circuit held that under First Circuit law the Copyright Act does not preempt or narrow a contractual prohibition on reverse engineering, and <cite name="""" index=""20-1"">distinguished a freely negotiated contract barring reverse engineering from a pure copyright theory, reasoning that the extra contractual elements — agreement, consideration, mutual assent — sustain a state-law claim alongside federal copyright rights.</cite>
+
+Two limits on Bowers: the panel was divided, with Judge Dyk dissenting, and it applied First Circuit law to a shrink-wrap license. In a California-governed AAA arbitration it's persuasive, not controlling. A negotiated commercial NDA between two companies is a stronger case for enforcement than a mass-market shrink-wrap, so the posture cuts your way.
+
+This is also the concrete argument for broadening 4.5 the way I suggested. Bowers rewards specificity in the clause — the protection came from what the contract said, not from background IP law.",,,,
+Human,2026-08-28T03:36:15.702217Z,"Give me your final thoughts on the Brown v TGS Management Opinion, and let me know if you think I should add this clause or not.",,,,2020-g058323.pdf
+Claude,2026-08-28T03:36:15.693839Z,,,,Analyzed employment case precedent and refined contract risk assessment.,
+Claude,2026-08-28T03:37:01.666715Z,"Reading the actual opinion changes my picture of it in a few ways, including one correction to what I told you earlier.
+
+**First, a correction.** I gave you ""57 Cal.App.5th 303"" with a hedge. This document doesn't contain the official reporter citation, so I still can't confirm it. What I can confirm from the opinion itself: *Brown v. TGS Management Company, LLC*, Fourth Appellate District, Division Three, No. G058323, filed October 13, 2020, modified and certified for publication November 12, 2020. Use that until someone verifies the reporter cite.
+
+**Second, I overstated its reach.** I described Brown as extending AMN to confidentiality provisions, which is right, but I didn't flag that it's an *employment* case — an employee suing over a 12-page ""Confidentiality, Noncompetition, Assignment and Notice Agreement"" signed as a condition of employment. Your NDA binds a company, not an individual. Brown doesn't govern it directly.
+
+**Third, and this is the part that actually matters for you: Brown is more dangerous to Sections 2, 3, and 6.4 of your draft than to Section 11.**
+
+Look at what the court found fatal. TGS defined ""Confidential Information"" to sweep in anything ""used or usable in"" or ""relating to"" the Business, and defined the Business as essentially the whole securities industry rather than TGS's actual trade of statistical arbitrage. The obligations ran in perpetuity. And the two exceptions were illusory — the ""generally known"" carve-out was worthless in a field where the whole point is that the methods aren't generally known, and the prior-knowledge carve-out applied only if the employee had written records proving what he already knew. The court called that absurd: information that wasn't confidential before employment became TGS's confidential information for lack of paperwork.
+
+Now compare your Section 3. It requires the Receiving Party to ""demonstrate by contemporaneous written records"" for every exclusion. That's the same device Brown singled out. Your Section 2.2 invites you to list categories broadly. Your 6.4 makes trade-secret obligations perpetual. Individually defensible; collectively they're the profile the court described as operating as a de facto noncompete.
+
+The transmission mechanism is your Section 4.4, which requires the Receiving Party's Representatives to be bound by obligations ""at least as protective as this Agreement."" That pushes your broad definition down into individual-level confidentiality agreements — and at that level, Brown applies squarely.
+
+**Two things in the opinion that should genuinely worry you as the drafting party:**
+
+Unclean hands didn't save TGS. Brown copied TGS's financial data to his phone, kept it after termination, and the arbitrator found he testified falsely under oath about how he got it. He still won on the §16600 issue. The court followed Dowell and Kofsky: the doctrine doesn't apply where invoking it would let a statutorily void provision stand. Your counterparty can behave badly and still void your clause.
+
+And arbitration is not a shelter. This is the part I'd underline given your Section 17. The arbitrator ruled for TGS. The trial court confirmed. The Court of Appeal reversed anyway, holding the arbitrator exceeded his powers under Code Civ. Proc. § 1286.2(a)(4) and Moncharsh by leaving illegal restraints in force. Then the forfeiture ruling collapsed with it, because it was expressly premised on breach of the void provisions. TGS lost the $652,243 clawback, the $300,000 withheld bonus, and a $2.46 million attorney fee award. Choosing AAA doesn't insulate an overbroad agreement; it just adds a round.
+
+The court also made clear a facial challenge gets decided as a matter of law — no evidence, no as-applied analysis. Your counterparty doesn't need a factual record to attack the clause.
+
+**My recommendation on Section 11: keep it, but tighten it and don't rely on it.**
+
+Keep it because your version is company-to-company, which is the form with the best odds; because the general-advertisement carve-outs in 11.2 are exactly the right shape; and because it has deterrent value even if untested. Tighten it by adding an express statement that it binds only the Receiving Party as an entity and imposes no restriction on any individual's employment or mobility. That's the distinction doing all the work, and it should be on the face of the document.
+
+Don't rely on it, for two reasons. Dowell — quoted approvingly in Brown — notes that an employer's use of an illegal noncompete also violates the UCL under § 17200. Asserting a void restraint isn't free. And the modification the court added on rehearing tells you where the real protection is: voiding these provisions doesn't stop a party from enforcing a properly drawn confidentiality agreement, and trade secrets can still be protected through injunctive relief and tort remedies under CUTSA and the UCL, citing The Retirement Group v. Galante (2009) 176 Cal.App.4th 1226, 1238. Your leverage is a well-drafted Section 4 plus statutory trade secret claims — not Section 11.
+
+**On broadening 4.5:** yes, still worth doing, and Brown doesn't cut against it. Reverse engineering isn't a restraint on anyone's right to practice a profession; it's a use restriction on specific disclosed material. Bowers supports it. Keep it tied to the Confidential Information rather than drafting it as a general bar on the Receiving Party developing competing products — that latter framing is what would pull it into §16600 territory.
+
+If you want, I can revise the draft: rewrite Section 3 to drop the written-records trap, narrow 2.2 to your actual line of business, add the entity-only savings language to Section 11, and broaden 4.5. If you meant a different clause by ""this clause,"" tell me which and I'll focus there.
+
+Worth saying plainly: this is the point where a California attorney should take over. You now have the opinion and the specific provisions it threatens, which is a good position to walk into that conversation with — but Brown is a case about a drafter who over-reached and lost everything he'd won below, and the line between protective and overbroad is exactly the judgment call you're paying counsel for.",,,,
+Human,2026-08-28T03:40:07.203725Z,"Yes, please give me the revised draft. Can you make the draft free of any unnecessary formatting, the draft should be clean and final (no unnecessary disclaimers).",,,,
+Claude,2026-08-28T03:40:18.518409Z,,Creating file: nda-final.md,create_file,Refined contract clauses and streamlined formatting for delivery.,nda-final.md
+Claude,2026-08-28T03:41:25.048686Z,,Sharing file(s): nda-final.md,present_files,Refined contract clauses and streamlined formatting for delivery.,nda-final.md
+Claude,2026-08-28T03:41:26.744078Z,"Clean draft, no notes or commentary in the document itself. The substantive changes from the last version:
+
+Section 2 now ties Confidential Information to a defined Business you describe specifically, and 2.3 expressly disclaims any interest in general industry knowledge — the direct answer to TGS defining ""the Business"" as the entire securities industry.
+
+Section 3 drops the contemporaneous-written-records requirement. 3.2 accepts any credible evidence. That was the provision the court called absurd.
+
+Section 4.4 keeps the flow-down but adds a sentence stating it doesn't require imposing mobility restrictions on individuals, so your NDA can't be read as pushing an overbroad restraint down to the employee level.
+
+Section 4.5 is broadened to cover analytical deconstruction of the information itself, with a closing sentence confining it to your materials so it doesn't read as a competition ban.
+
+Section 6.4 now ends trade-secret protection when the information stops qualifying as one, rather than running perpetually.
+
+Sections 11.3, 11.4, and the last sentence of 19 are the firewall: if the non-solicit falls, the confidentiality core survives. That was TGS's real loss — the void provisions took the forfeiture ruling down with them.
+
+Section 17.3 is new. It gives the arbitrator express authority to decide §16600 validity and grant declaratory relief. The arbitrator in Brown refused to reach that question, which is precisely why the award was vacated.
+
+Two placeholders need real thought rather than a quick fill: the Business description in Recital A and the Purpose in Recital B. Everything in Section 2 keys off them, so vague language there reintroduces the breadth problem I just removed.
+
+I can produce this as a Word file if you want it in redline-ready form.",,,,
+Human,2026-08-28T03:44:59.189850Z,"Recheck for any spelling issues, and generate a .docx for me. Compare it with this sample one-sided agreement, and give me the main similarities and differences in short bullet points.",,,,c5-81-2.pdf
+Claude,2026-08-28T03:45:01.812894Z,,Checking available spell-check and docx tooling,bash_tool,,
+Claude,2026-08-28T03:45:06.270017Z,,Reading the docx skill before generating the Word file,view,,
+Claude,2026-08-28T03:45:09.039147Z,"Let me proofread first, then build the Word file.",,,,
+Claude,2026-08-28T03:45:09.483358Z,,Extracting word list for manual proofreading,bash_tool,Validated spelling and architected conversion to formatted document.,
+Claude,2026-08-28T03:45:13.420253Z,,Reviewing the rest of the word list,bash_tool,Validated spelling and architected conversion to formatted document.,
+Claude,2026-08-28T03:45:22.299078Z,No spelling errors — the word list is clean. Now the Word file.,,,,
+Claude,2026-08-28T03:45:23.080669Z,,Creating file: build_nda.js,create_file,Analyzing structural parallels between unilateral NDAs comprehensively.,build_nda.js
+Claude,2026-08-28T03:45:38.227875Z,,Generating the docx,bash_tool,Analyzing structural parallels between unilateral NDAs comprehensively.,
+Claude,2026-08-28T03:45:40.927189Z,,Rendering the docx to images to verify formatting,bash_tool,Analyzing structural parallels between unilateral NDAs comprehensively.,
+Claude,2026-08-28T03:45:47.140442Z,,Checking page 1 rendering,view,Analyzing structural parallels between unilateral NDAs comprehensively.,
+Claude,2026-08-28T03:45:49.783043Z,,Checking the signature page rendering,view,Analyzing structural parallels between unilateral NDAs comprehensively.,
+Claude,2026-08-28T03:46:05.104628Z,,"Sharing file(s): nda-final.docx, nda-final.md",present_files,Analyzing structural parallels between unilateral NDAs comprehensively.,nda-final.docx; nda-final.md
+Claude,2026-08-28T03:46:07.007744Z,"Spelling is clean — I checked every distinct word in the draft and found no misspellings. The Word file is 7 pages, US Letter, justified body text with indented sub-clauses.
+
+**Similarities**
+
+- Both are one-sided: a single Disclosing Party, obligations running one direction only
+- Both use recitals to define a ""Business"" and a defined purpose (""Authorized Purpose"" / ""Purpose"")
+- Both restrict use to that purpose and bar disclosure without written consent
+- Both flow obligations down to employees, agents, and affiliates on a need-to-know basis, with the receiving side responsible for their conduct
+- Both exclude public-domain information, prior possession, and information from a third party entitled to disclose
+- Both require return or destruction on request, with written certification
+- Both handle compelled disclosure by requiring notice plus cooperation on a protective order
+- Both state that Confidential Information remains the disclosing party's property and convey no license
+- Both provide that money damages are inadequate and allow injunctive relief
+- Both carry standard no-waiver, severability, written-amendment, and governing-law provisions
+
+**Differences**
+
+- The sample presumes *all* information disclosed is confidential; mine requires either designation or a reasonable-person standard, and Section 2.3 expressly disclaims general industry knowledge — the Brown v. TGS fix
+- The sample's Section C.4 lists court-ordered disclosure as an *exclusion*, which permanently strips protection from anything subpoenaed; mine treats it as permitted disclosure that preserves confidentiality for all other purposes
+- The sample's prior-possession exclusion omits ""without obligation of confidentiality""
+- The sample has no reverse-engineering or deconstruction restriction at all
+- The sample has no term, no termination mechanism, and no survival period — it runs indefinitely; mine has a term, 30-day termination, a defined survival tail, and trade-secret protection that ends when the information stops qualifying
+- No non-solicitation and no publicity clause in the sample
+- The sample sends disputes to court; mine goes to AAA arbitration with a carve-out for interim injunctive relief and express arbitrator authority over §16600 validity
+- The sample permits counterparts; mine prohibits them, per your instruction
+- The sample is silent on assignment and simply binds successors and assigns, which effectively permits transfer; mine bars assignment by the Receiving Party, including by merger
+- The sample deems references to include affiliates, widening the receiving side; mine names affiliates as Representatives subject to the flow-down instead
+- The sample lacks derivative-materials coverage, a copying restriction, breach notification, the DTSA whistleblower notice, no-warranty, no-obligation-to-proceed, and a relationship clause
+- Its Section E requires use ""for the exclusive benefit of Company,"" which is broader and vaguer than a purpose limitation
+- The sample contemplates a ""Contact"" who may be an individual. Under California law that matters: an individual counterparty is where the Brown and AMN line applies directly, and a presumption that everything disclosed is confidential is close to the definition the court struck down
+
+The sample is a reasonable general-purpose form, but it was written for a different context — an Iowa extension service, an agricultural business talking to a contact, no jurisdiction specified. Several of its choices would be liabilities under California law.",,,,
+Human,2026-08-28T03:47:52.115355Z,Do we have to mention the designation or reasonable-person standard? Wouldn't it be possible to make all information confidential and then add a disclaimer?,,,,
+Claude,2026-08-28T03:47:52.112113Z,,,,Weighed TGS precedent against presumption-based confidentiality approaches.,
+Claude,2026-08-28T03:48:08.350511Z,"A disclaimer doesn't cure it, and Brown is the direct evidence — TGS tried exactly that structure and lost.
+
+TGS had a sweeping definition plus two express exceptions. The court didn't stop at ""there are carve-outs, so it's bounded."" It examined whether the carve-outs had real content and found they didn't: the ""generally known"" exception was worthless in a field where profitability depends on methods not being generally known, and the prior-knowledge exception was conditioned on written records, which the court called absurd. The exceptions existed on paper and still failed.
+
+Two features of California procedure make this worse than it looks. Under Dowell, once provisions are facially void the court does no further analysis — so your counterparty mounts a facial challenge and never has to develop a factual record about how the disclaimer would operate. And Edwards rejected the idea that a narrowly drawn restraint survives §16600, which forecloses the argument that your clause is reasonable in practice. A disclaimer is precisely the kind of provision that only does work in an as-applied inquiry the court won't reach.
+
+**One clarification on what I actually drafted.** Section 2.1 does not require marking. It's disjunctive: information qualifies if it's designated confidential *or* if a reasonable person in the Receiving Party's position would understand it to be confidential given the content and circumstances. Unmarked information is covered. There's no tagging burden on you, and no gap if someone forgets to stamp a document.
+
+**There's a real middle option** if you want the presumption to lean harder your way:
+
+> 2.1 Definition. ""Confidential Information"" means non-public information relating to the Business that is disclosed by the Disclosing Party or its Representatives to the Receiving Party or its Representatives in connection with the Purpose. Information so disclosed is presumed to be Confidential Information. This presumption does not extend to general knowledge, skill, or experience in the [RELEVANT INDUSTRY] industry, or to information relating to that industry generally rather than to the Business, and the presumption is rebutted as to any information falling within Section 3.
+
+That gets you a default of ""everything counts,"" which is what you're after, while keeping two real boundaries: it's tied to your actual Business rather than your industry, and the exclusions in Section 3 are genuine because I already removed the written-records trap. The difference from TGS is that these limits have content — Brown's problem wasn't the presumption, it was that nothing meaningful survived the exceptions.
+
+**A separate reason not to claim everything.** If you ever bring a trade secret claim in California, Code of Civil Procedure § 2019.210 requires you to identify the trade secret with reasonable particularity before you can take discovery. An NDA asserting that all information is confidential gives you nothing to point at. Some designation discipline, even informal, is what lets you show a court what you're protecting. The clause that claims the most often proves the least.
+
+Tell me which version you want and I'll swap it in and regenerate both files. My recommendation is the presumption version above — it's closer to what you're asking for than the current 2.1, without reproducing the structure that cost TGS everything.",,,,
+Human,2026-08-28T03:49:11.819220Z,"Yes, that change is fine. Please incorporate it into the NDA. Please change NDA formatting and addd page numbers, Times New Roman, Font size 12 and 1.5 spacing.",,,,
+Claude,2026-08-28T03:49:11.812489Z,,Replacing Section 2.1 with the presumption-based definition,str_replace,,
+Claude,2026-08-28T03:49:19.702097Z,,Reviewing Section 2 for redundancy after the edit,bash_tool,,
+Claude,2026-08-28T03:49:22.002355Z,,Trimming 2.3 to avoid restating the industry carve-out now in 2.1,str_replace,,
+Claude,2026-08-28T03:49:25.965265Z,Now rebuilding with the formatting changes.,,,,
+Claude,2026-08-28T03:49:26.511748Z,,Creating file: build_nda2.js,create_file,,build_nda2.js
+Claude,2026-08-28T03:49:42.394799Z,,Rebuilding and rendering to verify,bash_tool,,
+Claude,2026-08-28T03:49:47.870080Z,,Verifying page 1 formatting and footer,view,,
+Claude,2026-08-28T03:49:50.625950Z,,Verifying the signature page after reflow,view,,
+Claude,2026-08-28T03:49:53.266403Z,,"Sharing file(s): nda-final.docx, nda-final.md",present_files,,nda-final.docx; nda-final.md
+Claude,2026-08-28T03:49:55.148547Z,"Done. Times New Roman 12pt throughout, 1.5 line spacing, ""Page X of Y"" centered in the footer, justified body text with indented sub-clauses. Nine pages now — the wider spacing added two.
+
+Section 2.1 is the presumption version we discussed. I also trimmed 2.3, since the industry carve-out now sits inside 2.1 and the old wording repeated it verbatim; 2.3 keeps only the affirmative statement that you claim no interest in general knowledge, skill, or experience and don't restrict the Receiving Party's use of it. That sentence is worth keeping separate — it's the clearest signal to a court that the agreement isn't functioning as a restraint.
+
+One thing to note now that 2.1 leads with a presumption: the `[RELEVANT INDUSTRY]` placeholder is doing structural work, not cosmetic. If you fill it with something as broad as your Business description, the carve-out collapses and you're back toward the TGS problem. It should name the wider field you operate in, while Recital A names your specific line of business within it.",,,,
+Human,2026-08-28T03:51:53.185005Z,"Can you please create, an excel sheet that breaks down the main rules in this document. The rows should be titled: ""Rule Group"" ""Rule Summary"" and Rule Note.",,,,
+Claude,2026-08-28T03:51:53.178314Z,,Reading the xlsx skill before building the spreadsheet,view,,
+Claude,2026-08-28T03:51:59.574661Z,,Creating file: build_rules.py,create_file,,build_rules.py
+Claude,2026-08-28T03:52:55.634663Z,,Building and verifying the workbook,bash_tool,,
+Claude,2026-08-28T03:53:00.479840Z,,Sharing file(s): nda-rules-breakdown.xlsx,present_files,,nda-rules-breakdown.xlsx
+Claude,2026-08-28T03:53:02.215282Z,"51 rules across 19 groups. I read your three titles as column headers rather than row labels, since the content is a list of rules — say the word if you wanted them running down the side instead.
+
+Section numbers are folded into the Rule Group values, so you can trace any row back to the document without a fourth column. Filters are on, the header row is frozen and set to repeat when printed, and it's laid out landscape. Times New Roman 12 throughout.
+
+The Rule Note column is where the judgment calls sit rather than restatement — which placeholders still need filling, which clauses are load-bearing, and which carry the enforceability risk we discussed. The rows on Sections 2.1, 3.2, 11.3, and 17.3 each name the reason for the drafting choice, so whoever reviews this can see what was deliberate rather than reverse-engineering it from the text.",,,,
+Human,2026-08-28T03:54:34.592326Z,"It should be a general NDA Rule Summary, with the sample from the document. Then I also want you to create a document with 20 samples (10 good and 10 bad) for each rule which are not found within this NDA. This should be a separate file.",,,,
+Claude,2026-08-28T03:55:14.214247Z,,Creating file: build_rules2.py,create_file,Reconciled column structure and scoped manageable rule categories strategically.,build_rules2.py
+Claude,2026-08-28T03:55:52.489636Z,,Rebuilding and verifying the spreadsheet,bash_tool,Reconciled column structure and scoped manageable rule categories strategically.,
+Claude,2026-08-28T03:55:56.171037Z,"Now the samples document — 20 rules, 400 examples. Building it in sections.",,,,
+Claude,2026-08-28T03:55:56.654571Z,,Creating file: nda-clause-samples.md,create_file,,nda-clause-samples.md
+Claude,2026-08-28T03:56:39.955140Z,,Appending rules 5-8,bash_tool,,
+Claude,2026-08-28T03:57:17.103866Z,,Appending rules 9-12,bash_tool,,
+Claude,2026-08-28T03:57:54.782621Z,,Appending rules 13-16,bash_tool,,
+Claude,2026-08-28T03:58:30.965553Z,,Checking file state after the write error,bash_tool,,
+Claude,2026-08-28T03:58:36.584793Z,,Locating the exact truncation point,bash_tool,,
+Claude,2026-08-28T03:58:38.783438Z,,Truncating back to the end of Rule 12,bash_tool,,
+Claude,2026-08-28T03:58:41.803877Z,Clean at Rule 12. Continuing in smaller chunks.,,,,
+Claude,2026-08-28T03:58:42.309627Z,,Appending rules 13-14,bash_tool,,
+Claude,2026-08-28T03:58:56.424418Z,,Appending rules 15-16,bash_tool,,
+Claude,2026-08-28T03:59:11.278620Z,,Appending rules 17-18,bash_tool,,
+Claude,2026-08-28T03:59:30.545873Z,,Appending final rules and verifying structure,bash_tool,,
+Claude,2026-08-28T03:59:51.344148Z,,Verifying every section has exactly 10 items,bash_tool,,
+Claude,2026-08-28T03:59:55.208124Z,,"Sharing file(s): nda-rules-breakdown.xlsx, nda-clause-samples.md",present_files,,nda-rules-breakdown.xlsx; nda-clause-samples.md
+Claude,2026-08-28T03:59:56.921363Z,"Both files are done, and the numbering lines up between them — Rule 1 in the spreadsheet is Rule 1 in the samples document.
+
+The spreadsheet is now 20 rows. Rule Summary states each rule as a general NDA principle with no reference to your specific deal, and Rule Note carries the matching sample clause quoted from your document with its section number. I kept your original three headers, so the sample sits under ""Rule Note"" — say the word if you'd rather that column be renamed.
+
+The samples file has 400 clauses, 10 good and 10 bad for each rule, none of them taken from your NDA. I verified every section holds exactly ten.
+
+Two notes on how I built the bad samples. They aren't randomly weak — most are drawn from failure patterns we discussed: definitions claiming a whole industry, exclusions provable only by contemporaneous written records, flow-down that restrains individual mobility, perpetual terms, and remedies clauses asking a court to treat irreparable harm as an agreed fact. Rules 2, 3, 5, 9 and 16 carry the heaviest concentration of those.
+
+Some clauses in the bad columns are unenforceable rather than merely poorly drafted, and a few would be affirmatively risky to propose — the whistleblower restrictions under Rule 12 especially. They're there as things to recognise and strike when they appear in a counterparty's draft, not as options.
+
+I can convert the samples file to Word or fold it into the spreadsheet as a second tab if either would be more useful.",,,,

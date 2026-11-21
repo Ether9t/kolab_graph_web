@@ -1,0 +1,838 @@
+{
+  "session_id": "session2",
+  "participant_id": "p26",
+  "title": "Publication-Ready Atlas Infographic of Ecuador, 13,000 BC to 4,500 BC",
+  "goal": "Research, assemble, evaluate and cartographically integrate the evidence required to create a publication-ready historical map/atlas infographic of Ecuador during 13,000 BC to 4,500 BC, showing reconstructed topography, geology and land cover together with evidence for human population, archaeological settlements and sites, artifacts, and defensible movements or migration corridors, with scientific uncertainty and source quality documented appropriately.",
+  "context": "I am creating a scientific historical atlas of Ecuador documenting human occupation, migration, settlement and landscape change. Session 1 established the broader chronological, archaeological, environmental and GIS framework. Session 2 focuses on producing the first complete atlas-period map: Ecuador from 13,000 BC to 4,500 BC. All work in this recorded session will be completed entirely in Claude, including research, data synthesis, spatial reasoning and creation of the final publication-ready map/atlas infographic.",
+  "occupation": "Cartographer & GIS Specialist",
+  "session_goal_achievement": {
+    "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+    "Why or why not": "Claude completed the five-step workflow and produced a finished A3 raster image, but the stated goal was not achieved at publication-ready/professional GIS-cartographic level. I had to interrupt Step 2 and supply elevation and bathymetry data myself. The physical-landscape reconstruction remained poor despite Claude recognizing problems during its own reasoning/QC, and the final delivery could not provide a true editable production master with separate raster and vector layers."
+  },
+  "workflow_graph": {
+    "Step 1": {
+      "key": "seg1",
+      "badge": "Step 1",
+      "step_name": "Define the 13,000 BC-4,500 BC reconstruction framework",
+      "step_action": "Ask Claude to synthesize the Session 1 framework specifically for Ecuador during 13,000 BC to 4,500 BC and define what can be mapped scientifically for this period.",
+      "time_range": "00:00:00-00:06:51",
+      "nodes": [
+        {
+          "id": "a1",
+          "actor": "user",
+          "label": "Frame the session's scope, geographic extent and strict no-fabrication rules",
+          "detail": "The participant opens a new Claude chat ('Early Ecuador archaeological atlas 13,000-4,500 BC') and states they are a cartographer/GIS specialist building one publication-ready infographic entirely inside Claude (no QGIS or other software), lists every layer the map must integrate (topography, geology, coastline, glaciers, hydrology, land cover, sites, population, artifacts, corridors), and lays down strict scientific rules: never invent sites, coordinates, dates, artifact types or population figures, tier evidence as direct/interpreted/hypothetical, and keep BP/cal BP/radiocarbon/BC conventions straight.",
+          "time": [
+            "00:00:00-00:00:27"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a2",
+          "actor": "claude",
+          "label": "Deliver the scientific and chronological framework including a chronological table and major scientific questions the map should communicate",
+          "detail": "Claude explicitly commits to its sourcing discipline -- real citable sources only, no fabricated coordinates, explicit BP/cal BP/BC tracking, saying 'insufficient evidence' rather than filling gaps -- and produces the Step 1 research brief defining temporal phases, geographic extent, evidence categories and required map layers for the 13,000-4,500 BC window.",
+          "time": [
+            "00:00:27-00:03:42"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a3",
+          "actor": "user",
+          "label": "Instruct Claude to audit its own chronology for calendar-convention errors",
+          "detail": "The participant instructs Claude to audit the Step 1 chronology it just produced specifically for calendar-convention errors -- conflating BP, cal BP, uncalibrated radiocarbon dates and BC/BCE.",
+          "time": [
+            "00:03:42-00:04:18"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a4",
+          "actor": "claude",
+          "label": "Run a site-by-site chronology audit and fix conflated dates",
+          "detail": "Claude runs a full site-by-site audit of its own chronology, identifies and fixes several places where BP, cal BP and BC/BCE conventions had been conflated, and confirms it is ready to proceed to Step 2 with a cleaned, internally consistent chronology.",
+          "time": [
+            "00:04:18-00:06:13"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 1"
+        },
+        {
+          "id": "a5",
+          "actor": "user",
+          "label": "Read Claude's audit report",
+          "detail": "",
+          "time": [
+            "00:06:13-00:06:51"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 1"
+        }
+      ],
+      "edges": [
+        {
+          "from": "a1",
+          "to": "a2",
+          "type": "sequential"
+        },
+        {
+          "from": "a2",
+          "to": "a3",
+          "type": "sequential"
+        },
+        {
+          "from": "a3",
+          "to": "a4",
+          "type": "sequential"
+        },
+        {
+          "from": "a4",
+          "to": "a5",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 2": {
+      "key": "seg2",
+      "badge": "Step 2",
+      "step_name": "Reconstruct the physical landscape",
+      "step_action": "Research and define the period-appropriate physical environment of Ecuador, including topography, geology, coastline/sea level, glaciers, hydrography and land cover/vegetation.",
+      "time_range": "00:06:51-00:48:41",
+      "nodes": [
+        {
+          "id": "b1",
+          "actor": "user",
+          "label": "Send the Step 2 instruction to reconstruct and create the physical landscape base raster",
+          "detail": "The participant gives the Step 2 instruction, asking Claude to research and produce a georeferenced physical-landscape base raster for the period covering topography, geology, paleocoastline/sea level, glaciers, hydrography and land cover, explicitly warning it must not be an illustrative or AI-imagined landscape.",
+          "time": [
+            "00:06:51-00:07:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b2",
+          "actor": "claude",
+          "label": "Test sandbox network access and decline to fabricate a plausible-looking terrain",
+          "detail": "Claude tests its own sandbox and confirms every real elevation/bathymetry data host (OpenTopography, GEBCO, USGS EarthExplorer/LP DAAC, Microsoft's Planetary Computer) is blocked by its network allowlist, then explicitly refuses to build a GeoTIFF from fabricated or training-data-recollected terrain, naming this the exact failure mode the project's 'do not invent' rules exist to prevent, and lays out two honest options: the participant supplies real data, or Claude proceeds with a clearly-labeled incomplete reconstruction.",
+          "time": [
+            "00:07:38-00:08:23"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b3",
+          "actor": "user",
+          "label": "Manually find and upload real elevation/bathymetry data",
+          "detail": "The participant pauses the Claude workflow, leaves the chat to find and download real geospatial datasets (a 90m Ecuador DEM in EPSG:31992 and the GEBCO 2026 bathymetry grid), working around a failed 'download all' by pulling files one-by-one, and uploads both real files back into the chat.",
+          "time": [
+            "00:08:23-00:21:48"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app), file browser/downloads",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b4",
+          "actor": "claude",
+          "label": "Process the uploaded rasters, deliver a real, verified GeoTIFF file, an EPSG:4326 version, 13 separate component layers, and a full metadata scientific notes document",
+          "detail": "Claude builds and QCs the elevation mosaic, multidirectional hillshade, paleocoastiline, sea-level brackets, glacier zones, hydrology, vegetation reconstruction, geology, and final compositing and QC. After the first run, Claude unexpectedly ends after building the hydrology because of tool-call limits",
+          "time": [
+            "00:21:30-00:32:39",
+            "00:33:44-00:39:36"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b5",
+          "actor": "user",
+          "label": "Read Claude's report and ask it to continue",
+          "detail": "",
+          "time": [
+            "00:32:39-00:33:44"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b6",
+          "actor": "user",
+          "label": "Download all the files and ask Claude to verify the raster is actually geospatially usable",
+          "detail": "The participant downloads all the files and asks Claude to check and report on the raster's geospatial usability: exact file name and format, embedded CRS, EPSG code, bounding coordinates, and any other issues.",
+          "time": [
+            "00:39:36-00:44:01"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b7",
+          "actor": "claude",
+          "label": "Check and correct the raster and deliver corrected EPSG4326 file, a required sidecar file.",
+          "detail": "Claude checks and reports on the raster's geospatial usability: exact file name and format, embedded CRS, EPSG code, bounding coordinates, and any other issues.",
+          "time": [
+            "00:44:01-00:47:02"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b8",
+          "actor": "user",
+          "label": "Import the raster and the component layers into QGIS and check each layer",
+          "detail": "",
+          "time": [
+            "00:44:28-00:46:54"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 2"
+        },
+        {
+          "id": "b9",
+          "actor": "user",
+          "label": "Download the corrected EPSG4326 files and the sidecar file, and import them into QGIS and check the layers",
+          "detail": "",
+          "time": [
+            "00:47:02-00:48:41"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app), QGIS",
+          "source_steps": "Step 2"
+        }
+      ],
+      "edges": [
+        {
+          "from": "b1",
+          "to": "b2",
+          "type": "sequential"
+        },
+        {
+          "from": "b2",
+          "to": "b3",
+          "type": "sequential"
+        },
+        {
+          "from": "b3",
+          "to": "b4",
+          "type": "sequential"
+        },
+        {
+          "from": "b4",
+          "to": "b5",
+          "type": "sequential"
+        },
+        {
+          "from": "b5",
+          "to": "b4",
+          "type": "loop"
+        },
+        {
+          "from": "b4",
+          "to": "b6",
+          "type": "sequential"
+        },
+        {
+          "from": "b6",
+          "to": "b7",
+          "type": "sequential"
+        },
+        {
+          "from": "b6",
+          "to": "b8",
+          "type": "sequential"
+        },
+        {
+          "from": "b7",
+          "to": "b9",
+          "type": "sequential"
+        },
+        {
+          "from": "b8",
+          "to": "b9",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 3": {
+      "key": "seg3",
+      "badge": "Step 3",
+      "step_name": "Compile human occupation, settlements and artifacts",
+      "step_action": "Research archaeological evidence for human presence in Ecuador between 13,000 BC and 4,500 BC and compile mappable sites, settlement evidence, artifact finds and cultural associations.",
+      "time_range": "00:48:41-00:55:30",
+      "nodes": [
+        {
+          "id": "c1",
+          "actor": "user",
+          "label": "Ask Claude to conduct a systematic archaeological review for the finalized geographic extent and compile all important archaeological evident that could reasonably appear in the atlas",
+          "detail": "The participant gives the Step 3 instruction, asking Claude to compile mappable archaeological sites, relevant dates, dating methods, site types,cultural attribution, etc., for the 13,000-4,500 BC window.",
+          "time": [
+            "00:48:41-00:49:03"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c2",
+          "actor": "claude",
+          "label": "Re-verify site coordinates and deliver table of sites with available evidences, classified by evidentiary tier",
+          "detail": "Claude re-verifies coordinates and evidentiary status for each candidate site (El Inga, Las Vegas/Site 80, Cubilan, Tanque Loma, El Cautivo, Chobshi, Sangolqui, Nanchoc Valley, Paijan-type sites, plus Colombian comparanda like Aguazuque and Tequendama), classifying each as Primary-must-appear, Secondary-useful, Contextual-only-if-space-permits, or Exclude, with a documented reason for every call.",
+          "time": [
+            "00:49:03-00:51:30"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c3",
+          "actor": "user",
+          "label": "Instruct Claude to audit the archaeological database",
+          "detail": "The participant directs Claude to audit the archaeological database it just compiled, verifying the time, coordinates, dating method, cited source, directly/inferred dates, disputed sites, and approximations in coordinates.",
+          "time": [
+            "00:51:30-00:53:08"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c4",
+          "actor": "claude",
+          "label": "Present the classification table and confirm readiness for Step 4",
+          "detail": "Claude presents the completed site-classification table with its confidence tiers and reasons, and states it is ready for the participant's review before moving on to Step 4.",
+          "time": [
+            "00:53:08-00:54:37"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 3"
+        },
+        {
+          "id": "c5",
+          "actor": "user",
+          "label": "Read Claude's audit report of the sites and relevant evidence",
+          "detail": "",
+          "time": [
+            "00:54:37-00:55:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 3"
+        }
+      ],
+      "edges": [
+        {
+          "from": "c1",
+          "to": "c2",
+          "type": "sequential"
+        },
+        {
+          "from": "c2",
+          "to": "c3",
+          "type": "sequential"
+        },
+        {
+          "from": "c3",
+          "to": "c4",
+          "type": "sequential"
+        },
+        {
+          "from": "c4",
+          "to": "c5",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 4": {
+      "key": "seg4",
+      "badge": "Step 4",
+      "step_name": "Reconstruct population patterns and movements",
+      "step_action": "Analyze the environmental and archaeological evidence to identify defensible population distributions, occupation zones, movement corridors, migration hypotheses and connections between regions without presenting speculation as fact.",
+      "time_range": "00:55:30-00:59:46",
+      "nodes": [
+        {
+          "id": "d1",
+          "actor": "user",
+          "label": "Ask Claude to determine what can be defensibly represented about human geography, using only the evidence established in Steps 1-3",
+          "detail": "The participant asks claude to reconstruct population patterns, occupation and movements, explicitly telling Claude to reason only from the evidence already established in Steps 1-3 rather than gathering new evidence, and not to invent population numbers.",
+          "time": [
+            "00:55:30-00:55:38"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 4",
+          "user_response": [
+            [
+              "a1",
+              "a4",
+              "adopt",
+              "00:00:00–00:00:27",
+              "00:04:18–00:06:13",
+              "00:55:30–00:55:38"
+            ],
+            [
+              "c1",
+              "c4",
+              "adopt",
+              "00:48:41–00:49:03",
+              "00:53:08–00:54:37",
+              "00:55:30–00:55:38"
+            ]
+          ]
+        },
+        {
+          "id": "d2",
+          "actor": "claude",
+          "label": "Deliver population patterns, occupation and movements in five parts: map-ready occupation zones, map-ready interaction/mobility corridors (non-directional), directional movements, areas without enough evidence, and recommened symbology",
+          "detail": "Claude re-assembles the exact evidence base it is allowed to draw on, computes real inter-site distances (e.g. the roughly 310km implied by an obsidian-at-Chobshi claim, and 400-900km+ Ecuador-to-Peru distances), and systematically tests eight candidate mobility/migration corridors against that evidence rather than proposing a map-ready corridor network outright.",
+          "time": [
+            "00:55:38-00:57:44"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d3",
+          "actor": "user",
+          "label": "Ask Claude to challenge every proposed movement feature and return a conservative, corrected final movement layer specification",
+          "detail": "The participant explicitly tells Claude to challenge every migration or movement feature it has proposed, pushing it to justify each one against the evidentiary bar rather than accept it by default.",
+          "time": [
+            "00:57:44-00:58:24"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d4",
+          "actor": "claude",
+          "label": "Honestly report that most corridors fail the evidentiary bar, archaeological record for 13000-4500 BC in the araea doens't currently support a mobility/movement layer at all",
+          "detail": "Claude reports that most of the eight candidate corridors fail the evidentiary bar it was given and states this failure rate honestly rather than padding the map with plausible-looking arrows. The evidences only support one occupation zone with an internal behavioral note, and one anomalous artifact",
+          "time": [
+            "00:58:24-00:59:23"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 4"
+        },
+        {
+          "id": "d5",
+          "actor": "user",
+          "label": "Read Claude's report on the lack of evidence for mobility/movement",
+          "detail": "",
+          "time": [
+            "00:59:23-00:59:46"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 4"
+        }
+      ],
+      "edges": [
+        {
+          "from": "d1",
+          "to": "d2",
+          "type": "sequential"
+        },
+        {
+          "from": "d2",
+          "to": "d3",
+          "type": "sequential"
+        },
+        {
+          "from": "d3",
+          "to": "d4",
+          "type": "sequential"
+        },
+        {
+          "from": "d4",
+          "to": "d5",
+          "type": "sequential"
+        }
+      ]
+    },
+    "Step 5": {
+      "key": "seg5",
+      "badge": "Step 5",
+      "step_name": "Create the publication-ready Map/Atlas Infographic",
+      "step_action": "Use Claude and all previous outputs to design and create the final publication-ready map/atlas infographic of Ecuador during 13,000 BC to 4,500 BC, integrating the reconstructed physical landscape and archaeological interpretation into one coherent cartographic product.",
+      "time_range": "00:59:46-01:38:30",
+      "nodes": [
+        {
+          "id": "e1",
+          "actor": "user",
+          "label": "Ask Claude to create the final publication-ready atlas infographic, using only the approved Steps 1-4 outputs, integrating the reconstructed physical landscape and archaeological interpretation into one coherent cartographic product",
+          "detail": "The participant gives the Step 5 instruction to build the final publication-ready infographic, explicitly telling Claude to use only the already-approved Steps 1-4 outputs and not re-do any geography research.",
+          "time": [
+            "00:59:46-00:59:57"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5",
+          "user_response": [
+            [
+              "b1",
+              "b7",
+              "adopt",
+              "00:06:51–00:07:38",
+              "00:44:01–00:47:02",
+              "00:59:46-00:59:57"
+            ],
+            [
+              "d1",
+              "d4",
+              "adopt",
+              "00:55:30–00:55:38",
+              "00:58:24–00:59:23",
+              "00:59:46-00:59:57"
+            ]
+          ]
+        },
+        {
+          "id": "e2",
+          "actor": "claude",
+          "label": "Flag structural layout problems and build the composite map in stages",
+          "detail": "Claude flags two real structural problems: the Step 2 physical-base raster is portrait/narrow while the target A3 page is landscape, and the Paijan/Moche Valley site cluster falls just outside the raster's mapped southern extent. It proposes keeping the raster at its true aspect ratio inside a tall panel, then builds the map in stages -- base raster panel, archaeological overlays with correct georeferencing, then the full A3 composition -- including extended troubleshooting of an ocean/coastline mask rendering bug. Then Claude proposes a layout of 14 components.",
+          "time": [
+            "00:59:57-01:01:15"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e3",
+          "actor": "user",
+          "label": "Instruct Claude not to make any changes and proceed",
+          "detail": "",
+          "time": [
+            "01:01:15-01:01:58"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e4",
+          "actor": "user",
+          "label": "Check the layers from Step 1 in QGIS, saying the water mask Claude generated is not correct",
+          "detail": "",
+          "time": [
+            "01:07:17-01:08:22"
+          ],
+          "actor_type": "user",
+          "softwares": "QGIS",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e5",
+          "actor": "claude",
+          "label": "Build and verify the map panel, site overlays, occupation zones, movement layer, right column, paijan supplementary inset, modern political boundaries, etc., as separate RGBA layers. Deliver a print master, a digital master, 10 layered master, geospatial base, source/evidence table, and final metadata document.",
+          "detail": "The first, second, third and fourth run ends unexpectedly because of tool use limits.",
+          "time": [
+            "01:01:58-01:09:15",
+            "01:11:36-01:15:18",
+            "01:15:49-01:19:28",
+            "01:22:04-01:26:57",
+            "01:28:50-01:31:59"
+          ],
+          "actor_type": "ai",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e6",
+          "actor": "user",
+          "label": "Ask Claude to continue, making sure that all texts, symbology and vector artwork stays as such and is not converted to raster in the final output",
+          "detail": "",
+          "time": [
+            "01:09:15-01:11:36"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e7",
+          "actor": "user",
+          "label": "Ask Claude to continue",
+          "detail": "In the last time asking Claude to continue, the user agrees to skip QC and proceed straight to export.",
+          "time": [
+            "01:15:18-01:15:49",
+            "01:19:28-01:22:04",
+            "01:26:57-01:28:50"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app)",
+          "source_steps": "Step 5"
+        },
+        {
+          "id": "e8",
+          "actor": "user",
+          "label": "Download and review the finished infographic and judge it a failure",
+          "detail": "",
+          "time": [
+            "01:31:59-01:38:30"
+          ],
+          "actor_type": "user",
+          "softwares": "Claude (desktop app), Finder preview",
+          "source_steps": "Step 5",
+          "user_response": [
+            [
+              "e1",
+              "e5",
+              "reject",
+              "00:59:46-00:59:57",
+              "01:28:50-01:31:59",
+              "01:31:59-01:38:30"
+            ]
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "e1",
+          "to": "e2",
+          "type": "sequential"
+        },
+        {
+          "from": "e2",
+          "to": "e3",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e5",
+          "type": "sequential"
+        },
+        {
+          "from": "e3",
+          "to": "e4",
+          "type": "sequential"
+        },
+        {
+          "from": "e5",
+          "to": "e6",
+          "type": "sequential"
+        },
+        {
+          "from": "e4",
+          "to": "e6",
+          "type": "sequential"
+        },
+        {
+          "from": "e6",
+          "to": "e5",
+          "type": "loop"
+        },
+        {
+          "from": "e5",
+          "to": "e7",
+          "type": "sequential"
+        },
+        {
+          "from": "e7",
+          "to": "e5",
+          "type": "loop"
+        },
+        {
+          "from": "e5",
+          "to": "e7",
+          "type": "sequential"
+        },
+        {
+          "from": "e7",
+          "to": "e5",
+          "type": "loop"
+        },
+        {
+          "from": "e5",
+          "to": "e7",
+          "type": "sequential"
+        },
+        {
+          "from": "e7",
+          "to": "e5",
+          "type": "loop"
+        },
+        {
+          "from": "e5",
+          "to": "e8",
+          "type": "sequential"
+        }
+      ]
+    }
+  },
+  "human_workflow_plan": {
+    "Step 1": {
+      "step_name": "Define the 13,000 BC-4,500 BC reconstruction framework",
+      "step_action": "Ask Claude to synthesize the Session 1 framework specifically for Ecuador during 13,000 BC to 4,500 BC and define what can be mapped scientifically for this period.",
+      "input": "Session 1 chronology, geographic scope and existing research framework.",
+      "output": "Period-specific research brief defining temporal phases, geographic extent, evidence categories, uncertainties and the exact layers required for the final map.",
+      "tools": "Paid: Claude Max",
+      "rubrics": [
+        "The period 13,000 BC-4,500 BC is fully covered.",
+        "Major environmental and archaeological transitions are identified.",
+        "Mapped versus inferred information is clearly distinguished.",
+        "Scientific references are provided.",
+        "The framework directly supports production of the final atlas map."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "4/5",
+        "output_quality_reason": "Strong overall research framework. Claude covered the full period, separated direct evidence from interpretation, identified major environmental/archaeological transitions, and produced a framework usable by later steps. The main weakness is that later outputs show that some source verification remained incomplete: several important site coordinates and chronologies could not ultimately be verified, so the framework was better as a research synthesis than as a fully production-secure spatial specification."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes, substantially.",
+        "Why or why not": "Claude completed the scientific/chronological framework and it materially supported the later workflow, although it did not eliminate later source and coordinate-verification problems."
+      }
+    },
+    "Step 2": {
+      "step_name": "Reconstruct the physical landscape",
+      "step_action": "Research and define the period-appropriate physical environment of Ecuador, including topography, geology, coastline/sea level, glaciers, hydrography and land cover/vegetation.",
+      "input": "Step 1 framework plus suitable scientific datasets and literature.",
+      "output": "map-ready environmental layer specification and source list for topography, geology, paleocoastline, glaciers, rivers/wetlands and reconstructed land cover, including uncertainty where reconstruction is necessary.",
+      "tools": "Paid: Claude Max; Free: QGIS",
+      "rubrics": [
+        "Topography is suitable for publication-scale mapping.",
+        "Geology is represented at an appropriate level of detail.",
+        "Land cover/vegetation reflects the period rather than modern conditions where evidence permits.",
+        "Coastline, glaciers and hydrography account for known environmental change.",
+        "Sources, dates and uncertainty are documented."
+      ],
+      "ratings": {
+        "collaboration_rating": 2,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 3,
+        "The agent reduced effort, time, or cognitive load during the task": 2,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 2,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 2,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "2/5",
+        "output_quality_reason": "This was the weakest step. Claude could not obtain the required elevation and bathymetry itself, so I had to stop the workflow and manually supply the elevation and bathymetry datasets. These are standard, widely used open geospatial datasets, so this substantially increased the human workload. More importantly, the reconstructed physical landscape was poor. The delivered land-cover reconstruction is a coarse rule-based classification from elevation, slope and latitude rather than a spatially resolved paleovegetation reconstruction; glacier extents are generalized elevation/slope proxies; and the paleocoastline is an isobath proxy. The final base visibly contains crude/artificial boundaries and source-resolution artifacts, including the documented seam near 6.2°S. Claude itself identified limitations during its reasoning/QC, but the supposedly corrected final output did not materially fix them. The GeoTIFF is technically georeferenced and usable, but scientific/cartographic quality is not publication-ready."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "Claude produced a genuine georeferenced RGB GeoTIFF, but failed the substantive reconstruction goal. I had to provide core DEM/bathymetry inputs, and the resulting landscape was not good enough for a professional atlas. The metadata also refers to separate component/QC files (for example alternate coastlines, a secondary projection and a provenance mask) that are not present in the final ZIP, so the promised component-layer workflow was not actually delivered."
+      }
+    },
+    "Step 3": {
+      "step_name": "Compile human occupation, settlements and artifacts",
+      "step_action": "Research archaeological evidence for human presence in Ecuador between 13,000 BC and 4,500 BC and compile mappable sites, settlement evidence, artifact finds and cultural associations.",
+      "input": "Step 1 framework and archaeological literature/databases.",
+      "output": "structured catalogue of archaeological sites and finds with coordinates, date ranges, site type, settlement/occupation evidence, artifact types, cultural attribution, source references and confidence levels.",
+      "tools": "Paid: Claude Max",
+      "rubrics": [
+        "Only evidence relevant to 13,000 BC-4,500 BC is included.",
+        "Coordinates and date ranges are recorded where available.",
+        "Settlements, occupation sites and artifact finds are differentiated.",
+        "Disputed or uncertain evidence is explicitly identified.",
+        "Each mapped feature has a traceable source and confidence assessment."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 4,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 4,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 3,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "3/5",
+        "output_quality_reason": "Useful archaeological synthesis and generally conservative handling of uncertainty, but the final evidence table exposes important limitations. Only Las Vegas/Site 80 has a coordinate taken directly from a primary excavation report; several other mapped sites are explicitly schematic/approximate. Chobshi relies on secondary/tourism sources because the primary academic source was not directly accessed, and its chronology remains disputed by up to ~2,000 years. El Inga is typological with disputed absolute dates. The database therefore works as a research catalogue, but several features are not spatially secure enough for a publication-ready GIS layer."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Partially.",
+        "Why or why not": "Claude compiled and audited useful archaeological evidence, but it could not verify enough coordinates and primary sources to make all mapped features production-secure."
+      }
+    },
+    "Step 4": {
+      "step_name": "Reconstruct population patterns and movements",
+      "step_action": "Analyze the environmental and archaeological evidence to identify defensible population distributions, occupation zones, movement corridors, migration hypotheses and connections between regions without presenting speculation as fact.",
+      "input": "Outputs from Steps 1-3.",
+      "output": "map-ready population/occupation zones and movement specifications, with supporting evidence, alternative interpretations and confidence classifications suitable for cartographic visualization.",
+      "tools": "Paid: Claude Max",
+      "rubrics": [
+        "Population is represented as evidence-based patterns or ranges, not invented precise counts.",
+        "Movements and corridors are supported by archaeological or environmental evidence.",
+        "Alternative hypotheses are retained where relevant.",
+        "Confidence and uncertainty are encoded for mapping.",
+        "Relationships among terrain, resources, sites, artifacts and movement are geographically coherent."
+      ],
+      "ratings": {
+        "collaboration_rating": 4,
+        "The agent understood the task, context, and instructions provided": 5,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 5,
+        "The agent reduced effort, time, or cognitive load during the task": 4,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 5,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 4,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 4,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "4/5",
+        "output_quality_reason": "This step was comparatively strong because Claude became conservative after the movement audit. It explicitly rejected unsupported directional arrows, retained only non-directional/text-anchored mobility interpretations, distinguished confirmed/probable occupation, and flagged the Amazon/eastern piedmont as a data gap rather than prehistoric absence. The main limitation is that some occupation zones and mobility interpretations inherit the weak/approximate spatial evidence from Step 3 and therefore cannot be treated as precise GIS geometry."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "Yes, with limitations.",
+        "Why or why not": "The analysis appropriately reduced speculation and removed unsupported directional movement claims, but its spatial precision was constrained by the earlier data and reconstruction weaknesses."
+      }
+    },
+    "Step 5": {
+      "step_name": "Create the publication-ready Map/Atlas Infographic",
+      "step_action": "Use Claude and all previous outputs to design and create the final publication-ready map/atlas infographic of Ecuador during 13,000 BC to 4,500 BC, integrating the reconstructed physical landscape and archaeological interpretation into one coherent cartographic product.",
+      "input": "All outputs from Steps 1-4.",
+      "output": "A publication-ready map/atlas infographic showing topography, geology, reconstructed land cover, population/occupation patterns, settlements and archaeological sites, artifacts, and evidence-based movements, with title, legend, chronology, scale, north reference where appropriate, source notes and uncertainty symbology.",
+      "tools": "Paid: Claude Max",
+      "rubrics": [
+        "Topography, geology and land cover are all clearly represented.",
+        "Population, settlements/sites and artifacts are all included and legible.",
+        "Movements or migration corridors are shown only where evidence supports them.",
+        "Visual hierarchy clearly separates physical geography, archaeological evidence and interpretation/uncertainty.",
+        "The final composition is scientifically defensible, internally consistent and suitable for publication as an atlas infographic."
+      ],
+      "ratings": {
+        "collaboration_rating": 2,
+        "The agent understood the task, context, and instructions provided": 4,
+        "The agent responded appropriately to requests and adapted when given feedback or corrections": 3,
+        "The agent reduced effort, time, or cognitive load during the task": 3,
+        "The agent proactively suggested useful ideas, alternatives, or next steps when appropriate": 3,
+        "The agent produced accurate, relevant, and trustworthy outputs that required minimal correction": 2,
+        "The interaction felt smooth, with the agent contributing at the right moments without creating unnecessary work": 2,
+        "I was able to guide, redirect, and override the agent's actions when desired": 5,
+        "output_quality_rating": "2/5",
+        "output_quality_reason": "Claude produced an A3 4961×3508 px, 300 dpi TIFF and matching PNG, and the composition includes many requested subjects. However, it is not genuinely publication-ready. The physical base inherited the poor Step 2 reconstruction and visible artifacts. The map is text-heavy, the geographic panel is comparatively crude, and several site positions are explicitly schematic. Most importantly, Claude could not deliver a true production master with separate raster and vector layers. The 'layered master' consists of separate PNG rasters; text, symbols, labels, zones and annotations are rasterized rather than editable vectors. This prevents normal professional cartographic editing, styling and final prepress refinement. The ZIP also omits several component geospatial layers referenced by the Step 2 metadata. Therefore the output meets nominal image dimensions but not the requested professional production workflow."
+      },
+      "goal_achievement": {
+        "Did you achieve your goal after ~1-hour interaction with Claude? [Yes/No]": "No",
+        "Why or why not": "Claude created a finished-looking raster page, but not the required professional cartographic deliverables. It could not produce separate editable vector and raster layers, and rasterized text/symbology is a major production failure. The final map also carries forward the Step 2 landscape defects rather than resolving them."
+      }
+    }
+  }
+}
