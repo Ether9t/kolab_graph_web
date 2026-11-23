@@ -3,17 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Annotation</title>
+    <title>Graph Web</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════════════════
-     HERO — shown when no participant is selected
-     (matches Svelte: no toolbar at all on this screen)
-     ══════════════════════════════════════════════════════════ -->
 <div class="explore-hero" id="hero">
     <h1 class="explore-hero-title">Session Explorer</h1>
     <p class="explore-hero-sub">Select a participant to view their workflow sessions.</p>
@@ -28,10 +25,6 @@
     </p>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     MAIN VIEW — shown after participant selected
-     (matches Svelte: page-toolbar + session-pills above viewer)
-     ══════════════════════════════════════════════════════════ -->
 <div class="page" id="mainPage" style="display:none">
 
     <!-- Toolbar: Kolab link + participant select (right-aligned, no session pills) -->
@@ -513,12 +506,6 @@
     });
 
     // ── Download Chat ──────────────────────────────────────────
-    // CSVs live at: static/chat/{sessionId}/{participantId}_session*_*.csv
-    // Known filename variants (p-prefix may be lowercase or uppercase):
-    //   p1_session1_chats_ethics.csv  |  p10_session1_ethics.csv
-    //   P48_session1_conversation_log_ethics.csv
-    // We stop at the FIRST match to avoid downloading twice on
-    // case-insensitive filesystems (p1 and P1 resolve to the same file).
     $('dlChatBtn').addEventListener('click', async () => {
         const { participantId, sessionId } = state;
         const base = `static/chat/${sessionId}`;
